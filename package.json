@@ -1,0 +1,89 @@
+{
+  "name": "cuemode",
+  "displayName": "CueMode",
+  "description": "CueMode is a VSCode extension that provides a unique 'Prompter Mode' functionality. This mode is designed to enhance readability and focus by increasing the font size, adjusting the line height, and centering the layout for a clean and clear view. It's perfect for presentations, educational purposes, or just those moments when you need to cut through the clutter and focus on your code.",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cuemode.cueMode",
+        "title": "Cue Mode"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "cuemode.cueMode",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Cue Mode",
+      "properties": {
+        "cuemode.colorTheme": {
+          "type": "string",
+          "default": "classic",
+          "enum": [
+            "classic",
+            "inverted",
+            "midnightBlue",
+            "sunset",
+            "forest",
+            "ocean",
+            "rose"
+          ],
+          "description": "Color theme for the cue mode."
+        },
+        "cuemode.maxWidth": {
+          "type": "number",
+          "default": 800,
+          "description": "Maximum content width in pixels."
+        },
+        "cuemode.fontSize": {
+          "type": "number",
+          "default": 24,
+          "description": "Font size in points."
+        },
+        "cuemode.lineHeight": {
+          "type": "number",
+          "default": 1.5,
+          "description": "Line height in ems."
+        },
+        "cuemode.padding": {
+          "type": "number",
+          "default": 10,
+          "description": "Padding in pixels."
+        },
+        "cuemode.scrollSpeed": {
+          "type": "number",
+          "default": 0.1,
+          "description": "Scrolling speed."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.82.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "eslint": "^8.47.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.6",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}

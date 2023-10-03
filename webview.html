@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cue Mode</title>
+    <style>
+        body {
+            color: ${color};
+            background-color: ${backgroundColor};
+            max-width: ${maxWidth}px;
+            margin: auto;
+            font-size: ${fontSize}px;
+            line-height: ${lineHeight};
+            padding: ${padding}px;
+        }
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <pre>${text}</pre>
+    <script>
+        var scrolling = false;
+        var scrollSpeed = ${scrollSpeed};
+        var accumulatedScroll = 0;
+
+        window.addEventListener('keydown', function (event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                scrolling = !scrolling; // Toggle scrolling
+            }
+        });
+
+        function scrollStep() {
+            if (scrolling) {
+                accumulatedScroll += scrollSpeed;
+                if (accumulatedScroll >= 1) {
+                    window.scrollBy(0, Math.floor(accumulatedScroll));
+                    accumulatedScroll -= Math.floor(accumulatedScroll);
+                }
+            }
+            requestAnimationFrame(scrollStep);
+        }
+
+        requestAnimationFrame(scrollStep);
+    </script>
+</body>
+</html>
