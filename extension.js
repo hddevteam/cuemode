@@ -72,6 +72,7 @@ function getConfig() {
         lineHeight: config.get('lineHeight'),
         padding: config.get('padding'),
         scrollSpeed: config.get('scrollSpeed'),
+        startingPosition: config.get('startingPosition')
     };
 }
 
@@ -100,6 +101,7 @@ function getWebviewContent(text, config) {
     html = html.replace('${padding}', config.padding);
     html = html.replace('${scrollSpeed}', config.scrollSpeed);
     html = html.replace('${text}', text);
+    html = html.replace('${startingPosition}', config.startingPosition);
 
     return html;
 }
