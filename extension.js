@@ -50,6 +50,12 @@ function activate(context) {
                 }
             );
 
+            vscode.workspace.onDidChangeTextDocument((e) => {
+                if(e.document === editor.document){
+                    panel.webview.html = getWebviewContent(editor.document.getText(), colorTheme, maxWidth, fontSize, lineHeight, padding, scrollSpeed);
+                }
+            });
+
             // Pass the selected text to the webview
             panel.webview.html = getWebviewContent(text, colorTheme, maxWidth, fontSize, lineHeight, padding, scrollSpeed);
         }
