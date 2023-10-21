@@ -9,62 +9,73 @@ function activate(context) {
     console.log('Congratulations, your extension "cuemode" is now active!');
 
     let disposable = vscode.commands.registerCommand('cuemode.cueMode', function () {
-        const config = vscode.workspace.getConfiguration('cuemode');
-
-        const colorTheme = config.get('colorTheme');
-        const maxWidth = config.get('maxWidth');
-        const fontSize = config.get('fontSize');
-        const lineHeight = config.get('lineHeight');
-        const padding = config.get('padding');
-        const scrollSpeed = config.get('scrollSpeed');
-
         const editor = vscode.window.activeTextEditor;
-        if (editor) {
-            let document = editor.document;
-            let selection = editor.selection;
+        if (!editor) return;
 
-            // Get the selected text or the entire document if nothing is selected
-            let text;
-            if (!selection.isEmpty) {
-                text = document.getText(selection);
-            } else {
-                text = document.getText();
-            }
+        let document = editor.document;
+        let selection = editor.selection;
 
-            // Get the filename of the current document
-            let filename = path.basename(document.uri.fsPath);
-
-            const panel = vscode.window.createWebviewPanel(
-                'cueMode',
-                `${filename} - Cue Mode`,
-                vscode.ViewColumn.One,
-                {
-                    // Enable scripts in the webview
-                    enableScripts: true,
-
-                    // And restrict the webview to only loading content from our extension's `media` directory.
-                    localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media'))],
-
-                    // Make sure all keyboard events are sent to the webview
-                    retainContextWhenHidden: true
-                }
-            );
-
-            vscode.workspace.onDidChangeTextDocument((e) => {
-                if(e.document === editor.document){
-                    panel.webview.html = getWebviewContent(editor.document.getText(), colorTheme, maxWidth, fontSize, lineHeight, padding, scrollSpeed);
-                }
-            });
-
-            // Pass the selected text to the webview
-            panel.webview.html = getWebviewContent(text, colorTheme, maxWidth, fontSize, lineHeight, padding, scrollSpeed);
+        // Get the selected text or the entire document if nothing is selected
+        let text;
+        if (!selection.isEmpty) {
+            text = document.getText(selection);
+        } else {
+            text = document.getText();
         }
+
+        // Get the filename of the current document
+        let filename = path.basename(document.uri.fsPath);
+
+        const panel = vscode.window.createWebviewPanel(
+            'cueMode',
+            `${filename} - Cue Mode`,
+            vscode.ViewColumn.One,
+            {
+                // Enable scripts in the webview
+                enableScripts: true,
+
+                // And restrict the webview to only loading content from our extension's `media` directory.
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media'))],
+
+                // Make sure all keyboard events are sent to the webview
+                retainContextWhenHidden: true
+            }
+        );
+
+        // Update the webview content when the document changes
+        vscode.workspace.onDidChangeTextDocument((e) => {
+            if(e.document === editor.document){
+                panel.webview.html = getWebviewContent(editor.document.getText(), getConfig());
+            }
+        });
+
+        // Update the webview content when the configuration changes
+        vscode.workspace.onDidChangeConfiguration((e) => {
+            if(e.affectsConfiguration('cuemode')){
+                panel.webview.html = getWebviewContent(editor.document.getText(), getConfig());
+            }
+        });
+
+        // Pass the selected text to the webview
+        panel.webview.html = getWebviewContent(text, getConfig());
     });
 
     context.subscriptions.push(disposable);
 }
 
-function getWebviewContent(text, colorTheme, maxWidth, fontSize, lineHeight, padding, scrollSpeed) {
+function getConfig() {
+    const config = vscode.workspace.getConfiguration('cuemode');
+    return {
+        colorTheme: config.get('colorTheme'),
+        maxWidth: config.get('maxWidth'),
+        fontSize: config.get('fontSize'),
+        lineHeight: config.get('lineHeight'),
+        padding: config.get('padding'),
+        scrollSpeed: config.get('scrollSpeed'),
+    };
+}
+
+function getWebviewContent(text, config) {
     const colorThemes = {
         "classic": { "color": "white", "backgroundColor": "black" },
         "inverted": { "color": "black", "backgroundColor": "white" },
@@ -75,24 +86,23 @@ function getWebviewContent(text, colorTheme, maxWidth, fontSize, lineHeight, pad
         "rose": { "color": "#DB7093", "backgroundColor": "#FFF0F5" },
     };    
 
-    const color = colorThemes[colorTheme].color;
-    const backgroundColor = colorThemes[colorTheme].backgroundColor;
+    const color = colorThemes[config.colorTheme].color;
+    const backgroundColor = colorThemes[config.colorTheme].backgroundColor;
 
     const htmlPath = path.join(__dirname, 'webview.html');
     let html = fs.readFileSync(htmlPath, 'utf8');
 
     html = html.replace('${color}', color);
     html = html.replace('${backgroundColor}', backgroundColor);
-    html = html.replace('${maxWidth}', maxWidth);
-    html = html.replace('${fontSize}', fontSize);
-    html = html.replace('${lineHeight}', lineHeight);
-    html = html.replace('${padding}', padding);
-    html = html.replace('${scrollSpeed}', scrollSpeed);
+    html = html.replace('${maxWidth}', config.maxWidth);
+    html = html.replace('${fontSize}', config.fontSize);
+    html = html.replace('${lineHeight}', config.lineHeight);
+    html = html.replace('${padding}', config.padding);
+    html = html.replace('${scrollSpeed}', config.scrollSpeed);
     html = html.replace('${text}', text);
 
     return html;
 }
-
 
 function deactivate() {}
 
