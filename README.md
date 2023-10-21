@@ -35,12 +35,19 @@ This extension contributes the following settings:
 * `cuemode.lineHeight`: Set the line height in ems.
 * `cuemode.padding`: Set the padding in pixels.
 * `cuemode.scrollSpeed`: Set the scrolling speed.
+* `cuemode.startPosition`: Set the starting position of the text in CueMode. The default value is 50, which means the text will start from the middle of the screen. If you want the text to start from the top of the screen, set this value to 0. If you want the text to start from the bottom of the screen, set this value to 100.
 
 ## Known Issues
 
 There are no known issues at this time. 
 
 ## Release Notes
+
+### 1.1.0
+
+1. The changes made in settings will now be reflected immediately in CueMode, eliminating the need to re-enter CueMode.
+2. Any modifications made to the text content will also be reflected in real-time in CueMode, without the need to re-enter CueMode.
+3. The starting position of the text in CueMode will now be displayed in the middle of the screen, instead of starting from the top, providing a better experience for the teleprompter users.
 
 ### 1.0.0
 
