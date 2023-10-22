@@ -101,8 +101,7 @@ function getWebviewContent(text, config) {
     html = html.replace('${padding}', config.padding);
     html = html.replace('${scrollSpeed}', config.scrollSpeed);
     html = html.replace('${text}', text);
-    html = html.replace('${startingPosition}', config.startingPosition);
-
+    html = html.replace(/\${startingPosition}/g, config.startingPosition);
     return html;
 }
 
