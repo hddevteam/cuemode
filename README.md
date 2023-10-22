@@ -1,6 +1,6 @@
 # CueMode README
 
-This is the README for the Visual Studio Code extension "CueMode". This extension is designed to enhance text readability and focus by providing a unique "Cue Mode" functionality when you are presenting or recording your screen. Just select the text you want to display or just open a text file then click right mouse button and select "Cue Mode" from the context menu. 
+This extension is designed to enhance text readability and focus by providing a unique "Cue Mode" functionality when you are presenting or recording your screen. Just select the text you want to display or just open a text file then click right mouse button and select "Cue Mode" from the context menu. 
 
 ## Features
 
@@ -21,8 +21,9 @@ You can customize these settings to suit your preferences:
 * Line height in ems (default is 1.5)
 * Padding in pixels (default is 10)
 * Scrolling speed (default is 0.1)
+* Starting position of the text in CueMode (default is 50)
 
-![Demo](./demo.gif)
+![Demo](./images/demo.gif)
 
 
 ## Extension Settings
