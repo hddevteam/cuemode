@@ -1,16 +1,26 @@
-# CueMode - Professional Teleprompter for Developers
+# CueMode 2.0 - Professional Teleprompter for Developers
 
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/luckyXmobile.cuemode?style=flat-square&color=blue)](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
 [![Downloads](https://img.shields.io/visual-studio-marketplace/d/luckyXmobile.cuemode?style=flat-square&color=green)](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
 [![Rating](https://img.shields.io/visual-studio-marketplace/r/luckyXmobile.cuemode?style=flat-square&color=orange)](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
 [![GitHub](https://img.shields.io/github/license/hddevteam/cuemode?style=flat-square)](https://github.com/hddevteam/cuemode/blob/main/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/hddevteam/cuemode?style=flat-square)](https://github.com/hddevteam/cuemode/issues)
+[![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue?style=flat-square)](https://hddevteam.github.io/cuemode/)
 
-**Transform VS Code into a professional teleprompter.** Perfect for coding livestreams, technical presentations, educational videos, and professional content creation where you need to read scripts or notes naturally while maintaining eye contact with your audience.
+> **[中文版 README](./README.zh-CN.md) | [GitHub Pages](https://hddevteam.github.io/cuemode/)**
 
-## 🎯 What is CueMode?
+**Transform VS Code into a professional teleprompter.** Perfect for coding livestreams, technical presentations, educational videos, and professional content creation. Features instant theme switching, auto-scroll controls, and distraction-free reading experience.
 
-CueMode is a specialized teleprompter extension that turns your VS Code editor into a professional teleprompting solution. Designed specifically for developers, educators, and content creators who need to deliver smooth, natural presentations while reading from prepared scripts or notes.
+## 🎯 What is CueMode 2.0?
+
+CueMode 2.0 is the next-generation teleprompter extension that turns your VS Code editor into a professional teleprompting solution. Now with **instant theme cycling**, **enhanced keyboard shortcuts**, and **professional-grade features** designed specifically for developers, educators, and content creators.
+
+**✨ New in 2.0:**
+- **🎨 T Key Theme Cycling** - Instantly switch themes during presentations
+- **⚡ Enhanced Commands** - Quick theme changes and text preprocessing
+- **📱 Smart Notifications** - Non-intrusive status bar feedback
+- **🌐 Full Internationalization** - Complete English and Chinese support
+- **🛠️ TypeScript Architecture** - Robust, maintainable codebase
+- **🧪 Comprehensive Testing** - 71 test cases ensuring reliability
 
 **Key Teleprompter Features:**
 - **Auto-scrolling text** - Smooth, controllable scroll speed for natural reading
@@ -86,12 +96,21 @@ CueMode provides professional teleprompting capabilities designed for modern con
    - **R**: Reverse scroll direction
    - **Arrow keys**: Manual navigation
 ### Professional Teleprompter Shortcuts
+
+**🎯 Primary Controls:**
 - **Space** - Start/pause auto-scrolling (primary control)
-- **+/-** - Increase/decrease scroll speed
+- **T** - **NEW!** Instant theme cycling during presentations
+- **+/-** - Increase/decrease scroll speed in real-time
 - **R** - Toggle scroll direction (up/down)
+
+**📱 Navigation:**
 - **Arrow Keys** - Manual navigation
 - **Page Up/Down** - Fast manual scrolling
 - **Home/End** - Jump to beginning/end
+
+**⚙️ Advanced Controls:**
+- **Ctrl+Shift+T** (Cmd+Shift+T) - **NEW!** Open theme selection menu
+- **Ctrl+Shift+R** (Cmd+Shift+R) - **NEW!** Remove leading spaces from text
 - **H** - Show/hide help panel
 - **Esc** - Exit teleprompter mode
 
@@ -182,7 +201,11 @@ Currently, there are no known issues. If you encounter any problems:
 
 ## 🤝 Contributing
 
-We welcome contributions to make CueMode the best teleprompter for developers! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions to make CueMode the best teleprompter for developers! 
+
+### Documentation
+- 📖 [Contributing Guide (English)](CONTRIBUTING.md)
+- 🇨🇳 [贡献指南 (中文)](CONTRIBUTING.zh-CN.md)
 
 ### Quick Links
 - 🐛 [Report a Bug](https://github.com/hddevteam/cuemode/issues/new?template=bug_report.md)
@@ -207,7 +230,9 @@ If you find CueMode teleprompter useful, please:
 
 - 🛍️ [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
 - 🐙 [GitHub Repository](https://github.com/hddevteam/cuemode)
-- 📊 [Project Roadmap](ROADMAP.md)
+- � [GitHub Pages Documentation](https://hddevteam.github.io/cuemode/)
+- 🇨🇳 [中文版本 (Chinese Version)](README.zh-CN.md)
+- �📊 [Project Roadmap](ROADMAP.md)
 - 📋 [Development Board](.github/PROJECT_BOARD.md)
 
 ---
