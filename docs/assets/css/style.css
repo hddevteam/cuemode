@@ -88,7 +88,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 140px 0 80px;
+    padding: 120px 0 60px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     position: relative;
@@ -132,10 +132,10 @@ body {
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
 }
 
 .highlight {
@@ -146,16 +146,16 @@ body {
 }
 
 .hero-description {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    margin-bottom: 2.5rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
     opacity: 0.9;
 }
 
 .hero-buttons {
     display: flex;
     gap: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .btn {
@@ -202,6 +202,9 @@ body {
 .hero-stats {
     display: flex;
     gap: 2rem;
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 10;
 }
 
 .stat {
@@ -769,7 +772,7 @@ kbd {
     }
     
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     
     .hero-buttons {
@@ -811,11 +814,11 @@ kbd {
     }
     
     .hero {
-        padding: 120px 0 60px;
+        padding: 100px 0 40px;
     }
     
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .section-title {
