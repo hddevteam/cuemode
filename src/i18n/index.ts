@@ -5,11 +5,15 @@ export interface Messages {
   // Commands
   'command.title': string;
   'command.description': string;
+  'command.changeTheme': string;
+  'command.removeLeadingSpaces': string;
   
   // Notifications
   'notification.activated': string;
   'notification.deactivated': string;
   'notification.configUpdated': string;
+  'notification.themeChanged': string;
+  'notification.spacesRemoved': string;
   'notification.error': string;
   
   // Errors
@@ -17,6 +21,7 @@ export interface Messages {
   'error.noContent': string;
   'error.webviewFailed': string;
   'error.configInvalid': string;
+  'error.noSelection': string;
   
   // Settings
   'settings.colorTheme': string;
@@ -40,8 +45,19 @@ export interface Messages {
   'ui.title': string;
   'ui.close': string;
   'ui.help': string;
+  'ui.shortcuts': string;
   'ui.loading': string;
   'ui.ready': string;
+  
+  // Help and shortcuts
+  'help.shortcuts.space': string;
+  'help.shortcuts.plus': string;
+  'help.shortcuts.minus': string;
+  'help.shortcuts.r': string;
+  'help.shortcuts.escape': string;
+  'help.shortcuts.arrows': string;
+  'help.shortcuts.changeTheme': string;
+  'help.shortcuts.removeSpaces': string;
 }
 
 /**

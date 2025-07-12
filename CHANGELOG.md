@@ -5,6 +5,47 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-07-12 - Professional Teleprompter 2.0
+
+### 🚀 Major Features
+- **T Key Theme Cycling**: Press 'T' in teleprompter mode to instantly cycle through themes
+- **Professional Command Suite**: Added `changeTheme` and `removeLeadingSpaces` commands
+- **Advanced Keyboard Shortcuts**: 
+  - `Ctrl+Shift+T` (Cmd+Shift+T on Mac) - Change theme via menu
+  - `Ctrl+Shift+R` (Cmd+Shift+R on Mac) - Remove leading spaces
+  - `T` key in teleprompter mode - Instant theme cycling
+- **Content Preprocessing**: New command to clean up indented text for presentations
+- **Interactive Help System**: Enhanced help panel with click-outside-to-close functionality
+
+### 🎯 Professional Teleprompter Focus
+- **TypeScript Migration**: Complete codebase rewrite for better maintainability
+- **Comprehensive Testing**: 71 test cases ensuring reliability
+- **Auto-scroll Controls**: Professional Space bar controls
+- **Real-time Speed Adjustment**: +/- keys for live pace control
+- **Direction Toggle**: R key for reverse scrolling
+- **Minimalist UI**: Distraction-free reading experience
+- **Professional Themes**: Optimized for video recording and presentations
+
+### 🌐 Enhanced User Experience
+- **Non-intrusive Notifications**: Auto-dismissing status bar messages (2-3 seconds)
+- **Seamless UX**: Removed modal dialogs for quick status feedback
+- **Internationalization**: Full English and Chinese support
+- **Enhanced Error Handling**: Professional-grade logging and recovery
+
+### 🛠️ Technical Improvements
+- Migrated from `showInformationMessage` to `setStatusBarMessage` for better UX
+- Added `cycleTheme` message type to WebView communication
+- Enhanced command registration and cleanup
+- Improved memory management for event listeners
+- Strict TypeScript types and comprehensive error handling
+
+### 📈 Code Quality
+- Professional teleprompter functionality focus
+- Comprehensive testing framework (71 test cases)
+- Enhanced keyboard shortcuts for professional use
+- Enhanced error handling and logging
+- Professional teleprompter themes optimization
+
 ## [Unreleased]
 
 ### Added
@@ -97,6 +138,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Key Features |
 |---------|-------------|--------------|
+| 2.0.0   | 2025-07-12  | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests |
 | 1.1.3   | 2025-07-12  | Bug fixes, performance improvements |
 | 1.1.0   | 2024-XX-XX  | Real-time updates, live sync, improved positioning |
 | 1.0.0   | 2024-XX-XX  | Initial release, basic functionality |

@@ -37,8 +37,9 @@ export interface ThemeConfig {
  * Webview message types
  */
 export interface WebviewMessage {
-  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close';
+  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme';
   data?: any;
+  command?: string;
 }
 
 /**

@@ -1,6 +1,8 @@
 {
   "cuemode.displayName": "CueMode - 专业提词器",
   "cuemode.cueMode": "提词器模式",
+  "cuemode.changeTheme": "切换提词器主题",
+  "cuemode.removeLeadingSpaces": "移除行首空格",
   "cuemode.description": "将VS Code转换为专业提词器，适用于编程视频、教程和演示。支持自动滚屏、可定制主题和无干扰阅读。",
   "cuemode.configuration.title": "提词器模式",
   "cuemode.configuration.colorTheme": "提词器模式的颜色主题",

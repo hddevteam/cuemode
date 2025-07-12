@@ -194,6 +194,16 @@ export class WebViewManager {
         this.close();
         break;
       
+      case 'changeTheme':
+        // Call the main extension's changeTheme command
+        vscode.commands.executeCommand('cuemode.changeTheme');
+        break;
+      
+      case 'cycleTheme':
+        // Call the main extension's cycleTheme command
+        vscode.commands.executeCommand('cuemode.cycleTheme');
+        break;
+      
       case 'scroll':
         // Handle scroll events if needed
         break;
@@ -255,6 +265,7 @@ export class WebViewManager {
             <li><strong>${I18n.getLocale().startsWith('zh') ? '方向键' : 'Arrow keys'}</strong>: ${I18n.getLocale().startsWith('zh') ? '手动滚屏' : 'Manual scroll'}</li>
             <li><strong>Page Up/Down</strong>: ${I18n.getLocale().startsWith('zh') ? '快速滚屏' : 'Fast scroll'}</li>
             <li><strong>Home/End</strong>: ${I18n.getLocale().startsWith('zh') ? '跳转到开始/结束' : 'Jump to start/end'}</li>
+            <li><strong>T</strong>: ${I18n.getLocale().startsWith('zh') ? '切换主题' : 'Toggle theme'}</li>
             <li><strong>H</strong>: ${I18n.getLocale().startsWith('zh') ? '显示/隐藏帮助' : 'Show/Hide help'}</li>
             <li><strong>Esc</strong>: ${I18n.getLocale().startsWith('zh') ? '退出模式' : 'Exit mode'}</li>
           </ul>
@@ -278,8 +289,24 @@ export class WebViewManager {
             const helpPanel = document.getElementById('help-panel');
             if (helpPanel.style.display === 'none') {
               helpPanel.style.display = 'block';
+              // Add click outside to close functionality
+              setTimeout(() => {
+                document.addEventListener('click', hideHelpOnClickOutside);
+              }, 100);
             } else {
               helpPanel.style.display = 'none';
+              document.removeEventListener('click', hideHelpOnClickOutside);
+            }
+          }
+
+          function hideHelpOnClickOutside(event) {
+            const helpPanel = document.getElementById('help-panel');
+            const helpButton = event.target.closest('.cue-button');
+            
+            // Don't hide if clicking on the help panel itself or the help button
+            if (!helpPanel.contains(event.target) && !helpButton) {
+              helpPanel.style.display = 'none';
+              document.removeEventListener('click', hideHelpOnClickOutside);
             }
           }
           
@@ -368,6 +395,12 @@ export class WebViewManager {
                 scrollSpeed = Math.max(scrollSpeed - 0.1, 0.1);
                 e.preventDefault();
                 break;
+              case 't':
+              case 'T':
+                // Cycle to next theme via command
+                vscode.postMessage({ type: 'cycleTheme' });
+                e.preventDefault();
+                break;
             }
           });
           
@@ -381,6 +414,11 @@ export class WebViewManager {
                 clientHeight: window.innerHeight
               }
             });
+          });
+          
+          // Listen for messages from the extension
+          window.addEventListener('message', event => {
+            // Handle extension messages if needed in the future
           });
           
           // Initialize
@@ -441,4 +479,5 @@ export class WebViewManager {
       this.documentChangeListener = undefined;
     }
   }
+
 }
