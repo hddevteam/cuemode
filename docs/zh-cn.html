@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CueMode - 将 VS Code 转换为演示模式</title>
+    <meta name="description" content="强大的 VS Code 扩展，将您的编码环境转换为专业的演示模式。非常适合实时编码会话、教育演示和专注开发工作。">
+    <meta name="keywords" content="vscode扩展, 演示模式, 实时编码, 提示器模式, 屏幕录制, 教育, 编码演示">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="CueMode - 将 VS Code 转换为演示模式">
+    <meta property="og:description" content="使用可自定义主题、大字体和平滑滚动将您的 VS Code 转换为专业演示工具。">
+    <meta property="og:image" content="https://hddevteam.github.io/cuemode/assets/images/hero-banner.png">
+    <meta property="og:url" content="https://hddevteam.github.io/cuemode/zh-cn.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CueMode - 将 VS Code 转换为演示模式">
+    <meta name="twitter:description" content="使用可自定义主题、大字体和平滑滚动将您的 VS Code 转换为专业演示工具。">
+    <meta name="twitter:image" content="https://hddevteam.github.io/cuemode/assets/images/hero-banner.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/icon.png">
+    
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chinese font support -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        }
+        
+        .theme-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .theme-card {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .theme-card.classic { background: linear-gradient(135deg, #000 0%, #333 100%); color: #fff; }
+        .theme-card.inverted { background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%); color: #000; }
+        .theme-card.midnight { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; }
+        .theme-card.sunset { background: linear-gradient(135deg, #ff7b7b 0%, #ff6b35 100%); color: #fff; }
+        .theme-card.forest { background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); color: #fff; }
+        .theme-card.ocean { background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%); color: #fff; }
+        .theme-card.rose { background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%); color: #fff; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="./assets/images/icon.png" alt="CueMode Logo" class="nav-icon">
+                <span class="nav-title">CueMode</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">功能特色</a>
+                <a href="#themes" class="nav-link">主题</a>
+                <a href="#installation" class="nav-link">安装</a>
+                <a href="#usage" class="nav-link">使用</a>
+                <a href="#support" class="nav-link">支持</a>
+                <a href="./index.html" class="nav-link">English</a>
+                <a href="https://github.com/hddevteam/cuemode" class="nav-link" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-presentation"></i>
+                    最新版本 v1.1.3 - 增强演示模式！
+                </div>
+                <h1 class="hero-title">
+                    将 VS Code 转换为<span class="highlight">演示模式</span>
+                </h1>
+                <p class="hero-description">
+                    使用 CueMode 将您的编码环境转换为专业的演示工具，这是一个强大的 VS Code 扩展。
+                    非常适合实时编码会话、教育演示、屏幕录制和专注开发工作，具有
+                    可自定义主题、大字体和平滑滚动功能。
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode" 
+                       class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-download"></i>
+                        安装扩展
+                    </a>
+                    <a href="https://github.com/hddevteam/cuemode" 
+                       class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i>
+                        查看源码
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">颜色主题</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">语言版本</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">自定义选项</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="presentation-demo">
+                    <div class="demo-screen demo-screen-primary">
+                        <div class="demo-content demo-content-primary">
+                            <div>function presentCode() {</div>
+                            <div>&nbsp;&nbsp;// 您的代码在这里</div>
+                            <div>&nbsp;&nbsp;console.log('Hello World');</div>
+                            <div>}</div>
+                            <div></div>
+                            <div>presentCode();</div>
+                        </div>
+                    </div>
+                    <div class="demo-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="demo-screen demo-screen-secondary">
+                        <div class="demo-content demo-content-secondary">
+                            <div class="demo-presentation-title">
+                                <strong>演示模式</strong>
+                            </div>
+                            <div class="demo-presentation-code">
+                                <div>function presentCode() {</div>
+                                <div>&nbsp;&nbsp;// 您的代码在这里</div>
+                                <div>&nbsp;&nbsp;console.log('Hello World');</div>
+                                <div>}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">强大的演示功能</h2>
+                <p class="section-description">
+                    创建专业编码演示所需的一切功能
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <h3 class="feature-title">大字体，易阅读</h3>
+                    <p class="feature-description">
+                        自动增加字体大小，提高演示、屏幕录制和实时编码会话期间的可见性。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-align-center"></i>
+                    </div>
+                    <h3 class="feature-title">居中布局</h3>
+                    <p class="feature-description">
+                        使用居中文本布局和可调整的内容宽度，将注意力集中在您的内容上，获得最佳观看体验。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">7 种精美主题</h3>
+                    <p class="feature-description">
+                        从精心制作的颜色主题中选择，包括经典、午夜蓝、日落、森林、海洋、玫瑰和反色模式。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3 class="feature-title">平滑滚动</h3>
+                    <p class="feature-description">
+                        专业的演示流程，配有可配置的平滑滚动和可自定义的滚动速度，完美控制节奏。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3 class="feature-title">完全可自定义</h3>
+                    <p class="feature-description">
+                        调整字体大小、行高、内容宽度、内边距、滚动速度和起始位置，以匹配您的演示需求。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3 class="feature-title">键盘导航</h3>
+                    <p class="feature-description">
+                        使用箭头键、上下翻页、Home/End 键导航，按 Escape 键退出，实现无缝演示控制。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">实时更新</h3>
+                    <p class="feature-description">
+                        无需重新进入 CueMode 即可立即看到文本更改，设置更改立即生效。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="feature-title">多语言支持</h3>
+                    <p class="feature-description">
+                        完全国际化，支持中文和英文界面，根据 VS Code 语言环境自动检测语言。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <h3 class="feature-title">便捷访问</h3>
+                    <p class="feature-description">
+                        右键上下文菜单集成和命令面板访问，可从 VS Code 中的任何位置快速激活。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Themes Section -->
+    <section id="themes" class="themes">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">精美颜色主题</h2>
+                <p class="section-description">
+                    从 7 种精心制作的主题中选择，专为最佳演示可见性设计
+                </p>
+            </div>
+            
+            <div class="theme-preview">
+                <div class="theme-card classic">
+                    <h4>经典</h4>
+                    <p>黑底白字</p>
+                </div>
+                <div class="theme-card inverted">
+                    <h4>反色</h4>
+                    <p>白底黑字</p>
+                </div>
+                <div class="theme-card midnight">
+                    <h4>午夜蓝</h4>
+                    <p>专业蓝色主题</p>
+                </div>
+                <div class="theme-card sunset">
+                    <h4>日落</h4>
+                    <p>温暖的橙红色调</p>
+                </div>
+                <div class="theme-card forest">
+                    <h4>森林</h4>
+                    <p>自然绿色主题</p>
+                </div>
+                <div class="theme-card ocean">
+                    <h4>海洋</h4>
+                    <p>宁静蓝色主题</p>
+                </div>
+                <div class="theme-card rose">
+                    <h4>玫瑰</h4>
+                    <p>优雅粉色主题</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">快速安装</h2>
+                <p class="section-description">
+                    30 秒内开始使用 CueMode
+                </p>
+            </div>
+            
+            <div class="installation-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">打开 VS Code 扩展</h3>
+                        <p class="step-description">按 <kbd>Ctrl+Shift+X</kbd> (Windows/Linux) 或 <kbd>Cmd+Shift+X</kbd> (macOS)</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">搜索扩展</h3>
+                        <p class="step-description">在搜索栏中输入 "CueMode" 或 "luckyXmobile.cuemode"</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">安装并开始演示</h3>
+                        <p class="step-description">点击安装并立即开始创建精彩的演示</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="install-button-container">
+                <a href="https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode" 
+                   class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-download"></i>
+                    从 VS Code 市场安装
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Section -->
+    <section id="usage" class="usage">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">如何使用 CueMode</h2>
+                <p class="section-description">
+                    多种方式将您的代码转换为演示模式
+                </p>
+            </div>
+            
+            <div class="usage-methods">
+                <div class="method">
+                    <div class="method-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <h3 class="method-title">右键上下文菜单</h3>
+                    <p class="method-description">
+                        选择文本或打开任何文件，右键打开上下文菜单，
+                        选择"Cue Mode"进入演示模式。
+                    </p>
+                </div>
+                
+                <div class="method">
+                    <div class="method-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="method-title">命令面板</h3>
+                    <p class="method-description">
+                        按 <kbd>Ctrl+Shift+P</kbd> (Windows/Linux) 或 <kbd>Cmd+Shift+P</kbd> (macOS)
+                        并输入"CueMode: Toggle Prompter Mode"。
+                    </p>
+                </div>
+                
+                <div class="method">
+                    <div class="method-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3 class="method-title">键盘导航</h3>
+                    <p class="method-description">
+                        使用箭头键、上下翻页、Home/End 键导航，
+                        按 <kbd>Escape</kbd> 键退出演示模式。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">完美适用于</h2>
+                <p class="section-description">
+                    CueMode 增强各种编码和演示场景
+                </p>
+            </div>
+            
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="use-case-title">实时编码会话</h3>
+                    <p class="use-case-description">
+                        在现场演示和工作坊中使用清晰易读的代码吸引观众。
+                    </p>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="use-case-title">教育内容</h3>
+                    <p class="use-case-description">
+                        使用增强的可见性和专业的演示质量教授编程概念。
+                    </p>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="use-case-title">屏幕录制</h3>
+                    <p class="use-case-description">
+                        使用易读的字体和吸引人的配色方案创建专业视频内容。
+                    </p>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="use-case-title">代码审查</h3>
+                    <p class="use-case-description">
+                        在团队审查和讨论期间将注意力集中在重要的代码细节上。
+                    </p>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-presentation"></i>
+                    </div>
+                    <h3 class="use-case-title">技术演示</h3>
+                    <p class="use-case-description">
+                        在会议和会议中使用专业演示模式展示您的工作。
+                    </p>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-focus"></i>
+                    </div>
+                    <h3 class="use-case-title">专注开发</h3>
+                    <p class="use-case-description">
+                        在密集编码会话中减少干扰并增强注意力。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="support">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">支持与社区</h2>
+                <p class="section-description">
+                    获取帮助并为 CueMode 项目做出贡献
+                </p>
+            </div>
+            
+            <div class="support-grid">
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3 class="support-title">报告问题</h3>
+                    <p class="support-description">
+                        发现错误或有功能请求？在我们的 GitHub 仓库中创建问题。
+                    </p>
+                    <a href="https://github.com/hddevteam/cuemode/issues" 
+                       class="support-link" target="_blank" rel="noopener noreferrer">
+                        提交问题
+                    </a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="support-title">文档</h3>
+                    <p class="support-description">
+                        全面的指南、配置选项和开发文档。
+                    </p>
+                    <a href="https://github.com/hddevteam/cuemode#readme" 
+                       class="support-link" target="_blank" rel="noopener noreferrer">
+                        阅读文档
+                    </a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="support-title">贡献</h3>
+                    <p class="support-description">
+                        通过贡献代码、翻译或文档来帮助改进 CueMode。
+                    </p>
+                    <a href="https://github.com/hddevteam/cuemode/blob/main/CONTRIBUTING.md" 
+                       class="support-link" target="_blank" rel="noopener noreferrer">
+                        参与贡献
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="./assets/images/icon.png" alt="CueMode Logo">
+                        <span>CueMode</span>
+                    </div>
+                    <p class="footer-description">
+                        使用可自定义主题、大字体和平滑滚动功能，
+                        将您的 VS Code 转换为专业的演示工具。
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4 class="footer-title">资源</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode" target="_blank" rel="noopener noreferrer">VS Code 市场</a></li>
+                            <li><a href="https://github.com/hddevteam/cuemode" target="_blank" rel="noopener noreferrer">GitHub 仓库</a></li>
+                            <li><a href="https://github.com/hddevteam/cuemode#readme" target="_blank" rel="noopener noreferrer">文档</a></li>
+                            <li><a href="https://github.com/hddevteam/cuemode/blob/main/ROADMAP.md" target="_blank" rel="noopener noreferrer">路线图</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4 class="footer-title">支持</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://github.com/hddevteam/cuemode/issues" target="_blank" rel="noopener noreferrer">报告问题</a></li>
+                            <li><a href="https://github.com/hddevteam/cuemode/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">参与贡献</a></li>
+                            <li><a href="https://github.com/hddevteam/cuemode/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">许可证</a></li>
+                            <li><a href="https://github.com/hddevteam/cuemode/discussions" target="_blank" rel="noopener noreferrer">讨论</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 hddevteam. 根据 MIT 许可证授权。</p>
+                <div class="footer-social">
+                    <a href="https://github.com/hddevteam" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
