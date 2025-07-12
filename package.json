@@ -1,7 +1,7 @@
 {
   "name": "cuemode",
   "displayName": "CueMode",
-  "description": "CueMode is a VSCode extension that provides a unique 'Prompter Mode' functionality. This mode is designed to enhance readability and focus by increasing the font size, adjusting the line height, and centering the layout for a clean and clear view. It's perfect for presentations, educational purposes, or just those moments when you need to cut through the clutter and focus on your code.",
+  "description": "%cuemode.description%",
   "version": "1.1.3",
   "engines": {
     "vscode": "^1.82.0"
@@ -12,12 +12,12 @@
     "Other"
   ],
   "activationEvents": [],
-  "main": "./extension.js",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "cuemode.cueMode",
-        "title": "Cue Mode"
+        "title": "%cuemode.cueMode%"
       }
     ],
     "menus": {
@@ -29,7 +29,7 @@
       ]
     },
     "configuration": {
-      "title": "Cue Mode",
+      "title": "%cuemode.configuration.title%",
       "properties": {
         "cuemode.colorTheme": {
           "type": "string",
@@ -43,55 +43,76 @@
             "ocean",
             "rose"
           ],
-          "description": "Color theme for the cue mode."
+          "description": "%cuemode.configuration.colorTheme%"
         },
         "cuemode.maxWidth": {
           "type": "number",
           "default": 800,
-          "description": "Maximum content width in pixels."
+          "minimum": 200,
+          "maximum": 2000,
+          "description": "%cuemode.configuration.maxWidth%"
         },
         "cuemode.fontSize": {
           "type": "number",
           "default": 24,
-          "description": "Font size in points."
+          "minimum": 8,
+          "maximum": 100,
+          "description": "%cuemode.configuration.fontSize%"
         },
         "cuemode.lineHeight": {
           "type": "number",
           "default": 1.5,
-          "description": "Line height in ems."
+          "minimum": 0.5,
+          "maximum": 5,
+          "description": "%cuemode.configuration.lineHeight%"
         },
         "cuemode.padding": {
           "type": "number",
           "default": 10,
-          "description": "Padding in pixels."
+          "minimum": 0,
+          "maximum": 100,
+          "description": "%cuemode.configuration.padding%"
         },
         "cuemode.scrollSpeed": {
           "type": "number",
           "default": 0.1,
-          "description": "Scrolling speed."
+          "minimum": 0.01,
+          "maximum": 1,
+          "description": "%cuemode.configuration.scrollSpeed%"
         },
         "cuemode.startingPosition": {
           "type": "number",
           "default": 50,
-          "description": "Starting and ending position of content in percentage of screen height."
-        }      
+          "minimum": 0,
+          "maximum": 100,
+          "description": "%cuemode.configuration.startingPosition%"
+        }
       }
     }
   },
   "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "node ./test/runTest.js"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "test:unit": "mocha out/test/suite/**/*.test.js",
+    "test:integration": "node ./out/test/runTest.js",
+    "package": "vsce package"
   },
   "devDependencies": {
-    "@types/vscode": "^1.82.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.82.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vscode/test-electron": "^2.3.4",
+    "@vscode/vsce": "^2.19.0",
     "eslint": "^8.47.0",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
-    "typescript": "^5.1.6",
-    "@vscode/test-electron": "^2.3.4"
+    "typescript": "^5.1.6"
   },
   "repository": {
     "type": "git",

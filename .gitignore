@@ -2,3 +2,28 @@ node_modules
 .vscode-test/
 *.vsix
 .ds_store
+.DS_Store
+out/
+*.log
+.env
+.vscode/settings.json
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.idea/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db
+ehthumbs.db
+
+# Reports and temporary documentation
+*_REPORT.md
+MIGRATION_REPORT.md
