@@ -12,8 +12,8 @@
     </filter>
   </defs>
   
-  <!-- Main composition centered -->
-  <g transform="translate(256, 256)">
+  <!-- Main composition centered and moderately scaled -->
+  <g transform="translate(256, 256) scale(1.15)">
     <!-- Monitor stand - minimal design (placed behind screen) -->
     <rect x="-40" y="120" width="80" height="20" rx="10" ry="10" 
           fill="#6b7280" 
@@ -25,23 +25,23 @@
           opacity="0.7"/>
     
     <!-- Main screen/monitor - maximized design -->
-    <rect x="-220" y="-180" width="440" height="280" rx="24" ry="24" 
+    <rect x="-220" y="-190" width="440" height="300" rx="24" ry="24" 
           fill="url(#primaryGradient)" 
           filter="url(#subtleShadow)"/>
     
     <!-- Screen content area -->
-    <rect x="-200" y="-160" width="400" height="240" rx="16" ry="16" 
+    <rect x="-200" y="-170" width="400" height="260" rx="16" ry="16" 
           fill="#000000" 
           opacity="0.9"/>
     
     <!-- Large, centered text content - representing CueMode's big text feature -->
-    <rect x="-160" y="-120" width="320" height="20" rx="10" fill="#ffffff" opacity="0.9"/>
-    <rect x="-140" y="-80" width="280" height="20" rx="10" fill="#ffffff" opacity="0.8"/>
-    <rect x="-120" y="-40" width="240" height="20" rx="10" fill="#ffffff" opacity="0.7"/>
-    <rect x="-100" y="0" width="200" height="20" rx="10" fill="#ffffff" opacity="0.6"/>
+    <rect x="-160" y="-130" width="320" height="20" rx="10" fill="#ffffff" opacity="0.9"/>
+    <rect x="-140" y="-90" width="280" height="20" rx="10" fill="#ffffff" opacity="0.8"/>
+    <rect x="-120" y="-50" width="240" height="20" rx="10" fill="#ffffff" opacity="0.7"/>
+    <rect x="-100" y="-10" width="200" height="20" rx="10" fill="#ffffff" opacity="0.6"/>
     
     <!-- Centered focus indicator - representing the "cue" aspect -->
-    <circle cx="0" cy="-70" r="8" 
+    <circle cx="0" cy="-80" r="8" 
             fill="#6366f1" 
             opacity="0.8"/>
     
