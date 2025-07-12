@@ -1,12 +1,13 @@
 {
+  "cuemode.displayName": "CueMode - Professional Teleprompter",
   "cuemode.cueMode": "Teleprompter Mode",
-  "cuemode.description": "Activate teleprompter mode for better presentation",
+  "cuemode.description": "Transform VS Code into a professional teleprompter for coding videos, tutorials, and presentations. Auto-scroll, customizable themes, and distraction-free reading.",
   "cuemode.configuration.title": "Teleprompter Mode",
   "cuemode.configuration.colorTheme": "Color theme for the teleprompter mode",
   "cuemode.configuration.maxWidth": "Maximum content width in pixels",
   "cuemode.configuration.fontSize": "Font size in points",
   "cuemode.configuration.lineHeight": "Line height in ems",
   "cuemode.configuration.padding": "Padding in pixels",
-  "cuemode.configuration.scrollSpeed": "Auto-scroll speed",
+  "cuemode.configuration.scrollSpeed": "Auto-scroll speed for teleprompter",
   "cuemode.configuration.startingPosition": "Starting position of content in percentage of screen height"
 }

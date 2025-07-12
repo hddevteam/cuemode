@@ -1,24 +1,24 @@
 ---
 name: Bug report
-about: Create a report to help us improve CueMode
+about: Create a report to help us improve CueMode Teleprompter
 title: "[BUG] "
 labels: bug, priority-medium
 assignees: ''
 
 ---
 
-## 🐛 Bug Description
-A clear and concise description of what the bug is.
+## 🐛 Teleprompter Bug Description
+A clear and concise description of the teleprompter issue.
 
 ## 🔄 Steps to Reproduce
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+Steps to reproduce the teleprompter behavior:
+1. Open script/text file in VS Code
+2. Activate teleprompter mode with '...'
+3. Use teleprompter controls '...'
 4. See error
 
-## ✅ Expected Behavior
-A clear and concise description of what you expected to happen.
+## ✅ Expected Teleprompter Behavior
+A clear and concise description of what you expected the teleprompter to do.
 
 ## 📱 Screenshots
 If applicable, add screenshots to help explain your problem.

@@ -1,24 +1,24 @@
 ---
-name: Feature request
-about: Suggest an idea for CueMode
-title: "[FEATURE] "
-labels: enhancement, priority-medium
+name: Teleprompter feature request
+about: Suggest a teleprompter feature for CueMode
+title: "[TELEPROMPTER FEATURE] "
+labels: enhancement, priority-medium, teleprompter
 assignees: ''
 
 ---
 
-## 🚀 Feature Description
-A clear and concise description of what you want to happen.
+## 🚀 Teleprompter Feature Description
+A clear and concise description of the teleprompter feature you want.
 
-## 🎯 Problem Statement
-Is your feature request related to a problem? Please describe.
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## 🎯 Teleprompter Use Case
+Is your feature request related to a teleprompter problem? Please describe.
+A clear description of the teleprompter scenario. Ex. When recording videos, I'm always frustrated when [...]
 
-## 💡 Proposed Solution
-Describe the solution you'd like to see implemented.
+## 💡 Proposed Teleprompter Solution
+Describe the teleprompter solution you'd like to see implemented.
 
 ## 🔀 Alternatives Considered
-Describe any alternative solutions or features you've considered.
+Describe any alternative teleprompter solutions or features you've considered.
 
 ## 🎨 User Interface
 If this feature involves UI changes, please describe or sketch how it should look.

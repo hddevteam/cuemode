@@ -1,41 +1,44 @@
-# CueMode Development Roadmap
+# CueMode - Professional Teleprompter Development Roadmap
 
 ## 🎯 Project Vision
-CueMode aims to be the premier VS Code extension for presentation and focused coding sessions, providing an intuitive and powerful "Prompter Mode" that enhances readability and user experience.
+CueMode aims to be the premier professional teleprompter extension for VS Code, empowering content creators, educators, and developers to create professional video content with confidence. Our goal is to provide the most intuitive and powerful teleprompter solution that transforms VS Code into a professional presentation tool.
 
 ## 📊 Current Status
-- **Version**: 1.1.3 (Stable)
-- **Users**: Growing community on VS Code Marketplace
+- **Version**: 1.1.3 (Professional Teleprompter Release)
+- **Users**: Growing community of content creators and educators
 - **Platform**: VS Code Extension
-- **Tech Stack**: JavaScript → TypeScript (in progress)
+- **Tech Stack**: TypeScript (fully migrated)
+- **Focus**: Professional teleprompter for video content creation
 
 ---
 
 ## 🚀 Version Roadmap
 
-### 🔄 Version 1.2.0 - Foundation Enhancement
-**Release Target**: Q4 2025
-**Status**: In Development
+### ✅ Version 1.1.3 - Professional Teleprompter Foundation
+**Released**: July 2025
+**Status**: Current Stable
 
-#### Core Improvements
+#### Teleprompter Core Features
+- ✅ **Auto-scroll teleprompter**: Professional scroll controls with Space bar
+- ✅ **Real-time speed control**: Adjust reading pace with +/- keys
+- ✅ **Direction toggle**: Reverse scrolling with R key
+- ✅ **Enhanced keyboard shortcuts**: Complete teleprompter control set
+- ✅ **Minimalist UI**: Hidden controls for distraction-free reading
 - ✅ **TypeScript Migration**: Complete codebase conversion
 - ✅ **Internationalization**: Multi-language support (EN/CN)
-- ✅ **Architecture Refactoring**: Modular, maintainable code
-- 🔄 **Testing Framework**: Comprehensive test coverage
-- 🔄 **Performance Optimization**: Faster rendering and responsiveness
+- ✅ **Professional Architecture**: Modular, maintainable code
+- ✅ **Comprehensive Testing**: 71 test cases for reliability
 
-#### New Features
-- 🔄 **Enhanced Color Themes**: Additional theme options
-- 🔄 **Font Family Selection**: Custom font support
-- 🔄 **Advanced Scrolling**: Improved scroll controls
-- 📋 **Presentation Timer**: Built-in timing features
-- 📋 **Settings UI**: Improved configuration interface
+### 🔄 Version 1.2.0 - Advanced Teleprompter Features
+**Release Target**: Q1 2026
+**Status**: In Planning
 
-#### Quality Assurance
-- 🔄 **Error Handling**: Robust error management
-- 🔄 **Cross-Platform Testing**: Windows, macOS, Linux
-- 🔄 **Accessibility**: WCAG compliance
-- 🔄 **Performance Benchmarks**: Load time and memory usage
+#### Professional Teleprompter Enhancements
+- � **Speed Memory**: Remember scroll speed per document type
+- 📋 **Bookmark System**: Quick navigation to script sections
+- 📋 **Reading Timer**: Track recording time and pace
+- � **Script Preparation**: Built-in script formatting tools
+- � **Mirror Mode**: Horizontal flip for traditional teleprompter setups
 
 ---
 

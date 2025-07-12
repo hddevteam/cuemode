@@ -1,10 +1,10 @@
-# Contributing to CueMode
+# Contributing to CueMode - Professional Teleprompter
 
 Thank you for your interest in contributing to CueMode! This document provides guidelines and information for contributors.
 
 ## 🎯 Project Overview
 
-CueMode is a VS Code extension that provides a unique "Prompter Mode" functionality designed to enhance readability and focus by increasing font size, adjusting line height, and centering layout for presentations, education, and focused coding sessions.
+CueMode is a professional teleprompter extension for VS Code, designed specifically for content creators, educators, and developers who create video content. The extension transforms VS Code into a professional teleprompting tool with auto-scroll functionality, customizable themes, and distraction-free reading experience optimized for video recording and live presentations.
 
 ## 🚀 Getting Started
 

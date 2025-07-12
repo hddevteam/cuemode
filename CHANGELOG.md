@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the CueMode extension will be documented in this file.
+All notable changes to the CueMode Teleprompter extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -8,33 +8,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Professional teleprompter functionality focus
 - TypeScript migration for better code maintainability
-- Comprehensive testing framework
+- Comprehensive testing framework (71 test cases)
+- Auto-scroll teleprompter controls with Space bar
+- Real-time speed adjustment with +/- keys
+- Direction toggle with R key for reverse scrolling
+- Enhanced keyboard shortcuts for professional use
+- Minimalist UI for distraction-free reading
 - Internationalization support (English/Chinese)
 - Enhanced error handling and logging
-- Improved performance optimizations
+- Professional teleprompter themes optimization
 
 ### Changed
+- **BREAKING**: Repositioned as professional teleprompter tool
+- Updated all documentation to focus on teleprompter use cases
 - Modular architecture for better code organization
-- Updated development tooling and build process
-- Enhanced documentation and contributing guidelines
+- Enhanced development tooling and build process
+- Improved marketing copy emphasizing teleprompter functionality
+- Updated package description and keywords for better discoverability
 
 ### Fixed
 - Various stability improvements
 - Cross-platform compatibility issues
+- Auto-scroll performance optimizations
 
-## [1.1.3] - 2025-07-12
+## [1.1.3] - 2025-07-12 - Professional Teleprompter Update
+
+### Added
+- ✨ **Auto-scroll teleprompter**: Professional scroll controls with Space bar
+- ✨ **Real-time speed control**: Adjust reading pace with +/- keys during presentation
+- ✨ **Direction toggle**: Reverse scrolling with R key for flexible reading
+- ✨ **Enhanced keyboard shortcuts**: Complete professional teleprompter control set
+- ✨ **Minimalist UI**: Hidden controls for distraction-free reading experience
+- 🌐 **Multi-language support**: English and Chinese interface
+- 📺 **Teleprompter optimization**: Improved themes and layout for video recording
+
+### Changed
+- **Rebranded as professional teleprompter**: All documentation updated
+- **Enhanced user experience**: Immediate feedback and smooth controls
+- **Professional focus**: Optimized for content creators and educators
 
 ### Fixed
 - Bug fixes and stability improvements
-- Performance optimizations for better user experience
-- Resolved minor UI inconsistencies
+- Performance optimizations for smooth auto-scrolling
+- UI consistency across different themes
 
-## [1.1.0] - 2024-XX-XX
+## [1.1.0] - 2024-XX-XX - Enhanced Presentation Features
 
 ### Added
-- Real-time settings updates - changes now reflect immediately in CueMode
-- Live content synchronization - text modifications update without re-entering CueMode
+- Real-time settings updates - changes now reflect immediately in teleprompter mode
+- Live content synchronization - text modifications update without re-entering mode
 - Improved starting position - content now centers for better teleprompter experience
 
 ### Changed

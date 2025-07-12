@@ -1,12 +1,13 @@
 {
+  "cuemode.displayName": "CueMode - 专业提词器",
   "cuemode.cueMode": "提词器模式",
-  "cuemode.description": "激活提词器模式以获得更好的演示体验",
+  "cuemode.description": "将VS Code转换为专业提词器，适用于编程视频、教程和演示。支持自动滚屏、可定制主题和无干扰阅读。",
   "cuemode.configuration.title": "提词器模式",
   "cuemode.configuration.colorTheme": "提词器模式的颜色主题",
   "cuemode.configuration.maxWidth": "最大内容宽度（像素）",
   "cuemode.configuration.fontSize": "字体大小（点）",
   "cuemode.configuration.lineHeight": "行高（em）",
   "cuemode.configuration.padding": "内边距（像素）",
-  "cuemode.configuration.scrollSpeed": "自动滚屏速度",
+  "cuemode.configuration.scrollSpeed": "提词器自动滚屏速度",
   "cuemode.configuration.startingPosition": "内容起始位置（屏幕高度百分比）"
 }
