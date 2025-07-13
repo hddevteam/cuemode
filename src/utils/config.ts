@@ -13,7 +13,10 @@ export class ConfigManager {
     lineHeight: 1.5,
     padding: 10,
     scrollSpeed: 0.1,
-    startingPosition: 50
+    startingPosition: 50,
+    focusMode: false,
+    focusOpacity: 0.3,
+    focusLineCount: 3
   };
 
   /**
@@ -29,7 +32,10 @@ export class ConfigManager {
       lineHeight: config.get<number>('lineHeight', this.DEFAULT_CONFIG.lineHeight),
       padding: config.get<number>('padding', this.DEFAULT_CONFIG.padding),
       scrollSpeed: config.get<number>('scrollSpeed', this.DEFAULT_CONFIG.scrollSpeed),
-      startingPosition: config.get<number>('startingPosition', this.DEFAULT_CONFIG.startingPosition)
+      startingPosition: config.get<number>('startingPosition', this.DEFAULT_CONFIG.startingPosition),
+      focusMode: config.get<boolean>('focusMode', this.DEFAULT_CONFIG.focusMode),
+      focusOpacity: config.get<number>('focusOpacity', this.DEFAULT_CONFIG.focusOpacity),
+      focusLineCount: config.get<number>('focusLineCount', this.DEFAULT_CONFIG.focusLineCount)
     };
   }
 

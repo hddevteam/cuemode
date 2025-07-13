@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { CueModeConfig, CueModeState, WebviewMessage } from '../types';
 import { ThemeManager } from '../utils/theme';
-import { I18n } from '../i18n';
+import { t, getCurrentLanguage } from '../i18n';
 
 /**
  * WebView manager for CueMode
@@ -26,7 +26,10 @@ export class WebViewManager {
         lineHeight: 1.5,
         padding: 10,
         scrollSpeed: 0.1,
-        startingPosition: 50
+        startingPosition: 50,
+        focusMode: false,
+        focusOpacity: 0.3,
+        focusLineCount: 3
       },
       filename: ''
     };
@@ -53,7 +56,7 @@ export class WebViewManager {
       // Create new panel
       this.panel = vscode.window.createWebviewPanel(
         'cueMode',
-        I18n.t('ui.title', filename),
+        t('ui.title', { filename }),
         vscode.ViewColumn.One,
         {
           enableScripts: true,
@@ -107,6 +110,14 @@ export class WebViewManager {
   public async updateConfig(newConfig: CueModeConfig): Promise<void> {
     this.state.config = newConfig;
     await this.updateContent();
+    
+    // Send configuration update to webview
+    if (this.panel) {
+      this.panel.webview.postMessage({
+        type: 'configUpdate',
+        config: newConfig
+      });
+    }
   }
 
   /**
@@ -204,6 +215,11 @@ export class WebViewManager {
         vscode.commands.executeCommand('cuemode.cycleTheme');
         break;
       
+      case 'toggleFocus':
+        // Call the main extension's toggleFocusMode command
+        vscode.commands.executeCommand('cuemode.toggleFocusMode');
+        break;
+      
       case 'scroll':
         // Handle scroll events if needed
         break;
@@ -218,6 +234,20 @@ export class WebViewManager {
    */
   private async generateHTML(): Promise<string> {
     const { content, config, filename } = this.state;
+    
+    // Pre-generate i18n strings for JavaScript
+    const i18nStrings = {
+      focusMode: t('ui.focusMode'),
+      exitFocus: t('ui.exitFocus'),
+      helpTitle: t('help.title'),
+      initMessage: t('ui.ready'),
+      shortcutsTitle: t('help.title'),
+      spaceShortcut: `Space: ${t('help.shortcuts.space')}`,
+      rShortcut: `R: ${t('help.shortcuts.r')}`,
+      speedShortcut: `+/-: ${t('help.shortcuts.plus')} / ${t('help.shortcuts.minus')}`,
+      helpShortcut: `H: ${t('help.shortcuts.h')}`,
+      escShortcut: `Esc: ${t('help.shortcuts.escape')}`
+    };
     
     // Generate CSS for current theme
     const css = ThemeManager.generateCSS(
@@ -238,36 +268,90 @@ export class WebViewManager {
 
     return `
       <!DOCTYPE html>
-      <html lang="${I18n.getLocale()}">
+      <html lang="${getCurrentLanguage()}">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${I18n.t('ui.title', filename)}</title>
+        <title>${t('ui.title', { filename })}</title>
         <style>
           ${css}
           body {
             ${startingPositionCSS}
           }
+          * {
+            box-sizing: border-box;
+          }
+          pre {
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+          .cue-line {
+            display: inline-block;
+            width: 100%;
+            transition: filter 0.3s ease;
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            text-decoration: none !important;
+          }
+          .cue-line:empty {
+            min-height: 1em;
+          }
+          .cue-line:hover {
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            text-decoration: none !important;
+          }
+          .cue-line:focus {
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            text-decoration: none !important;
+          }
+          .focus-indicator {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: none;
+            border-right: none;
+            display: none;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: none;
+          }
+          .focus-indicator.active {
+            display: block;
+          }
         </style>
       </head>
       <body>
         <div class="cue-controls">
-          <button class="cue-button" onclick="closeMode()">${I18n.t('ui.close')}</button>
-          <button class="cue-button" onclick="toggleHelp()">${I18n.t('ui.help')}</button>
+          <button class="cue-button" onclick="closeMode()">${t('ui.close')}</button>
+          <button class="cue-button" onclick="toggleHelp()">${t('ui.help')}</button>
         </div>
         
         <div class="cue-help" id="help-panel" style="display: none;">
-          <h3>${I18n.getLocale().startsWith('zh') ? '提词器模式快捷键' : 'Teleprompter Mode Shortcuts'}</h3>
+          <h3>${t('help.title')}</h3>
           <ul>
-            <li><strong>Space</strong>: ${I18n.getLocale().startsWith('zh') ? '开始/暂停自动滚屏' : 'Start/Stop auto-scroll'}</li>
-            <li><strong>R</strong>: ${I18n.getLocale().startsWith('zh') ? '切换滚屏方向' : 'Toggle scroll direction'}</li>
-            <li><strong>+/-</strong>: ${I18n.getLocale().startsWith('zh') ? '调整滚屏速度' : 'Adjust scroll speed'}</li>
-            <li><strong>${I18n.getLocale().startsWith('zh') ? '方向键' : 'Arrow keys'}</strong>: ${I18n.getLocale().startsWith('zh') ? '手动滚屏' : 'Manual scroll'}</li>
-            <li><strong>Page Up/Down</strong>: ${I18n.getLocale().startsWith('zh') ? '快速滚屏' : 'Fast scroll'}</li>
-            <li><strong>Home/End</strong>: ${I18n.getLocale().startsWith('zh') ? '跳转到开始/结束' : 'Jump to start/end'}</li>
-            <li><strong>T</strong>: ${I18n.getLocale().startsWith('zh') ? '切换主题' : 'Toggle theme'}</li>
-            <li><strong>H</strong>: ${I18n.getLocale().startsWith('zh') ? '显示/隐藏帮助' : 'Show/Hide help'}</li>
-            <li><strong>Esc</strong>: ${I18n.getLocale().startsWith('zh') ? '退出模式' : 'Exit mode'}</li>
+            <li><strong>Space</strong>: ${t('help.shortcuts.space')}</li>
+            <li><strong>R</strong>: ${t('help.shortcuts.r')}</li>
+            <li><strong>+/-</strong>: ${t('help.shortcuts.plus')} / ${t('help.shortcuts.minus')}</li>
+            <li><strong>Arrow keys</strong>: ${t('help.shortcuts.arrows')}</li>
+            <li><strong>Page Up/Down</strong>: ${t('help.shortcuts.pageUpDown')}</li>
+            <li><strong>Home/End</strong>: ${t('help.shortcuts.homeEnd')}</li>
+            <li><strong>T</strong>: ${t('help.shortcuts.t')}</li>
+            <li><strong>F</strong>: ${t('help.shortcuts.f')}</li>
+            <li><strong>H</strong>: ${t('help.shortcuts.h')}</li>
+            <li><strong>Esc</strong>: ${t('help.shortcuts.escape')}</li>
           </ul>
         </div>
         
@@ -276,6 +360,9 @@ export class WebViewManager {
             ${processedContent}
           </div>
         </div>
+        
+        <!-- Focus area indicator -->
+        <div class="focus-indicator" id="focus-indicator"></div>
 
         <script>
           // WebView to extension communication
@@ -297,6 +384,96 @@ export class WebViewManager {
               helpPanel.style.display = 'none';
               document.removeEventListener('click', hideHelpOnClickOutside);
             }
+          }
+          
+          function toggleFocusMode() {
+            focusMode = !focusMode;
+            
+            // Apply focus mode immediately
+            applyFocusMode();
+            
+            // Also notify the extension to update the configuration
+            vscode.postMessage({ type: 'toggleFocus' });
+          }
+          
+          // Focus Mode implementation
+          let focusMode = ${config.focusMode};
+          let focusBlurStrength = ${config.focusOpacity * 5}; // Convert opacity config to blur strength
+          let focusLineCount = ${config.focusLineCount};
+          
+          function applyFocusMode() {
+            const content = document.getElementById('content');
+            const lines = content.querySelectorAll('.cue-line');
+            const focusIndicator = document.getElementById('focus-indicator');
+            
+            if (focusMode) {
+              const windowHeight = window.innerHeight;
+              const focusAreaTop = windowHeight * 0.4; // Focus area top position (40% of screen)
+              const focusAreaBottom = windowHeight * 0.6; // Focus area bottom position (60% of screen)
+              
+              // Show focus area indicator
+              focusIndicator.classList.add('active');
+              focusIndicator.style.top = focusAreaTop + 'px';
+              focusIndicator.style.height = (focusAreaBottom - focusAreaTop) + 'px';
+              
+              lines.forEach((line) => {
+                const rect = line.getBoundingClientRect();
+                const lineCenter = rect.top + rect.height / 2;
+                
+                let blurAmount = 0;
+                
+                // Check if this line is in the focus area
+                if (lineCenter >= focusAreaTop && lineCenter <= focusAreaBottom) {
+                  // In focus area, completely clear
+                  blurAmount = 0;
+                } else {
+                  // Outside focus area, calculate distance and gradient blur effect
+                  const bufferLines = 3; // Buffer line count
+                  const avgLineHeight = rect.height || 20; // Average line height
+                  const bufferDistance = bufferLines * avgLineHeight;
+                  const maxBlur = focusBlurStrength; // Maximum blur amount (px)
+                  
+                  let distance = 0;
+                  if (lineCenter < focusAreaTop) {
+                    // Above focus area
+                    distance = focusAreaTop - lineCenter;
+                  } else {
+                    // Below focus area
+                    distance = lineCenter - focusAreaBottom;
+                  }
+                  
+                  if (distance <= bufferDistance) {
+                    // In buffer zone, calculate gradient blur
+                    // Buffer blur range: from maxBlur to minBlur (not 0)
+                    const minBlurInBuffer = maxBlur * 0.3; // Buffer boundary still maintains 30% blur
+                    const ratio = distance / bufferDistance;
+                    blurAmount = minBlurInBuffer + ratio * (maxBlur - minBlurInBuffer);
+                  } else {
+                    // Beyond buffer, use maximum blur
+                    blurAmount = maxBlur;
+                  }
+                }
+                
+                // Ensure filter only sets blur, clear other possible filters
+                if (blurAmount === 0) {
+                  line.style.filter = 'none';
+                } else {
+                  line.style.filter = \`blur(\${blurAmount}px)\`;
+                }
+              });
+            } else {
+              // Hide focus area indicator
+              focusIndicator.classList.remove('active');
+              
+              lines.forEach(line => {
+                line.style.filter = 'none';
+              });
+            }
+          }
+          
+          function updateFocusLine() {
+            if (!focusMode) return;
+            applyFocusMode();
           }
 
           function hideHelpOnClickOutside(event) {
@@ -401,11 +578,18 @@ export class WebViewManager {
                 vscode.postMessage({ type: 'cycleTheme' });
                 e.preventDefault();
                 break;
+              case 'f':
+              case 'F':
+                // Toggle focus mode
+                toggleFocusMode();
+                e.preventDefault();
+                break;
             }
           });
           
           // Report scroll events to extension
           window.addEventListener('scroll', () => {
+            updateFocusLine();
             vscode.postMessage({ 
               type: 'scroll', 
               data: { 
@@ -418,21 +602,47 @@ export class WebViewManager {
           
           // Listen for messages from the extension
           window.addEventListener('message', event => {
-            // Handle extension messages if needed in the future
+            const message = event.data;
+            
+            if (message.type === 'configUpdate') {
+              // Update focus mode configuration
+              if (message.config) {
+                focusMode = message.config.focusMode;
+                focusBlurStrength = message.config.focusOpacity * 5; // Convert opacity config to blur strength
+                focusLineCount = message.config.focusLineCount;
+                
+                // Button removed from UI
+                
+                // Apply focus mode
+                applyFocusMode();
+              }
+            }
           });
           
           // Initialize
-          console.log('${I18n.getLocale().startsWith('zh') ? '提词器模式已初始化' : 'Teleprompter mode initialized'}');
+          console.log('${i18nStrings.initMessage}');
+          
+          // Apply focus mode on initialization
+          setTimeout(() => {
+            applyFocusMode();
+          }, 100);
+          
+          // Update focus area on window resize
+          window.addEventListener('resize', () => {
+            if (focusMode) {
+              applyFocusMode();
+            }
+          });
           
           // Show help message after a delay
           setTimeout(() => {
             const helpText = [
-              '${I18n.getLocale().startsWith('zh') ? '提词器模式快捷键：' : 'Teleprompter Mode Shortcuts:'}',
-              '${I18n.getLocale().startsWith('zh') ? 'Space: 开始/暂停自动滚屏' : 'Space: Start/Stop auto-scroll'}',
-              '${I18n.getLocale().startsWith('zh') ? 'R: 切换滚屏方向' : 'R: Toggle scroll direction'}',
-              '${I18n.getLocale().startsWith('zh') ? '+/-: 调整滚屏速度' : '+/-: Adjust scroll speed'}',
-              '${I18n.getLocale().startsWith('zh') ? 'H: 显示/隐藏帮助' : 'H: Show/Hide help'}',
-              '${I18n.getLocale().startsWith('zh') ? 'Esc: 退出模式' : 'Esc: Exit mode'}'
+              '${i18nStrings.shortcutsTitle}:',
+              '${i18nStrings.spaceShortcut}',
+              '${i18nStrings.rShortcut}',
+              '${i18nStrings.speedShortcut}',
+              '${i18nStrings.helpShortcut}',
+              '${i18nStrings.escShortcut}'
             ].join('\\n');
             
             console.log(helpText);
@@ -457,9 +667,14 @@ export class WebViewManager {
         .replace(/'/g, '&#039;');
     };
 
-    // Use pre tag to preserve formatting like the original
-    const escapedContent = escapeHtml(content);
-    return `<pre>${escapedContent}</pre>`;
+    // Split content into lines and wrap each line in a span for focus mode
+    const lines = content.split('\n');
+    const processedLines = lines.map((line, index) => {
+      const escapedLine = escapeHtml(line);
+      return `<span class="cue-line" data-line="${index}">${escapedLine || '&nbsp;'}</span>`;
+    });
+    
+    return `<pre>${processedLines.join('\n')}</pre>`;
   }
 
   /**

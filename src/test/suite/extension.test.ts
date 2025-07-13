@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import { ConfigManager } from '../../utils/config';
-import { I18n } from '../../i18n';
+import { t } from '../../i18n';
 import { CueModeExtension } from '../../extension';
 
 /**
@@ -73,13 +73,13 @@ suite('Extension Integration Tests', () => {
 
   test('I18n should initialize correctly', () => {
     // Test that I18n is working
-    const message = I18n.t('notification.activated');
+    const message = t('notifications.activated');
     assert.ok(typeof message === 'string');
     assert.ok(message.length > 0);
   });
 
   test('I18n should handle missing keys gracefully', () => {
-    const message = I18n.t('nonexistent.key' as any);
+    const message = t('nonexistent.key' as any);
     assert.ok(typeof message === 'string');
     assert.ok(message.includes('nonexistent.key'));
   });

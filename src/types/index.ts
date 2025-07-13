@@ -9,6 +9,9 @@ export interface CueModeConfig {
   padding: number;
   scrollSpeed: number;
   startingPosition: number;
+  focusMode: boolean;
+  focusOpacity: number;
+  focusLineCount: number;
 }
 
 /**
@@ -37,7 +40,7 @@ export interface ThemeConfig {
  * Webview message types
  */
 export interface WebviewMessage {
-  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme';
+  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus';
   data?: any;
   command?: string;
 }

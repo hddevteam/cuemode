@@ -2,7 +2,7 @@
   "name": "cuemode",
   "displayName": "%cuemode.displayName%",
   "description": "%cuemode.description%",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -38,6 +38,10 @@
       {
         "command": "cuemode.removeLeadingSpaces",
         "title": "%cuemode.removeLeadingSpaces%"
+      },
+      {
+        "command": "cuemode.toggleFocusMode",
+        "title": "%cuemode.toggleFocusMode%"
       }
     ],
     "menus": {
@@ -126,13 +130,33 @@
           "minimum": 0,
           "maximum": 100,
           "description": "%cuemode.configuration.startingPosition%"
+        },
+        "cuemode.focusMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "%cuemode.configuration.focusMode%"
+        },
+        "cuemode.focusOpacity": {
+          "type": "number",
+          "default": 0.3,
+          "minimum": 0.1,
+          "maximum": 0.8,
+          "description": "%cuemode.configuration.focusOpacity%"
+        },
+        "cuemode.focusLineCount": {
+          "type": "number",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 10,
+          "description": "%cuemode.configuration.focusLineCount%"
         }
       }
     }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && npm run copy-resources",
+    "copy-resources": "mkdir -p out/locales && cp src/locales/*.json out/locales/",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
@@ -157,5 +181,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hddevteam/cuemode.git"
+  },
+  "dependencies": {
+    "i18next": "^25.3.2"
   }
 }

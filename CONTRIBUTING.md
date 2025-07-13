@@ -9,6 +9,7 @@ CueMode is a professional teleprompter extension for VS Code, designed specifica
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - **Node.js** (v16 or higher)
 - **npm** (v7 or higher)
 - **VS Code** (v1.82.0 or higher)
@@ -16,51 +17,50 @@ CueMode is a professional teleprompter extension for VS Code, designed specifica
 
 ### Setting Up the Development Environment
 
-1. **Fork and Clone the Repository**
-   ```bash
-   git clone https://github.com/hddevteam/cuemode.git
-   cd cuemode
-   ```
+For detailed setup instructions, please see our comprehensive development guide:
 
-2. **Install Dependencies**
-   ```bash
-   npm install
-   ```
+📖 **[Development Guide (DEVELOPMENT.md)](DEVELOPMENT.md)**
+🇨🇳 **[开发指南 (DEVELOPMENT.zh-CN.md)](DEVELOPMENT.zh-CN.md)**
 
-3. **Open in VS Code**
-   ```bash
-   code .
-   ```
+Quick start:
 
-4. **Run the Extension**
-   - Press `F5` to open a new VS Code window with the extension loaded
-   - Or use the "Run Extension" launch configuration
+```bash
+git clone https://github.com/hddevteam/cuemode.git
+cd cuemode
+npm install
+npm run compile
+```
 
 ## 🔧 Development Workflow
 
 ### 1. Create a Feature Branch
+
 ```bash
 git checkout -b feature/your-feature-name
 ```
 
 ### 2. Make Your Changes
+
 - Follow the coding guidelines below
 - Write tests for new functionality
 - Update documentation as needed
 
 ### 3. Test Your Changes
+
 ```bash
 npm test
 npm run lint
 ```
 
 ### 4. Commit Your Changes
+
 ```bash
 git add .
 git commit -m "feat: add new feature description"
 ```
 
 ### 5. Push and Create Pull Request
+
 ```bash
 git push origin feature/your-feature-name
 ```
@@ -68,6 +68,7 @@ git push origin feature/your-feature-name
 ## 📋 Coding Guidelines
 
 ### Code Style
+
 - Use **2 spaces** for indentation
 - Follow **ESLint** configuration
 - Use **camelCase** for variables and functions
@@ -75,17 +76,11 @@ git push origin feature/your-feature-name
 - Add **JSDoc** comments for public functions
 
 ### File Organization
-```
-src/
-├── extension.js          # Main extension entry point
-├── webview.html         # WebView template
-├── commands/            # Command implementations
-├── ui/                  # UI components
-├── utils/               # Utility functions
-└── test/                # Test files
-```
+
+See detailed architecture in [DEVELOPMENT.md](DEVELOPMENT.md#architecture-overview).
 
 ### Git Commit Messages
+
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
 
 - `feat:` - New features
@@ -97,6 +92,7 @@ We follow the [Conventional Commits](https://www.conventionalcommits.org/) speci
 - `chore:` - Build process or auxiliary tool changes
 
 Examples:
+
 ```
 feat: add new color theme support
 fix: resolve webview rendering issue
@@ -105,43 +101,39 @@ docs: update installation instructions
 
 ## 🧪 Testing
 
-### Running Tests
+For comprehensive testing guidelines, see [DEVELOPMENT.md](DEVELOPMENT.md#testing-strategy).
+
+### Quick Testing
+
 ```bash
-npm test
+npm test                 # Full test suite
+npm run lint            # Code quality checks
 ```
-
-### Writing Tests
-- Write unit tests for new functions
-- Test edge cases and error conditions
-- Ensure tests are deterministic and isolated
-
-### Manual Testing
-1. Test the extension in different VS Code themes
-2. Verify functionality with various file types
-3. Test settings changes and real-time updates
-4. Verify webview responsiveness
 
 ## 📖 Documentation
 
-### Code Documentation
-- Add JSDoc comments for all public functions
-- Document complex algorithms or business logic
-- Include usage examples for utility functions
+Refer to our development documentation:
 
-### User Documentation
-- Update README.md for new features
-- Add configuration examples
-- Update screenshots and demos
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Complete development guide
+- **[DEVELOPMENT.zh-CN.md](DEVELOPMENT.zh-CN.md)** - 中文开发指南
+
+### Documentation Requirements
+
+- Add JSDoc comments for all public functions
+- Update README.md for user-facing changes
+- Update development guide for architectural changes
 
 ## 🎨 UI/UX Guidelines
 
 ### WebView Design
+
 - Maintain clean, minimal interface
 - Ensure high contrast for readability
 - Support responsive design for different screen sizes
 - Follow VS Code design principles
 
 ### Color Themes
+
 - Ensure accessibility compliance
 - Test with different VS Code themes
 - Maintain consistent visual hierarchy
@@ -149,6 +141,7 @@ npm test
 ## 🐛 Bug Reports
 
 When reporting bugs:
+
 1. Use the bug report template
 2. Include steps to reproduce
 3. Provide environment information
@@ -157,6 +150,7 @@ When reporting bugs:
 ## 💡 Feature Requests
 
 When requesting features:
+
 1. Use the feature request template
 2. Describe the use case clearly
 3. Consider implementation complexity
@@ -164,10 +158,7 @@ When requesting features:
 
 ## 📊 Performance Considerations
 
-- Keep WebView content lightweight
-- Optimize for large files
-- Minimize memory usage
-- Test with various file sizes
+See detailed performance guidelines in [DEVELOPMENT.md](DEVELOPMENT.md#performance-optimization).
 
 ## 🚫 What We Don't Accept
 
@@ -190,6 +181,7 @@ By contributing to CueMode, you agree that your contributions will be licensed u
 ## 🎉 Recognition
 
 Contributors will be recognized in:
+
 - README.md contributors section
 - Release notes
 - GitHub contributor statistics
@@ -204,6 +196,7 @@ Contributors will be recognized in:
 ## 📋 Checklist for Contributors
 
 Before submitting your PR:
+
 - [ ] Code follows project style guidelines
 - [ ] Tests are written and passing
 - [ ] Documentation is updated
