@@ -24,6 +24,7 @@
   - fontSize、maxWidth、lineHeight、padding 范围
   - scrollSpeed、startingPosition、focusOpacity 值
   - focusLineCount 和 focusMode 设置
+  - 新的聚焦模式属性（不透明度、行数、切换功能）
 
 ### 3. 主题管理器测试 (`theme.test.ts`)
 
@@ -41,8 +42,15 @@
 - 测试使用 `t()` 函数的消息键解析
 - 测试带变量的插值功能
 - 验证缺失键的回退行为
-- 测试英文和中文（`zh-CN`）之间的语言切换
+- 测试所有 6 种支持语言之间的切换：
+  - 英语 (`en`)
+  - 中文 (`zh-CN`)
+  - 德语 (`de`)
+  - 法语 (`fr`)
+  - 日语 (`ja`)
+  - 韩语 (`ko`)
 - 验证 `changeLanguage()` 和 `getCurrentLanguage()` 函数
+- 测试专业提词器术语翻译
 
 ### 5. WebView 管理器测试 (`webview.test.ts`)
 
@@ -147,10 +155,12 @@ npx mocha out/test/suite/extension.test.js
 
 ### 国际化
 
-- 使用 i18next 的消息翻译
-- 区域设置切换（英文/中文）
+- 使用 i18next 跨 6 种语言的消息翻译
+- 区域设置切换（英文/中文/德文/法文/日文/韩文）
 - 带变量的插值
 - 缺失键的回退处理
+- 专业提词器术语验证
+- 从 VS Code 环境的语言检测
 
 ### 配置验证
 
@@ -158,6 +168,8 @@ npx mocha out/test/suite/extension.test.js
 - 数值的范围验证
 - 颜色主题的枚举验证
 - 默认值处理
+- 聚焦模式配置验证
+- 实时配置更新测试
 
 ### 主题系统
 
@@ -278,6 +290,8 @@ suite('I18n Tests', () => {
 5. **国际化测试失败**
    - 确保语言环境文件已复制：`npm run copy-resources`
    - 检查 i18next 初始化
+   - 验证所有 6 种语言文件都存在于 `src/locales/` 中
+   - 测试语言切换功能
 
 ### 获得帮助
 

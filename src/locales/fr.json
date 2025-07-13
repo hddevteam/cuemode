@@ -1,0 +1,86 @@
+{
+  "commands": {
+    "title": "Mode Télésouffleur",
+    "description": "Activer le mode télésouffleur pour de meilleures présentations",
+    "changeTheme": "Changer le thème du télésouffleur",
+    "removeLeadingSpaces": "Supprimer les espaces en début",
+    "toggleFocusMode": "Basculer le mode focus"
+  },
+  "notifications": {
+    "activated": "Mode télésouffleur activé",
+    "deactivated": "Mode télésouffleur désactivé", 
+    "configUpdated": "Configuration du mode télésouffleur mise à jour",
+    "themeChanged": "Thème changé vers {{theme}}",
+    "spacesRemoved": "Espaces en début supprimés de {{count}} ligne",
+    "spacesRemoved_plural": "Espaces en début supprimés de {{count}} lignes",
+    "error": "Erreur du mode télésouffleur : {{message}}",
+    "focusModeEnabled": "Mode focus activé",
+    "focusModeDisabled": "Mode focus désactivé"
+  },
+  "errors": {
+    "noActiveEditor": "Aucun éditeur actif trouvé",
+    "noContent": "Aucun contenu à afficher",
+    "webviewFailed": "Échec de création de la vue web",
+    "configInvalid": "Configuration invalide : {{details}}",
+    "noSelection": "Aucun texte sélectionné. Veuillez sélectionner du texte pour supprimer les espaces en début.",
+    "initializationFailed": "Échec d'initialisation de l'extension : {{error}}"
+  },
+  "settings": {
+    "colorTheme": "Thème de couleur", 
+    "maxWidth": "Largeur maximale",
+    "fontSize": "Taille de police",
+    "lineHeight": "Hauteur de ligne",
+    "padding": "Espacement",
+    "scrollSpeed": "Vitesse de défilement",
+    "startingPosition": "Position de départ",
+    "focusMode": "Mode focus",
+    "focusOpacity": "Intensité du flou focus",
+    "focusLineCount": "Nombre de lignes focus"
+  },
+  "themes": {
+    "classic": "Classique",
+    "inverted": "Inversé", 
+    "midnightBlue": "Bleu nuit",
+    "sunset": "Coucher de soleil",
+    "forest": "Forêt",
+    "ocean": "Océan",
+    "rose": "Rose"
+  },
+  "ui": {
+    "title": "Mode Télésouffleur - {{filename}}",
+    "close": "Fermer",
+    "help": "Aide", 
+    "shortcuts": "Raccourcis clavier",
+    "loading": "Chargement...",
+    "ready": "Prêt",
+    "focusMode": "Mode focus",
+    "exitFocus": "Quitter le focus"
+  },
+  "help": {
+    "title": "Raccourcis du mode télésouffleur",
+    "shortcuts": {
+      "space": "Démarrer/arrêter le défilement automatique",
+      "plus": "Augmenter la vitesse de défilement", 
+      "minus": "Diminuer la vitesse de défilement",
+      "r": "Inverser la direction de défilement",
+      "escape": "Quitter le mode télésouffleur",
+      "arrows": "Navigation manuelle",
+      "pageUpDown": "Défilement rapide",
+      "homeEnd": "Aller au début/fin",
+      "t": "Changer de thème",
+      "f": "Basculer le mode focus",
+      "h": "Afficher/masquer l'aide"
+    },
+    "vsCodeShortcuts": {
+      "changeTheme": "Changer de thème",
+      "removeSpaces": "Supprimer les espaces en début",
+      "toggleFocus": "Basculer le mode focus"
+    }
+  },
+  "accessibility": {
+    "scrollIndicator": "Défilement automatique : {{status}}",
+    "speedIndicator": "Vitesse de défilement : {{speed}}",
+    "themeIndicator": "Thème actuel : {{theme}}",
+    "focusIndicator": "Mode focus : {{status}}"
+  }
+}

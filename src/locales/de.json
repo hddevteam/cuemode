@@ -1,0 +1,86 @@
+{
+  "commands": {
+    "title": "Teleprompter-Modus",
+    "description": "Teleprompter-Modus für bessere Präsentationen aktivieren",
+    "changeTheme": "Teleprompter-Theme ändern",
+    "removeLeadingSpaces": "Führende Leerzeichen entfernen",
+    "toggleFocusMode": "Fokus-Modus umschalten"
+  },
+  "notifications": {
+    "activated": "Teleprompter-Modus aktiviert",
+    "deactivated": "Teleprompter-Modus deaktiviert", 
+    "configUpdated": "Teleprompter-Modus-Konfiguration aktualisiert",
+    "themeChanged": "Theme zu {{theme}} geändert",
+    "spacesRemoved": "Führende Leerzeichen von {{count}} Zeile entfernt",
+    "spacesRemoved_plural": "Führende Leerzeichen von {{count}} Zeilen entfernt",
+    "error": "Teleprompter-Modus-Fehler: {{message}}",
+    "focusModeEnabled": "Fokus-Modus aktiviert",
+    "focusModeDisabled": "Fokus-Modus deaktiviert"
+  },
+  "errors": {
+    "noActiveEditor": "Kein aktiver Editor gefunden",
+    "noContent": "Kein Inhalt zur Anzeige",
+    "webviewFailed": "Erstellen der Webansicht fehlgeschlagen",
+    "configInvalid": "Ungültige Konfiguration: {{details}}",
+    "noSelection": "Kein Text ausgewählt. Bitte wählen Sie Text aus, um führende Leerzeichen zu entfernen.",
+    "initializationFailed": "Initialisierung der Erweiterung fehlgeschlagen: {{error}}"
+  },
+  "settings": {
+    "colorTheme": "Farbthema", 
+    "maxWidth": "Maximale Breite",
+    "fontSize": "Schriftgröße",
+    "lineHeight": "Zeilenhöhe",
+    "padding": "Abstand",
+    "scrollSpeed": "Scrollgeschwindigkeit",
+    "startingPosition": "Startposition",
+    "focusMode": "Fokus-Modus",
+    "focusOpacity": "Fokus-Unschärfestärke",
+    "focusLineCount": "Fokus-Zeilenanzahl"
+  },
+  "themes": {
+    "classic": "Klassisch",
+    "inverted": "Invertiert", 
+    "midnightBlue": "Mitternachtsblau",
+    "sunset": "Sonnenuntergang",
+    "forest": "Wald",
+    "ocean": "Ozean",
+    "rose": "Rose"
+  },
+  "ui": {
+    "title": "Teleprompter-Modus - {{filename}}",
+    "close": "Schließen",
+    "help": "Hilfe", 
+    "shortcuts": "Tastaturkürzel",
+    "loading": "Lädt...",
+    "ready": "Bereit",
+    "focusMode": "Fokus-Modus",
+    "exitFocus": "Fokus verlassen"
+  },
+  "help": {
+    "title": "Teleprompter-Modus-Tastenkürzel",
+    "shortcuts": {
+      "space": "Auto-Scroll starten/stoppen",
+      "plus": "Scrollgeschwindigkeit erhöhen", 
+      "minus": "Scrollgeschwindigkeit verringern",
+      "r": "Scrollrichtung umschalten",
+      "escape": "Teleprompter-Modus verlassen",
+      "arrows": "Manuelle Navigation",
+      "pageUpDown": "Schnelles Scrollen",
+      "homeEnd": "Zum Anfang/Ende springen",
+      "t": "Theme wechseln",
+      "f": "Fokus-Modus umschalten",
+      "h": "Hilfe anzeigen/verbergen"
+    },
+    "vsCodeShortcuts": {
+      "changeTheme": "Theme ändern",
+      "removeSpaces": "Führende Leerzeichen entfernen",
+      "toggleFocus": "Fokus-Modus umschalten"
+    }
+  },
+  "accessibility": {
+    "scrollIndicator": "Auto-Scroll: {{status}}",
+    "speedIndicator": "Scrollgeschwindigkeit: {{speed}}",
+    "themeIndicator": "Aktuelles Theme: {{theme}}",
+    "focusIndicator": "Fokus-Modus: {{status}}"
+  }
+}

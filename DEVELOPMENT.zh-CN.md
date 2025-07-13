@@ -19,7 +19,11 @@ src/
 │   └── theme.ts          # 主题系统，包含 7 个专业主题
 ├── locales/              # 语言资源文件
 │   ├── en.json           # 英文翻译
-│   └── zh-CN.json        # 中文翻译
+│   ├── zh-CN.json        # 中文翻译
+│   ├── de.json           # 德文翻译
+│   ├── fr.json           # 法文翻译
+│   ├── ja.json           # 日文翻译
+│   └── ko.json           # 韩文翻译
 └── test/                 # 测试套件
     ├── runTest.ts        # 测试运行器
     └── suite/            # 测试用例
@@ -63,7 +67,8 @@ src/
 
 - 基于 i18next 的翻译系统，具有类型安全性
 - 从 VS Code 环境动态检测语言
-- 支持英文和中文（zh-CN），使用 JSON 资源文件
+- 支持 6 种语言：英语 (en)、中文 (zh-CN)、德语 (de)、法语 (fr)、日语 (ja)、韩语 (ko)
+- 专业提词器术语本地化
 - 可扩展的架构，支持更多语言
 - 支持上下文感知翻译和复数形式
 - 缺失键检测和回退处理
@@ -79,12 +84,15 @@ src/
 - 可自定义行高亮和透明度的专注模式
 - 交互式帮助系统，包含键盘快捷键参考
 
-### 🎯 专注模式
+### 🎯 增强专注模式
 
-- 智能文本高亮，提高阅读专注度
-- 可配置专注区域行数（1-10 行）
-- 可调节非专注文本透明度（0.1-0.8）
-- 在 webview 中使用 `F` 键进行切换
+- 改进的专注阅读模式，支持键盘切换功能
+- 智能渐变模糊算法，提供平滑阅读体验
+- 可配置专注不透明度（0.1-0.8，默认 0.3）
+- 可调节专注行数（1-10 行，默认 3 行）
+- 在 webview 中使用 `F` 键即时开启/关闭切换
+- 视觉专注指示器，采用精美样式设计
+- 实时配置更新，无需重启
 - 持久化专注模式偏好设置
 
 ## 🛠️ 开发环境
@@ -301,7 +309,11 @@ export class I18nManager {
       fallbackLng: 'en',
       resources: {
         en: { translation: await this.loadTranslationResource('en') },
-        'zh-CN': { translation: await this.loadTranslationResource('zh-CN') }
+        'zh-CN': { translation: await this.loadTranslationResource('zh-CN') },
+        de: { translation: await this.loadTranslationResource('de') },
+        fr: { translation: await this.loadTranslationResource('fr') },
+        ja: { translation: await this.loadTranslationResource('ja') },
+        ko: { translation: await this.loadTranslationResource('ko') }
       },
       interpolation: { escapeValue: false },
       pluralSeparator: '_',
@@ -320,13 +332,24 @@ export class I18nManager {
 private detectLanguage(): string {
   // VS Code 环境检测
   if (vscode.env && vscode.env.language) {
-    return vscode.env.language.startsWith('zh') ? 'zh-CN' : 'en';
+    const lang = vscode.env.language;
+    if (lang.startsWith('zh')) return 'zh-CN';
+    if (lang.startsWith('de')) return 'de';
+    if (lang.startsWith('fr')) return 'fr';
+    if (lang.startsWith('ja')) return 'ja';
+    if (lang.startsWith('ko')) return 'ko';
+    return 'en';
   }
   
   // 环境变量回退
   if (process.env.VSCODE_NLS_CONFIG) {
     const nlsConfig = JSON.parse(process.env.VSCODE_NLS_CONFIG);
-    return nlsConfig.locale?.startsWith('zh') ? 'zh-CN' : 'en';
+    const locale = nlsConfig.locale;
+    if (locale?.startsWith('zh')) return 'zh-CN';
+    if (locale?.startsWith('de')) return 'de';
+    if (locale?.startsWith('fr')) return 'fr';
+    if (locale?.startsWith('ja')) return 'ja';
+    if (locale?.startsWith('ko')) return 'ko';
   }
   
   return 'en';
@@ -369,17 +392,19 @@ private detectLanguage(): string {
 
 - 用户自定义颜色的额外主题自定义选项
 - 段落级高亮的增强专注模式
-- 支持更多语言（法语、德语、日语）
+- 支持更多语言（西班牙语、意大利语、葡萄牙语）
 - 与演示工具和流媒体软件的集成
 - 眼动追踪集成的自动滚动
 - 免提操作的语音控制
+- 基于 AI 的文本分析高级专注算法
 
 ### 技术改进
 
-- Webview 优化
-- 增强测试覆盖率
-- 性能监控
-- 错误报告系统
+- 带有专注模式性能增强的 Webview 优化
+- 所有 6 种语言的增强测试覆盖率
+- 带有专注模式指标的性能监控
+- 支持 i18n 的错误报告系统
+- JSON 翻译文件的构建系统优化
 
 ## 📊 性能指标
 
@@ -404,8 +429,8 @@ private detectLanguage(): string {
 
 1. **扩展未激活**: 检查 VS Code 版本兼容性（需要 1.82.0+）
 2. **主题未切换**: 验证 webview 通信和消息传递
-3. **i18n 不工作**: 检查语言检测逻辑和 JSON 资源加载
-4. **专注模式不工作**: 验证配置验证和 CSS 应用
+3. **i18n 不工作**: 检查语言检测逻辑和所有 6 种支持语言的 JSON 资源加载
+4. **专注模式不工作**: 验证配置验证、CSS 应用和渐变模糊算法
 5. **性能问题**: 分析内存使用、事件处理器和 webview 生命周期
 6. **配置错误**: 检查设置验证和回退处理
 

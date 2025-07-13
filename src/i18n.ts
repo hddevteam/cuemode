@@ -41,6 +41,18 @@ export class I18nManager {
         },
         'zh-CN': {
           translation: await this.loadTranslationResource('zh-CN')
+        },
+        ja: {
+          translation: await this.loadTranslationResource('ja')
+        },
+        ko: {
+          translation: await this.loadTranslationResource('ko')
+        },
+        fr: {
+          translation: await this.loadTranslationResource('fr')
+        },
+        de: {
+          translation: await this.loadTranslationResource('de')
         }
       },
 
@@ -117,6 +129,18 @@ export class I18nManager {
       if (vscodeLanguage.startsWith('zh')) {
         return 'zh-CN';
       }
+      if (vscodeLanguage.startsWith('ja')) {
+        return 'ja';
+      }
+      if (vscodeLanguage.startsWith('ko')) {
+        return 'ko';
+      }
+      if (vscodeLanguage.startsWith('fr')) {
+        return 'fr';
+      }
+      if (vscodeLanguage.startsWith('de')) {
+        return 'de';
+      }
       return 'en';
     }
 
@@ -128,6 +152,18 @@ export class I18nManager {
         if (locale.startsWith('zh')) {
           return 'zh-CN';
         }
+        if (locale.startsWith('ja')) {
+          return 'ja';
+        }
+        if (locale.startsWith('ko')) {
+          return 'ko';
+        }
+        if (locale.startsWith('fr')) {
+          return 'fr';
+        }
+        if (locale.startsWith('de')) {
+          return 'de';
+        }
         return 'en';
       } catch (e) {
         console.warn('[i18n] Failed to parse VSCODE_NLS_CONFIG:', e);
@@ -138,6 +174,18 @@ export class I18nManager {
     const locale = process.env.LANG || process.env.LC_ALL || process.env.LC_MESSAGES || 'en';
     if (locale.startsWith('zh')) {
       return 'zh-CN';
+    }
+    if (locale.startsWith('ja')) {
+      return 'ja';
+    }
+    if (locale.startsWith('ko')) {
+      return 'ko';
+    }
+    if (locale.startsWith('fr')) {
+      return 'fr';
+    }
+    if (locale.startsWith('de')) {
+      return 'de';
     }
 
     return 'en';
@@ -152,6 +200,14 @@ export class I18nManager {
         case 'zh-CN':
         case 'zh':
           return require('./locales/zh-CN.json');
+        case 'ja':
+          return require('./locales/ja.json');
+        case 'ko':
+          return require('./locales/ko.json');
+        case 'fr':
+          return require('./locales/fr.json');
+        case 'de':
+          return require('./locales/de.json');
         case 'en':
         default:
           return require('./locales/en.json');
@@ -168,7 +224,11 @@ export class I18nManager {
   public getAvailableLanguages(): { code: string; name: string; nativeName: string }[] {
     return [
       { code: 'en', name: 'English', nativeName: 'English' },
-      { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '简体中文' }
+      { code: 'zh-CN', name: 'Chinese (Simplified)', nativeName: '简体中文' },
+      { code: 'ja', name: 'Japanese', nativeName: '日本語' },
+      { code: 'ko', name: 'Korean', nativeName: '한국어' },
+      { code: 'fr', name: 'French', nativeName: 'Français' },
+      { code: 'de', name: 'German', nativeName: 'Deutsch' }
     ];
   }
 

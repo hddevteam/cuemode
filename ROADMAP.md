@@ -13,6 +13,7 @@ CueMode is dedicated to becoming the most professional teleprompter solution in 
   - [x] Improved Starting Position
   - [x] Smart Notifications - Non-intrusive status bar messages (auto-disappear in 2-3 seconds)
   - [x] Multi-theme Style Support
+  - [x] Focus Mode Support
 - [x] Keyboard Shortcuts Support
   - [x] `Ctrl+Shift+T` (Mac: Cmd+Shift+T) - Open theme selection menu
   - [x] `Ctrl+Shift+R` (Mac: Cmd+Shift+R) - Remove leading spaces
@@ -20,11 +21,16 @@ CueMode is dedicated to becoming the most professional teleprompter solution in 
   - [x] Auto-scroll control - Space bar to start/stop
   - [x] Real-time speed adjustment - +/- keys
   - [x] Direction toggle - R key for reverse scrolling
+  - [x] Focus mode toggle with `F` key in teleprompter mode
 - [x] Command System
   - [x] ⚡ Enhanced Command System - Added `changeTheme` and `removeLeadingSpaces` commands
 - [x] Internationalization Support
   - [x] Chinese
   - [x] English
+  - [x] Japanese
+  - [x] Korean
+  - [x] French
+  - [x] German
 - [x] Technical Optimization
   - [x] TypeScript Architecture - Complete codebase rewrite for better maintainability
   - [x] Comprehensive Testing
@@ -34,12 +40,6 @@ CueMode is dedicated to becoming the most professional teleprompter solution in 
 
 ## 🔄 In Progress
 
-- [ ] Enhanced Multi-language Support
-  - [ ] Japanese
-  - [ ] Korean
-  - [ ] French
-  - [ ] German
-- [ ] Focus Mode Support
 - [ ] Markdown Rendering Support
 
 ## 📝 Planned
@@ -78,4 +78,4 @@ CueMode is dedicated to becoming the most professional teleprompter solution in 
 
 **Let's build the best teleprompter tool together!** 🎬✨
 
-> This roadmap is updated regularly based on development progress and user feedback. Last updated: July 12, 2025
+> This roadmap is updated regularly based on development progress and user feedback. Last updated: July 13, 2025

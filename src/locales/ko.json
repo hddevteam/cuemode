@@ -1,0 +1,86 @@
+{
+  "commands": {
+    "title": "텔레프롬프터 모드",
+    "description": "더 나은 프레젠테이션을 위한 텔레프롬프터 모드 활성화",
+    "changeTheme": "텔레프롬프터 테마 변경",
+    "removeLeadingSpaces": "앞쪽 공백 제거",
+    "toggleFocusMode": "포커스 모드 전환"
+  },
+  "notifications": {
+    "activated": "텔레프롬프터 모드가 활성화되었습니다",
+    "deactivated": "텔레프롬프터 모드가 비활성화되었습니다", 
+    "configUpdated": "텔레프롬프터 모드 설정이 업데이트되었습니다",
+    "themeChanged": "테마가 {{theme}}로 변경되었습니다",
+    "spacesRemoved": "{{count}}줄에서 앞쪽 공백을 제거했습니다",
+    "spacesRemoved_plural": "{{count}}줄에서 앞쪽 공백을 제거했습니다",
+    "error": "텔레프롬프터 모드 오류: {{message}}",
+    "focusModeEnabled": "포커스 모드가 활성화되었습니다",
+    "focusModeDisabled": "포커스 모드가 비활성화되었습니다"
+  },
+  "errors": {
+    "noActiveEditor": "활성 편집기를 찾을 수 없습니다",
+    "noContent": "표시할 내용이 없습니다",
+    "webviewFailed": "웹뷰 생성에 실패했습니다",
+    "configInvalid": "잘못된 설정: {{details}}",
+    "noSelection": "텍스트가 선택되지 않았습니다. 앞쪽 공백을 제거하려면 텍스트를 선택하세요.",
+    "initializationFailed": "확장 프로그램 초기화에 실패했습니다: {{error}}"
+  },
+  "settings": {
+    "colorTheme": "색상 테마", 
+    "maxWidth": "최대 너비",
+    "fontSize": "글꼴 크기",
+    "lineHeight": "줄 높이",
+    "padding": "패딩",
+    "scrollSpeed": "스크롤 속도",
+    "startingPosition": "시작 위치",
+    "focusMode": "포커스 모드",
+    "focusOpacity": "포커스 흐림 강도",
+    "focusLineCount": "포커스 줄 수"
+  },
+  "themes": {
+    "classic": "클래식",
+    "inverted": "반전", 
+    "midnightBlue": "미드나이트 블루",
+    "sunset": "석양",
+    "forest": "포레스트",
+    "ocean": "오션",
+    "rose": "로즈"
+  },
+  "ui": {
+    "title": "텔레프롬프터 모드 - {{filename}}",
+    "close": "닫기",
+    "help": "도움말", 
+    "shortcuts": "키보드 단축키",
+    "loading": "로딩 중...",
+    "ready": "준비 완료",
+    "focusMode": "포커스 모드",
+    "exitFocus": "포커스 종료"
+  },
+  "help": {
+    "title": "텔레프롬프터 모드 단축키",
+    "shortcuts": {
+      "space": "자동 스크롤 시작/정지",
+      "plus": "스크롤 속도 증가", 
+      "minus": "스크롤 속도 감소",
+      "r": "스크롤 방향 전환",
+      "escape": "텔레프롬프터 모드 종료",
+      "arrows": "수동 탐색",
+      "pageUpDown": "빠른 스크롤",
+      "homeEnd": "시작/끝으로 이동",
+      "t": "테마 전환",
+      "f": "포커스 모드 전환",
+      "h": "도움말 표시/숨기기"
+    },
+    "vsCodeShortcuts": {
+      "changeTheme": "테마 변경",
+      "removeSpaces": "앞쪽 공백 제거",
+      "toggleFocus": "포커스 모드 전환"
+    }
+  },
+  "accessibility": {
+    "scrollIndicator": "자동 스크롤: {{status}}",
+    "speedIndicator": "스크롤 속도: {{speed}}",
+    "themeIndicator": "현재 테마: {{theme}}",
+    "focusIndicator": "포커스 모드: {{status}}"
+  }
+}

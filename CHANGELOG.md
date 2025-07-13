@@ -5,29 +5,28 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.0] - 2025-07-13 - Focus Mode & Internationalization Refactor
+## [2.1.0] - 2025-07-13 - Focus Mode & Expanded Internationalization
 
 ### 🌟 New Features
 
-- **Focus Mode**: New focused reading mode that highlights the current reading area by blurring non-focus content
+- **Enhanced Focus Mode**: Improved focused reading mode with keyboard toggle functionality
+  - Press `F` key in teleprompter mode to instantly toggle focus mode on/off
   - Configurable focus opacity (0.1-0.8, default 0.3)
   - Adjustable focus lines (1-10 lines, default 3 lines)
-  - Press `F` key in teleprompter mode to instantly toggle focus mode
-  - Added `toggleFocusMode` command
+  - Added `toggleFocusMode` command with keyboard shortcut
 - **Smart Gradient Blur Algorithm**: Provides smooth reading experience with buffer zones
 - **Focus Indicator**: Visual display of the current active reading area
 
-### 🌐 Internationalization System Refactor
+### 🌐 Expanded Internationalization Support
 
-- **i18next Integration**: Replaced custom internationalization system with industry-standard i18next library
-- **Dynamic Language Switching**: Support runtime language switching without extension restart
-- **Enhanced Translation Features**:
-  - Support for `{{variable}}` syntax interpolation
-  - Plural form support
-  - Context-aware translations
-  - Missing key handling and fallback mechanisms
-- **Automatic Language Detection**: Auto-detect language from VS Code environment or system locale settings
-- **Type Safety**: Improved type safety for translation keys and parameters
+- **Four New Languages Added**: Complete localization support for:
+  - 🇩🇪 **German (de)** - Deutsche Übersetzung
+  - 🇫🇷 **French (fr)** - Traduction française  
+  - 🇯🇵 **Japanese (ja)** - 日本語翻訳
+  - 🇰🇷 **Korean (ko)** - 한국어 번역
+- **Comprehensive Translation Coverage**: All UI elements, commands, notifications, and help text translated
+- **Enhanced i18n Testing**: Expanded test suite to validate all 6 supported languages
+- **Professional Localization**: Industry-standard translations for teleprompter terminology
 
 ### 🔧 Architecture Improvements
 
@@ -221,7 +220,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Key Features |
 |---------|-------------|--------------|
-| 2.1.0   | 2025-07-13  | **Focus Mode & i18n Refactor** - F-key focus, i18next integration, smart blur algorithm |
+| 2.1.0   | 2025-07-13  | **Focus Mode & Expanded i18n** - F-key toggle, 4 new languages (DE/FR/JA/KO), enhanced testing |
 | 2.0.0   | 2025-07-12  | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests |
 | 1.1.3   | 2025-07-12  | Bug fixes, performance improvements |
 | 1.1.0   | 2024        | Real-time updates, live sync, improved positioning |

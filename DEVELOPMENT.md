@@ -19,7 +19,11 @@ src/
 │   └── theme.ts          # Theme system with 7 professional themes
 ├── locales/              # Language resource files
 │   ├── en.json           # English translations
-│   └── zh-CN.json        # Chinese translations
+│   ├── zh-CN.json        # Chinese translations
+│   ├── de.json           # German translations
+│   ├── fr.json           # French translations
+│   ├── ja.json           # Japanese translations
+│   └── ko.json           # Korean translations
 └── test/                 # Test suite
     ├── runTest.ts        # Test runner
     └── suite/            # Test cases
@@ -63,7 +67,8 @@ src/
 
 - i18next-based translation system with type safety
 - Dynamic language detection from VS Code environment
-- Support for English and Chinese (zh-CN) with JSON resource files
+- Support for 6 languages: English (en), Chinese (zh-CN), German (de), French (fr), Japanese (ja), Korean (ko)
+- Professional teleprompter terminology localization
 - Extensible architecture for additional languages
 - Context-aware translations with pluralization support
 - Missing key detection and fallback handling
@@ -79,12 +84,15 @@ src/
 - Focus mode with customizable line highlighting and opacity
 - Interactive help system with keyboard shortcut reference
 
-### 🎯 Focus Mode
+### 🎯 Enhanced Focus Mode
 
-- Intelligent text highlighting to improve reading focus
-- Configurable line count for focused area (1-10 lines)
-- Adjustable opacity for non-focused text (0.1-0.8)
-- Toggle with `F` key in webview
+- Improved focused reading mode with keyboard toggle functionality
+- Smart gradient blur algorithm for smooth reading experience
+- Configurable focus opacity (0.1-0.8, default 0.3)
+- Adjustable focus lines (1-10 lines, default 3 lines)
+- Toggle with `F` key in webview for instant on/off switching
+- Visual focus indicator with beautiful styling design
+- Real-time configuration updates without restart
 - Persistent focus mode preferences
 
 ## 🛠️ Development Environment
@@ -301,7 +309,11 @@ export class I18nManager {
       fallbackLng: 'en',
       resources: {
         en: { translation: await this.loadTranslationResource('en') },
-        'zh-CN': { translation: await this.loadTranslationResource('zh-CN') }
+        'zh-CN': { translation: await this.loadTranslationResource('zh-CN') },
+        de: { translation: await this.loadTranslationResource('de') },
+        fr: { translation: await this.loadTranslationResource('fr') },
+        ja: { translation: await this.loadTranslationResource('ja') },
+        ko: { translation: await this.loadTranslationResource('ko') }
       },
       interpolation: { escapeValue: false },
       pluralSeparator: '_',
@@ -320,13 +332,24 @@ export class I18nManager {
 private detectLanguage(): string {
   // VS Code environment detection
   if (vscode.env && vscode.env.language) {
-    return vscode.env.language.startsWith('zh') ? 'zh-CN' : 'en';
+    const lang = vscode.env.language;
+    if (lang.startsWith('zh')) return 'zh-CN';
+    if (lang.startsWith('de')) return 'de';
+    if (lang.startsWith('fr')) return 'fr';
+    if (lang.startsWith('ja')) return 'ja';
+    if (lang.startsWith('ko')) return 'ko';
+    return 'en';
   }
   
   // Environment variable fallback
   if (process.env.VSCODE_NLS_CONFIG) {
     const nlsConfig = JSON.parse(process.env.VSCODE_NLS_CONFIG);
-    return nlsConfig.locale?.startsWith('zh') ? 'zh-CN' : 'en';
+    const locale = nlsConfig.locale;
+    if (locale?.startsWith('zh')) return 'zh-CN';
+    if (locale?.startsWith('de')) return 'de';
+    if (locale?.startsWith('fr')) return 'fr';
+    if (locale?.startsWith('ja')) return 'ja';
+    if (locale?.startsWith('ko')) return 'ko';
   }
   
   return 'en';
@@ -369,17 +392,19 @@ private detectLanguage(): string {
 
 - Additional theme customization options with user-defined colors
 - Enhanced focus mode with paragraph-level highlighting
-- Support for additional languages (French, German, Japanese)
+- Support for additional languages (Spanish, Italian, Portuguese)
 - Integration with presentation tools and streaming software
 - Auto-scroll with eye-tracking integration
 - Voice control for hands-free operation
+- Advanced focus algorithms with AI-powered text analysis
 
 ### Technical Improvements
 
-- WebView optimization
-- Enhanced test coverage
-- Performance monitoring
-- Error reporting system
+- WebView optimization with focus mode performance enhancements
+- Enhanced test coverage for all 6 languages
+- Performance monitoring with focus mode metrics
+- Error reporting system with i18n support
+- Build system optimization for JSON translation files
 
 ## 📊 Performance Metrics
 
@@ -404,8 +429,8 @@ private detectLanguage(): string {
 
 1. **Extension not activating**: Check VS Code version compatibility (requires 1.82.0+)
 2. **Theme not switching**: Verify webview communication and message passing
-3. **I18n not working**: Check language detection logic and JSON resource loading
-4. **Focus mode not working**: Verify configuration validation and CSS application
+3. **I18n not working**: Check language detection logic and JSON resource loading for all 6 supported languages
+4. **Focus mode not working**: Verify configuration validation, CSS application, and gradient blur algorithm
 5. **Performance issues**: Profile memory usage, event handlers, and webview lifecycle
 6. **Configuration errors**: Check settings validation and fallback handling
 

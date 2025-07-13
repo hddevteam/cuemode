@@ -24,6 +24,7 @@ The test suite is organized into several categories:
   - fontSize, maxWidth, lineHeight, padding ranges
   - scrollSpeed, startingPosition, focusOpacity values
   - focusLineCount and focusMode settings
+  - New focus mode properties (opacity, line count, toggle functionality)
 
 ### 3. Theme Manager Tests (`theme.test.ts`)
 
@@ -41,8 +42,15 @@ The test suite is organized into several categories:
 - Tests message key resolution with `t()` function
 - Tests interpolation functionality with variables
 - Verifies fallback behavior for missing keys
-- Tests language switching between English and Chinese (`zh-CN`)
+- Tests language switching across all 6 supported languages:
+  - English (`en`)
+  - Chinese (`zh-CN`)
+  - German (`de`)
+  - French (`fr`)
+  - Japanese (`ja`)
+  - Korean (`ko`)
 - Validates `changeLanguage()` and `getCurrentLanguage()` functions
+- Tests professional teleprompter terminology translations
 
 ### 5. WebView Manager Tests (`webview.test.ts`)
 
@@ -147,10 +155,12 @@ The tests cover the following areas:
 
 ### Internationalization
 
-- Message translation with i18next
-- Locale switching (English/Chinese)
+- Message translation with i18next across 6 languages
+- Locale switching (English/Chinese/German/French/Japanese/Korean)
 - Interpolation with variables
 - Fallback handling for missing keys
+- Professional teleprompter terminology validation
+- Language detection from VS Code environment
 
 ### Configuration Validation
 
@@ -158,6 +168,8 @@ The tests cover the following areas:
 - Range validation for numeric values
 - Enum validation for color themes
 - Default value handling
+- Focus mode configuration validation
+- Real-time configuration update testing
 
 ### Theme System
 
@@ -278,6 +290,8 @@ When adding new functionality:
 5. **I18n tests fail**
    - Ensure locale files are copied: `npm run copy-resources`
    - Check i18next initialization
+   - Verify all 6 language files are present in `src/locales/`
+   - Test language switching functionality
 
 ### Getting Help
 
