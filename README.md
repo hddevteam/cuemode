@@ -10,6 +10,8 @@
 
 **Transform VS Code into a professional teleprompter.** Perfect for coding livestreams, technical presentations, educational videos, and professional content creation. Features instant theme switching, enhanced focus mode, auto-scroll control, and distraction-free reading experience.
 
+![Teleprompter Demo](./images/demo.gif)
+
 ## 🎯 What is CueMode?
 
 CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.
@@ -135,8 +137,6 @@ CueMode provides professional teleprompter functionality for modern content crea
 - **Ctrl+Shift+R** (Cmd+Shift+R on Mac) - **New!** Remove leading spaces from text
 - **H Key** - Show/hide help panel
 - **Esc Key** - Exit teleprompter mode
-
-![Teleprompter Demo](./images/demo.gif)
 
 ## ⚙️ Teleprompter Configuration
 
