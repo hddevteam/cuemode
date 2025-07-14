@@ -58,6 +58,8 @@
   },
   "help": {
     "title": "Teleprompter-Modus-Tastenkürzel",
+    "basicControls": "Grundsteuerung",
+    "navigationModes": "Navigation & Modi",
     "shortcuts": {
       "space": "Auto-Scroll starten/stoppen",
       "plus": "Scrollgeschwindigkeit erhöhen", 

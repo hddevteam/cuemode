@@ -57,6 +57,8 @@
   },
   "help": {
     "title": "提词器模式快捷键",
+    "basicControls": "基本控制",
+    "navigationModes": "导航 & 模式",
     "shortcuts": {
       "space": "开始/暂停自动滚屏",
       "plus": "增加滚屏速度",

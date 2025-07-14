@@ -58,6 +58,8 @@
   },
   "help": {
     "title": "텔레프롬프터 모드 단축키",
+    "basicControls": "기본 제어",
+    "navigationModes": "탐색 & 모드",
     "shortcuts": {
       "space": "자동 스크롤 시작/정지",
       "plus": "스크롤 속도 증가", 

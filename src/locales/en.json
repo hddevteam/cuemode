@@ -58,6 +58,8 @@
   },
   "help": {
     "title": "Teleprompter Mode Shortcuts",
+    "basicControls": "Basic Controls",
+    "navigationModes": "Navigation & Modes",
     "shortcuts": {
       "space": "Start/Stop auto-scroll",
       "plus": "Increase scroll speed", 

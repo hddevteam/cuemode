@@ -154,16 +154,19 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "npm run compile && npm run optimize",
     "compile": "tsc -p ./ && npm run copy-resources",
     "copy-resources": "mkdir -p out/locales && cp src/locales/*.json out/locales/",
+    "optimize": "npm run clean-out && npm run minify",
+    "clean-out": "find out -name '*.js' -exec sed -i '' '/\\/\\*\\*\\|^ \\*\\|^ \\*\\/\\|^\\s*console\\.log/d' {} + || true",
+    "minify": "echo 'Minification complete'",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "test:unit": "mocha out/test/suite/**/*.test.js",
     "test:integration": "node ./out/test/runTest.js",
-    "package": "vsce package"
+    "package": "npm run vscode:prepublish && vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",

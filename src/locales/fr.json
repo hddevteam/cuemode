@@ -58,6 +58,8 @@
   },
   "help": {
     "title": "Raccourcis du mode télésouffleur",
+    "basicControls": "Contrôles de Base",
+    "navigationModes": "Navigation & Modes",
     "shortcuts": {
       "space": "Démarrer/arrêter le défilement automatique",
       "plus": "Augmenter la vitesse de défilement", 

@@ -58,6 +58,8 @@
   },
   "help": {
     "title": "テレプロンプターモードのショートカット",
+    "basicControls": "基本操作",
+    "navigationModes": "ナビゲーション & モード",
     "shortcuts": {
       "space": "自動スクロールの開始/停止",
       "plus": "スクロール速度を上げる", 

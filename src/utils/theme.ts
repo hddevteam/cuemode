@@ -164,56 +164,120 @@ export class ThemeManager {
 
       .cue-controls {
         position: fixed;
-        top: 5px;
-        right: 5px;
+        top: 8px;
+        right: 8px;
         z-index: 1000;
-        opacity: 0.3;
+        opacity: 0.4;
         transition: opacity 0.3s ease;
         pointer-events: auto;
+        display: flex;
+        gap: 0.3em;
       }
 
       .cue-controls:hover {
-        opacity: 0.9;
+        opacity: 1;
       }
 
       .cue-button {
-        background: var(--accent-color);
-        color: var(--bg-color);
+        background: linear-gradient(135deg, var(--accent-color), #005080);
+        color: white;
         border: none;
-        padding: 0.25em 0.5em;
-        border-radius: 3px;
+        padding: 0.4em 0.8em;
+        border-radius: 6px;
         cursor: pointer;
-        font-size: 0.65em;
-        margin: 0 0.1em;
+        font-size: clamp(0.6em, 1.5vw, 0.75em);
+        margin: 0;
         transition: all 0.3s ease;
         min-width: auto;
         height: auto;
+        font-weight: 500;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
       .cue-button:hover {
         opacity: 1;
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(135deg, #007acc, var(--accent-color));
+      }
+
+      .cue-button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      /* 响应式控制按钮 */
+      @media (max-width: 768px) {
+        .cue-controls {
+          top: 5px;
+          right: 5px;
+        }
+        
+        .cue-button {
+          padding: 0.3em 0.6em;
+          font-size: 0.65em;
+        }
       }
 
       .cue-help {
         position: fixed;
-        top: 35px;
-        right: 5px;
-        background: var(--bg-color);
-        border: 1px solid var(--accent-color);
-        border-radius: 6px;
-        padding: 0.75em;
-        max-width: 280px;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.95);
+        border: 2px solid var(--accent-color);
+        border-radius: 8px;
+        padding: 1em 1.2em;
+        width: 560px;
+        max-width: calc(100vw - 40px);
+        max-height: calc(100vh - 60px);
         z-index: 1000;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        font-size: 0.85em;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+        font-size: 0.7em;
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+        color: var(--text-color);
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+        transition: all 0.2s ease-out;
+        pointer-events: none;
+      }
+
+      .cue-help[style*="display: block"] {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
       }
 
       .cue-help h3 {
-        margin: 0 0 0.4em 0;
+        margin: 0 0 0.7em 0;
         color: var(--accent-color);
         font-size: 1em;
+        text-align: center;
+        border-bottom: 1px solid var(--accent-color);
+        padding-bottom: 0.4em;
+        font-weight: bold;
+      }
+
+      .help-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em;
+        align-items: start;
+      }
+
+      .help-column {
+        min-width: 0;
+      }
+
+      .help-section h4 {
+        margin: 0 0 0.5em 0;
+        color: var(--accent-color);
+        font-size: 0.85em;
+        font-weight: bold;
+        opacity: 0.9;
+        padding-bottom: 0.2em;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
 
       .cue-help ul {
@@ -223,13 +287,83 @@ export class ThemeManager {
       }
 
       .cue-help li {
-        margin: 0.25em 0;
-        font-size: 0.9em;
-        line-height: 1.2;
+        margin: 0.3em 0;
+        font-size: 0.85em;
+        line-height: 1.3;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        padding: 0.15em 0;
       }
 
-      .cue-help strong {
-        color: var(--accent-color);
+      .cue-help li span {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .cue-help kbd {
+        background: linear-gradient(135deg, var(--accent-color), #005080);
+        color: white;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.75em;
+        font-weight: bold;
+        min-width: 2.5em;
+        text-align: center;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        white-space: nowrap;
+        flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 768px) {
+        .cue-help {
+          top: 5px;
+          right: 5px;
+          left: 5px;
+          max-width: none;
+          min-width: 0;
+          padding: 1em;
+          font-size: 0.75em;
+        }
+        
+        .help-grid {
+          grid-template-columns: 1fr;
+          gap: 1em;
+        }
+        
+        .cue-help kbd {
+          min-width: 2.5em;
+          padding: 0.15em 0.4em;
+        }
+      }
+
+      @media (max-height: 600px) {
+        .cue-help {
+          top: 5px;
+          max-height: calc(100vh - 50px);
+          padding: 0.8em;
+        }
+        
+        .cue-help h3 {
+          margin-bottom: 0.6em;
+          font-size: 1em;
+        }
+        
+        .help-grid {
+          gap: 1em;
+        }
+        
+        .help-section h4 {
+          margin-bottom: 0.5em;
+          font-size: 0.85em;
+        }
+        
+        .cue-help li {
+          margin: 0.25em 0;
+        }
       }
 
       /* Scrollbar styling */
@@ -248,6 +382,94 @@ export class ThemeManager {
 
       ::-webkit-scrollbar-thumb:hover {
         background: var(--border-color);
+      }
+
+      /* 帮助对话框的滚动条 */
+      .cue-help::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .cue-help::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+      }
+
+      .cue-help::-webkit-scrollbar-thumb {
+        background: var(--accent-color);
+        border-radius: 3px;
+      }
+
+      .cue-help::-webkit-scrollbar-thumb:hover {
+        background: #007acc;
+      }
+
+      /* Help dialog responsive design */
+      @media (max-width: 768px) {
+        .cue-help {
+          position: fixed;
+          top: 5px;
+          left: 5px;
+          right: 5px;
+          width: auto;
+          max-width: none;
+          padding: 0.9em;
+          font-size: 0.65em;
+          max-height: calc(100vh - 30px);
+        }
+
+        .help-grid {
+          grid-template-columns: 1fr;
+          gap: 0.9em;
+        }
+
+        .cue-help li {
+          margin: 0.25em 0;
+          font-size: 0.8em;
+        }
+
+        .cue-help kbd {
+          min-width: 2.2em;
+          padding: 0.15em 0.3em;
+          font-size: 0.7em;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .cue-help {
+          padding: 0.7em;
+          font-size: 0.6em;
+        }
+
+        .cue-help h3 {
+          font-size: 0.9em;
+          margin-bottom: 0.6em;
+        }
+
+        .help-section h4 {
+          font-size: 0.8em;
+          margin-bottom: 0.5em;
+        }
+
+        .cue-help li {
+          font-size: 0.75em;
+          line-height: 1.2;
+          gap: 0.4em;
+        }
+
+        .cue-help kbd {
+          min-width: 2em;
+          padding: 0.12em 0.25em;
+          font-size: 0.65em;
+        }
+      }
+
+      @media (max-height: 600px) {
+        .cue-help {
+          max-height: calc(100vh - 20px);
+          font-size: 0.65em;
+          padding: 0.7em;
+        }
+      }
       }
 
       /* Responsive design */

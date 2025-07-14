@@ -341,18 +341,32 @@ export class WebViewManager {
         
         <div class="cue-help" id="help-panel" style="display: none;">
           <h3>${t('help.title')}</h3>
-          <ul>
-            <li><strong>Space</strong>: ${t('help.shortcuts.space')}</li>
-            <li><strong>R</strong>: ${t('help.shortcuts.r')}</li>
-            <li><strong>+/-</strong>: ${t('help.shortcuts.plus')} / ${t('help.shortcuts.minus')}</li>
-            <li><strong>Arrow keys</strong>: ${t('help.shortcuts.arrows')}</li>
-            <li><strong>Page Up/Down</strong>: ${t('help.shortcuts.pageUpDown')}</li>
-            <li><strong>Home/End</strong>: ${t('help.shortcuts.homeEnd')}</li>
-            <li><strong>T</strong>: ${t('help.shortcuts.t')}</li>
-            <li><strong>F</strong>: ${t('help.shortcuts.f')}</li>
-            <li><strong>H</strong>: ${t('help.shortcuts.h')}</li>
-            <li><strong>Esc</strong>: ${t('help.shortcuts.escape')}</li>
-          </ul>
+          <div class="help-grid">
+            <div class="help-column">
+              <div class="help-section">
+                <h4>${t('help.basicControls')}</h4>
+                <ul>
+                  <li><kbd>Space</kbd> <span>${t('help.shortcuts.space')}</span></li>
+                  <li><kbd>R</kbd> <span>${t('help.shortcuts.r')}</span></li>
+                  <li><kbd>+/-</kbd> <span>${t('help.shortcuts.plus')} / ${t('help.shortcuts.minus')}</span></li>
+                  <li><kbd>Esc</kbd> <span>${t('help.shortcuts.escape')}</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="help-column">
+              <div class="help-section">
+                <h4>${t('help.navigationModes')}</h4>
+                <ul>
+                  <li><kbd>↑↓</kbd> <span>${t('help.shortcuts.arrows')}</span></li>
+                  <li><kbd>PgUp/Dn</kbd> <span>${t('help.shortcuts.pageUpDown')}</span></li>
+                  <li><kbd>Home/End</kbd> <span>${t('help.shortcuts.homeEnd')}</span></li>
+                  <li><kbd>T</kbd> <span>${t('help.shortcuts.t')}</span></li>
+                  <li><kbd>F</kbd> <span>${t('help.shortcuts.f')}</span></li>
+                  <li><kbd>H</kbd> <span>${t('help.shortcuts.h')}</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div class="cue-container">
@@ -376,6 +390,10 @@ export class WebViewManager {
             const helpPanel = document.getElementById('help-panel');
             if (helpPanel.style.display === 'none') {
               helpPanel.style.display = 'block';
+              
+              // 智能定位：确保帮助对话框完全可见
+              adjustHelpPosition(helpPanel);
+              
               // Add click outside to close functionality
               setTimeout(() => {
                 document.addEventListener('click', hideHelpOnClickOutside);
@@ -383,6 +401,37 @@ export class WebViewManager {
             } else {
               helpPanel.style.display = 'none';
               document.removeEventListener('click', hideHelpOnClickOutside);
+            }
+          }
+          
+          function adjustHelpPosition(helpPanel) {
+            const rect = helpPanel.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // 重置位置
+            helpPanel.style.top = '10px';
+            helpPanel.style.right = '10px';
+            helpPanel.style.left = 'auto';
+            helpPanel.style.bottom = 'auto';
+            
+            // 检查是否超出右边界
+            if (rect.right > viewportWidth - 10) {
+              helpPanel.style.right = '10px';
+              helpPanel.style.left = 'auto';
+            }
+            
+            // 检查是否超出底部边界
+            if (rect.bottom > viewportHeight - 10) {
+              helpPanel.style.top = 'auto';
+              helpPanel.style.bottom = '10px';
+            }
+            
+            // 对于小屏幕，使用全宽布局
+            if (viewportWidth < 768) {
+              helpPanel.style.left = '5px';
+              helpPanel.style.right = '5px';
+              helpPanel.style.top = '50px'; // 为控制按钮留出空间
             }
           }
           
@@ -621,6 +670,19 @@ export class WebViewManager {
           
           // Initialize
           console.log('${i18nStrings.initMessage}');
+          
+          // 监听窗口大小变化
+          window.addEventListener('resize', () => {
+            const helpPanel = document.getElementById('help-panel');
+            if (helpPanel.style.display === 'block') {
+              adjustHelpPosition(helpPanel);
+            }
+            
+            // 更新焦点模式
+            if (focusMode) {
+              applyFocusMode();
+            }
+          });
           
           // Apply focus mode on initialization
           setTimeout(() => {
