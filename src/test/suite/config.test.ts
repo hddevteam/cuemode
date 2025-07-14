@@ -21,6 +21,9 @@ suite('ConfigManager Tests', () => {
     assert.ok(config.hasOwnProperty('padding'));
     assert.ok(config.hasOwnProperty('scrollSpeed'));
     assert.ok(config.hasOwnProperty('startingPosition'));
+    assert.ok(config.hasOwnProperty('focusMode'));
+    assert.ok(config.hasOwnProperty('focusOpacity'));
+    assert.ok(config.hasOwnProperty('focusLineCount'));
   });
 
   test('getSafeConfig should return correct types', () => {
@@ -33,6 +36,9 @@ suite('ConfigManager Tests', () => {
     assert.strictEqual(typeof config.padding, 'number');
     assert.strictEqual(typeof config.scrollSpeed, 'number');
     assert.strictEqual(typeof config.startingPosition, 'number');
+    assert.strictEqual(typeof config.focusMode, 'boolean');
+    assert.strictEqual(typeof config.focusOpacity, 'number');
+    assert.strictEqual(typeof config.focusLineCount, 'number');
   });
 
   test('getSafeConfig should return valid color theme', () => {
@@ -68,6 +74,14 @@ suite('ConfigManager Tests', () => {
     // Test startingPosition range (0-100)
     assert.ok(config.startingPosition >= 0);
     assert.ok(config.startingPosition <= 100);
+    
+    // Test focusOpacity range (0.1-0.8)
+    assert.ok(config.focusOpacity >= 0.1);
+    assert.ok(config.focusOpacity <= 0.8);
+    
+    // Test focusLineCount range (1-10)
+    assert.ok(config.focusLineCount >= 1);
+    assert.ok(config.focusLineCount <= 10);
   });
 
   test('validateConfig should handle valid configuration', () => {
@@ -78,7 +92,10 @@ suite('ConfigManager Tests', () => {
       lineHeight: 1.5,
       padding: 10,
       scrollSpeed: 0.1,
-      startingPosition: 50
+      startingPosition: 50,
+      focusMode: false,
+      focusOpacity: 0.3,
+      focusLineCount: 3
     };
     
     const result = ConfigManager.validateConfig(validConfig);

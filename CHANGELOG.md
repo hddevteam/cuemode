@@ -5,12 +5,81 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-07-13 - Focus Mode & Expanded Internationalization
+
+### 🌟 New Features
+
+- **Enhanced Focus Mode**: Improved focused reading mode with keyboard toggle functionality
+  - Press `F` key in teleprompter mode to instantly toggle focus mode on/off
+  - Configurable focus opacity (0.1-0.8, default 0.3)
+  - Adjustable focus lines (1-10 lines, default 3 lines)
+  - Added `toggleFocusMode` command with keyboard shortcut
+- **Smart Gradient Blur Algorithm**: Provides smooth reading experience with buffer zones
+- **Focus Indicator**: Visual display of the current active reading area
+
+### 🌐 Expanded Internationalization Support
+
+- **Four New Languages Added**: Complete localization support for:
+  - 🇩🇪 **German (de)** - Deutsche Übersetzung
+  - 🇫🇷 **French (fr)** - Traduction française  
+  - 🇯🇵 **Japanese (ja)** - 日本語翻訳
+  - 🇰🇷 **Korean (ko)** - 한국어 번역
+- **Comprehensive Translation Coverage**: All UI elements, commands, notifications, and help text translated
+- **Enhanced i18n Testing**: Expanded test suite to validate all 6 supported languages
+- **Professional Localization**: Industry-standard translations for teleprompter terminology
+
+### 🔧 Architecture Improvements
+
+- **File Structure Reorganization**:
+  - Removed `src/i18n/` TypeScript files directory
+  - Added `src/locales/` JSON translation files directory
+  - Added centralized `src/i18n.ts` internationalization manager
+- **Configuration Schema Updates**: Extended configuration interface with focus mode related properties
+- **Dependency Management**: Added i18next as production dependency
+
+### 🚀 User Experience Enhancements
+
+- **Real-time Configuration Updates**: Focus mode settings take effect in real-time without restart
+- **Enhanced Keyboard Shortcuts**:
+  - `F` key: Toggle focus mode
+  - `T` key: Cycle theme switching
+  - Improved help system with localized shortcut descriptions
+- **Visual Feedback Optimization**:
+  - Focus area indicator with beautiful styling design
+  - Improved line wrapping for better focus mode compatibility
+  - Clear visual feedback for different modes and states
+
+### 🧪 Quality Assurance
+
+- **Enhanced Test Suite**:
+  - Comprehensive test coverage for new i18next system
+  - Focus mode configuration and behavior testing
+  - Updated configuration property tests
+  - English and Chinese translation tests
+- **Type Safety Improvements**: Enhanced type definitions for i18n functions to prevent runtime errors
+
+### 🛠️ Technical Improvements
+
+- **Build System Optimization**: Automatic copying of JSON translation files
+- **Performance Optimizations**:
+  - Efficient translation loading and caching
+  - Optimized focus mode blur calculations using requestAnimationFrame
+  - Improved memory management and resource cleanup
+- **Asynchronous Extension Activation**: Proper async activation flow for i18n initialization
+
+### 🎯 Accessibility Improvements
+
+- **Screen Reader Support**: Enhanced ARIA labels and semantic markup
+- **Keyboard Navigation**: Improved keyboard-only navigation experience
+- **Visual Feedback**: Clear visual indicators for different modes and states
+
 ## [2.0.0] - 2025-07-12 - Professional Teleprompter 2.0
 
 ### 🚀 Major Features
+
 - **T Key Theme Cycling**: Press 'T' in teleprompter mode to instantly cycle through themes
 - **Professional Command Suite**: Added `changeTheme` and `removeLeadingSpaces` commands
-- **Advanced Keyboard Shortcuts**: 
+- **Advanced Keyboard Shortcuts**:
   - `Ctrl+Shift+T` (Cmd+Shift+T on Mac) - Change theme via menu
   - `Ctrl+Shift+R` (Cmd+Shift+R on Mac) - Remove leading spaces
   - `T` key in teleprompter mode - Instant theme cycling
@@ -18,6 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Interactive Help System**: Enhanced help panel with click-outside-to-close functionality
 
 ### 🎯 Professional Teleprompter Focus
+
 - **TypeScript Migration**: Complete codebase rewrite for better maintainability
 - **Comprehensive Testing**: 71 test cases ensuring reliability
 - **Auto-scroll Controls**: Professional Space bar controls
@@ -27,12 +97,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Professional Themes**: Optimized for video recording and presentations
 
 ### 🌐 Enhanced User Experience
+
 - **Non-intrusive Notifications**: Auto-dismissing status bar messages (2-3 seconds)
 - **Seamless UX**: Removed modal dialogs for quick status feedback
 - **Internationalization**: Full English and Chinese support
 - **Enhanced Error Handling**: Professional-grade logging and recovery
 
 ### 🛠️ Technical Improvements
+
 - Migrated from `showInformationMessage` to `setStatusBarMessage` for better UX
 - Added `cycleTheme` message type to WebView communication
 - Enhanced command registration and cleanup
@@ -40,15 +112,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Strict TypeScript types and comprehensive error handling
 
 ### 📈 Code Quality
+
 - Professional teleprompter functionality focus
 - Comprehensive testing framework (71 test cases)
 - Enhanced keyboard shortcuts for professional use
 - Enhanced error handling and logging
 - Professional teleprompter themes optimization
 
-## [Unreleased]
-
 ### Added
+
 - Professional teleprompter functionality focus
 - TypeScript migration for better code maintainability
 - Comprehensive testing framework (71 test cases)
@@ -62,6 +134,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Professional teleprompter themes optimization
 
 ### Changed
+
 - **BREAKING**: Repositioned as professional teleprompter tool
 - Updated all documentation to focus on teleprompter use cases
 - Modular architecture for better code organization
@@ -70,6 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated package description and keywords for better discoverability
 
 ### Fixed
+
 - Various stability improvements
 - Cross-platform compatibility issues
 - Auto-scroll performance optimizations
@@ -77,6 +151,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.3] - 2025-07-12 - Professional Teleprompter Update
 
 ### Added
+
 - ✨ **Auto-scroll teleprompter**: Professional scroll controls with Space bar
 - ✨ **Real-time speed control**: Adjust reading pace with +/- keys during presentation
 - ✨ **Direction toggle**: Reverse scrolling with R key for flexible reading
@@ -86,11 +161,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 📺 **Teleprompter optimization**: Improved themes and layout for video recording
 
 ### Changed
+
 - **Rebranded as professional teleprompter**: All documentation updated
 - **Enhanced user experience**: Immediate feedback and smooth controls
 - **Professional focus**: Optimized for content creators and educators
 
 ### Fixed
+
 - Bug fixes and stability improvements
 - Performance optimizations for smooth auto-scrolling
 - UI consistency across different themes
@@ -98,16 +175,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0] - 2024-XX-XX - Enhanced Presentation Features
 
 ### Added
+
 - Real-time settings updates - changes now reflect immediately in teleprompter mode
 - Live content synchronization - text modifications update without re-entering mode
 - Improved starting position - content now centers for better teleprompter experience
 
 ### Changed
+
 - Enhanced user experience with immediate feedback
 - Better positioning algorithm for content display
 - Improved presentation flow and usability
 
 ### Fixed
+
 - Resolved issues with settings not applying immediately
 - Fixed content positioning inconsistencies
 - Improved overall stability
@@ -115,6 +195,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2024-XX-XX
 
 ### Added
+
 - Initial release of CueMode extension
 - Basic "Cue Mode" functionality for enhanced readability
 - Multiple color themes (Classic, Inverted, Midnight Blue, Sunset, Forest, Ocean, Rose)
@@ -124,6 +205,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - WebView-based presentation interface
 
 ### Features
+
 - Font size adjustment (default: 24pt)
 - Line height control (default: 1.5em)
 - Content width limitation (default: 800px)
@@ -138,21 +220,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Key Features |
 |---------|-------------|--------------|
+| 2.1.0   | 2025-07-13  | **Focus Mode & Expanded i18n** - F-key toggle, 4 new languages (DE/FR/JA/KO), enhanced testing |
 | 2.0.0   | 2025-07-12  | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests |
 | 1.1.3   | 2025-07-12  | Bug fixes, performance improvements |
-| 1.1.0   | 2024-XX-XX  | Real-time updates, live sync, improved positioning |
-| 1.0.0   | 2024-XX-XX  | Initial release, basic functionality |
+| 1.1.0   | 2024        | Real-time updates, live sync, improved positioning |
+| 1.0.0   | 2024        | Initial release, basic functionality |
 
 ---
 
 ## Upgrade Guide
 
 ### From 1.1.0 to 1.1.3
+
 - No breaking changes
 - Automatic update through VS Code
 - All existing settings preserved
 
 ### From 1.0.0 to 1.1.0
+
 - No breaking changes
 - New real-time update features automatically available
 - Settings migration handled automatically

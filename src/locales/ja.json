@@ -1,0 +1,86 @@
+{
+  "commands": {
+    "title": "テレプロンプターモード",
+    "description": "プレゼンテーションを向上させるためのテレプロンプターモードを有効化",
+    "changeTheme": "テレプロンプターテーマを変更",
+    "removeLeadingSpaces": "先頭の空白を削除",
+    "toggleFocusMode": "フォーカスモードを切り替え"
+  },
+  "notifications": {
+    "activated": "テレプロンプターモードが有効になりました",
+    "deactivated": "テレプロンプターモードが無効になりました", 
+    "configUpdated": "テレプロンプターモードの設定が更新されました",
+    "themeChanged": "テーマが{{theme}}に変更されました",
+    "spacesRemoved": "{{count}}行から先頭の空白を削除しました",
+    "spacesRemoved_plural": "{{count}}行から先頭の空白を削除しました",
+    "error": "テレプロンプターモードエラー: {{message}}",
+    "focusModeEnabled": "フォーカスモードが有効になりました",
+    "focusModeDisabled": "フォーカスモードが無効になりました"
+  },
+  "errors": {
+    "noActiveEditor": "アクティブなエディターが見つかりません",
+    "noContent": "表示するコンテンツがありません",
+    "webviewFailed": "ウェブビューの作成に失敗しました",
+    "configInvalid": "無効な設定: {{details}}",
+    "noSelection": "テキストが選択されていません。先頭の空白を削除するにはテキストを選択してください。",
+    "initializationFailed": "拡張機能の初期化に失敗しました: {{error}}"
+  },
+  "settings": {
+    "colorTheme": "カラーテーマ", 
+    "maxWidth": "最大幅",
+    "fontSize": "フォントサイズ",
+    "lineHeight": "行の高さ",
+    "padding": "パディング",
+    "scrollSpeed": "スクロール速度",
+    "startingPosition": "開始位置",
+    "focusMode": "フォーカスモード",
+    "focusOpacity": "フォーカスブラー強度",
+    "focusLineCount": "フォーカス行数"
+  },
+  "themes": {
+    "classic": "クラシック",
+    "inverted": "反転", 
+    "midnightBlue": "ミッドナイトブルー",
+    "sunset": "サンセット",
+    "forest": "フォレスト",
+    "ocean": "オーシャン",
+    "rose": "ローズ"
+  },
+  "ui": {
+    "title": "テレプロンプターモード - {{filename}}",
+    "close": "閉じる",
+    "help": "ヘルプ", 
+    "shortcuts": "キーボードショートカット",
+    "loading": "読み込み中...",
+    "ready": "準備完了",
+    "focusMode": "フォーカスモード",
+    "exitFocus": "フォーカス終了"
+  },
+  "help": {
+    "title": "テレプロンプターモードのショートカット",
+    "shortcuts": {
+      "space": "自動スクロールの開始/停止",
+      "plus": "スクロール速度を上げる", 
+      "minus": "スクロール速度を下げる",
+      "r": "スクロール方向を切り替え",
+      "escape": "テレプロンプターモードを終了",
+      "arrows": "手動ナビゲーション",
+      "pageUpDown": "高速スクロール",
+      "homeEnd": "開始/終了にジャンプ",
+      "t": "テーマを切り替え",
+      "f": "フォーカスモードを切り替え",
+      "h": "ヘルプの表示/非表示"
+    },
+    "vsCodeShortcuts": {
+      "changeTheme": "テーマを変更",
+      "removeSpaces": "先頭の空白を削除",
+      "toggleFocus": "フォーカスモードを切り替え"
+    }
+  },
+  "accessibility": {
+    "scrollIndicator": "自動スクロール: {{status}}",
+    "speedIndicator": "スクロール速度: {{speed}}",
+    "themeIndicator": "現在のテーマ: {{theme}}",
+    "focusIndicator": "フォーカスモード: {{status}}"
+  }
+}

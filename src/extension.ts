@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { WebViewManager } from './ui/webview';
 import { ConfigManager } from './utils/config';
-import { I18n, Messages } from './i18n';
+import { t, initializeI18n } from './i18n';
 import { CueModeError } from './types';
 
 /**
@@ -18,19 +18,27 @@ export class CueModeExtension {
   /**
    * Activate the extension
    */
-  public activate(): void {
+  public async activate(): Promise<void> {
     console.log('CueMode extension is now active!');
 
-    // Register commands
-    this.registerCommands();
+    try {
+      // Initialize i18n system first
+      await initializeI18n();
+      
+      // Register commands
+      this.registerCommands();
 
-    // Setup configuration listener
-    this.setupConfigurationListener();
+      // Setup configuration listener
+      this.setupConfigurationListener();
 
-    // Register for cleanup
-    this.context.subscriptions.push(
-      { dispose: () => this.deactivate() }
-    );
+      // Register for cleanup
+      this.context.subscriptions.push(
+        { dispose: () => this.deactivate() }
+      );
+    } catch (error) {
+      console.error('Failed to activate CueMode extension:', error);
+      vscode.window.showErrorMessage(t('errors.initializationFailed', { error: String(error) }));
+    }
   }
 
   /**
@@ -74,7 +82,12 @@ export class CueModeExtension {
       this.cycleTheme();
     });
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand);
+    // Toggle focus mode command
+    const toggleFocusModeCommand = vscode.commands.registerCommand('cuemode.toggleFocusMode', () => {
+      this.toggleFocusMode();
+    });
+
+    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand);
   }
 
   /**
@@ -87,7 +100,7 @@ export class CueModeExtension {
         
         // Show short auto-dismiss notification
         vscode.window.setStatusBarMessage(
-          I18n.t('notification.configUpdated'), 
+          t('notifications.configUpdated'), 
           3000 // Auto-dismiss after 3 seconds
         );
       }
@@ -104,7 +117,7 @@ export class CueModeExtension {
       // Get active editor
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
-        throw new CueModeError(I18n.t('error.noActiveEditor'));
+        throw new CueModeError(t('errors.noActiveEditor'));
       }
 
       // Get content
@@ -119,7 +132,7 @@ export class CueModeExtension {
       }
 
       if (!content.trim()) {
-        throw new CueModeError(I18n.t('error.noContent'));
+        throw new CueModeError(t('errors.noContent'));
       }
 
       // Get filename
@@ -133,7 +146,7 @@ export class CueModeExtension {
 
       // Show short auto-dismiss notification
       vscode.window.setStatusBarMessage(
-        I18n.t('notification.activated'), 
+        t('notifications.activated'), 
         2000 // Auto-dismiss after 2 seconds
       );
 
@@ -162,15 +175,14 @@ export class CueModeExtension {
     try {
       const themes = ['classic', 'inverted', 'midnightBlue', 'sunset', 'forest', 'ocean', 'rose'];
       const themeLabels = themes.map(theme => {
-        const key = `theme.${theme}` as keyof Messages;
         return {
-          label: I18n.t(key),
+          label: t(`themes.${theme}`),
           value: theme
         };
       });
 
       const selected = await vscode.window.showQuickPick(themeLabels, {
-        placeHolder: I18n.t('command.changeTheme')
+        placeHolder: t('commands.changeTheme')
       });
 
       if (selected) {
@@ -178,7 +190,7 @@ export class CueModeExtension {
         await config.update('colorTheme', selected.value, vscode.ConfigurationTarget.Global);
         
         vscode.window.setStatusBarMessage(
-          I18n.t('notification.themeChanged', selected.label),
+          t('notifications.themeChanged', { theme: selected.label }),
           3000 // Auto-dismiss after 3 seconds
         );
       }
@@ -204,12 +216,11 @@ export class CueModeExtension {
       await config.update('colorTheme', nextTheme, vscode.ConfigurationTarget.Global);
 
       // Get localized theme name
-      const themeKey = `theme.${nextTheme}` as keyof Messages;
-      const themeName = I18n.t(themeKey);
+      const themeName = t(`themes.${nextTheme}`);
 
       // Show VS Code notification
       vscode.window.setStatusBarMessage(
-        I18n.t('notification.themeChanged', themeName),
+        t('notifications.themeChanged', { theme: themeName }),
         3000 // Auto-dismiss after 3 seconds
       );
 
@@ -230,7 +241,7 @@ export class CueModeExtension {
     try {
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
-        throw new CueModeError(I18n.t('error.noActiveEditor'));
+        throw new CueModeError(t('errors.noActiveEditor'));
       }
 
       const selection = editor.selection;
@@ -260,15 +271,44 @@ export class CueModeExtension {
         });
 
         vscode.window.setStatusBarMessage(
-          I18n.t('notification.spacesRemoved', processedLines.toString()),
+          t('notifications.spacesRemoved', { count: processedLines }),
           3000 // Auto-dismiss after 3 seconds
         );
       } else {
         vscode.window.setStatusBarMessage(
-          I18n.t('notification.spacesRemoved', '0'),
+          t('notifications.spacesRemoved', { count: 0 }),
           2000 // Auto-dismiss after 2 seconds
         );
       }
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Toggle focus mode
+   */
+  private async toggleFocusMode(): Promise<void> {
+    try {
+      const currentConfig = ConfigManager.getConfig();
+      const newFocusMode = !currentConfig.focusMode;
+      
+      // Update configuration
+      await ConfigManager.updateConfig('focusMode', newFocusMode);
+      
+      // Show notification
+      const message = newFocusMode 
+        ? t('notifications.focusModeEnabled')
+        : t('notifications.focusModeDisabled');
+      
+      vscode.window.setStatusBarMessage(message, 2000);
+      
+      // Update webview if active
+      if (this.webViewManager.isActive()) {
+        const updatedConfig = ConfigManager.getConfig();
+        await this.webViewManager.updateConfig(updatedConfig);
+      }
+      
     } catch (error) {
       this.handleError(error);
     }
@@ -284,9 +324,9 @@ export class CueModeExtension {
     if (error instanceof CueModeError) {
       message = error.message;
     } else if (error instanceof Error) {
-      message = I18n.t('notification.error', error.message);
+      message = t('notifications.error', { message: error.message });
     } else {
-      message = I18n.t('notification.error', String(error));
+      message = t('notifications.error', { message: String(error) });
     }
 
     vscode.window.showErrorMessage(message);
@@ -296,9 +336,9 @@ export class CueModeExtension {
 /**
  * Extension activation function
  */
-export function activate(context: vscode.ExtensionContext): void {
+export async function activate(context: vscode.ExtensionContext): Promise<void> {
   const extension = new CueModeExtension(context);
-  extension.activate();
+  await extension.activate();
 }
 
 /**

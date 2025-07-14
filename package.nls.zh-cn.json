@@ -3,6 +3,7 @@
   "cuemode.cueMode": "提词器模式",
   "cuemode.changeTheme": "切换提词器主题",
   "cuemode.removeLeadingSpaces": "移除行首空格",
+  "cuemode.toggleFocusMode": "切换聚焦模式",
   "cuemode.description": "将VS Code转换为专业提词器，适用于编程视频、教程和演示。支持自动滚屏、可定制主题和无干扰阅读。",
   "cuemode.configuration.title": "提词器模式",
   "cuemode.configuration.colorTheme": "提词器模式的颜色主题",
@@ -11,5 +12,8 @@
   "cuemode.configuration.lineHeight": "行高（em）",
   "cuemode.configuration.padding": "内边距（像素）",
   "cuemode.configuration.scrollSpeed": "提词器自动滚屏速度",
-  "cuemode.configuration.startingPosition": "内容起始位置（屏幕高度百分比）"
+  "cuemode.configuration.startingPosition": "内容起始位置（屏幕高度百分比）",
+  "cuemode.configuration.focusMode": "启用聚焦模式以突出显示当前阅读区域",
+  "cuemode.configuration.focusOpacity": "聚焦模式下非聚焦内容的模糊强度 (0.1=轻微模糊, 0.8=重度模糊)",
+  "cuemode.configuration.focusLineCount": "聚焦模式下要突出显示的行数"
 }

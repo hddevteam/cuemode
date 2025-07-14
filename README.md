@@ -1,4 +1,4 @@
-# CueMode 2.0 - Professional Teleprompter for Developers
+# CueMode - Professional Developer Teleprompter
 
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/luckyXmobile.cuemode?style=flat-square&color=blue)](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
 [![Downloads](https://img.shields.io/visual-studio-marketplace/d/luckyXmobile.cuemode?style=flat-square&color=green)](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
@@ -6,235 +6,260 @@
 [![GitHub](https://img.shields.io/github/license/hddevteam/cuemode?style=flat-square)](https://github.com/hddevteam/cuemode/blob/main/LICENSE)
 [![GitHub Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue?style=flat-square)](https://hddevteam.github.io/cuemode/)
 
-> **[中文版 README](./README.zh-CN.md) | [GitHub Pages](https://hddevteam.github.io/cuemode/)**
+> **[中文文档](./README.zh-CN.md) | [GitHub Pages](https://hddevteam.github.io/cuemode/)**
 
-**Transform VS Code into a professional teleprompter.** Perfect for coding livestreams, technical presentations, educational videos, and professional content creation. Features instant theme switching, auto-scroll controls, and distraction-free reading experience.
+**Transform VS Code into a professional teleprompter.** Perfect for coding livestreams, technical presentations, educational videos, and professional content creation. Features instant theme switching, enhanced focus mode, auto-scroll control, and distraction-free reading experience.
 
-## 🎯 What is CueMode 2.0?
+![Teleprompter Demo](./images/demo.gif)
 
-CueMode 2.0 is the next-generation teleprompter extension that turns your VS Code editor into a professional teleprompting solution. Now with **instant theme cycling**, **enhanced keyboard shortcuts**, and **professional-grade features** designed specifically for developers, educators, and content creators.
+## 🎯 What is CueMode?
 
-**✨ New in 2.0:**
-- **🎨 T Key Theme Cycling** - Instantly switch themes during presentations
+CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.
+
+**✨ Version 2.1 Features:**
+
+- **🎨 T-Key Theme Cycling** - Instant theme switching across all 7 professional themes during presentations
+- **🔍 Enhanced F-Key Focus Mode** - Smart gradient blur algorithm with configurable focus lines (1-10) and opacity (0.1-0.8) for superior concentration
 - **⚡ Enhanced Commands** - Quick theme changes and text preprocessing
 - **📱 Smart Notifications** - Non-intrusive status bar feedback
-- **🌐 Full Internationalization** - Complete English and Chinese support
+- **🌐 Expanded Internationalization** - Support for 6 languages: English, Chinese, German, French, Japanese, Korean
 - **🛠️ TypeScript Architecture** - Robust, maintainable codebase
 - **🧪 Comprehensive Testing** - 71 test cases ensuring reliability
 
-**Key Teleprompter Features:**
+**Core Teleprompter Features:**
+
 - **Auto-scrolling text** - Smooth, controllable scroll speed for natural reading
-- **Large, readable fonts** - Optimized for distance reading and camera work
-- **High-contrast display** - Crystal clear text visibility in any lighting
-- **Invisible controls** - Minimal UI interference during recording/presenting
+- **Large font display** - Optimized for distance reading and camera work
+- **High contrast display** - Clear visibility in any lighting condition
+- **Invisible controls** - Minimal UI interference during recording/presentation
 - **Keyboard shortcuts** - Professional teleprompter controls (start/stop, speed adjustment)
 
-Simply select your script text or open your presentation notes, activate "Teleprompter Mode" from the command palette, and start presenting with confidence. 
+Simply select your script text or open your presentation notes, activate "Teleprompter Mode" from the command palette, and start presenting with confidence.
 
-## ✨ Teleprompter Features
+## ✨ Professional Teleprompter Features
 
-CueMode provides professional teleprompting capabilities designed for modern content creators:
+CueMode provides professional teleprompter functionality for modern content creators:
 
 ### 📺 **Professional Teleprompter Controls**
+
 - **Auto-scroll functionality** - Smooth, customizable scrolling speed
-- **Space bar control** - Start/stop scrolling with a single key press
+- **Spacebar control** - One-key start/stop scrolling
 - **Speed adjustment** - Real-time speed control with +/- keys
-- **Direction toggle** - Reverse scrolling with R key
-- **Manual navigation** - Arrow keys for precise positioning
+- **Direction switching** - Reverse scrolling with R key
+- **Manual navigation** - Precise positioning with arrow keys
+- **🆕 T-Key theme cycling** - Instant theme changes during presentations
 
 ### 🎨 **Optimized Display**
-- **Large, readable fonts** - Perfect for reading at distance
+
+- **Large fonts** - Perfect for distance reading
 - **Centered layout** - Natural eye movement for camera work
 - **High contrast themes** - Clear visibility in any lighting condition
 - **Minimal interface** - Hidden controls that don't interfere with recording
 
 ### 🎭 **Professional Themes**
-- **Classic** - Traditional teleprompter white-on-black
-- **Inverted** - Black text on white for bright environments
-- **Midnight Blue** - Professional studio look
+
+- **Classic** - Traditional teleprompter black background with white text
+- **Inverted** - White background with black text for bright environments
+- **Midnight Blue** - Professional studio appearance
 - **Sunset** - Warm, comfortable reading experience
-- **Forest** - Easy on the eyes for long sessions
+- **Forest** - Eye-friendly for extended use
 - **Ocean** - Calming blue for relaxed presentations
 - **Rose** - Elegant theme for sophisticated content
 
 ### ⚙️ **Teleprompter Settings**
+
 - **Scroll speed** - Fine-tune reading pace (0.1-5.0 range)
-- **Font size** - Optimize for your reading distance (12-72pt)
-- **Line height** - Control text spacing for comfort (1.0-3.0em)
+- **Font size** - Optimize for reading distance (12-72pt)
+- **Line height** - Control text spacing comfort (1.0-3.0em)
 - **Content width** - Set optimal reading width (400-1200px)
 - **Starting position** - Position text for comfortable reading
-- **Padding** - Adjust margins for your setup
+- **Padding** - Adjust margins according to setup
+- **Focus mode** - Enhanced concentration with gradient blur (NEW!)
 
-### 🚀 **Perfect For Teleprompter Use Cases**
-- **YouTube videos** - Read scripts naturally while maintaining eye contact
-- **Live streaming** - Smooth delivery for coding tutorials and tech talks
-- **Video tutorials** - Professional presentation with prepared content
-- **Online courses** - Educational content delivery with confidence
+### 🚀 **Perfect Teleprompter Use Cases**
+
+- **YouTube Videos** - Natural script reading while maintaining eye contact
+- **Live Streaming** - Smooth delivery for coding tutorials and tech talks
+- **Video Tutorials** - Professional presentation of prepared content
+- **Online Courses** - Confident delivery of educational content
 - **Webinars** - Professional speaking with script support
-- **Product demos** - Consistent messaging with teleprompter assistance
-- **Screen recordings** - Professional video content
-- **Code reviews** - Focus on important details
+- **Product Demos** - Consistent messaging with teleprompter assistance
+- **Screen Recording** - Professional video content
+- **Code Reviews** - Focus on important details
 - **Presentations** - Showcase your work
-- **Focused development** - Minimize distractions
+- **Focused Development** - Reduce distractions
 
 ## 🚀 Quick Start - Teleprompter Setup
 
 ### Installation
+
 1. Open VS Code
 2. Go to Extensions (Ctrl+Shift+X / Cmd+Shift+X)
-3. Search for "CueMode Teleprompter"
+3. Search for "CueMode" or "teleprompter"
 4. Click Install
 
+**Or install directly from VS Code Marketplace:**
+[CueMode - Professional Teleprompter](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
+
 ### Basic Teleprompter Usage
-1. **Prepare your script** - Create or open a text file with your presentation content
-2. **Select your script text** (optional - if no selection, entire file is used)
+
+1. **Prepare script** - Create or open a text file with your presentation content
+2. **Select script text** (optional - if none selected, entire file will be used)
 3. **Activate teleprompter** - Use Ctrl+Shift+P (Cmd+Shift+P on Mac) and search for "Teleprompter Mode"
-4. **Start reading** - Press Space to begin auto-scrolling
-5. **Control while presenting**:
-   - **Space**: Start/pause auto-scroll
-   - **+/-**: Adjust reading speed in real-time
-   - **R**: Reverse scroll direction
+4. **Start reading** - Press spacebar to begin auto-scrolling
+5. **Control during presentation**:
+   - **Spacebar**: Start/pause auto-scrolling
+   - **T Key**: **Enhanced!** Instant theme switching across all 7 themes
+   - **F Key**: **New!** Toggle enhanced focus mode with gradient blur
+   - **+/-**: Real-time reading speed adjustment
+   - **R Key**: Reverse scrolling direction
    - **Arrow keys**: Manual navigation
+
 ### Professional Teleprompter Shortcuts
 
-**🎯 Primary Controls:**
-- **Space** - Start/pause auto-scrolling (primary control)
-- **T** - **NEW!** Instant theme cycling during presentations
-- **+/-** - Increase/decrease scroll speed in real-time
-- **R** - Toggle scroll direction (up/down)
+**🎯 Main Controls:**
+
+- **Spacebar** - Start/pause auto-scrolling (primary control)
+- **T Key** - **Enhanced!** Instant theme cycling through all 7 professional themes
+- **F Key** - **New!** Toggle enhanced focus mode with smart gradient blur
+- **+/-** - Increase/decrease scrolling speed in real-time
+- **R Key** - Toggle scrolling direction (up/down)
 
 **📱 Navigation:**
-- **Arrow Keys** - Manual navigation
-- **Page Up/Down** - Fast manual scrolling
-- **Home/End** - Jump to beginning/end
+
+- **Arrow keys** - Manual navigation
+- **Page Up/Down** - Quick manual scrolling
+- **Home/End** - Jump to start/end
 
 **⚙️ Advanced Controls:**
-- **Ctrl+Shift+T** (Cmd+Shift+T) - **NEW!** Open theme selection menu
-- **Ctrl+Shift+R** (Cmd+Shift+R) - **NEW!** Remove leading spaces from text
-- **H** - Show/hide help panel
-- **Esc** - Exit teleprompter mode
 
-![Teleprompter Demo](./images/demo.gif)
+- **Ctrl+Shift+T** (Cmd+Shift+T on Mac) - **New!** Open theme selection menu
+- **Ctrl+Shift+R** (Cmd+Shift+R on Mac) - **New!** Remove leading spaces from text
+- **H Key** - Show/hide help panel
+- **Esc Key** - Exit teleprompter mode
 
 ## ⚙️ Teleprompter Configuration
 
-CueMode teleprompter is highly customizable for professional use. Access settings through:
-**File → Preferences → Settings → Extensions → CueMode**
+### Accessing Settings
 
-### Teleprompter Settings
+1. Open VS Code settings (Ctrl+, / Cmd+,)
+2. Search for "cuemode"
+3. Adjust teleprompter settings as needed
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `cuemode.colorTheme` | `"classic"` | Professional teleprompter themes |
-| `cuemode.maxWidth` | `800` | Optimal reading width in pixels |
-| `cuemode.fontSize` | `24` | Reading distance optimized font size |
-| `cuemode.lineHeight` | `1.5` | Comfortable line spacing |
-| `cuemode.padding` | `10` | Screen edge margins |
-| `cuemode.scrollSpeed` | `0.1` | Auto-scroll reading pace |
-| `cuemode.startingPosition` | `50` | Text starting position (0-100%) |
+### Key Settings
 
-### Professional Teleprompter Themes
-- `"classic"` - White text on black background
-- `"inverted"` - Dark text on light background
-- `"classic"` - Traditional teleprompter white-on-black
-- `"inverted"` - Black-on-white for bright studios
-- `"midnightBlue"` - Professional studio blue
-- `"sunset"` - Warm, comfortable reading
-- `"forest"` - Easy on eyes for long sessions
-- `"ocean"` - Calming blue for relaxed delivery
-- `"rose"` - Elegant theme for sophisticated content
+- **Color Theme** - Choose from 7 professional themes
+- **Font Size** - Adjust for reading distance (recommended 24-48pt)
+- **Scroll Speed** - Set comfortable reading pace (recommended 0.1-0.3)
+- **Max Width** - Control text line length (recommended 800-1200px)
+- **Starting Position** - Position content on screen (recommended 30-50%)
+- **Focus Mode** - Enable enhanced concentration mode (NEW!)
+- **Focus Opacity** - Adjust blur intensity (0.1-0.8, default 0.3)
+- **Focus Line Count** - Set focus area size (1-10 lines, default 3)
 
-### Professional Teleprompter Setup Example
-```json
-{
-  "cuemode.colorTheme": "classic",
-  "cuemode.maxWidth": 1000,
-  "cuemode.fontSize": 32,
-  "cuemode.lineHeight": 1.8,
-  "cuemode.padding": 20,
-  "cuemode.scrollSpeed": 0.15,
-  "cuemode.startingPosition": 40
-}
-```
+## 🎯 Professional Usage Tips
 
-## 🎬 Teleprompter Best Practices
+### 📺 **Video Recording Setup**
 
-### For Video Recording
-1. **Font size**: Use 28-36pt for comfortable reading at arm's length
-2. **Scroll speed**: Start with 0.1-0.2, adjust based on your speaking pace
-3. **Theme**: Classic (white-on-black) works best for most lighting conditions
-4. **Position**: Place VS Code window directly below your camera
+1. **Choose high-contrast themes** (Classic or Inverted) for best readability
+2. **Increase font size** (32-48pt) for distance reading
+3. **Adjust scroll speed** to match your natural speaking pace
+4. **Use T key** for seamless theme switching during recording
+5. **Enable focus mode** with F key for enhanced concentration on current content
 
-### For Live Streaming
-1. **Dual monitor setup**: Use teleprompter on secondary screen
-2. **Quick controls**: Remember Space bar for pause/start
-3. **Backup plan**: Keep manual scroll (arrow keys) as backup
-4. **Practice**: Test your setup before going live
+### 🎤 **Live Streaming Tips**
 
-## 🐛 Known Issues
+1. **Practice shortcuts**, especially spacebar, T key, and F key for focus mode
+2. **Prepare content** by removing leading spaces for clean display
+3. **Use H key** for quick help access (if you forget shortcuts)
+4. **Test themes and focus mode** under your lighting setup for best visibility
+5. **Customize focus settings** to match your reading preferences
 
-Currently, there are no known issues. If you encounter any problems:
-1. Check our [GitHub Issues](https://github.com/hddevteam/cuemode/issues)
-2. Create a new issue if needed
-3. Include your VS Code version and operating system
+### 📚 **Educational Content**
 
-## 📝 Release Notes
+1. **Break complex code** into manageable chunks
+2. **Use slower scroll speeds** for detailed explanations
+3. **Leverage manual navigation** (arrow keys) to highlight specific sections
+4. **Prepare backup themes** for different content types
+5. **Use focus mode** to highlight key concepts during explanations
 
-### 1.1.3 (Current) - Professional Teleprompter Update
-- ✨ **Auto-scroll teleprompter**: Professional scroll controls with Space bar
-- ✨ **Real-time speed control**: Adjust reading pace with +/- keys
-- ✨ **Direction toggle**: Reverse scrolling with R key
-- ✨ **Enhanced keyboard shortcuts**: Complete teleprompter control set
-- ✨ **Minimalist UI**: Hidden controls for distraction-free reading
-- 🌐 **Multi-language support**: English and Chinese interface
+## 🆕 New Features Explained
 
-### 1.1.0 - Enhanced Presentation Features
-- ✨ **Real-time updates**: Settings changes reflect immediately
-- ✨ **Live content sync**: Text changes update without re-entering mode
-- ✨ **Improved positioning**: Content starts centered for better teleprompter experience
+### 🔍 Enhanced F-Key Focus Mode
 
-### 1.0.0 - Initial Release
-- 🎉 Initial release of CueMode teleprompter
-- Basic presentation mode functionality
-- Multiple professional themes
-- Customizable settings
+In teleprompter mode, simply press F key to toggle enhanced focus mode on/off:
+
+- **Smart Gradient Blur**: Advanced algorithm provides smooth reading experience with buffer zones
+- **Configurable Focus Area**: Adjust focus lines (1-10 lines, default 3)
+- **Adjustable Opacity**: Set blur opacity (0.1-0.8, default 0.3)
+- **Visual Focus Indicator**: Beautiful styling shows current active reading area
+- **Real-time Updates**: Settings take effect immediately without restart
+
+### 🎨 T-Key Theme Cycling
+
+In teleprompter mode, simply press T key to cycle through all themes:
+
+- Classic → Inverted → Midnight Blue → Sunset → Forest → Ocean → Rose → Classic...
+- Status bar shows current theme name
+- Settings auto-save
+
+### ⚡ Enhanced Commands
+
+- **Ctrl+Shift+T**: Open theme selection menu (with preview)
+- **Ctrl+Shift+R**: Smart removal of leading spaces and indentation
+
+### 📱 Smart Notifications
+
+- All notifications now appear in status bar
+- Auto-disappear after 2-3 seconds
+- Won't interrupt your workflow
+
+### 🌐 Expanded Internationalization
+
+- Support for 6 languages: English, Chinese, German, French, Japanese, Korean
+- Professional teleprompter terminology localization
+- Automatic language detection from VS Code environment
 
 ## 🤝 Contributing
 
-We welcome contributions to make CueMode the best teleprompter for developers! 
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-### Documentation
-- 📖 [Contributing Guide (English)](CONTRIBUTING.md)
-- 🇨🇳 [贡献指南 (中文)](CONTRIBUTING.zh-CN.md)
+For development setup, refer to [DEVELOPMENT.md](DEVELOPMENT.md).
 
-### Quick Links
-- 🐛 [Report a Bug](https://github.com/hddevteam/cuemode/issues/new?template=bug_report.md)
-- 💡 [Request a Teleprompter Feature](https://github.com/hddevteam/cuemode/issues/new?template=feature_request.md)
-- 📖 [Documentation](https://github.com/hddevteam/cuemode/blob/main/README.md)
-- 💬 [Discussions](https://github.com/hddevteam/cuemode/discussions)
+## 📝 License
 
-## 📄 License
+This project is licensed under the [MIT License](LICENSE).
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🤝 Contributing
 
-## 🌟 Support the Project
+We warmly welcome your contributions! Whether reporting bugs, suggesting new features, improving documentation, or submitting code, all contributions are valuable support for the project.
 
-If you find CueMode teleprompter useful, please:
-- ⭐ Star this repository
-- 📝 Leave a review on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
-- 🐛 Report issues and suggest teleprompter improvements
-- 💡 Share with content creators and educators
-- 📺 Tag us in your videos using CueMode teleprompter
+For detailed information, please check:
+
+- [Contributing Guide (English)](CONTRIBUTING.md)
+- [贡献指南 (中文)](CONTRIBUTING.zh-CN.md)
+- [Development Guide (English)](DEVELOPMENT.md)
+- [开发指南 (中文)](DEVELOPMENT.zh-CN.md)
 
 ## 🔗 Links
 
-- 🛍️ [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
-- 🐙 [GitHub Repository](https://github.com/hddevteam/cuemode)
-- � [GitHub Pages Documentation](https://hddevteam.github.io/cuemode/)
-- 🇨🇳 [中文版本 (Chinese Version)](README.zh-CN.md)
-- �📊 [Project Roadmap](ROADMAP.md)
-- 📋 [Development Board](.github/PROJECT_BOARD.md)
+- **VS Code Marketplace**: [CueMode](https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode)
+- **GitHub Repository**: [hddevteam/cuemode](https://github.com/hddevteam/cuemode)
+- **Project Documentation**: [GitHub Pages](https://hddevteam.github.io/cuemode/)
+- **中文文档**: [README.zh-CN.md](README.zh-CN.md)
+- **Development Guide**: [DEVELOPMENT.md](DEVELOPMENT.md)
+- **Roadmap**: [ROADMAP.md](ROADMAP.md)
+- **Issue Reports**: [GitHub Issues](https://github.com/hddevteam/cuemode/issues)
+
+## 🌟 Support the Project
+
+If CueMode has helped your content creation, please consider:
+
+- ⭐ Starring us on GitHub
+- 📝 Leaving a review on VS Code Marketplace
+- 🐛 Reporting issues or suggesting features
+- 🤝 Contributing code or documentation
 
 ---
 
-**Professional teleprompter for developers - Create better content with CueMode! 🎬�**
+**Make your presentations more professional, make your content shine!** 🎬✨

@@ -1,0 +1,86 @@
+{
+  "commands": {
+    "title": "Teleprompter Mode",
+    "description": "Activate teleprompter mode for better presentation",
+    "changeTheme": "Change Teleprompter Theme",
+    "removeLeadingSpaces": "Remove Leading Spaces",
+    "toggleFocusMode": "Toggle Focus Mode"
+  },
+  "notifications": {
+    "activated": "Teleprompter mode activated",
+    "deactivated": "Teleprompter mode deactivated", 
+    "configUpdated": "Teleprompter mode configuration updated",
+    "themeChanged": "Theme changed to {{theme}}",
+    "spacesRemoved": "Leading spaces removed from {{count}} line",
+    "spacesRemoved_plural": "Leading spaces removed from {{count}} lines",
+    "error": "Teleprompter mode error: {{message}}",
+    "focusModeEnabled": "Focus mode enabled",
+    "focusModeDisabled": "Focus mode disabled"
+  },
+  "errors": {
+    "noActiveEditor": "No active editor found",
+    "noContent": "No content to display",
+    "webviewFailed": "Failed to create webview",
+    "configInvalid": "Invalid configuration: {{details}}",
+    "noSelection": "No text selected. Please select text to remove leading spaces.",
+    "initializationFailed": "Failed to initialize extension: {{error}}"
+  },
+  "settings": {
+    "colorTheme": "Color Theme", 
+    "maxWidth": "Maximum Width",
+    "fontSize": "Font Size",
+    "lineHeight": "Line Height",
+    "padding": "Padding",
+    "scrollSpeed": "Scroll Speed",
+    "startingPosition": "Starting Position",
+    "focusMode": "Focus Mode",
+    "focusOpacity": "Focus Blur Strength",
+    "focusLineCount": "Focus Line Count"
+  },
+  "themes": {
+    "classic": "Classic",
+    "inverted": "Inverted", 
+    "midnightBlue": "Midnight Blue",
+    "sunset": "Sunset",
+    "forest": "Forest",
+    "ocean": "Ocean",
+    "rose": "Rose"
+  },
+  "ui": {
+    "title": "Teleprompter Mode - {{filename}}",
+    "close": "Close",
+    "help": "Help", 
+    "shortcuts": "Keyboard Shortcuts",
+    "loading": "Loading...",
+    "ready": "Ready",
+    "focusMode": "Focus Mode",
+    "exitFocus": "Exit Focus"
+  },
+  "help": {
+    "title": "Teleprompter Mode Shortcuts",
+    "shortcuts": {
+      "space": "Start/Stop auto-scroll",
+      "plus": "Increase scroll speed", 
+      "minus": "Decrease scroll speed",
+      "r": "Toggle scroll direction",
+      "escape": "Exit teleprompter mode",
+      "arrows": "Manual navigation",
+      "pageUpDown": "Fast scroll",
+      "homeEnd": "Jump to start/end",
+      "t": "Toggle theme",
+      "f": "Toggle focus mode",
+      "h": "Show/Hide help"
+    },
+    "vsCodeShortcuts": {
+      "changeTheme": "Change theme",
+      "removeSpaces": "Remove leading spaces",
+      "toggleFocus": "Toggle focus mode"
+    }
+  },
+  "accessibility": {
+    "scrollIndicator": "Auto-scroll: {{status}}",
+    "speedIndicator": "Scroll speed: {{speed}}",
+    "themeIndicator": "Current theme: {{theme}}",
+    "focusIndicator": "Focus mode: {{status}}"
+  }
+}

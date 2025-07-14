@@ -157,7 +157,10 @@ suite('WebViewManager Tests', () => {
       lineHeight: 0,
       padding: -5,
       scrollSpeed: 0,
-      startingPosition: -10
+      startingPosition: -10,
+      focusMode: false,
+      focusOpacity: 0.3,
+      focusLineCount: 3
     };
 
     // Should not throw error

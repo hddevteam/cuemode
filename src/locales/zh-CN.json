@@ -1,0 +1,85 @@
+{
+  "commands": {
+    "title": "提词器模式",
+    "description": "激活提词器模式以获得更好的演示体验",
+    "changeTheme": "切换提词器主题", 
+    "removeLeadingSpaces": "移除行首空格",
+    "toggleFocusMode": "切换聚焦模式"
+  },
+  "notifications": {
+    "activated": "提词器模式已激活",
+    "deactivated": "提词器模式已关闭",
+    "configUpdated": "提词器模式配置已更新",
+    "themeChanged": "主题已切换为 {{theme}}",
+    "spacesRemoved": "已从 {{count}} 行中移除行首空格",
+    "error": "提词器模式错误：{{message}}",
+    "focusModeEnabled": "聚焦模式已启用",
+    "focusModeDisabled": "聚焦模式已禁用"
+  },
+  "errors": {
+    "noActiveEditor": "未找到活动编辑器",
+    "noContent": "没有内容可显示", 
+    "webviewFailed": "创建网页视图失败",
+    "configInvalid": "配置无效：{{details}}",
+    "noSelection": "未选择文本。请选择文本以移除行首空格。",
+    "initializationFailed": "扩展初始化失败：{{error}}"
+  },
+  "settings": {
+    "colorTheme": "颜色主题",
+    "maxWidth": "最大宽度",
+    "fontSize": "字体大小", 
+    "lineHeight": "行高",
+    "padding": "内边距",
+    "scrollSpeed": "滚动速度",
+    "startingPosition": "起始位置",
+    "focusMode": "聚焦模式",
+    "focusOpacity": "聚焦模糊强度",
+    "focusLineCount": "聚焦行数"
+  },
+  "themes": {
+    "classic": "经典",
+    "inverted": "反转",
+    "midnightBlue": "午夜蓝",
+    "sunset": "日落",
+    "forest": "森林", 
+    "ocean": "海洋",
+    "rose": "玫瑰"
+  },
+  "ui": {
+    "title": "提词器模式 - {{filename}}",
+    "close": "关闭",
+    "help": "帮助",
+    "shortcuts": "快捷键",
+    "loading": "加载中...",
+    "ready": "就绪",
+    "focusMode": "聚焦模式",
+    "exitFocus": "退出聚焦"
+  },
+  "help": {
+    "title": "提词器模式快捷键",
+    "shortcuts": {
+      "space": "开始/暂停自动滚屏",
+      "plus": "增加滚屏速度",
+      "minus": "减少滚屏速度", 
+      "r": "切换滚屏方向",
+      "escape": "退出提词器模式",
+      "arrows": "手动导航",
+      "pageUpDown": "快速滚屏",
+      "homeEnd": "跳转到开始/结束",
+      "t": "切换主题",
+      "f": "切换聚焦模式",
+      "h": "显示/隐藏帮助"
+    },
+    "vsCodeShortcuts": {
+      "changeTheme": "切换主题",
+      "removeSpaces": "移除行首空格", 
+      "toggleFocus": "切换聚焦模式"
+    }
+  },
+  "accessibility": {
+    "scrollIndicator": "自动滚屏：{{status}}",
+    "speedIndicator": "滚屏速度：{{speed}}",
+    "themeIndicator": "当前主题：{{theme}}",
+    "focusIndicator": "聚焦模式：{{status}}"
+  }
+}
