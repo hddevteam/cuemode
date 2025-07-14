@@ -154,7 +154,9 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile && npm run optimize",
+    "vscode:prepublish": "npm run clean && npm run esbuild && npm run copy-resources",
+    "esbuild": "esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "clean": "rm -rf out && mkdir -p out",
     "compile": "tsc -p ./ && npm run copy-resources",
     "copy-resources": "mkdir -p out/locales && cp src/locales/*.json out/locales/",
     "optimize": "npm run clean-out && npm run minify",
@@ -176,6 +178,7 @@
     "@typescript-eslint/parser": "^6.21.0",
     "@vscode/test-electron": "^2.3.4",
     "@vscode/vsce": "^2.19.0",
+    "esbuild": "^0.25.6",
     "eslint": "^8.47.0",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",

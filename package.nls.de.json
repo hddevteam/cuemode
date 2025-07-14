@@ -1,0 +1,19 @@
+{
+  "cuemode.displayName": "CueMode - Professioneller Teleprompter",
+  "cuemode.cueMode": "Teleprompter-Modus",
+  "cuemode.changeTheme": "Teleprompter-Theme ändern",
+  "cuemode.removeLeadingSpaces": "Führende Leerzeichen entfernen",
+  "cuemode.toggleFocusMode": "Fokus-Modus umschalten",
+  "cuemode.description": "Verwandeln Sie VS Code in einen professionellen Teleprompter für Programmiervideos, Tutorials und Präsentationen. Auto-Scroll, anpassbare Themes und ablenkungsfreies Lesen.",
+  "cuemode.configuration.title": "Teleprompter-Modus",
+  "cuemode.configuration.colorTheme": "Farbthema für den Teleprompter-Modus",
+  "cuemode.configuration.maxWidth": "Maximale Inhaltsbreite in Pixeln",
+  "cuemode.configuration.fontSize": "Schriftgröße in Punkten",
+  "cuemode.configuration.lineHeight": "Zeilenhöhe in em",
+  "cuemode.configuration.padding": "Abstand in Pixeln",
+  "cuemode.configuration.scrollSpeed": "Auto-Scroll-Geschwindigkeit für Teleprompter",
+  "cuemode.configuration.startingPosition": "Startposition des Inhalts in Prozent der Bildschirmhöhe",
+  "cuemode.configuration.focusMode": "Fokus-Modus aktivieren, um den aktuellen Lesebereich hervorzuheben",
+  "cuemode.configuration.focusOpacity": "Unschärfestärke des unfokussierten Inhalts im Fokus-Modus (0.1=leichte Unschärfe, 0.8=starke Unschärfe)",
+  "cuemode.configuration.focusLineCount": "Anzahl der Zeilen, die im Fokus-Modus hervorgehoben werden sollen"
+}

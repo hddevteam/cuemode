@@ -1,0 +1,19 @@
+{
+  "cuemode.displayName": "CueMode - Télésouffleur Professionnel",
+  "cuemode.cueMode": "Mode Télésouffleur",
+  "cuemode.changeTheme": "Changer le thème du télésouffleur",
+  "cuemode.removeLeadingSpaces": "Supprimer les espaces en début",
+  "cuemode.toggleFocusMode": "Basculer le mode focus",
+  "cuemode.description": "Transformez VS Code en télésouffleur professionnel pour les vidéos de programmation, tutoriels et présentations. Défilement automatique, thèmes personnalisables et lecture sans distraction.",
+  "cuemode.configuration.title": "Mode Télésouffleur",
+  "cuemode.configuration.colorTheme": "Thème de couleur pour le mode télésouffleur",
+  "cuemode.configuration.maxWidth": "Largeur maximale du contenu en pixels",
+  "cuemode.configuration.fontSize": "Taille de police en points",
+  "cuemode.configuration.lineHeight": "Hauteur de ligne en em",
+  "cuemode.configuration.padding": "Espacement en pixels",
+  "cuemode.configuration.scrollSpeed": "Vitesse de défilement automatique pour le télésouffleur",
+  "cuemode.configuration.startingPosition": "Position de départ du contenu en pourcentage de la hauteur d'écran",
+  "cuemode.configuration.focusMode": "Activer le mode focus pour mettre en évidence la zone de lecture actuelle",
+  "cuemode.configuration.focusOpacity": "Intensité du flou du contenu non focalisé en mode focus (0.1=flou léger, 0.8=flou intense)",
+  "cuemode.configuration.focusLineCount": "Nombre de lignes à mettre en évidence en mode focus"
+}

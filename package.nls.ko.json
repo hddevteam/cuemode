@@ -1,0 +1,19 @@
+{
+  "cuemode.displayName": "CueMode - 프로페셔널 텔레프롬프터",
+  "cuemode.cueMode": "텔레프롬프터 모드",
+  "cuemode.changeTheme": "텔레프롬프터 테마 변경",
+  "cuemode.removeLeadingSpaces": "앞쪽 공백 제거",
+  "cuemode.toggleFocusMode": "포커스 모드 전환",
+  "cuemode.description": "VS Code를 프로페셔널 텔레프롬프터로 변환합니다. 코딩 비디오, 튜토리얼, 프레젠테이션에 완벽합니다. 자동 스크롤, 사용자 정의 테마, 집중력 있는 읽기 경험.",
+  "cuemode.configuration.title": "텔레프롬프터 모드",
+  "cuemode.configuration.colorTheme": "텔레프롬프터 모드의 색상 테마",
+  "cuemode.configuration.maxWidth": "콘텐츠의 최대 너비(픽셀)",
+  "cuemode.configuration.fontSize": "글꼴 크기(포인트)",
+  "cuemode.configuration.lineHeight": "줄 높이(em)",
+  "cuemode.configuration.padding": "패딩(픽셀)",
+  "cuemode.configuration.scrollSpeed": "텔레프롬프터의 자동 스크롤 속도",
+  "cuemode.configuration.startingPosition": "콘텐츠의 시작 위치(화면 높이의 백분율)",
+  "cuemode.configuration.focusMode": "현재 읽기 영역을 강조하는 포커스 모드 활성화",
+  "cuemode.configuration.focusOpacity": "포커스 모드에서 비포커스 콘텐츠의 흐림 강도(0.1=가벼운 흐림, 0.8=강한 흐림)",
+  "cuemode.configuration.focusLineCount": "포커스 모드에서 강조할 줄 수"
+}
