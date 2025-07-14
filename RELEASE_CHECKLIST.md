@@ -13,6 +13,8 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] Manual testing on Windows, macOS, and Linux
 
 ### 📦 Version Management
+- [ ] Latest code pulled from remote repository (`git pull origin main`)
+- [ ] All merged PRs and contributions are included
 - [ ] Version number updated in `package.json`
 - [ ] Version number updated in `docs/index.html` JSON-LD schema
 - [ ] Version consistency across all documentation files
