@@ -5,6 +5,33 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2025-07-14 - Build Process & Package Optimization
+
+### 🔧 Build Process Improvements
+
+- **Enhanced Build Pipeline**: Improved vscode:prepublish script with proper esbuild integration
+- **Package Optimization**: Added esbuild bundling for better performance and smaller bundle size
+- **Localization Package Files**: Added VS Code package localization files for marketplace display
+  - Added `package.nls.de.json` for German marketplace listing
+  - Added `package.nls.fr.json` for French marketplace listing  
+  - Added `package.nls.ja.json` for Japanese marketplace listing
+  - Added `package.nls.ko.json` for Korean marketplace listing
+- **Improved .vscodeignore**: Better exclusion of development files for smaller package size
+- **Release Process Enhancement**: Updated release checklist with git pull requirement
+
+### 🐛 Bug Fixes
+
+- **Command Registration**: Fixed 'cuemode.cueMode' command not found issue
+- **Build Script**: Resolved esbuild integration in prepublish workflow
+- **Package Size**: Optimized final package size to 64KB (target: <1MB)
+
+### 📦 Package Information
+
+- **Package Size**: 64KB (optimized)
+- **Bundle Size**: 158.4KB (esbuild optimized)
+- **Files Included**: 20 files with comprehensive localization support
+- **Languages Supported**: 6 languages in both runtime and marketplace listings
+
 ## [2.1.0] - 2025-07-14 - Focus Mode & Internationalization System Reconstruction
 
 ### 🌟 New Features
