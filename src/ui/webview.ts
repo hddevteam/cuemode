@@ -351,12 +351,63 @@ export class WebViewManager {
             width: 100%;
             height: 100%;
           }
+          
+          /* Mirror flip status indicator */
+          .mirror-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          }
+          
+          .mirror-status.active {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          
+          .mirror-status.enabled {
+            background: rgba(0, 100, 200, 0.9);
+            border-color: rgba(100, 150, 255, 0.5);
+          }
+          
+          .mirror-status.disabled {
+            background: rgba(100, 100, 100, 0.7);
+            border-color: rgba(150, 150, 150, 0.3);
+          }
+          
+          /* Hide status indicator after delay */
+          @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+          }
+          
+          .mirror-status.hiding {
+            animation: fadeOut 0.3s ease forwards;
+          }
         </style>
       </head>
       <body>
         <div class="cue-controls">
           <button class="cue-button" onclick="closeMode()">${t('ui.close')}</button>
           <button class="cue-button" onclick="toggleHelp()">${t('ui.help')}</button>
+        </div>
+        
+        <!-- Mirror flip status indicator -->
+        <div class="mirror-status" id="mirror-status">
+          <span id="mirror-status-text">${t('ui.mirrorOff')}</span>
         </div>
         
         <div class="cue-help" id="help-panel" style="display: none;">
@@ -486,11 +537,42 @@ export class WebViewManager {
           
           function applyMirrorFlip() {
             const content = document.getElementById('content');
+            const statusIndicator = document.getElementById('mirror-status');
+            const statusText = document.getElementById('mirror-status-text');
+            
             if (mirrorFlipEnabled) {
               content.classList.add('mirror-flip');
+              statusText.innerText = '${t('ui.mirrorOn')}';
+              statusIndicator.classList.add('enabled');
+              statusIndicator.classList.remove('disabled');
             } else {
               content.classList.remove('mirror-flip');
+              statusText.innerText = '${t('ui.mirrorOff')}';
+              statusIndicator.classList.add('disabled');
+              statusIndicator.classList.remove('enabled');
             }
+            
+            // Show status indicator temporarily
+            showMirrorStatus();
+          }
+          
+          function showMirrorStatus() {
+            const statusIndicator = document.getElementById('mirror-status');
+            
+            // Clear any existing timeout
+            if (window.mirrorStatusTimeout) {
+              clearTimeout(window.mirrorStatusTimeout);
+            }
+            
+            // Show the indicator
+            statusIndicator.classList.add('active');
+            statusIndicator.classList.remove('hiding');
+            
+            // Hide after 2 seconds
+            window.mirrorStatusTimeout = setTimeout(() => {
+              statusIndicator.classList.add('hiding');
+              statusIndicator.classList.remove('active');
+            }, 2000);
           }
           
           function applyFocusMode() {
