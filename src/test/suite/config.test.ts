@@ -95,7 +95,8 @@ suite('ConfigManager Tests', () => {
       startingPosition: 50,
       focusMode: false,
       focusOpacity: 0.3,
-      focusLineCount: 3
+      focusLineCount: 3,
+      mirrorFlip: false
     };
     
     const result = ConfigManager.validateConfig(validConfig);
@@ -112,12 +113,16 @@ suite('ConfigManager Tests', () => {
       lineHeight: 1.5,
       padding: 10,
       scrollSpeed: 0.1,
-      startingPosition: 50
+      startingPosition: 50,
+      focusMode: false,
+      focusOpacity: 0.3,
+      focusLineCount: 3,
+      mirrorFlip: false
     };
     
     const result = ConfigManager.validateConfig(invalidConfig);
     assert.strictEqual(result.isValid, false);
-    assert.ok(result.errors.some(error => error.includes('Invalid color theme')));
+    assert.ok(result.errors.some(error => error.includes('Invalid color theme: invalid-theme')));
   });
 
   test('validateConfig should handle out-of-range values', () => {
@@ -128,7 +133,11 @@ suite('ConfigManager Tests', () => {
       lineHeight: 0.1, // Below minimum
       padding: 150, // Above maximum
       scrollSpeed: 2.0, // Above maximum
-      startingPosition: -10 // Below minimum
+      startingPosition: -10, // Below minimum
+      focusMode: false,
+      focusOpacity: 0.3,
+      focusLineCount: 3,
+      mirrorFlip: false
     };
     
     const result = ConfigManager.validateConfig(invalidConfig);

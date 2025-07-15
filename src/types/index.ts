@@ -12,6 +12,7 @@ export interface CueModeConfig {
   focusMode: boolean;
   focusOpacity: number;
   focusLineCount: number;
+  mirrorFlip: boolean;
 }
 
 /**
@@ -40,7 +41,7 @@ export interface ThemeConfig {
  * Webview message types
  */
 export interface WebviewMessage {
-  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus';
+  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror';
   data?: any;
   command?: string;
 }
@@ -87,4 +88,12 @@ export interface ConfigValidationResult {
   isValid: boolean;
   errors: string[];
   warnings: string[];
+}
+
+/**
+ * Mirror flip state interface
+ */
+export interface MirrorFlipState {
+  enabled: boolean;
+  previousState: boolean;
 }

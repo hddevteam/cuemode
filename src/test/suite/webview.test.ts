@@ -160,7 +160,8 @@ suite('WebViewManager Tests', () => {
       startingPosition: -10,
       focusMode: false,
       focusOpacity: 0.3,
-      focusLineCount: 3
+      focusLineCount: 3,
+      mirrorFlip: false
     };
 
     // Should not throw error

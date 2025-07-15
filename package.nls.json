@@ -4,6 +4,7 @@
   "cuemode.changeTheme": "Change Teleprompter Theme",
   "cuemode.removeLeadingSpaces": "Remove Leading Spaces",
   "cuemode.toggleFocusMode": "Toggle Focus Mode",
+  "cuemode.toggleMirrorFlip": "Toggle Mirror Flip",
   "cuemode.description": "Transform VS Code into a professional teleprompter for coding videos, tutorials, and presentations. Auto-scroll, customizable themes, and distraction-free reading.",
   "cuemode.configuration.title": "Teleprompter Mode",
   "cuemode.configuration.colorTheme": "Color theme for the teleprompter mode",
@@ -15,5 +16,6 @@
   "cuemode.configuration.startingPosition": "Starting position of content in percentage of screen height",
   "cuemode.configuration.focusMode": "Enable focus mode to highlight current reading area",
   "cuemode.configuration.focusOpacity": "Blur strength of unfocused content in focus mode (0.1=light blur, 0.8=heavy blur)",
-  "cuemode.configuration.focusLineCount": "Number of lines to highlight in focus mode"
+  "cuemode.configuration.focusLineCount": "Number of lines to highlight in focus mode",
+  "cuemode.configuration.mirrorFlip": "Enable horizontal mirror flip for teleprompter use in video production"
 }

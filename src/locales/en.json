@@ -4,7 +4,8 @@
     "description": "Activate teleprompter mode for better presentation",
     "changeTheme": "Change Teleprompter Theme",
     "removeLeadingSpaces": "Remove Leading Spaces",
-    "toggleFocusMode": "Toggle Focus Mode"
+    "toggleFocusMode": "Toggle Focus Mode",
+    "toggleMirrorFlip": "Toggle Mirror Flip"
   },
   "notifications": {
     "activated": "Teleprompter mode activated",
@@ -15,7 +16,9 @@
     "spacesRemoved_plural": "Leading spaces removed from {{count}} lines",
     "error": "Teleprompter mode error: {{message}}",
     "focusModeEnabled": "Focus mode enabled",
-    "focusModeDisabled": "Focus mode disabled"
+    "focusModeDisabled": "Focus mode disabled",
+    "mirrorFlipEnabled": "Mirror flip enabled",
+    "mirrorFlipDisabled": "Mirror flip disabled"
   },
   "errors": {
     "noActiveEditor": "No active editor found",
@@ -35,7 +38,8 @@
     "startingPosition": "Starting Position",
     "focusMode": "Focus Mode",
     "focusOpacity": "Focus Blur Strength",
-    "focusLineCount": "Focus Line Count"
+    "focusLineCount": "Focus Line Count",
+    "mirrorFlip": "Mirror Flip"
   },
   "themes": {
     "classic": "Classic",
@@ -54,7 +58,10 @@
     "loading": "Loading...",
     "ready": "Ready",
     "focusMode": "Focus Mode",
-    "exitFocus": "Exit Focus"
+    "exitFocus": "Exit Focus",
+    "mirrorFlip": "Mirror Flip",
+    "mirrorOn": "Mirror: ON",
+    "mirrorOff": "Mirror: OFF"
   },
   "help": {
     "title": "Teleprompter Mode Shortcuts",
@@ -71,18 +78,21 @@
       "homeEnd": "Jump to start/end",
       "t": "Toggle theme",
       "f": "Toggle focus mode",
+      "m": "Toggle mirror flip",
       "h": "Show/Hide help"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Change theme",
       "removeSpaces": "Remove leading spaces",
-      "toggleFocus": "Toggle focus mode"
+      "toggleFocus": "Toggle focus mode",
+      "toggleMirror": "Toggle mirror flip"
     }
   },
   "accessibility": {
     "scrollIndicator": "Auto-scroll: {{status}}",
     "speedIndicator": "Scroll speed: {{speed}}",
     "themeIndicator": "Current theme: {{theme}}",
-    "focusIndicator": "Focus mode: {{status}}"
+    "focusIndicator": "Focus mode: {{status}}",
+    "mirrorIndicator": "Mirror flip: {{status}}"
   }
 }

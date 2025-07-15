@@ -16,7 +16,8 @@ export class ConfigManager {
     startingPosition: 50,
     focusMode: false,
     focusOpacity: 0.3,
-    focusLineCount: 3
+    focusLineCount: 3,
+    mirrorFlip: false
   };
 
   /**
@@ -35,14 +36,15 @@ export class ConfigManager {
       startingPosition: config.get<number>('startingPosition', this.DEFAULT_CONFIG.startingPosition),
       focusMode: config.get<boolean>('focusMode', this.DEFAULT_CONFIG.focusMode),
       focusOpacity: config.get<number>('focusOpacity', this.DEFAULT_CONFIG.focusOpacity),
-      focusLineCount: config.get<number>('focusLineCount', this.DEFAULT_CONFIG.focusLineCount)
+      focusLineCount: config.get<number>('focusLineCount', this.DEFAULT_CONFIG.focusLineCount),
+      mirrorFlip: config.get<boolean>('mirrorFlip', this.DEFAULT_CONFIG.mirrorFlip)
     };
   }
 
   /**
    * Update configuration
    */
-  public static async updateConfig(key: keyof CueModeConfig, value: any): Promise<void> {
+  public static async updateConfig(key: keyof CueModeConfig, value: CueModeConfig[keyof CueModeConfig]): Promise<void> {
     const config = vscode.workspace.getConfiguration(this.CONFIG_SECTION);
     await config.update(key, value, vscode.ConfigurationTarget.Global);
   }
@@ -66,7 +68,7 @@ export class ConfigManager {
 
     // Check required properties
     const requiredProperties: (keyof CueModeConfig)[] = [
-      'colorTheme', 'maxWidth', 'fontSize', 'lineHeight', 'padding', 'scrollSpeed', 'startingPosition'
+      'colorTheme', 'maxWidth', 'fontSize', 'lineHeight', 'padding', 'scrollSpeed', 'startingPosition', 'focusMode', 'focusOpacity', 'focusLineCount', 'mirrorFlip'
     ];
     
     for (const prop of requiredProperties) {

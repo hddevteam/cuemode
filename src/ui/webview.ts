@@ -29,7 +29,8 @@ export class WebViewManager {
         startingPosition: 50,
         focusMode: false,
         focusOpacity: 0.3,
-        focusLineCount: 3
+        focusLineCount: 3,
+        mirrorFlip: false
       },
       filename: ''
     };

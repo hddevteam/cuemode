@@ -4,7 +4,8 @@
     "description": "激活提词器模式以获得更好的演示体验",
     "changeTheme": "切换提词器主题", 
     "removeLeadingSpaces": "移除行首空格",
-    "toggleFocusMode": "切换聚焦模式"
+    "toggleFocusMode": "切换聚焦模式",
+    "toggleMirrorFlip": "切换镜像反转"
   },
   "notifications": {
     "activated": "提词器模式已激活",
@@ -14,7 +15,9 @@
     "spacesRemoved": "已从 {{count}} 行中移除行首空格",
     "error": "提词器模式错误：{{message}}",
     "focusModeEnabled": "聚焦模式已启用",
-    "focusModeDisabled": "聚焦模式已禁用"
+    "focusModeDisabled": "聚焦模式已禁用",
+    "mirrorFlipEnabled": "镜像反转已启用",
+    "mirrorFlipDisabled": "镜像反转已禁用"
   },
   "errors": {
     "noActiveEditor": "未找到活动编辑器",
@@ -34,7 +37,8 @@
     "startingPosition": "起始位置",
     "focusMode": "聚焦模式",
     "focusOpacity": "聚焦模糊强度",
-    "focusLineCount": "聚焦行数"
+    "focusLineCount": "聚焦行数",
+    "mirrorFlip": "镜像反转"
   },
   "themes": {
     "classic": "经典",
@@ -53,7 +57,10 @@
     "loading": "加载中...",
     "ready": "就绪",
     "focusMode": "聚焦模式",
-    "exitFocus": "退出聚焦"
+    "exitFocus": "退出聚焦",
+    "mirrorFlip": "镜像反转",
+    "mirrorOn": "镜像：开",
+    "mirrorOff": "镜像：关"
   },
   "help": {
     "title": "提词器模式快捷键",
@@ -70,18 +77,21 @@
       "homeEnd": "跳转到开始/结束",
       "t": "切换主题",
       "f": "切换聚焦模式",
+      "m": "切换镜像反转",
       "h": "显示/隐藏帮助"
     },
     "vsCodeShortcuts": {
       "changeTheme": "切换主题",
       "removeSpaces": "移除行首空格", 
-      "toggleFocus": "切换聚焦模式"
+      "toggleFocus": "切换聚焦模式",
+      "toggleMirror": "切换镜像反转"
     }
   },
   "accessibility": {
     "scrollIndicator": "自动滚屏：{{status}}",
     "speedIndicator": "滚屏速度：{{speed}}",
     "themeIndicator": "当前主题：{{theme}}",
-    "focusIndicator": "聚焦模式：{{status}}"
+    "focusIndicator": "聚焦模式：{{status}}",
+    "mirrorIndicator": "镜像反转：{{status}}"
   }
 }
