@@ -356,7 +356,7 @@ export class WebViewManager {
           .mirror-status {
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 20px;
             z-index: 1000;
             padding: 8px 12px;
             border-radius: 6px;
