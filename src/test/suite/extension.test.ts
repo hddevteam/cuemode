@@ -139,6 +139,40 @@ suite('Extension Integration Tests', () => {
     assert.ok(validThemes.includes(config.colorTheme));
   });
 
+  test('Mirror flip command should be registered', async () => {
+    const commands = await vscode.commands.getCommands(true);
+    assert.ok(commands.includes('cuemode.toggleMirrorFlip'));
+  });
+
+  test('Mirror flip configuration should be accessible', () => {
+    const config = vscode.workspace.getConfiguration('cuemode');
+    const mirrorFlip = config.get('mirrorFlip');
+    
+    assert.ok(typeof mirrorFlip === 'boolean');
+  });
+
+  test('Mirror flip toggle should update configuration', async () => {
+    const config = vscode.workspace.getConfiguration('cuemode');
+    
+    // Get current value
+    const initialValue = config.get('mirrorFlip');
+    
+    // Toggle mirror flip
+    await vscode.commands.executeCommand('cuemode.toggleMirrorFlip');
+    
+    // Wait a bit for configuration to update
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    // Get fresh configuration instance
+    const freshConfig = vscode.workspace.getConfiguration('cuemode');
+    const newValue = freshConfig.get('mirrorFlip');
+    
+    assert.strictEqual(newValue, !initialValue);
+    
+    // Reset to original value
+    await config.update('mirrorFlip', initialValue, vscode.ConfigurationTarget.Global);
+  });
+
   test('Numeric configuration values should be within valid ranges', () => {
     const config = ConfigManager.getSafeConfig();
     

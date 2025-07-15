@@ -1,4 +1,5 @@
 import * as assert from 'assert';
+import * as vscode from 'vscode';
 import { ConfigManager } from '../../utils/config';
 import { CueModeConfig } from '../../types';
 
@@ -24,6 +25,7 @@ suite('ConfigManager Tests', () => {
     assert.ok(config.hasOwnProperty('focusMode'));
     assert.ok(config.hasOwnProperty('focusOpacity'));
     assert.ok(config.hasOwnProperty('focusLineCount'));
+    assert.ok(config.hasOwnProperty('mirrorFlip'));
   });
 
   test('getSafeConfig should return correct types', () => {
@@ -39,6 +41,7 @@ suite('ConfigManager Tests', () => {
     assert.strictEqual(typeof config.focusMode, 'boolean');
     assert.strictEqual(typeof config.focusOpacity, 'number');
     assert.strictEqual(typeof config.focusLineCount, 'number');
+    assert.strictEqual(typeof config.mirrorFlip, 'boolean');
   });
 
   test('getSafeConfig should return valid color theme', () => {
@@ -189,6 +192,49 @@ suite('ConfigManager Tests', () => {
     assert.strictEqual(defaultConfig.padding, 10);
     assert.strictEqual(defaultConfig.scrollSpeed, 0.1);
     assert.strictEqual(defaultConfig.startingPosition, 50);
+    assert.strictEqual(defaultConfig.focusMode, false);
+    assert.strictEqual(defaultConfig.focusOpacity, 0.3);
+    assert.strictEqual(defaultConfig.focusLineCount, 3);
+    assert.strictEqual(defaultConfig.mirrorFlip, false);
+  });
+
+  test('mirrorFlip configuration should have correct default value', async () => {
+    // Reset configuration to ensure we're testing defaults
+    const config = vscode.workspace.getConfiguration('cuemode');
+    await config.update('mirrorFlip', undefined, vscode.ConfigurationTarget.Global);
+    
+    // Wait for configuration to update
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
+    const defaultConfig = ConfigManager.getSafeConfig();
+    assert.strictEqual(defaultConfig.mirrorFlip, false);
+  });
+
+  test('mirrorFlip configuration should validate correctly', () => {
+    // Test valid mirrorFlip values
+    let testConfig: CueModeConfig = {
+      colorTheme: 'classic',
+      fontSize: 24,
+      maxWidth: 800,
+      lineHeight: 1.5,
+      padding: 10,
+      scrollSpeed: 0.1,
+      startingPosition: 50,
+      focusMode: false,
+      focusOpacity: 0.3,
+      focusLineCount: 3,
+      mirrorFlip: true
+    };
+    
+    let result = ConfigManager.validateConfig(testConfig);
+    assert.strictEqual(result.isValid, true);
+    assert.strictEqual(result.errors.length, 0);
+    
+    // Test with false value
+    testConfig.mirrorFlip = false;
+    result = ConfigManager.validateConfig(testConfig);
+    assert.strictEqual(result.isValid, true);
+    assert.strictEqual(result.errors.length, 0);
   });
 
   test('onConfigChanged should return a disposable', () => {
