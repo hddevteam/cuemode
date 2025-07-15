@@ -16,15 +16,17 @@
 
 CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.
 
-**✨ Version 2.1 Features:**
+**✨ Version 2.2 Features:**
 
+- **🪞 M-Key Mirror Flip** - Professional horizontal text mirroring for teleprompter hardware setups
+- **📍 Smart Status Indicators** - Visual feedback system with intelligent positioning to avoid UI conflicts
 - **🎨 T-Key Theme Cycling** - Instant theme switching across all 7 professional themes during presentations
 - **🔍 Enhanced F-Key Focus Mode** - Smart gradient blur algorithm with configurable focus lines (1-10) and opacity (0.1-0.8) for superior concentration
 - **⚡ Enhanced Commands** - Quick theme changes and text preprocessing
 - **📱 Smart Notifications** - Non-intrusive status bar feedback
 - **🌐 Expanded Internationalization** - Support for 6 languages: English, Chinese, German, French, Japanese, Korean
 - **🛠️ TypeScript Architecture** - Robust, maintainable codebase
-- **🧪 Comprehensive Testing** - 71 test cases ensuring reliability
+- **🧪 Comprehensive Testing** - 82 test cases ensuring reliability
 
 **Core Teleprompter Features:**
 
