@@ -77,7 +77,7 @@ As a video production professional using CueMode with a teleprompter setup, I ne
 - [x] Toggle functionality operates smoothly
 - [x] Text remains readable when mirrored
 - [x] No performance degradation observed
-- [ ] Commit: `feat: implement core mirror flip functionality`
+- [x] Commit: `feat: implement core mirror flip functionality`
 
 ---
 
