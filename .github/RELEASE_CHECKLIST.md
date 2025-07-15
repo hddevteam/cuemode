@@ -143,8 +143,8 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [x] Feature descriptions synchronized
 - [x] Meta descriptions updated with new features
 - [x] Language support statistics updated
-- [ ] GitHub repository description updated with new features
-- [ ] GitHub repository topics/tags updated to reflect new capabilities
+- [x] GitHub repository description updated with new features
+- [x] GitHub repository topics/tags updated to reflect new capabilities
 
 ### 📊 Monitoring & Analytics
 - [ ] Download statistics monitored
