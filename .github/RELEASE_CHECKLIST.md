@@ -36,7 +36,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ### 📝 Documentation Updates
 - [x] `CHANGELOG.md` updated with new version entry
 - [x] `CHANGELOG.zh-CN.md` synchronized with English version
-- [ ] Version history summary table updated in both languages
+- [x] Version history summary table updated in both languages
 - [x] All new features documented with examples
 - [x] Feature cards updated in `docs/index.html` with new functionality
 - [x] Feature cards updated in `docs/zh-cn.html` with new functionality
@@ -68,30 +68,32 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Feature Validation
 
 ### 🎯 Core Features Testing
-- [ ] Teleprompter mode activation/deactivation
-- [ ] Auto-scroll functionality (Space key)
-- [ ] Speed controls (+/- keys)
-- [ ] Direction toggle (R key)
-- [ ] Theme cycling (T key)
-- [ ] Focus mode toggle (F key)
-- [ ] Help dialog display (H key)
-- [ ] Exit functionality (Esc key)
+- [x] Teleprompter mode activation/deactivation
+- [x] Auto-scroll functionality (Space key)
+- [x] Speed controls (+/- keys)
+- [x] Direction toggle (R key)
+- [x] Theme cycling (T key)
+- [x] Focus mode toggle (F key)
+- [x] Help dialog display (H key)
+- [x] Exit functionality (Esc key)
+- [x] Mirror flip toggle (M key) - New in v2.2.0
 
 ### 🎨 UI/UX Testing
-- [ ] All 7 color themes working correctly
-- [ ] Help dialog layout optimized (no text ellipsis)
-- [ ] Responsive design on different screen sizes
-- [ ] Keyboard shortcuts documented and functional
-- [ ] Visual indicators for focus mode working
-- [ ] Theme switching animations smooth
+- [x] All 7 color themes working correctly
+- [x] Help dialog layout optimized (no text ellipsis)
+- [x] Responsive design on different screen sizes
+- [x] Keyboard shortcuts documented and functional
+- [x] Visual indicators for focus mode working
+- [x] Theme switching animations smooth
+- [x] Mirror flip status indicator positioned correctly
 
 ### 🌐 Internationalization Testing
-- [ ] Language auto-detection from VS Code environment
-- [ ] Manual language switching functionality
-- [ ] All UI elements translated in each language
-- [ ] Proper text rendering for all character sets
-- [ ] Right-to-left language support (if applicable)
-- [ ] Pluralization rules working correctly
+- [x] Language auto-detection from VS Code environment
+- [x] Manual language switching functionality
+- [x] All UI elements translated in each language
+- [x] Proper text rendering for all character sets
+- [x] Right-to-left language support (if applicable)
+- [x] Pluralization rules working correctly
 
 ## Release Execution
 

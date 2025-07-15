@@ -324,6 +324,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Key Features |
 |---------|-------------|--------------|
+| 2.2.0   | 2025-07-15  | **Mirror Flip & Professional Teleprompter Support** - M-key toggle, horizontal mirroring, status indicators, UI optimization |
 | 2.1.0   | 2025-07-14  | **Focus Mode & i18n System Reconstruction** - F-key toggle, 6-language support, i18next integration, enhanced testing |
 | 2.0.0   | 2025-07-12  | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests |
 | 1.1.3   | 2025-07-12  | Bug fixes, performance improvements |
