@@ -16,6 +16,41 @@ CueMode is a VS Code extension that provides professional teleprompter functiona
 - Advanced focus mode for improved reading concentration
 - Performance-optimized with < 100ms activation time
 
+## Available Development Tools
+
+### Local Tools & CLI
+- **GitHub CLI (`gh`)**: Used for repository management, issue tracking, and automated workflows
+  - Branch operations and pull requests
+  - Issue and release management
+  - CI/CD workflow interaction
+  - Repository configuration
+
+- **SVG Conversion (`rsvg-convert`)**:
+  - Converting SVG assets to PNG/PDF
+  - Icon and badge generation
+  - Documentation graphics processing
+  - Build-time asset optimization
+
+### Tool Usage Guidelines
+
+#### GitHub CLI Best Practices
+- Use `gh` for automated workflows and CI/CD integration
+- Maintain consistent commit messages and branch naming
+- Follow repository governance through CLI commands
+- Automate release and version management
+
+#### SVG Asset Management
+- Convert icons and badges during build process
+- Maintain vector source files in repository
+- Generate optimized assets for documentation
+- Support high DPI and accessibility requirements
+
+### Integration with VS Code Extension
+- GitHub CLI for extension publishing workflow
+- SVG conversion for extension icons and badges
+- Automated asset pipeline in build process
+- Quality assurance and release automation
+
 ## Project Status
 
 - **VS Code Marketplace**: Published as "CueMode" (luckyxmobile.cuemode)
