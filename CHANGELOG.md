@@ -5,6 +5,36 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2025-07-15 - Mirror Flip Feature
+
+### 🪞 New Features
+
+- **Mirror Flip Mode**: Added horizontal text mirroring functionality for professional teleprompter setups
+  - Toggle mirror flip with `M` key in webview
+  - VS Code command: `Ctrl+Shift+M` (Cmd+Shift+M on macOS)
+  - Persistent setting across sessions
+  - Visual status indicator with smooth transitions
+  - Professional teleprompter hardware compatibility
+
+### ⚙️ Configuration
+
+- **New Setting**: `cuemode.mirrorFlip` (boolean, default: false)
+- **Command**: `cuemode.toggleMirrorFlip` for VS Code command palette
+- **Keyboard Shortcut**: `Ctrl+Shift+M` (Cmd+Shift+M on macOS)
+
+### 🔧 Technical Improvements
+
+- **Enhanced Testing**: Added comprehensive mirror flip test suite (82 tests total)
+- **UI Enhancement**: Added mirror flip status indicator with visual feedback
+- **I18n Support**: Added mirror flip translations for all supported languages
+- **Configuration Validation**: Enhanced config validation for mirror flip setting
+
+### 📚 Documentation
+
+- **README**: Updated with mirror flip feature documentation
+- **Help Text**: Updated in-app help with M key shortcut
+- **Development Plan**: Comprehensive 6-phase development plan documented
+
 ## [2.1.1] - 2025-07-14 - Build Process & Package Optimization
 
 ### 🔧 Build Process Improvements

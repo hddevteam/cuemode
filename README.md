@@ -48,6 +48,7 @@ CueMode provides professional teleprompter functionality for modern content crea
 - **Direction switching** - Reverse scrolling with R key
 - **Manual navigation** - Precise positioning with arrow keys
 - **🆕 T-Key theme cycling** - Instant theme changes during presentations
+- **🪞 Mirror flip mode** - Horizontal text mirroring for professional teleprompter setups
 
 ### 🎨 **Optimized Display**
 
@@ -75,6 +76,7 @@ CueMode provides professional teleprompter functionality for modern content crea
 - **Starting position** - Position text for comfortable reading
 - **Padding** - Adjust margins according to setup
 - **Focus mode** - Enhanced concentration with gradient blur (NEW!)
+- **🪞 Mirror flip** - Horizontal text mirroring for professional teleprompter hardware setups
 
 ### 🚀 **Perfect Teleprompter Use Cases**
 
@@ -111,6 +113,7 @@ CueMode provides professional teleprompter functionality for modern content crea
    - **Spacebar**: Start/pause auto-scrolling
    - **T Key**: **Enhanced!** Instant theme switching across all 7 themes
    - **F Key**: **New!** Toggle enhanced focus mode with gradient blur
+   - **M Key**: **New!** Toggle mirror flip mode
    - **+/-**: Real-time reading speed adjustment
    - **R Key**: Reverse scrolling direction
    - **Arrow keys**: Manual navigation
@@ -122,6 +125,7 @@ CueMode provides professional teleprompter functionality for modern content crea
 - **Spacebar** - Start/pause auto-scrolling (primary control)
 - **T Key** - **Enhanced!** Instant theme cycling through all 7 professional themes
 - **F Key** - **New!** Toggle enhanced focus mode with smart gradient blur
+- **M Key** - **New!** Toggle mirror flip mode for teleprompter hardware
 - **+/-** - Increase/decrease scrolling speed in real-time
 - **R Key** - Toggle scrolling direction (up/down)
 
@@ -135,6 +139,7 @@ CueMode provides professional teleprompter functionality for modern content crea
 
 - **Ctrl+Shift+T** (Cmd+Shift+T on Mac) - **New!** Open theme selection menu
 - **Ctrl+Shift+R** (Cmd+Shift+R on Mac) - **New!** Remove leading spaces from text
+- **Ctrl+Shift+M** (Cmd+Shift+M on Mac) - **New!** Toggle mirror flip mode
 - **H Key** - Show/hide help panel
 - **Esc Key** - Exit teleprompter mode
 
@@ -206,7 +211,8 @@ In teleprompter mode, simply press T key to cycle through all themes:
 ### ⚡ Enhanced Commands
 
 - **Ctrl+Shift+T**: Open theme selection menu (with preview)
-- **Ctrl+Shift+R**: Smart removal of leading spaces and indentation
+- **Ctrl+Shift+R**: Smart removal of leading spaces and indentation  
+- **Ctrl+Shift+M**: Toggle mirror flip mode for teleprompter hardware
 
 ### 📱 Smart Notifications
 
