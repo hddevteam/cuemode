@@ -87,7 +87,12 @@ export class CueModeExtension {
       this.toggleFocusMode();
     });
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand);
+    // Toggle mirror flip command
+    const toggleMirrorFlipCommand = vscode.commands.registerCommand('cuemode.toggleMirrorFlip', () => {
+      this.toggleMirrorFlip();
+    });
+
+    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand);
   }
 
   /**
@@ -300,6 +305,35 @@ export class CueModeExtension {
       const message = newFocusMode 
         ? t('notifications.focusModeEnabled')
         : t('notifications.focusModeDisabled');
+      
+      vscode.window.setStatusBarMessage(message, 2000);
+      
+      // Update webview if active
+      if (this.webViewManager.isActive()) {
+        const updatedConfig = ConfigManager.getConfig();
+        await this.webViewManager.updateConfig(updatedConfig);
+      }
+      
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Toggle mirror flip
+   */
+  private async toggleMirrorFlip(): Promise<void> {
+    try {
+      const currentConfig = ConfigManager.getConfig();
+      const newMirrorFlip = !currentConfig.mirrorFlip;
+      
+      // Update configuration
+      await ConfigManager.updateConfig('mirrorFlip', newMirrorFlip);
+      
+      // Show notification
+      const message = newMirrorFlip 
+        ? t('notifications.mirrorFlipEnabled')
+        : t('notifications.mirrorFlipDisabled');
       
       vscode.window.setStatusBarMessage(message, 2000);
       

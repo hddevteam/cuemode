@@ -221,6 +221,11 @@ export class WebViewManager {
         vscode.commands.executeCommand('cuemode.toggleFocusMode');
         break;
       
+      case 'toggleMirror':
+        // Call the main extension's toggleMirrorFlip command
+        vscode.commands.executeCommand('cuemode.toggleMirrorFlip');
+        break;
+      
       case 'scroll':
         // Handle scroll events if needed
         break;
@@ -332,6 +337,20 @@ export class WebViewManager {
           .focus-indicator.active {
             display: block;
           }
+          
+          /* Mirror flip styles */
+          .mirror-flip {
+            transform: scaleX(-1);
+            transition: transform 0.3s ease;
+          }
+          
+          .mirror-flip-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+          }
         </style>
       </head>
       <body>
@@ -363,6 +382,7 @@ export class WebViewManager {
                   <li><kbd>Home/End</kbd> <span>${t('help.shortcuts.homeEnd')}</span></li>
                   <li><kbd>T</kbd> <span>${t('help.shortcuts.t')}</span></li>
                   <li><kbd>F</kbd> <span>${t('help.shortcuts.f')}</span></li>
+                  <li><kbd>M</kbd> <span>${t('help.shortcuts.m')}</span></li>
                   <li><kbd>H</kbd> <span>${t('help.shortcuts.h')}</span></li>
                 </ul>
               </div>
@@ -450,6 +470,28 @@ export class WebViewManager {
           let focusMode = ${config.focusMode};
           let focusBlurStrength = ${config.focusOpacity * 5}; // Convert opacity config to blur strength
           let focusLineCount = ${config.focusLineCount};
+          
+          // Mirror Flip implementation
+          let mirrorFlipEnabled = ${config.mirrorFlip};
+          
+          function toggleMirrorFlip() {
+            mirrorFlipEnabled = !mirrorFlipEnabled;
+            
+            // Apply mirror flip immediately
+            applyMirrorFlip();
+            
+            // Notify the extension to update the configuration
+            vscode.postMessage({ type: 'toggleMirror' });
+          }
+          
+          function applyMirrorFlip() {
+            const content = document.getElementById('content');
+            if (mirrorFlipEnabled) {
+              content.classList.add('mirror-flip');
+            } else {
+              content.classList.remove('mirror-flip');
+            }
+          }
           
           function applyFocusMode() {
             const content = document.getElementById('content');
@@ -634,6 +676,12 @@ export class WebViewManager {
                 toggleFocusMode();
                 e.preventDefault();
                 break;
+              case 'm':
+              case 'M':
+                // Toggle mirror flip
+                toggleMirrorFlip();
+                e.preventDefault();
+                break;
             }
           });
           
@@ -660,17 +708,20 @@ export class WebViewManager {
                 focusMode = message.config.focusMode;
                 focusBlurStrength = message.config.focusOpacity * 5; // Convert opacity config to blur strength
                 focusLineCount = message.config.focusLineCount;
+                mirrorFlipEnabled = message.config.mirrorFlip;
                 
-                // Button removed from UI
-                
-                // Apply focus mode
+                // Apply focus mode and mirror flip
                 applyFocusMode();
+                applyMirrorFlip();
               }
             }
           });
           
           // Initialize
           console.log('${i18nStrings.initMessage}');
+          
+          // Apply initial mirror flip state
+          applyMirrorFlip();
           
           // 监听窗口大小变化
           window.addEventListener('resize', () => {
