@@ -42,7 +42,13 @@ export interface ThemeConfig {
  */
 export interface WebviewMessage {
   type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror';
-  data?: any;
+  data?: {
+    scrollTop?: number;
+    scrollHeight?: number;
+    clientHeight?: number;
+    theme?: string;
+    config?: CueModeConfig;
+  };
   command?: string;
 }
 
@@ -60,14 +66,14 @@ export interface CueModeState {
  * Extension context interface
  */
 export interface ExtensionContext {
-  subscriptions: { dispose(): any }[];
+  subscriptions: { dispose(): void }[];
   globalState: {
     get<T>(key: string): T | undefined;
-    update(key: string, value: any): Thenable<void>;
+    update(key: string, value: unknown): Thenable<void>;
   };
   workspaceState: {
     get<T>(key: string): T | undefined;
-    update(key: string, value: any): Thenable<void>;
+    update(key: string, value: unknown): Thenable<void>;
   };
 }
 

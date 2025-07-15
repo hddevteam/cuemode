@@ -59,10 +59,10 @@ export class I18nManager {
       interpolation: {
         escapeValue: false,
         formatSeparator: ',',
-        format: (value: any, format?: string) => {
-          if (format === 'uppercase') return value.toUpperCase();
-          if (format === 'lowercase') return value.toLowerCase();
-          return value;
+        format: (value: string | number, format?: string) => {
+          if (format === 'uppercase') return value.toString().toUpperCase();
+          if (format === 'lowercase') return value.toString().toLowerCase();
+          return value.toString();
         }
       },
 
@@ -194,7 +194,7 @@ export class I18nManager {
   /**
    * Load translation resource for a specific language
    */
-  private async loadTranslationResource(language: string): Promise<Record<string, any>> {
+  private async loadTranslationResource(language: string): Promise<Record<string, unknown>> {
     try {
       switch (language) {
         case 'zh-CN':
@@ -242,8 +242,8 @@ export class I18nManager {
   /**
    * Get translation with type safety
    */
-  public t(key: string, options?: any): string {
-    return this.i18n.t(key, options) as string;
+  public t(key: string, options?: Record<string, unknown>): string {
+    return this.i18n.t(key, options || {}) as string;
   }
 }
 
@@ -254,7 +254,7 @@ const i18nManager = I18nManager.getInstance();
  * Translation function with type safety
  * Usage: t('commands.activateMode') or t('notifications.themeChanged', { theme: 'Dark' })
  */
-export const t = (key: string, options?: any): string => {
+export const t = (key: string, options?: Record<string, unknown>): string => {
   return i18nManager.t(key, options);
 };
 
