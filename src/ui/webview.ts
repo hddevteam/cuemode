@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { CueModeConfig, CueModeState, WebviewMessage } from '../types';
 import { ThemeManager } from '../utils/theme';
+import { MarkdownParser } from '../utils/markdown';
+import { generateMarkdownCSS } from '../utils/markdownStyles';
 import { t, getCurrentLanguage } from '../i18n';
 
 /**
@@ -31,12 +33,12 @@ export class WebViewManager {
         focusOpacity: 0.3,
         focusLineCount: 3,
         mirrorFlip: false,
-        markdownMode: false,
+        markdownMode: true,
         markdownFeatures: {
           headers: true,
           emphasis: true,
           lists: true,
-          links: false,
+          links: true,
           code: true,
           blockquotes: true,
           tables: true,
@@ -160,6 +162,13 @@ export class WebViewManager {
   }
 
   /**
+   * Get the current HTML content (for testing purposes)
+   */
+  public async getHtml(): Promise<string> {
+    return await this.generateHTML();
+  }
+
+  /**
    * Setup panel event handlers
    */
   private setupPanelHandlers(): void {
@@ -239,6 +248,11 @@ export class WebViewManager {
         vscode.commands.executeCommand('cuemode.toggleMirrorFlip');
         break;
       
+      case 'toggleMarkdown':
+        // Call the main extension's toggleMarkdownMode command
+        vscode.commands.executeCommand('cuemode.toggleMarkdownMode');
+        break;
+      
       case 'scroll':
         // Handle scroll events if needed
         break;
@@ -277,6 +291,11 @@ export class WebViewManager {
       config.padding
     );
 
+    // Generate markdown CSS if markdown mode is enabled
+    const markdownCSS = config.markdownMode ? 
+      generateMarkdownCSS(ThemeManager.getTheme(config.colorTheme)) : 
+      '';
+
     // Process content for display
     const processedContent = this.processContent(content);
 
@@ -294,6 +313,7 @@ export class WebViewManager {
         <title>${t('ui.title', { filename })}</title>
         <style>
           ${css}
+          ${markdownCSS}
           body {
             ${startingPositionCSS}
           }
@@ -349,6 +369,38 @@ export class WebViewManager {
           }
           .focus-indicator.active {
             display: block;
+          }
+          
+          /* Markdown specific styles */
+          .markdown-content {
+            width: 100%;
+          }
+          
+          .markdown-line {
+            display: block;
+            width: 100%;
+            transition: filter 0.3s ease;
+          }
+          
+          .markdown-line:empty {
+            min-height: 1em;
+          }
+          
+          /* Ensure markdown elements work with focus mode */
+          .markdown-content pre {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            border: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+          }
+          
+          /* Override any conflicting styles for markdown elements */
+          .markdown-content * {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
           }
           
           /* Mirror flip styles */
@@ -447,6 +499,7 @@ export class WebViewManager {
                   <li><kbd>T</kbd> <span>${t('help.shortcuts.t')}</span></li>
                   <li><kbd>F</kbd> <span>${t('help.shortcuts.f')}</span></li>
                   <li><kbd>M</kbd> <span>${t('help.shortcuts.m')}</span></li>
+                  <li><kbd>D</kbd> <span>${t('help.shortcuts.d')}</span></li>
                   <li><kbd>H</kbd> <span>${t('help.shortcuts.h')}</span></li>
                 </ul>
               </div>
@@ -476,7 +529,7 @@ export class WebViewManager {
             if (helpPanel.style.display === 'none') {
               helpPanel.style.display = 'block';
               
-              // 智能定位：确保帮助对话框完全可见
+              // Smart positioning: ensure help dialog is fully visible
               adjustHelpPosition(helpPanel);
               
               // Add click outside to close functionality
@@ -494,29 +547,29 @@ export class WebViewManager {
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
             
-            // 重置位置
+            // Reset position
             helpPanel.style.top = '10px';
             helpPanel.style.right = '10px';
             helpPanel.style.left = 'auto';
             helpPanel.style.bottom = 'auto';
             
-            // 检查是否超出右边界
+            // Check if it exceeds right boundary
             if (rect.right > viewportWidth - 10) {
               helpPanel.style.right = '10px';
               helpPanel.style.left = 'auto';
             }
             
-            // 检查是否超出底部边界
+            // Check if it exceeds bottom boundary
             if (rect.bottom > viewportHeight - 10) {
               helpPanel.style.top = 'auto';
               helpPanel.style.bottom = '10px';
             }
             
-            // 对于小屏幕，使用全宽布局
+            // For small screens, use full width layout
             if (viewportWidth < 768) {
               helpPanel.style.left = '5px';
               helpPanel.style.right = '5px';
-              helpPanel.style.top = '50px'; // 为控制按钮留出空间
+              helpPanel.style.top = '50px'; // Leave space for control buttons
             }
           }
           
@@ -586,6 +639,87 @@ export class WebViewManager {
               statusIndicator.classList.add('hiding');
               statusIndicator.classList.remove('active');
             }, 2000);
+          }
+          
+          // Markdown Mode implementation
+          let markdownMode = ${config.markdownMode};
+          
+          function toggleMarkdownMode() {
+            markdownMode = !markdownMode;
+            
+            // Re-process the content with the new mode
+            updateContentDisplay();
+            
+            // Notify the extension to update the configuration
+            vscode.postMessage({ type: 'toggleMarkdown' });
+          }
+          
+          function updateContent() {
+            updateContentDisplay();
+          }
+          
+          function updateContentDisplay() {
+            const contentElement = document.getElementById('content');
+            if (contentElement && currentContent) {
+              if (markdownMode) {
+                contentElement.innerHTML = processMarkdownContent(currentContent);
+              } else {
+                contentElement.innerHTML = processPlainTextContent(currentContent);
+              }
+              
+              // Reapply focus mode after content update
+              applyFocusMode();
+            }
+          }
+          
+          function processMarkdownContent(content) {
+            // Enhanced markdown processing to match server-side implementation
+            let html = content;
+            
+            // Headers (process in order from most specific to least)
+            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+            
+            // Bold and italic (process in order from most specific to least)
+            html = html.replace(/\\*\\*\\*(.*?)\\*\\*\\*/g, '<strong><em>$1</em></strong>');
+            html = html.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>');
+            html = html.replace(/\\*(.*?)\\*/g, '<em>$1</em>');
+            
+            // Code blocks first, then inline code
+            html = html.replace(/\`\`\`([\\s\\S]*?)\`\`\`/g, '<pre><code>$1</code></pre>');
+            html = html.replace(/\`([^\`]*?)\`/g, '<code>$1</code>');
+            
+            // Blockquotes
+            html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
+            
+            // Lists - ordered first, then unordered
+            html = html.replace(/^\\d+\\. (.*$)/gim, '<li>$1</li>');
+            html = html.replace(/^[\\*\\-+] (.*$)/gim, '<li>$1</li>');
+            
+            // Horizontal rules
+            html = html.replace(/^(-{3,}|\\*{3,}|_{3,})$/gim, '<hr>');
+            
+            // Links
+            html = html.replace(/\\[([^\\]]*?)\\]\\(([^\\)]*?)\\)/g, '<a href="$2">$1</a>');
+            
+            // Split into lines and wrap each line
+            return html.split('\\n').map(function(line, index) {
+              const lineContent = line.trim() ? line : '&nbsp;';
+              return '<div class="cue-line" data-line-number="' + index + '">' + lineContent + '</div>';
+            }).join('');
+          }
+          
+          function processPlainTextContent(content) {
+            return content.split('\\\\n').map((line, index) => {
+              const escapedLine = line
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+              return \`<div class="cue-line" data-line-number="\${index}">\${escapedLine}</div>\`;
+            }).join('');
           }
           
           function applyFocusMode() {
@@ -679,6 +813,9 @@ export class WebViewManager {
           let scrollSpeed = ${config.scrollSpeed};
           let accumulatedScroll = 0;
           let scrollDirection = 1; // 1 for down, -1 for up
+          
+          // Content management - use JSON encoding for safety
+          let currentContent = ${JSON.stringify(content)};
           
           function scrollStep() {
             if (scrolling) {
@@ -777,6 +914,12 @@ export class WebViewManager {
                 toggleMirrorFlip();
                 e.preventDefault();
                 break;
+              case 'd':
+              case 'D':
+                // Toggle markdown mode
+                toggleMarkdownMode();
+                e.preventDefault();
+                break;
             }
           });
           
@@ -798,16 +941,26 @@ export class WebViewManager {
             const message = event.data;
             
             if (message.type === 'configUpdate') {
-              // Update focus mode configuration
+              // Update configuration
               if (message.config) {
                 focusMode = message.config.focusMode;
                 focusBlurStrength = message.config.focusOpacity * 5; // Convert opacity config to blur strength
                 focusLineCount = message.config.focusLineCount;
                 mirrorFlipEnabled = message.config.mirrorFlip;
+                markdownMode = message.config.markdownMode;
+                
+                // Update content display when markdown mode changes
+                updateContentDisplay();
                 
                 // Apply focus mode and mirror flip
                 applyFocusMode();
                 applyMirrorFlip();
+              }
+            } else if (message.type === 'contentUpdate') {
+              // Update content with new text
+              if (message.content !== undefined) {
+                currentContent = message.content;
+                updateContentDisplay();
               }
             }
           });
@@ -818,14 +971,14 @@ export class WebViewManager {
           // Apply initial mirror flip state
           applyMirrorFlip();
           
-          // 监听窗口大小变化
+          // Listen for window resize events
           window.addEventListener('resize', () => {
             const helpPanel = document.getElementById('help-panel');
             if (helpPanel.style.display === 'block') {
               adjustHelpPosition(helpPanel);
             }
             
-            // 更新焦点模式
+            // Update focus mode
             if (focusMode) {
               applyFocusMode();
             }
@@ -866,6 +1019,36 @@ export class WebViewManager {
    * Process content for display
    */
   private processContent(content: string): string {
+    if (this.state.config.markdownMode) {
+      return this.processMarkdownContent(content);
+    }
+    return this.processPlainTextContent(content);
+  }
+
+  private processMarkdownContent(content: string): string {
+    try {
+      // Parse markdown content with user's selected features
+      const result = MarkdownParser.parse(content, this.state.config.markdownFeatures);
+      
+      // Split content into lines and wrap each line for focus mode support
+      const lines = result.html.split('\n');
+      const processedLines = lines.map((line, index) => {
+        // For markdown, we need to preserve HTML structure while adding focus classes
+        const lineWithFocus = line.trim() ? 
+          `<span class="cue-line markdown-line" data-line="${index}">${line}</span>` :
+          `<span class="cue-line markdown-line" data-line="${index}">&nbsp;</span>`;
+        return lineWithFocus;
+      });
+      
+      return `<div class="markdown-content">${processedLines.join('\n')}</div>`;
+    } catch (error) {
+      // Fallback to plain text processing if markdown parsing fails
+      console.warn('Markdown parsing failed, falling back to plain text:', error);
+      return this.processPlainTextContent(content);
+    }
+  }
+
+  private processPlainTextContent(content: string): string {
     // Escape HTML characters
     const escapeHtml = (unsafe: string): string => {
       return unsafe

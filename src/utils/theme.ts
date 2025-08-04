@@ -207,7 +207,7 @@ export class ThemeManager {
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       }
 
-      /* 响应式控制按钮 */
+      /* Responsive control buttons */
       @media (max-width: 768px) {
         .cue-controls {
           top: 5px;
@@ -317,7 +317,7 @@ export class ThemeManager {
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
-      /* 响应式设计 */
+      /* Responsive design */
       @media (max-width: 768px) {
         .cue-help {
           top: 5px;
@@ -384,7 +384,7 @@ export class ThemeManager {
         background: var(--border-color);
       }
 
-      /* 帮助对话框的滚动条 */
+      /* Help dialog scrollbar */
       .cue-help::-webkit-scrollbar {
         width: 6px;
       }
