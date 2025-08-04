@@ -5,6 +5,8 @@
   "cuemode.removeLeadingSpaces": "Remove Leading Spaces",
   "cuemode.toggleFocusMode": "Toggle Focus Mode",
   "cuemode.toggleMirrorFlip": "Toggle Mirror Flip",
+  "cuemode.toggleMarkdownMode": "Toggle Markdown Mode",
+  "cuemode.configureMarkdownFeatures": "Configure Markdown Features",
   "cuemode.description": "Transform VS Code into a professional teleprompter for coding videos, tutorials, and presentations. Auto-scroll, customizable themes, and distraction-free reading.",
   "cuemode.configuration.title": "Teleprompter Mode",
   "cuemode.configuration.colorTheme": "Color theme for the teleprompter mode",
@@ -17,5 +19,17 @@
   "cuemode.configuration.focusMode": "Enable focus mode to highlight current reading area",
   "cuemode.configuration.focusOpacity": "Blur strength of unfocused content in focus mode (0.1=light blur, 0.8=heavy blur)",
   "cuemode.configuration.focusLineCount": "Number of lines to highlight in focus mode",
-  "cuemode.configuration.mirrorFlip": "Enable horizontal mirror flip for teleprompter use in video production"
+  "cuemode.configuration.mirrorFlip": "Enable horizontal mirror flip for teleprompter use in video production",
+  "cuemode.configuration.markdownMode": "Enable selective markdown parsing for formatted text display",
+  "cuemode.configuration.markdownFeatures": "Configure which markdown features to parse and display",
+  "cuemode.configuration.markdownFeatures.headers": "Parse headers (# ## ### etc.)",
+  "cuemode.configuration.markdownFeatures.emphasis": "Parse bold (**text**) and italic (*text*) formatting",
+  "cuemode.configuration.markdownFeatures.lists": "Parse lists (- * + and numbered lists)",
+  "cuemode.configuration.markdownFeatures.links": "Parse links [text](url)",
+  "cuemode.configuration.markdownFeatures.code": "Parse code blocks (```code```) and inline code (`code`)",
+  "cuemode.configuration.markdownFeatures.blockquotes": "Parse blockquotes (> text)",
+  "cuemode.configuration.markdownFeatures.tables": "Parse tables (| col1 | col2 |)",
+  "cuemode.configuration.markdownFeatures.taskLists": "Parse task lists (- [x] done, - [ ] todo)",
+  "cuemode.configuration.markdownFeatures.strikethrough": "Parse strikethrough text (~~text~~)",
+  "cuemode.configuration.markdownFeatures.horizontalRule": "Parse horizontal rules (---)"
 }

@@ -13,6 +13,8 @@ export interface CueModeConfig {
   focusOpacity: number;
   focusLineCount: number;
   mirrorFlip: boolean;
+  markdownMode: boolean;
+  markdownFeatures: MarkdownFeatures;
 }
 
 /**
@@ -28,6 +30,22 @@ export type ColorTheme =
   | 'rose';
 
 /**
+ * Markdown features configuration
+ */
+export interface MarkdownFeatures {
+  headers: boolean;
+  emphasis: boolean;
+  lists: boolean;
+  links: boolean;
+  code: boolean;
+  blockquotes: boolean;
+  tables: boolean;
+  taskLists: boolean;
+  strikethrough: boolean;
+  horizontalRule: boolean;
+}
+
+/**
  * Theme configuration
  */
 export interface ThemeConfig {
@@ -41,13 +59,14 @@ export interface ThemeConfig {
  * Webview message types
  */
 export interface WebviewMessage {
-  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror';
+  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror' | 'toggleMarkdown' | 'configureMarkdown';
   data?: {
     scrollTop?: number;
     scrollHeight?: number;
     clientHeight?: number;
     theme?: string;
     config?: CueModeConfig;
+    markdownFeatures?: MarkdownFeatures;
   };
   command?: string;
 }

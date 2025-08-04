@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { CueModeConfig, ColorTheme, ConfigValidationResult } from '../types';
+import { CueModeConfig, ColorTheme, ConfigValidationResult, MarkdownFeatures } from '../types';
 
 /**
  * Configuration manager for CueMode
@@ -17,7 +17,20 @@ export class ConfigManager {
     focusMode: false,
     focusOpacity: 0.3,
     focusLineCount: 3,
-    mirrorFlip: false
+    mirrorFlip: false,
+    markdownMode: false,
+    markdownFeatures: {
+      headers: true,
+      emphasis: true,
+      lists: true,
+      links: false,
+      code: true,
+      blockquotes: true,
+      tables: true,
+      taskLists: true,
+      strikethrough: false,
+      horizontalRule: true
+    }
   };
 
   /**
@@ -37,7 +50,9 @@ export class ConfigManager {
       focusMode: config.get<boolean>('focusMode', this.DEFAULT_CONFIG.focusMode),
       focusOpacity: config.get<number>('focusOpacity', this.DEFAULT_CONFIG.focusOpacity),
       focusLineCount: config.get<number>('focusLineCount', this.DEFAULT_CONFIG.focusLineCount),
-      mirrorFlip: config.get<boolean>('mirrorFlip', this.DEFAULT_CONFIG.mirrorFlip)
+      mirrorFlip: config.get<boolean>('mirrorFlip', this.DEFAULT_CONFIG.mirrorFlip),
+      markdownMode: config.get<boolean>('markdownMode', this.DEFAULT_CONFIG.markdownMode),
+      markdownFeatures: config.get<MarkdownFeatures>('markdownFeatures', this.DEFAULT_CONFIG.markdownFeatures)
     };
   }
 
@@ -68,7 +83,7 @@ export class ConfigManager {
 
     // Check required properties
     const requiredProperties: (keyof CueModeConfig)[] = [
-      'colorTheme', 'maxWidth', 'fontSize', 'lineHeight', 'padding', 'scrollSpeed', 'startingPosition', 'focusMode', 'focusOpacity', 'focusLineCount', 'mirrorFlip'
+      'colorTheme', 'maxWidth', 'fontSize', 'lineHeight', 'padding', 'scrollSpeed', 'startingPosition', 'focusMode', 'focusOpacity', 'focusLineCount', 'mirrorFlip', 'markdownMode', 'markdownFeatures'
     ];
     
     for (const prop of requiredProperties) {
@@ -115,6 +130,21 @@ export class ConfigManager {
 
     if (config.startingPosition < 0 || config.startingPosition > 100) {
       errors.push('startingPosition must be between 0 and 100');
+    }
+
+    // Validate markdown features
+    if (config.markdownFeatures && typeof config.markdownFeatures === 'object') {
+      const markdownFeatureKeys: (keyof MarkdownFeatures)[] = [
+        'headers', 'emphasis', 'lists', 'links', 'code', 'blockquotes', 'tables', 'taskLists', 'strikethrough', 'horizontalRule'
+      ];
+      
+      for (const key of markdownFeatureKeys) {
+        if (!(key in config.markdownFeatures) || typeof config.markdownFeatures[key] !== 'boolean') {
+          warnings.push(`Invalid or missing markdown feature: ${key}`);
+        }
+      }
+    } else if (config.markdownMode) {
+      errors.push('markdownFeatures must be an object when markdownMode is enabled');
     }
 
     // Warnings

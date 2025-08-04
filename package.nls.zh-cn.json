@@ -5,6 +5,8 @@
   "cuemode.removeLeadingSpaces": "移除行首空格",
   "cuemode.toggleFocusMode": "切换聚焦模式",
   "cuemode.toggleMirrorFlip": "切换镜像反转",
+  "cuemode.toggleMarkdownMode": "切换Markdown模式",
+  "cuemode.configureMarkdownFeatures": "配置Markdown功能",
   "cuemode.description": "将VS Code转换为专业提词器，适用于编程视频、教程和演示。支持自动滚屏、可定制主题和无干扰阅读。",
   "cuemode.configuration.title": "提词器模式",
   "cuemode.configuration.colorTheme": "提词器模式的颜色主题",
@@ -17,5 +19,17 @@
   "cuemode.configuration.focusMode": "启用聚焦模式以突出显示当前阅读区域",
   "cuemode.configuration.focusOpacity": "聚焦模式下非聚焦内容的模糊强度 (0.1=轻微模糊, 0.8=重度模糊)",
   "cuemode.configuration.focusLineCount": "聚焦模式下要突出显示的行数",
-  "cuemode.configuration.mirrorFlip": "启用水平镜像反转功能，用于视频制作中的提词器使用"
+  "cuemode.configuration.mirrorFlip": "启用水平镜像翻转，用于视频制作中的提词器使用",
+  "cuemode.configuration.markdownMode": "启用选择性Markdown解析以格式化文本显示",
+  "cuemode.configuration.markdownFeatures": "配置要解析和显示的Markdown功能",
+  "cuemode.configuration.markdownFeatures.headers": "解析标题 (# ## ### 等)",
+  "cuemode.configuration.markdownFeatures.emphasis": "解析粗体 (**文本**) 和斜体 (*文本*) 格式",
+  "cuemode.configuration.markdownFeatures.lists": "解析列表 (- * + 和数字列表)",
+  "cuemode.configuration.markdownFeatures.links": "解析链接 [文本](网址)",
+  "cuemode.configuration.markdownFeatures.code": "解析代码块 (```代码```) 和内联代码 (`代码`)",
+  "cuemode.configuration.markdownFeatures.blockquotes": "解析引用块 (> 文本)",
+  "cuemode.configuration.markdownFeatures.tables": "解析表格 (| 列1 | 列2 |)",
+  "cuemode.configuration.markdownFeatures.taskLists": "解析任务列表 (- [x] 完成, - [ ] 待办)",
+  "cuemode.configuration.markdownFeatures.strikethrough": "解析删除线文本 (~~文本~~)",
+  "cuemode.configuration.markdownFeatures.horizontalRule": "解析水平分割线 (---)"
 }

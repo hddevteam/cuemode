@@ -5,7 +5,9 @@
     "changeTheme": "切换提词器主题", 
     "removeLeadingSpaces": "移除行首空格",
     "toggleFocusMode": "切换聚焦模式",
-    "toggleMirrorFlip": "切换镜像反转"
+    "toggleMirrorFlip": "切换镜像反转",
+    "toggleMarkdownMode": "切换Markdown模式",
+    "configureMarkdownFeatures": "配置Markdown功能"
   },
   "notifications": {
     "activated": "提词器模式已激活",
@@ -17,7 +19,9 @@
     "focusModeEnabled": "聚焦模式已启用",
     "focusModeDisabled": "聚焦模式已禁用",
     "mirrorFlipEnabled": "镜像反转已启用",
-    "mirrorFlipDisabled": "镜像反转已禁用"
+    "mirrorFlipDisabled": "镜像反转已禁用",
+    "markdownModeEnabled": "Markdown模式已启用",
+    "markdownModeDisabled": "Markdown模式已禁用"
   },
   "errors": {
     "noActiveEditor": "未找到活动编辑器",
@@ -38,7 +42,19 @@
     "focusMode": "聚焦模式",
     "focusOpacity": "聚焦模糊强度",
     "focusLineCount": "聚焦行数",
-    "mirrorFlip": "镜像反转"
+    "mirrorFlip": "镜像反转",
+    "markdownMode": "Markdown模式",
+    "markdownFeatures": "Markdown功能",
+    "markdownFeatures.headers": "标题 (# ## ###)",
+    "markdownFeatures.emphasis": "粗体和斜体文本",
+    "markdownFeatures.lists": "列表 (- * + 和 1. 2. 3.)",
+    "markdownFeatures.links": "链接 [文本](网址)",
+    "markdownFeatures.code": "代码块和内联代码",
+    "markdownFeatures.blockquotes": "引用块 (> 文本)",
+    "markdownFeatures.tables": "表格",
+    "markdownFeatures.taskLists": "任务列表 (- [x] 完成)",
+    "markdownFeatures.strikethrough": "删除线 (~~文本~~)",
+    "markdownFeatures.horizontalRule": "水平分割线 (---)"
   },
   "themes": {
     "classic": "经典",
@@ -59,8 +75,11 @@
     "focusMode": "聚焦模式",
     "exitFocus": "退出聚焦",
     "mirrorFlip": "镜像反转",
-    "mirrorOn": "镜像：开",
-    "mirrorOff": "镜像：关"
+    "mirrorOn": "镜像：开启",
+    "mirrorOff": "镜像：关闭",
+    "markdownMode": "Markdown模式",
+    "markdownOn": "Markdown：开启",
+    "markdownOff": "Markdown：关闭"
   },
   "help": {
     "title": "提词器模式快捷键",
@@ -78,13 +97,15 @@
       "t": "切换主题",
       "f": "切换聚焦模式",
       "m": "切换镜像反转",
+      "d": "切换Markdown模式",
       "h": "显示/隐藏帮助"
     },
     "vsCodeShortcuts": {
       "changeTheme": "切换主题",
       "removeSpaces": "移除行首空格", 
       "toggleFocus": "切换聚焦模式",
-      "toggleMirror": "切换镜像反转"
+      "toggleMirror": "切换镜像反转",
+      "toggleMarkdown": "切换Markdown模式"
     }
   },
   "accessibility": {

@@ -5,7 +5,9 @@
     "changeTheme": "Change Teleprompter Theme",
     "removeLeadingSpaces": "Remove Leading Spaces",
     "toggleFocusMode": "Toggle Focus Mode",
-    "toggleMirrorFlip": "Toggle Mirror Flip"
+    "toggleMirrorFlip": "Toggle Mirror Flip",
+    "toggleMarkdownMode": "Toggle Markdown Mode",
+    "configureMarkdownFeatures": "Configure Markdown Features"
   },
   "notifications": {
     "activated": "Teleprompter mode activated",
@@ -18,7 +20,9 @@
     "focusModeEnabled": "Focus mode enabled",
     "focusModeDisabled": "Focus mode disabled",
     "mirrorFlipEnabled": "Mirror flip enabled",
-    "mirrorFlipDisabled": "Mirror flip disabled"
+    "mirrorFlipDisabled": "Mirror flip disabled",
+    "markdownModeEnabled": "Markdown mode enabled",
+    "markdownModeDisabled": "Markdown mode disabled"
   },
   "errors": {
     "noActiveEditor": "No active editor found",
@@ -39,7 +43,19 @@
     "focusMode": "Focus Mode",
     "focusOpacity": "Focus Blur Strength",
     "focusLineCount": "Focus Line Count",
-    "mirrorFlip": "Mirror Flip"
+    "mirrorFlip": "Mirror Flip",
+    "markdownMode": "Markdown Mode",
+    "markdownFeatures": "Markdown Features",
+    "markdownFeatures.headers": "Headers (# ## ###)",
+    "markdownFeatures.emphasis": "Bold and Italic text",
+    "markdownFeatures.lists": "Lists (- * + and 1. 2. 3.)",
+    "markdownFeatures.links": "Links [text](url)",
+    "markdownFeatures.code": "Code blocks and inline code",
+    "markdownFeatures.blockquotes": "Blockquotes (> text)",
+    "markdownFeatures.tables": "Tables",
+    "markdownFeatures.taskLists": "Task lists (- [x] done)",
+    "markdownFeatures.strikethrough": "Strikethrough (~~text~~)",
+    "markdownFeatures.horizontalRule": "Horizontal rules (---)"
   },
   "themes": {
     "classic": "Classic",
@@ -61,7 +77,10 @@
     "exitFocus": "Exit Focus",
     "mirrorFlip": "Mirror Flip",
     "mirrorOn": "Mirror: ON",
-    "mirrorOff": "Mirror: OFF"
+    "mirrorOff": "Mirror: OFF",
+    "markdownMode": "Markdown Mode",
+    "markdownOn": "Markdown: ON",
+    "markdownOff": "Markdown: OFF"
   },
   "help": {
     "title": "Teleprompter Mode Shortcuts",
@@ -79,6 +98,7 @@
       "t": "Toggle theme",
       "f": "Toggle focus mode",
       "m": "Toggle mirror flip",
+      "d": "Toggle markdown mode",
       "h": "Show/Hide help"
     },
     "vsCodeShortcuts": {

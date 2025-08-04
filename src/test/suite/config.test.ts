@@ -99,7 +99,20 @@ suite('ConfigManager Tests', () => {
       focusMode: false,
       focusOpacity: 0.3,
       focusLineCount: 3,
-      mirrorFlip: false
+      mirrorFlip: false,
+      markdownMode: false,
+      markdownFeatures: {
+        headers: true,
+        emphasis: true,
+        lists: true,
+        links: false,
+        code: true,
+        blockquotes: true,
+        tables: true,
+        taskLists: true,
+        strikethrough: false,
+        horizontalRule: true
+      }
     };
     
     const result = ConfigManager.validateConfig(validConfig);
@@ -120,7 +133,20 @@ suite('ConfigManager Tests', () => {
       focusMode: false,
       focusOpacity: 0.3,
       focusLineCount: 3,
-      mirrorFlip: false
+      mirrorFlip: false,
+      markdownMode: false,
+      markdownFeatures: {
+        headers: true,
+        emphasis: true,
+        lists: true,
+        links: false,
+        code: true,
+        blockquotes: true,
+        tables: true,
+        taskLists: true,
+        strikethrough: false,
+        horizontalRule: true
+      }
     };
     
     const result = ConfigManager.validateConfig(invalidConfig);
@@ -140,7 +166,20 @@ suite('ConfigManager Tests', () => {
       focusMode: false,
       focusOpacity: 0.3,
       focusLineCount: 3,
-      mirrorFlip: false
+      mirrorFlip: false,
+      markdownMode: false,
+      markdownFeatures: {
+        headers: true,
+        emphasis: true,
+        lists: true,
+        links: false,
+        code: true,
+        blockquotes: true,
+        tables: true,
+        taskLists: true,
+        strikethrough: false,
+        horizontalRule: true
+      }
     };
     
     const result = ConfigManager.validateConfig(invalidConfig);
@@ -223,7 +262,20 @@ suite('ConfigManager Tests', () => {
       focusMode: false,
       focusOpacity: 0.3,
       focusLineCount: 3,
-      mirrorFlip: true
+      mirrorFlip: true,
+      markdownMode: false,
+      markdownFeatures: {
+        headers: true,
+        emphasis: true,
+        lists: true,
+        links: false,
+        code: true,
+        blockquotes: true,
+        tables: true,
+        taskLists: true,
+        strikethrough: false,
+        horizontalRule: true
+      }
     };
     
     let result = ConfigManager.validateConfig(testConfig);

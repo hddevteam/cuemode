@@ -46,6 +46,14 @@
       {
         "command": "cuemode.toggleMirrorFlip",
         "title": "%cuemode.toggleMirrorFlip%"
+      },
+      {
+        "command": "cuemode.toggleMarkdownMode",
+        "title": "%cuemode.toggleMarkdownMode%"
+      },
+      {
+        "command": "cuemode.configureMarkdownFeatures",
+        "title": "%cuemode.configureMarkdownFeatures%"
       }
     ],
     "menus": {
@@ -79,6 +87,12 @@
         "command": "cuemode.toggleMirrorFlip",
         "key": "ctrl+shift+m",
         "mac": "cmd+shift+m",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "cuemode.toggleMarkdownMode",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d",
         "when": "editorTextFocus"
       }
     ],
@@ -164,6 +178,79 @@
           "type": "boolean",
           "default": false,
           "description": "%cuemode.configuration.mirrorFlip%"
+        },
+        "cuemode.markdownMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "%cuemode.configuration.markdownMode%"
+        },
+        "cuemode.markdownFeatures": {
+          "type": "object",
+          "default": {
+            "headers": true,
+            "emphasis": true,
+            "lists": true,
+            "links": false,
+            "code": true,
+            "blockquotes": true,
+            "tables": true,
+            "taskLists": true,
+            "strikethrough": false,
+            "horizontalRule": true
+          },
+          "properties": {
+            "headers": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.headers%"
+            },
+            "emphasis": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.emphasis%"
+            },
+            "lists": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.lists%"
+            },
+            "links": {
+              "type": "boolean",
+              "default": false,
+              "description": "%cuemode.configuration.markdownFeatures.links%"
+            },
+            "code": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.code%"
+            },
+            "blockquotes": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.blockquotes%"
+            },
+            "tables": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.tables%"
+            },
+            "taskLists": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.taskLists%"
+            },
+            "strikethrough": {
+              "type": "boolean",
+              "default": false,
+              "description": "%cuemode.configuration.markdownFeatures.strikethrough%"
+            },
+            "horizontalRule": {
+              "type": "boolean",
+              "default": true,
+              "description": "%cuemode.configuration.markdownFeatures.horizontalRule%"
+            }
+          },
+          "description": "%cuemode.configuration.markdownFeatures%"
         }
       }
     }
