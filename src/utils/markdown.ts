@@ -169,27 +169,27 @@ export class MarkdownParser {
   }
 
   /**
-   * Parse lists (unordered: -, *, +; ordered: 1., 2., etc.)
+   * Parse lists (unordered: -, *, +; ordered: 1., 2., etc.) with nesting support
    */
   private static parseLists(content: string): { html: string; found: boolean } {
     let found = false;
     const lines = content.split('\n');
     const result: string[] = [];
-    let inList = false;
-    let listType: 'ul' | 'ol' | null = null;
-    let listItems: string[] = [];
+    let listStack: Array<{ type: 'ul' | 'ol'; indent: number; items: string[] }> = [];
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      if (!line) {
-        if (inList) {
-          // End of list
-          result.push(`<${listType} class="markdown-list markdown-${listType}">`);
-          result.push(...listItems.map(item => `  <li class="markdown-list-item">${item}</li>`));
-          result.push(`</${listType}>`);
-          inList = false;
-          listType = null;
-          listItems = [];
+      if (!line || line.trim() === '') {
+        if (listStack.length > 0) {
+          // End all lists
+          while (listStack.length > 0) {
+            const currentList = listStack.pop();
+            if (currentList) {
+              result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
+              result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
+              result.push(`</${currentList.type}>`);
+            }
+          }
         }
         result.push('');
         continue;
@@ -201,42 +201,65 @@ export class MarkdownParser {
       if (unorderedMatch || orderedMatch) {
         found = true;
         const isOrdered = !!orderedMatch;
+        const indent = (unorderedMatch?.[1] || orderedMatch?.[1] || '').length;
         const text = isOrdered ? (orderedMatch?.[3] || '') : (unorderedMatch?.[3] || '');
 
-        if (!inList) {
-          inList = true;
-          listType = isOrdered ? 'ol' : 'ul';
-          listItems = [];
-        } else if ((listType === 'ol') !== isOrdered) {
-          // List type changed, close previous list
-          result.push(`<${listType} class="markdown-list markdown-${listType}">`);
-          result.push(...listItems.map(item => `  <li class="markdown-list-item">${item}</li>`));
-          result.push(`</${listType}>`);
+        // Find the appropriate level in the stack
+        while (listStack.length > 0) {
+          const lastList = listStack[listStack.length - 1];
+          if (!lastList || lastList.indent < indent) break;
           
-          listType = isOrdered ? 'ol' : 'ul';
-          listItems = [];
+          const currentList = listStack.pop();
+          if (currentList) {
+            result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
+            result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
+            result.push(`</${currentList.type}>`);
+          }
         }
 
-        listItems.push(text);
+        // Check if we need a new list at this level
+        const lastList = listStack.length > 0 ? listStack[listStack.length - 1] : null;
+        if (!lastList || 
+            lastList.indent < indent || 
+            lastList.type !== (isOrdered ? 'ol' : 'ul')) {
+          
+          listStack.push({
+            type: isOrdered ? 'ol' : 'ul',
+            indent: indent,
+            items: []
+          });
+        }
+
+        // Add item to current list
+        const currentList = listStack[listStack.length - 1];
+        if (currentList) {
+          currentList.items.push(text);
+        }
       } else {
-        if (inList) {
-          // End of list
-          result.push(`<${listType} class="markdown-list markdown-${listType}">`);
-          result.push(...listItems.map(item => `  <li class="markdown-list-item">${item}</li>`));
-          result.push(`</${listType}>`);
-          inList = false;
-          listType = null;
-          listItems = [];
+        // Not a list item
+        if (listStack.length > 0) {
+          // End all lists
+          while (listStack.length > 0) {
+            const currentList = listStack.pop();
+            if (currentList) {
+              result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
+              result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
+              result.push(`</${currentList.type}>`);
+            }
+          }
         }
         result.push(line);
       }
     }
 
-    // Handle list at end of content
-    if (inList && listType) {
-      result.push(`<${listType} class="markdown-list markdown-${listType}">`);
-      result.push(...listItems.map(item => `  <li class="markdown-list-item">${item}</li>`));
-      result.push(`</${listType}>`);
+    // Handle lists at end of content
+    while (listStack.length > 0) {
+      const currentList = listStack.pop();
+      if (currentList) {
+        result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
+        result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
+        result.push(`</${currentList.type}>`);
+      }
     }
 
     return { html: result.join('\n'), found };
@@ -268,15 +291,96 @@ export class MarkdownParser {
   }
 
   /**
-   * Parse blockquotes (> text)
+   * Parse blockquotes (> text, >> nested)
    */
   private static parseBlockquotes(content: string): { html: string; found: boolean } {
     let found = false;
-    const html = content.replace(/^>\s+(.+)$/gm, (_match, text) => {
-      found = true;
-      return `<blockquote class="markdown-blockquote">${text}</blockquote>`;
-    });
-    return { html, found };
+    const lines = content.split('\n');
+    const result: string[] = [];
+    let inBlockquote = false;
+    let blockquoteLines: string[] = [];
+    let currentLevel = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      if (!line) {
+        if (inBlockquote) {
+          // End of blockquote, process accumulated lines
+          const blockquoteContent = this.processNestedBlockquotes(blockquoteLines);
+          result.push(`<blockquote class="markdown-blockquote">${blockquoteContent}</blockquote>`);
+          inBlockquote = false;
+          blockquoteLines = [];
+          currentLevel = 0;
+        }
+        result.push('');
+        continue;
+      }
+
+      const blockquoteMatch = line.match(/^(>{1,})\s*(.*)$/);
+
+      if (blockquoteMatch) {
+        found = true;
+        const level = blockquoteMatch[1]?.length || 1;
+        const text = blockquoteMatch[2] || '';
+
+        if (!inBlockquote) {
+          inBlockquote = true;
+          currentLevel = level;
+          blockquoteLines = [];
+        }
+
+        // Handle nested levels
+        if (level === currentLevel) {
+          blockquoteLines.push(text);
+        } else if (level > currentLevel) {
+          // Nested deeper
+          const nestedPrefix = '>'.repeat(level - currentLevel);
+          blockquoteLines.push(`${nestedPrefix} ${text}`);
+        } else {
+          // Coming back from deeper nesting
+          blockquoteLines.push(text);
+        }
+      } else {
+        if (inBlockquote) {
+          // End of blockquote, process accumulated lines
+          const blockquoteContent = this.processNestedBlockquotes(blockquoteLines);
+          result.push(`<blockquote class="markdown-blockquote">${blockquoteContent}</blockquote>`);
+          inBlockquote = false;
+          blockquoteLines = [];
+          currentLevel = 0;
+        }
+        result.push(line);
+      }
+    }
+
+    // Handle blockquote at end of content
+    if (inBlockquote) {
+      const blockquoteContent = this.processNestedBlockquotes(blockquoteLines);
+      result.push(`<blockquote class="markdown-blockquote">${blockquoteContent}</blockquote>`);
+    }
+
+    return { html: result.join('\n'), found };
+  }
+
+  /**
+   * Process nested blockquote content
+   */
+  private static processNestedBlockquotes(lines: string[]): string {
+    const result: string[] = [];
+    
+    for (const line of lines) {
+      const nestedMatch = line.match(/^(>{1,})\s*(.*)$/);
+      if (nestedMatch) {
+        const level = nestedMatch[1]?.length || 1;
+        const text = nestedMatch[2] || '';
+        const nestedClass = level > 1 ? ` markdown-blockquote-nested-${Math.min(level, 5)}` : '';
+        result.push(`<blockquote class="markdown-blockquote${nestedClass}">${text}</blockquote>`);
+      } else {
+        result.push(line);
+      }
+    }
+    
+    return result.join('<br>');
   }
 
   /**

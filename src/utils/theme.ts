@@ -133,6 +133,178 @@ export class ThemeManager {
         border-left-color: var(--accent-color);
       }
 
+      /* Markdown Elements Styling */
+      .markdown-blockquote {
+        border-left: 4px solid var(--accent-color);
+        margin: 0.5em 0;
+        padding: 0.2em 0 0.2em 1em;
+        font-style: italic;
+        border-radius: 0 4px 4px 0;
+        background-color: rgba(128, 128, 128, 0.1);
+      }
+
+      .markdown-blockquote-nested-2 {
+        margin-left: 1em;
+        border-left-color: var(--border-color);
+        background-color: rgba(128, 128, 128, 0.05);
+      }
+
+      .markdown-blockquote-nested-3,
+      .markdown-blockquote-nested-4,
+      .markdown-blockquote-nested-5 {
+        margin-left: 2em;
+        border-left-color: var(--border-color);
+        background-color: rgba(128, 128, 128, 0.03);
+      }
+
+      .markdown-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1em 0;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .markdown-table-header {
+        background-color: rgba(128, 128, 128, 0.2);
+        padding: 0.75em;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 2px solid var(--accent-color);
+        border-right: 1px solid var(--border-color);
+      }
+
+      .markdown-table-header:last-child {
+        border-right: none;
+      }
+
+      .markdown-table-cell {
+        padding: 0.75em;
+        border-bottom: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+      }
+
+      .markdown-table-cell:last-child {
+        border-right: none;
+      }
+
+      .markdown-table-row:last-child .markdown-table-cell {
+        border-bottom: none;
+      }
+
+      .markdown-table-row:nth-child(even) {
+        background-color: rgba(128, 128, 128, 0.05);
+      }
+
+      .markdown-list {
+        margin: 0.5em 0;
+        padding-left: 1.5em;
+      }
+
+      .markdown-list-item {
+        margin: 0.2em 0;
+        line-height: 1.4;
+      }
+
+      .markdown-header {
+        font-weight: bold;
+        margin: 0.5em 0 0.3em 0;
+        color: var(--accent-color);
+      }
+
+      .markdown-h1 {
+        font-size: 1.8em;
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 0.2em;
+      }
+
+      .markdown-h2 {
+        font-size: 1.5em;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.2em;
+      }
+
+      .markdown-h3 {
+        font-size: 1.3em;
+      }
+
+      .markdown-h4 {
+        font-size: 1.1em;
+      }
+
+      .markdown-h5,
+      .markdown-h6 {
+        font-size: 1em;
+        opacity: 0.8;
+      }
+
+      .markdown-bold {
+        font-weight: bold;
+      }
+
+      .markdown-italic {
+        font-style: italic;
+        opacity: 0.9;
+      }
+
+      .markdown-inline-code {
+        background-color: rgba(128, 128, 128, 0.15);
+        padding: 0.2em 0.4em;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        border: 1px solid var(--border-color);
+      }
+
+      .markdown-code-block {
+        background-color: rgba(128, 128, 128, 0.1);
+        padding: 1em;
+        border-radius: 6px;
+        margin: 1em 0;
+        border: 1px solid var(--border-color);
+        overflow-x: auto;
+      }
+
+      .markdown-hr {
+        border: none;
+        height: 2px;
+        background: var(--accent-color);
+        margin: 1.5em 0;
+        border-radius: 1px;
+      }
+
+      .markdown-link {
+        color: var(--accent-color);
+        text-decoration: underline;
+      }
+
+      .markdown-link:hover {
+        opacity: 0.8;
+      }
+
+      .markdown-strikethrough {
+        text-decoration: line-through;
+        opacity: 0.7;
+      }
+
+      .markdown-task-item {
+        display: flex;
+        align-items: center;
+        margin: 0.2em 0;
+      }
+
+      .markdown-task-checkbox {
+        margin-right: 0.5em;
+      }
+
+      .markdown-task-checked {
+        opacity: 0.7;
+      }
+
+      .markdown-task-text {
+        flex: 1;
+      }
+
       .cue-highlight {
         background-color: var(--accent-color);
         color: var(--bg-color);
