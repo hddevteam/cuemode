@@ -690,8 +690,25 @@ export class WebViewManager {
             html = html.replace(/\`\`\`([\\s\\S]*?)\`\`\`/g, '<pre><code>$1</code></pre>');
             html = html.replace(/\`([^\`]*?)\`/g, '<code>$1</code>');
             
-            // Blockquotes
-            html = html.replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>');
+            // Blockquotes - handle nested quotes
+            const lines = html.split('\\n');
+            const processedLines = [];
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i];
+              const blockquoteMatch = line.match(/^(>{1,})\\s*(.*)$/);
+              if (blockquoteMatch) {
+                const level = blockquoteMatch[1].length;
+                const text = blockquoteMatch[2] || '';
+                let cssClasses = 'markdown-blockquote';
+                if (level > 1) {
+                  cssClasses += ' markdown-blockquote-nested-' + Math.min(level, 5);
+                }
+                processedLines.push('<blockquote class="' + cssClasses + '">' + text + '</blockquote>');
+              } else {
+                processedLines.push(line);
+              }
+            }
+            html = processedLines.join('\\n');
             
             // Lists - ordered first, then unordered
             html = html.replace(/^\\d+\\. (.*$)/gim, '<li>$1</li>');
@@ -949,12 +966,12 @@ export class WebViewManager {
                 mirrorFlipEnabled = message.config.mirrorFlip;
                 markdownMode = message.config.markdownMode;
                 
-                // Update content display when markdown mode changes
-                updateContentDisplay();
-                
                 // Apply focus mode and mirror flip
                 applyFocusMode();
                 applyMirrorFlip();
+                
+                // Note: Content display will be updated by server-side HTML regeneration
+                // No need to call updateContentDisplay() here as it uses simplified client-side processing
               }
             } else if (message.type === 'contentUpdate') {
               // Update content with new text

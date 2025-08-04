@@ -297,66 +297,26 @@ export class MarkdownParser {
     let found = false;
     const lines = content.split('\n');
     const result: string[] = [];
-    let inBlockquote = false;
-    let blockquoteLines: string[] = [];
-    let currentLevel = 0;
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      if (!line) {
-        if (inBlockquote) {
-          // End of blockquote, process accumulated lines
-          const blockquoteContent = this.processNestedBlockquotes(blockquoteLines);
-          result.push(`<blockquote class="markdown-blockquote">${blockquoteContent}</blockquote>`);
-          inBlockquote = false;
-          blockquoteLines = [];
-          currentLevel = 0;
-        }
-        result.push('');
-        continue;
-      }
-
+    for (const line of lines) {
       const blockquoteMatch = line.match(/^(>{1,})\s*(.*)$/);
 
       if (blockquoteMatch) {
         found = true;
         const level = blockquoteMatch[1]?.length || 1;
         const text = blockquoteMatch[2] || '';
-
-        if (!inBlockquote) {
-          inBlockquote = true;
-          currentLevel = level;
-          blockquoteLines = [];
+        
+        // Generate proper CSS classes for nested levels
+        let cssClasses = 'markdown-blockquote';
+        if (level > 1) {
+          cssClasses += ` markdown-blockquote-nested-${Math.min(level, 5)}`;
         }
-
-        // Handle nested levels
-        if (level === currentLevel) {
-          blockquoteLines.push(text);
-        } else if (level > currentLevel) {
-          // Nested deeper
-          const nestedPrefix = '>'.repeat(level - currentLevel);
-          blockquoteLines.push(`${nestedPrefix} ${text}`);
-        } else {
-          // Coming back from deeper nesting
-          blockquoteLines.push(text);
-        }
+        
+        // Each blockquote line is rendered independently
+        result.push(`<blockquote class="${cssClasses}">${text}</blockquote>`);
       } else {
-        if (inBlockquote) {
-          // End of blockquote, process accumulated lines
-          const blockquoteContent = this.processNestedBlockquotes(blockquoteLines);
-          result.push(`<blockquote class="markdown-blockquote">${blockquoteContent}</blockquote>`);
-          inBlockquote = false;
-          blockquoteLines = [];
-          currentLevel = 0;
-        }
         result.push(line);
       }
-    }
-
-    // Handle blockquote at end of content
-    if (inBlockquote) {
-      const blockquoteContent = this.processNestedBlockquotes(blockquoteLines);
-      result.push(`<blockquote class="markdown-blockquote">${blockquoteContent}</blockquote>`);
     }
 
     return { html: result.join('\n'), found };
@@ -365,24 +325,6 @@ export class MarkdownParser {
   /**
    * Process nested blockquote content
    */
-  private static processNestedBlockquotes(lines: string[]): string {
-    const result: string[] = [];
-    
-    for (const line of lines) {
-      const nestedMatch = line.match(/^(>{1,})\s*(.*)$/);
-      if (nestedMatch) {
-        const level = nestedMatch[1]?.length || 1;
-        const text = nestedMatch[2] || '';
-        const nestedClass = level > 1 ? ` markdown-blockquote-nested-${Math.min(level, 5)}` : '';
-        result.push(`<blockquote class="markdown-blockquote${nestedClass}">${text}</blockquote>`);
-      } else {
-        result.push(line);
-      }
-    }
-    
-    return result.join('<br>');
-  }
-
   /**
    * Parse links ([text](url))
    */

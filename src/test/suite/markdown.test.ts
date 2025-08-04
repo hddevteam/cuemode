@@ -129,8 +129,9 @@ suite('MarkdownParser Tests', () => {
     const content = '> This is a quote\n> Multi-line quote';
     const result = MarkdownParser.parse(content, { ...noFeatures, blockquotes: true });
     
-    // New parser combines consecutive blockquote lines into one block
-    assert.ok(result.html.includes('<blockquote class="markdown-blockquote">This is a quote<br>Multi-line quote</blockquote>'));
+    // New parser processes each blockquote line independently
+    assert.ok(result.html.includes('<blockquote class="markdown-blockquote">This is a quote</blockquote>'));
+    assert.ok(result.html.includes('<blockquote class="markdown-blockquote">Multi-line quote</blockquote>'));
     assert.ok(result.elementsFound.includes('blockquotes'));
   });
 

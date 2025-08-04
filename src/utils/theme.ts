@@ -80,8 +80,10 @@ export class ThemeManager {
       :root {
         --bg-color: ${themeConfig.backgroundColor};
         --text-color: ${themeConfig.textColor};
-        --accent-color: ${themeConfig.accentColor};
-        --border-color: ${themeConfig.borderColor};
+        --accent-color: ${themeConfig.accentColor || '#007acc'};
+        --border-color: ${themeConfig.borderColor || '#333333'};
+        --accent-color-alpha-50: ${this.hexToRgba(themeConfig.accentColor || '#007acc', 0.50)};
+        --accent-color-alpha-70: ${this.hexToRgba(themeConfig.accentColor || '#007acc', 0.70)};
         --font-size: ${fontSize}px;
         --line-height: ${lineHeight};
         --max-width: ${maxWidth}px;
@@ -137,24 +139,55 @@ export class ThemeManager {
       .markdown-blockquote {
         border-left: 4px solid var(--accent-color);
         margin: 0.5em 0;
-        padding: 0.2em 0 0.2em 1em;
-        font-style: italic;
-        border-radius: 0 4px 4px 0;
-        background-color: rgba(128, 128, 128, 0.1);
+        padding: 0.3em 0 0.3em 1em;
+        color: var(--text-color) !important;
+        font-weight: 700;
+        position: relative;
+        opacity: 1;
+        background: none !important;
+        background-color: transparent !important;
       }
 
       .markdown-blockquote-nested-2 {
-        margin-left: 1em;
-        border-left-color: var(--border-color);
-        background-color: rgba(128, 128, 128, 0.05);
+        margin-left: 1.5em;
+        border-left-width: 3px;
+        border-left-color: var(--accent-color-alpha-70);
+        padding-left: 0.8em;
+        font-weight: 700;
+        color: var(--text-color) !important;
+        opacity: 1;
+        background: none !important;
+        background-color: transparent !important;
       }
 
-      .markdown-blockquote-nested-3,
+      .markdown-blockquote-nested-3 {
+        margin-left: 2.5em;
+        border-left-width: 2px;
+        border-left-color: var(--accent-color-alpha-50);
+        padding-left: 0.6em;
+        font-weight: 700;
+        color: var(--text-color) !important;
+        opacity: 1;
+        background: none !important;
+        background-color: transparent !important;
+      }
+
       .markdown-blockquote-nested-4,
       .markdown-blockquote-nested-5 {
-        margin-left: 2em;
-        border-left-color: var(--border-color);
-        background-color: rgba(128, 128, 128, 0.03);
+        margin-left: 3.5em;
+        border-left-width: 1px;
+        border-left-color: var(--accent-color-alpha-50);
+        padding-left: 0.4em;
+        font-weight: 700;
+        color: var(--text-color) !important;
+        opacity: 1;
+        background: none !important;
+        background-color: transparent !important;
+      }
+        border-left-color: var(--accent-color-alpha-50);
+        padding-left: 0.4em;
+        font-weight: 300;
+        opacity: 0.8;
       }
 
       .markdown-table {
@@ -707,5 +740,16 @@ export class ThemeManager {
     
     // WCAG AA standard requires at least 4.5:1 contrast ratio for normal text
     return contrastRatio >= 4.5;
+  }
+
+  /**
+   * Convert hex color to rgba with alpha
+   */
+  private static hexToRgba(hex: string, alpha: number): string {
+    const cleanHex = hex.replace('#', '');
+    const r = parseInt(cleanHex.substr(0, 2), 16);
+    const g = parseInt(cleanHex.substr(2, 2), 16);
+    const b = parseInt(cleanHex.substr(4, 2), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 }
