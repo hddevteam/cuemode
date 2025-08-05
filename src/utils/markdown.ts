@@ -175,26 +175,8 @@ export class MarkdownParser {
     let found = false;
     const lines = content.split('\n');
     const result: string[] = [];
-    let listStack: Array<{ type: 'ul' | 'ol'; indent: number; items: string[] }> = [];
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      if (!line || line.trim() === '') {
-        if (listStack.length > 0) {
-          // End all lists
-          while (listStack.length > 0) {
-            const currentList = listStack.pop();
-            if (currentList) {
-              result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
-              result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
-              result.push(`</${currentList.type}>`);
-            }
-          }
-        }
-        result.push('');
-        continue;
-      }
-
+    for (const line of lines) {
       const unorderedMatch = line.match(/^(\s*)([-*+])\s+(.+)$/);
       const orderedMatch = line.match(/^(\s*)(\d+\.)\s+(.+)$/);
 
@@ -203,62 +185,19 @@ export class MarkdownParser {
         const isOrdered = !!orderedMatch;
         const indent = (unorderedMatch?.[1] || orderedMatch?.[1] || '').length;
         const text = isOrdered ? (orderedMatch?.[3] || '') : (unorderedMatch?.[3] || '');
-
-        // Find the appropriate level in the stack
-        while (listStack.length > 0) {
-          const lastList = listStack[listStack.length - 1];
-          if (!lastList || lastList.indent < indent) break;
-          
-          const currentList = listStack.pop();
-          if (currentList) {
-            result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
-            result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
-            result.push(`</${currentList.type}>`);
-          }
-        }
-
-        // Check if we need a new list at this level
-        const lastList = listStack.length > 0 ? listStack[listStack.length - 1] : null;
-        if (!lastList || 
-            lastList.indent < indent || 
-            lastList.type !== (isOrdered ? 'ol' : 'ul')) {
-          
-          listStack.push({
-            type: isOrdered ? 'ol' : 'ul',
-            indent: indent,
-            items: []
-          });
-        }
-
-        // Add item to current list
-        const currentList = listStack[listStack.length - 1];
-        if (currentList) {
-          currentList.items.push(text);
-        }
+        
+        // Calculate nesting level (every 2-4 spaces = 1 level)
+        const level = Math.floor(indent / 2) + 1;
+        
+        // Generate appropriate list element with nesting class
+        const listType = isOrdered ? 'ol' : 'ul';
+        const listClass = `markdown-list markdown-${listType}`;
+        const itemClass = level > 1 ? `markdown-list-item markdown-list-item-nested-${Math.min(level, 5)}` : 'markdown-list-item';
+        
+        // Each list item is rendered independently with proper CSS classes
+        result.push(`<${listType} class="${listClass}"><li class="${itemClass}">${text}</li></${listType}>`);
       } else {
-        // Not a list item
-        if (listStack.length > 0) {
-          // End all lists
-          while (listStack.length > 0) {
-            const currentList = listStack.pop();
-            if (currentList) {
-              result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
-              result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
-              result.push(`</${currentList.type}>`);
-            }
-          }
-        }
         result.push(line);
-      }
-    }
-
-    // Handle lists at end of content
-    while (listStack.length > 0) {
-      const currentList = listStack.pop();
-      if (currentList) {
-        result.push(`<${currentList.type} class="markdown-list markdown-${currentList.type}">`);
-        result.push(...currentList.items.map(item => `  <li class="markdown-list-item">${item}</li>`));
-        result.push(`</${currentList.type}>`);
       }
     }
 

@@ -710,9 +710,32 @@ export class WebViewManager {
             }
             html = processedLines.join('\\n');
             
-            // Lists - ordered first, then unordered
-            html = html.replace(/^\\d+\\. (.*$)/gim, '<li>$1</li>');
-            html = html.replace(/^[\\*\\-+] (.*$)/gim, '<li>$1</li>');
+            // Lists - handle nested lists with indentation
+            const listLines = html.split('\\n');
+            const processedListLines = [];
+            for (let i = 0; i < listLines.length; i++) {
+              const line = listLines[i];
+              const unorderedMatch = line.match(/^(\\s*)([-*+])\\s+(.+)$/);
+              const orderedMatch = line.match(/^(\\s*)(\\d+\\.)\\s+(.+)$/);
+              
+              if (unorderedMatch || orderedMatch) {
+                const isOrdered = !!orderedMatch;
+                const indent = (unorderedMatch?.[1] || orderedMatch?.[1] || '').length;
+                const text = isOrdered ? (orderedMatch?.[3] || '') : (unorderedMatch?.[3] || '');
+                
+                // Calculate nesting level
+                const level = Math.floor(indent / 2) + 1;
+                
+                const listType = isOrdered ? 'ol' : 'ul';
+                const listClass = 'markdown-list markdown-' + listType;
+                const itemClass = level > 1 ? 'markdown-list-item markdown-list-item-nested-' + Math.min(level, 5) : 'markdown-list-item';
+                
+                processedListLines.push('<' + listType + ' class="' + listClass + '"><li class="' + itemClass + '">' + text + '</li></' + listType + '>');
+              } else {
+                processedListLines.push(line);
+              }
+            }
+            html = processedListLines.join('\\n');
             
             // Horizontal rules
             html = html.replace(/^(-{3,}|\\*{3,}|_{3,})$/gim, '<hr>');

@@ -240,6 +240,22 @@ export class ThemeManager {
         line-height: 1.4;
       }
 
+      .markdown-list-item-nested-2 {
+        margin-left: 2em;
+        font-size: 0.95em;
+      }
+
+      .markdown-list-item-nested-3 {
+        margin-left: 4em;
+        font-size: 0.9em;
+      }
+
+      .markdown-list-item-nested-4,
+      .markdown-list-item-nested-5 {
+        margin-left: 6em;
+        font-size: 0.85em;
+      }
+
       .markdown-header {
         font-weight: bold;
         margin: 0.5em 0 0.3em 0;
