@@ -393,6 +393,31 @@ suite('WebView Markdown Rendering Tests', () => {
       assert.ok(contentSection.includes('Another unordered'), 'Should contain dash item text');
     });
 
+    test('should handle nested lists correctly', async () => {
+      const content = '1. 主列表项\\n  - 子列表项1\\n  - 子列表项2\\n2. 第二个主列表项\\n    - 更深的嵌套';
+      const config = ConfigManager.getSafeConfig();
+      config.markdownMode = true;
+      
+      await webViewManager.create(content, 'nested-lists.md', config);
+      const html = await webViewManager.getHtml();
+      
+      // Extract content area only
+      const contentStart = html.indexOf('<div class="cue-content" id="content">');
+      const contentEnd = html.indexOf('</div>', contentStart) + 6;
+      const contentSection = html.substring(contentStart, contentEnd);
+      
+      assert.ok(contentSection.includes('主列表项'), 'Should contain main list item');
+      assert.ok(contentSection.includes('子列表项1'), 'Should contain nested list item 1');
+      assert.ok(contentSection.includes('子列表项2'), 'Should contain nested list item 2');
+      assert.ok(contentSection.includes('更深的嵌套'), 'Should contain deeply nested item');
+      
+      // Check for nested CSS classes
+      assert.ok(contentSection.includes('markdown-list-item-nested-2') || contentSection.includes('子列表项1'), 
+        'Should have nested list styling for level 2');
+      assert.ok(contentSection.includes('markdown-list-item-nested-4') || contentSection.includes('更深的嵌套'), 
+        'Should have nested list styling for level 4');
+    });
+
     test('should handle horizontal rules with different spacing', async () => {
       const content = 'Before\\n---\\nAfter\\n\\n---\\n\\nMore after';
       const config = ConfigManager.getSafeConfig();

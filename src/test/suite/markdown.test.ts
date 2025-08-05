@@ -108,6 +108,41 @@ suite('MarkdownParser Tests', () => {
     assert.ok(result.elementsFound.includes('lists'));
   });
 
+  test('should parse nested unordered lists correctly', () => {
+    const content = '- Item 1\n  - Nested item 1\n  - Nested item 2\n- Item 2\n    - Deeply nested item';
+    const result = MarkdownParser.parse(content, { ...noFeatures, lists: true });
+    
+    assert.ok(result.html.includes('<ul class="markdown-list markdown-ul">'));
+    assert.ok(result.html.includes('<li class="markdown-list-item">Item 1</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-2">Nested item 1</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-2">Nested item 2</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-3">Deeply nested item</li>'));
+    assert.ok(result.elementsFound.includes('lists'));
+  });
+
+  test('should parse nested ordered lists correctly', () => {
+    const content = '1. 主列表项\n  2. 子列表项1\n  3. 子列表项2\n4. 第二个主列表项\n    5. 更深的嵌套';
+    const result = MarkdownParser.parse(content, { ...noFeatures, lists: true });
+    
+    assert.ok(result.html.includes('<ol class="markdown-list markdown-ol">'));
+    assert.ok(result.html.includes('<li class="markdown-list-item">主列表项</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-2">子列表项1</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-2">子列表项2</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-3">更深的嵌套</li>'));
+    assert.ok(result.elementsFound.includes('lists'));
+  });
+
+  test('should parse mixed nested lists correctly', () => {
+    const content = '1. Ordered item\n  - Unordered nested\n    - Deeper unordered\n2. Second ordered\n  1. Nested ordered';
+    const result = MarkdownParser.parse(content, { ...noFeatures, lists: true });
+    
+    assert.ok(result.html.includes('<li class="markdown-list-item">Ordered item</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-2">Unordered nested</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-3">Deeper unordered</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item markdown-list-item-nested-2">Nested ordered</li>'));
+    assert.ok(result.elementsFound.includes('lists'));
+  });
+
   test('should parse inline code correctly', () => {
     const content = 'This is `inline code` in text.';
     const result = MarkdownParser.parse(content, { ...noFeatures, code: true });
