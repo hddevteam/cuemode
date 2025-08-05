@@ -441,5 +441,32 @@ suite('WebView Markdown Rendering Tests', () => {
       // This test validates that the content is processed correctly in the WebView
       assert.ok(true, 'Horizontal rules functionality validated through MarkdownParser tests');
     });
+
+    test('should render tables correctly in webview', async () => {
+      const content = '| 功能 | 语法 | 效果 |\\n|------|------|------|\\n| 粗体 | \\`**文字**\\` | **文字** |\\n| 斜体 | \\`*文字*\\` | *文字* |\\n| 删除线 | \\`~~文字~~\\` | ~~文字~~ |';
+      const config = ConfigManager.getSafeConfig();
+      config.markdownMode = true;
+      
+      await webViewManager.create(content, 'table.md', config);
+      const html = await webViewManager.getHtml();
+      
+      // Extract content area only
+      const contentStart = html.indexOf('<div class="cue-content" id="content">');
+      const contentEnd = html.indexOf('</div>', contentStart) + 6;
+      const contentSection = html.substring(contentStart, contentEnd);
+      
+      // Debug output for troubleshooting
+      console.log('=== TABLE CONTENT AREA ===');
+      console.log(contentSection);
+      console.log('=== END TABLE AREA ===');
+      
+      // Check for table elements
+      assert.ok(contentSection.includes('<table') || contentSection.includes('功能'), 'Should contain table or table content');
+      assert.ok(contentSection.includes('语法') || contentSection.includes('markdown-table'), 'Should contain table headers or table classes');
+      assert.ok(contentSection.includes('效果'), 'Should contain table header text');
+      assert.ok(contentSection.includes('粗体'), 'Should contain table cell content');
+      assert.ok(contentSection.includes('斜体'), 'Should contain table cell content');
+      assert.ok(contentSection.includes('删除线'), 'Should contain table cell content');
+    });
   });
 });

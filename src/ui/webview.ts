@@ -647,11 +647,11 @@ export class WebViewManager {
           function toggleMarkdownMode() {
             markdownMode = !markdownMode;
             
-            // Re-process the content with the new mode
-            updateContentDisplay();
-            
-            // Notify the extension to update the configuration
+            // Send message to extension to update config and re-render content server-side
             vscode.postMessage({ type: 'toggleMarkdown' });
+            
+            // Note: Content will be updated by server-side re-rendering
+            // No need to call updateContentDisplay() here
           }
           
           function updateContent() {
@@ -659,98 +659,16 @@ export class WebViewManager {
           }
           
           function updateContentDisplay() {
-            const contentElement = document.getElementById('content');
-            if (contentElement && currentContent) {
-              if (markdownMode) {
-                contentElement.innerHTML = processMarkdownContent(currentContent);
-              } else {
-                contentElement.innerHTML = processPlainTextContent(currentContent);
-              }
-              
-              // Reapply focus mode after content update
-              applyFocusMode();
-            }
+            // Content display is now handled entirely by server-side rendering
+            // This function is kept for compatibility but should not be used
+            console.warn('updateContentDisplay() called - content should be updated via server-side rendering');
           }
           
-          function processMarkdownContent(content) {
-            // Enhanced markdown processing to match server-side implementation
-            let html = content;
-            
-            // Headers (process in order from most specific to least)
-            html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-            html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-            html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-            
-            // Bold and italic (process in order from most specific to least)
-            html = html.replace(/\\*\\*\\*(.*?)\\*\\*\\*/g, '<strong><em>$1</em></strong>');
-            html = html.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>');
-            html = html.replace(/\\*(.*?)\\*/g, '<em>$1</em>');
-            
-            // Code blocks first, then inline code
-            html = html.replace(/\`\`\`([\\s\\S]*?)\`\`\`/g, '<pre><code>$1</code></pre>');
-            html = html.replace(/\`([^\`]*?)\`/g, '<code>$1</code>');
-            
-            // Blockquotes - handle nested quotes
-            const lines = html.split('\\n');
-            const processedLines = [];
-            for (let i = 0; i < lines.length; i++) {
-              const line = lines[i];
-              const blockquoteMatch = line.match(/^(>{1,})\\s*(.*)$/);
-              if (blockquoteMatch) {
-                const level = blockquoteMatch[1].length;
-                const text = blockquoteMatch[2] || '';
-                let cssClasses = 'markdown-blockquote';
-                if (level > 1) {
-                  cssClasses += ' markdown-blockquote-nested-' + Math.min(level, 5);
-                }
-                processedLines.push('<blockquote class="' + cssClasses + '">' + text + '</blockquote>');
-              } else {
-                processedLines.push(line);
-              }
-            }
-            html = processedLines.join('\\n');
-            
-            // Lists - handle nested lists with indentation
-            const listLines = html.split('\\n');
-            const processedListLines = [];
-            for (let i = 0; i < listLines.length; i++) {
-              const line = listLines[i];
-              const unorderedMatch = line.match(/^(\\s*)([-*+])\\s+(.+)$/);
-              const orderedMatch = line.match(/^(\\s*)(\\d+\\.)\\s+(.+)$/);
-              
-              if (unorderedMatch || orderedMatch) {
-                const isOrdered = !!orderedMatch;
-                const indent = (unorderedMatch?.[1] || orderedMatch?.[1] || '').length;
-                const text = isOrdered ? (orderedMatch?.[3] || '') : (unorderedMatch?.[3] || '');
-                
-                // Calculate nesting level
-                const level = Math.floor(indent / 2) + 1;
-                
-                const listType = isOrdered ? 'ol' : 'ul';
-                const listClass = 'markdown-list markdown-' + listType;
-                const itemClass = level > 1 ? 'markdown-list-item markdown-list-item-nested-' + Math.min(level, 5) : 'markdown-list-item';
-                
-                processedListLines.push('<' + listType + ' class="' + listClass + '"><li class="' + itemClass + '">' + text + '</li></' + listType + '>');
-              } else {
-                processedListLines.push(line);
-              }
-            }
-            html = processedListLines.join('\\n');
-            
-            // Horizontal rules
-            html = html.replace(/^(-{3,}|\\*{3,}|_{3,})$/gim, '<hr>');
-            
-            // Links
-            html = html.replace(/\\[([^\\]]*?)\\]\\(([^\\)]*?)\\)/g, '<a href="$2">$1</a>');
-            
-            // Split into lines and wrap each line
-            return html.split('\\n').map(function(line, index) {
-              const lineContent = line.trim() ? line : '&nbsp;';
-              return '<div class="cue-line" data-line-number="' + index + '">' + lineContent + '</div>';
-            }).join('');
-          }
+          // Removed client-side markdown processing functions
+          // All markdown processing is now handled server-side for consistency
           
           function processPlainTextContent(content) {
+            // Keep plain text processing for non-markdown mode fallback
             return content.split('\\\\n').map((line, index) => {
               const escapedLine = line
                 .replace(/&/g, '&amp;')
@@ -997,10 +915,12 @@ export class WebViewManager {
                 // No need to call updateContentDisplay() here as it uses simplified client-side processing
               }
             } else if (message.type === 'contentUpdate') {
-              // Update content with new text
+              // Content updates are now handled by server-side re-rendering
+              // This message type is deprecated in favor of full HTML updates
+              console.warn('contentUpdate message received - content should be updated via server-side rendering');
               if (message.content !== undefined) {
                 currentContent = message.content;
-                updateContentDisplay();
+                // Note: No longer calling updateContentDisplay() - content is updated server-side
               }
             }
           });

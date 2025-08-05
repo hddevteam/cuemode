@@ -197,6 +197,33 @@ suite('MarkdownParser Tests', () => {
     assert.ok(result.elementsFound.includes('tables'));
   });
 
+  test('should parse complex tables with markdown syntax correctly', () => {
+    const content = '| 功能 | 语法 | 效果 |\n|------|------|------|\n| 粗体 | `**文字**` | **文字** |\n| 斜体 | `*文字*` | *文字* |\n| 删除线 | `~~文字~~` | ~~文字~~ |';
+    const result = MarkdownParser.parse(content, { ...noFeatures, tables: true, code: true, emphasis: true, strikethrough: true });
+    
+    assert.ok(result.html.includes('<table class="markdown-table">'));
+    assert.ok(result.html.includes('<th class="markdown-table-header">功能</th>'));
+    assert.ok(result.html.includes('<th class="markdown-table-header">语法</th>'));
+    assert.ok(result.html.includes('<th class="markdown-table-header">效果</th>'));
+    
+    // Check that table cells contain the content
+    assert.ok(result.html.includes('<td class="markdown-table-cell">粗体</td>'));
+    assert.ok(result.html.includes('<td class="markdown-table-cell">斜体</td>'));
+    assert.ok(result.html.includes('<td class="markdown-table-cell">删除线</td>'));
+    
+    // Check that markdown within table cells is parsed
+    // Note: Code blocks within table cells may parse their content differently
+    assert.ok(result.html.includes('class="markdown-inline-code"'));
+    assert.ok(result.html.includes('<strong class="markdown-bold">文字</strong>'));
+    assert.ok(result.html.includes('<em class="markdown-italic">文字</em>'));
+    assert.ok(result.html.includes('<del class="markdown-strikethrough">文字</del>'));
+    
+    assert.ok(result.elementsFound.includes('tables'));
+    assert.ok(result.elementsFound.includes('inline-code'));
+    assert.ok(result.elementsFound.includes('emphasis'));
+    assert.ok(result.elementsFound.includes('strikethrough'));
+  });
+
   test('should parse task lists correctly', () => {
     const content = '- [x] Completed task\n- [ ] Incomplete task';
     const result = MarkdownParser.parse(content, { ...noFeatures, taskLists: true });

@@ -92,7 +92,12 @@ export class CueModeExtension {
       this.toggleMirrorFlip();
     });
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand);
+    // Toggle markdown mode command
+    const toggleMarkdownModeCommand = vscode.commands.registerCommand('cuemode.toggleMarkdownMode', () => {
+      this.toggleMarkdownMode();
+    });
+
+    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand);
   }
 
   /**
@@ -338,6 +343,35 @@ export class CueModeExtension {
       vscode.window.setStatusBarMessage(message, 2000);
       
       // Update webview if active
+      if (this.webViewManager.isActive()) {
+        const updatedConfig = ConfigManager.getConfig();
+        await this.webViewManager.updateConfig(updatedConfig);
+      }
+      
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Toggle markdown mode
+   */
+  private async toggleMarkdownMode(): Promise<void> {
+    try {
+      const currentConfig = ConfigManager.getConfig();
+      const newMarkdownMode = !currentConfig.markdownMode;
+      
+      // Update configuration
+      await ConfigManager.updateConfig('markdownMode', newMarkdownMode);
+      
+      // Show notification
+      const message = newMarkdownMode 
+        ? t('notifications.markdownModeEnabled')
+        : t('notifications.markdownModeDisabled');
+      
+      vscode.window.setStatusBarMessage(message, 2000);
+      
+      // Update webview if active - this will trigger server-side re-rendering
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);

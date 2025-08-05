@@ -18,7 +18,7 @@ export class ConfigManager {
     focusOpacity: 0.3,
     focusLineCount: 3,
     mirrorFlip: false,
-    markdownMode: false,
+    markdownMode: true,
     markdownFeatures: {
       headers: true,
       emphasis: true,
