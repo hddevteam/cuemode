@@ -15,7 +15,7 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     /* Markdown Headers */
     .markdown-header {
       font-weight: 600;
-      margin: 0.8em 0 0.4em 0;
+      margin: 0.5em 0 0.3em 0;
       line-height: 1.2;
       color: ${theme.textColor};
     }
@@ -130,6 +130,35 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
       opacity: 0.9;
       background-color: rgba(127, 127, 127, 0.05);
     }
+    
+    /* Nested blockquotes with progressive indentation */
+    .markdown-blockquote-nested-2 {
+      margin-left: 1.5em;
+      border-left-width: 3px;
+      opacity: 0.8;
+      background-color: rgba(127, 127, 127, 0.08);
+    }
+    
+    .markdown-blockquote-nested-3 {
+      margin-left: 3em;
+      border-left-width: 2px;
+      opacity: 0.7;
+      background-color: rgba(127, 127, 127, 0.12);
+    }
+    
+    .markdown-blockquote-nested-4 {
+      margin-left: 4.5em;
+      border-left-width: 2px;
+      opacity: 0.6;
+      background-color: rgba(127, 127, 127, 0.15);
+    }
+    
+    .markdown-blockquote-nested-5 {
+      margin-left: 6em;
+      border-left-width: 1px;
+      opacity: 0.5;
+      background-color: rgba(127, 127, 127, 0.18);
+    }
 
     /* Markdown Links */
     .markdown-link {
@@ -173,18 +202,23 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     /* Markdown Task Lists */
     .markdown-task-item {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       margin: 0.3em 0;
       color: ${theme.textColor};
+      line-height: 1.4;
     }
     
     .markdown-task-checkbox {
       margin-right: 0.5em;
+      margin-top: 0.1em;
       cursor: pointer;
+      flex-shrink: 0;
     }
     
     .markdown-task-text {
       flex: 1;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     
     .markdown-task-checked .markdown-task-text {
@@ -223,7 +257,11 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
       color: inherit;
     }
     
-    .focus-line .markdown-blockquote {
+    .focus-line .markdown-blockquote,
+    .focus-line .markdown-blockquote-nested-2,
+    .focus-line .markdown-blockquote-nested-3,
+    .focus-line .markdown-blockquote-nested-4,
+    .focus-line .markdown-blockquote-nested-5 {
       border-left-color: currentColor;
     }
     

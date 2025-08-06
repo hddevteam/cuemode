@@ -128,7 +128,7 @@ suite('WebView Markdown Rendering Tests', () => {
       await webViewManager.create(markdownContent, 'test.md', config);
       const html = await webViewManager.getHtml();
       
-      assert.ok(html.includes('<hr>'), 'Horizontal rule should be rendered');
+      assert.ok(html.includes('<hr class="markdown-hr">'), 'Horizontal rule should be rendered');
     });
   });
 

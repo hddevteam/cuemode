@@ -175,33 +175,145 @@ export class MarkdownParser {
     let found = false;
     const lines = content.split('\n');
     const result: string[] = [];
+    let i = 0;
 
-    for (const line of lines) {
+    while (i < lines.length) {
+      const line = lines[i];
+      if (!line) {
+        result.push('');
+        i++;
+        continue;
+      }
+
       const unorderedMatch = line.match(/^(\s*)([-*+])\s+(.+)$/);
       const orderedMatch = line.match(/^(\s*)(\d+\.)\s+(.+)$/);
 
       if (unorderedMatch || orderedMatch) {
         found = true;
-        const isOrdered = !!orderedMatch;
-        const indent = (unorderedMatch?.[1] || orderedMatch?.[1] || '').length;
-        const text = isOrdered ? (orderedMatch?.[3] || '') : (unorderedMatch?.[3] || '');
         
-        // Calculate nesting level (every 2-4 spaces = 1 level)
-        const level = Math.floor(indent / 2) + 1;
+        // Start processing consecutive list items
+        const listItems: Array<{ text: string; level: number; isOrdered: boolean }> = [];
         
-        // Generate appropriate list element with nesting class
-        const listType = isOrdered ? 'ol' : 'ul';
-        const listClass = `markdown-list markdown-${listType}`;
-        const itemClass = level > 1 ? `markdown-list-item markdown-list-item-nested-${Math.min(level, 5)}` : 'markdown-list-item';
+        // Process all consecutive list items (including this one)
+        while (i < lines.length) {
+          const currentLine = lines[i];
+          if (!currentLine) {
+            // Empty line breaks the list
+            break;
+          }
+
+          const unorderedItemMatch = currentLine.match(/^(\s*)([-*+])\s+(.+)$/);
+          const orderedItemMatch = currentLine.match(/^(\s*)(\d+\.)\s+(.+)$/);
+          
+          if (unorderedItemMatch || orderedItemMatch) {
+            const itemIsOrdered = !!orderedItemMatch;
+            const itemIndent = (unorderedItemMatch?.[1] || orderedItemMatch?.[1] || '').length;
+            const itemLevel = Math.floor(itemIndent / 2) + 1;
+            const itemText = itemIsOrdered ? (orderedItemMatch?.[3] || '') : (unorderedItemMatch?.[3] || '');
+            
+            listItems.push({
+              text: itemText,
+              level: itemLevel,
+              isOrdered: itemIsOrdered
+            });
+            i++;
+          } else {
+            // No more list items, stop processing
+            break;
+          }
+        }
         
-        // Each list item is rendered independently with proper CSS classes
-        result.push(`<${listType} class="${listClass}"><li class="${itemClass}">${text}</li></${listType}>`);
+        // Generate proper nested list HTML
+        result.push(this.generateNestedListHTML(listItems));
+        // Don't increment i again because the while loop already did it
+        continue;
       } else {
         result.push(line);
+        i++;
       }
     }
 
     return { html: result.join('\n'), found };
+  }
+
+  /**
+   * Generate properly nested list HTML with correct numbering
+   */
+  private static generateNestedListHTML(listItems: Array<{ text: string; level: number; isOrdered: boolean }>): string {
+    if (listItems.length === 0) return '';
+    
+    const html: string[] = [];
+    const stack: Array<{ type: string; level: number }> = [];
+    const listCounters: Map<string, number> = new Map(); // Track numbering for each level+type combination
+    
+    for (const item of listItems) {
+      const listType = item.isOrdered ? 'ol' : 'ul';
+      const listClass = `markdown-list markdown-${listType}`;
+      const itemClass = item.level > 1 ? 
+        `markdown-list-item markdown-list-item-nested-${Math.min(item.level, 5)}` : 
+        'markdown-list-item';
+      
+      // Create a key for tracking list continuity
+      const listKey = `${listType}-${item.level}`;
+      
+      // Close lists that are at deeper levels
+      while (stack.length > 0) {
+        const lastInStack = stack[stack.length - 1];
+        if (!lastInStack || lastInStack.level < item.level) {
+          break;
+        }
+        if (lastInStack.level === item.level && lastInStack.type === listType) {
+          // Same level and type, can continue in the same list
+          break;
+        }
+        const lastList = stack.pop();
+        if (lastList) {
+          html.push(`</${lastList.type}>`);
+        }
+      }
+      
+      // Open new list if needed
+      const lastInStack = stack[stack.length - 1];
+      const needsNewList = stack.length === 0 || !lastInStack || 
+        lastInStack.level < item.level || 
+        (lastInStack.level === item.level && lastInStack.type !== listType);
+      
+      if (needsNewList) {
+        let startAttr = '';
+        if (item.isOrdered) {
+          // For ordered lists, check if we need to continue numbering
+          const currentCount = listCounters.get(listKey) || 0;
+          const nextNumber = currentCount + 1;
+          
+          // Only add start attribute if it's not starting from 1
+          if (nextNumber > 1) {
+            startAttr = ` start="${nextNumber}"`;
+          }
+        }
+        
+        html.push(`<${listType} class="${listClass}"${startAttr}>`);
+        stack.push({ type: listType, level: item.level });
+      }
+      
+      // Add list item
+      html.push(`<li class="${itemClass}">${item.text}</li>`);
+      
+      // Update counter for this list type and level
+      if (item.isOrdered) {
+        const currentCount = listCounters.get(listKey) || 0;
+        listCounters.set(listKey, currentCount + 1);
+      }
+    }
+    
+    // Close remaining open lists
+    while (stack.length > 0) {
+      const lastList = stack.pop();
+      if (lastList) {
+        html.push(`</${lastList.type}>`);
+      }
+    }
+    
+    return html.join('\n');
   }
 
   /**

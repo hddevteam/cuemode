@@ -352,4 +352,144 @@ Final paragraph.`;
       assert.ok(Array.isArray(result.elementsFound));
     });
   });
+
+  // Additional tests for recent fixes
+  test('should parse consecutive ordered lists with correct numbering', () => {
+    const content = '1. 第一项\n2. 第二项\n3. 第三项';
+    const result = MarkdownParser.parse(content, { ...noFeatures, lists: true });
+    
+    // Should be a single <ol> containing all items, not separate <ol> tags
+    const olMatches = result.html.match(/<ol[^>]*>/g);
+    assert.strictEqual(olMatches?.length, 1, 'Should have exactly one <ol> tag');
+    
+    // Should have three <li> items
+    const liMatches = result.html.match(/<li[^>]*>/g);
+    assert.strictEqual(liMatches?.length, 3, 'Should have exactly three <li> tags');
+    
+    // Items should be in the correct order
+    assert.ok(result.html.includes('<li class="markdown-list-item">第一项</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item">第二项</li>'));
+    assert.ok(result.html.includes('<li class="markdown-list-item">第三项</li>'));
+    assert.ok(result.elementsFound.includes('lists'));
+  });
+
+  test('should parse nested blockquotes with proper indentation', () => {
+    const content = '> 普通引用\n>> 嵌套引用\n>>> 深度嵌套引用';
+    const result = MarkdownParser.parse(content, { ...noFeatures, blockquotes: true });
+    
+    assert.ok(result.html.includes('<blockquote class="markdown-blockquote">普通引用</blockquote>'));
+    assert.ok(result.html.includes('<blockquote class="markdown-blockquote markdown-blockquote-nested-2">嵌套引用</blockquote>'));
+    assert.ok(result.html.includes('<blockquote class="markdown-blockquote markdown-blockquote-nested-3">深度嵌套引用</blockquote>'));
+    assert.ok(result.elementsFound.includes('blockquotes'));
+  });
+
+  test('should handle Chinese markdown content correctly', () => {
+    const content = `# 标题1
+段落内容
+
+## 标题2
+另一个段落
+
+1. 第一项
+2. 第二项
+
+[链接文字](https://example.com)
+
+> 普通引用
+>> 嵌套引用
+
+~~删除线文字~~
+
+- [x] 已完成任务
+- [ ] 未完成任务`;
+
+    const result = MarkdownParser.parse(content, allFeatures);
+    
+    // Check headers
+    assert.ok(result.html.includes('<h1 class="markdown-header markdown-h1">标题1</h1>'));
+    assert.ok(result.html.includes('<h2 class="markdown-header markdown-h2">标题2</h2>'));
+    
+    // Check lists with consecutive numbering
+    const olMatches = result.html.match(/<ol[^>]*>/g);
+    assert.strictEqual(olMatches?.length, 1, 'Should have exactly one ordered list');
+    
+    // Check links
+    assert.ok(result.html.includes('<a href="https://example.com" class="markdown-link"'));
+    assert.ok(result.html.includes('链接文字</a>'));
+    
+    // Check nested blockquotes
+    assert.ok(result.html.includes('<blockquote class="markdown-blockquote">普通引用</blockquote>'));
+    assert.ok(result.html.includes('<blockquote class="markdown-blockquote markdown-blockquote-nested-2">嵌套引用</blockquote>'));
+    
+    // Check strikethrough
+    assert.ok(result.html.includes('<del class="markdown-strikethrough">删除线文字</del>'));
+    
+    // Check task lists
+    assert.ok(result.html.includes('已完成任务'));
+    assert.ok(result.html.includes('未完成任务'));
+    
+    // Check that all expected elements were found
+    const expectedElements = ['headers', 'lists', 'links', 'blockquotes', 'strikethrough', 'task-lists'];
+    expectedElements.forEach(element => {
+      assert.ok(result.elementsFound.includes(element), `Should find ${element}`);
+    });
+  });
+
+  test('should handle mixed unordered and ordered lists correctly', () => {
+    const content = `# 测试混合列表
+
+无序列表:
+- 项目1
+- 项目2
+- 项目3
+
+有序列表:
+1. 步骤1
+2. 步骤2
+3. 步骤3
+
+另一个无序列表:
+* 星号项目1
+* 星号项目2`;
+
+    const result = MarkdownParser.parse(content, allFeatures);
+    
+    // Should have one ol and two ul tags
+    const olMatches = result.html.match(/<ol[^>]*>/g);
+    const ulMatches = result.html.match(/<ul[^>]*>/g);
+    
+    assert.strictEqual(olMatches?.length, 1, 'Should have exactly one ordered list');
+    assert.strictEqual(ulMatches?.length, 2, 'Should have exactly two unordered lists');
+    
+    // Check content is preserved
+    assert.ok(result.html.includes('项目1'));
+    assert.ok(result.html.includes('步骤1'));
+    assert.ok(result.html.includes('星号项目1'));
+  });
+
+  test('should maintain ordered list numbering after nested unordered lists', () => {
+    const content = `1. 有序列表项 1
+2. 有序列表项 2
+   - 无序子项 A
+   - 无序子项 B
+3. 有序列表项 3
+4. 有序列表项 4`;
+
+    const result = MarkdownParser.parse(content, allFeatures);
+    
+    // 验证第三项应该有 start="3" 属性（避免重置为1）
+    assert.ok(result.html.includes('start="3"'), 'Should have start="3" attribute for continued numbering');
+    
+    // 验证包含正确的内容
+    assert.ok(result.html.includes('有序列表项 1'));
+    assert.ok(result.html.includes('有序列表项 2'));
+    assert.ok(result.html.includes('无序子项 A'));
+    assert.ok(result.html.includes('无序子项 B'));
+    assert.ok(result.html.includes('有序列表项 3'));
+    assert.ok(result.html.includes('有序列表项 4'));
+    
+    // 验证有序列表和无序列表都有正确的类
+    assert.ok(result.html.includes('markdown-ol'));
+    assert.ok(result.html.includes('markdown-ul'));
+  });
 });
