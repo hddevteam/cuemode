@@ -492,4 +492,28 @@ Final paragraph.`;
     assert.ok(result.html.includes('markdown-ol'));
     assert.ok(result.html.includes('markdown-ul'));
   });
+
+  test('should render task lists without unwanted line breaks', () => {
+    const content = `任务列表
+
+- [ ] 学习基础语法
+- [x] 掌握高级特性  
+- [ ] 完成项目实战`;
+
+    const result = MarkdownParser.parse(content, allFeatures);
+    
+    // 验证任务列表结构是单行的，没有多余换行
+    assert.ok(result.html.includes('markdown-task-item'), 'Should contain task list items');
+    assert.ok(result.html.includes('markdown-task-checkbox'), 'Should contain task checkboxes');
+    assert.ok(result.html.includes('markdown-task-text'), 'Should contain task text');
+    
+    // 验证HTML结构是紧凑的（没有换行在标签内）
+    const taskItemMatches = result.html.match(/<div class="markdown-task-item[^>]*><input[^>]*><span[^>]*>[^<]*<\/span><\/div>/g);
+    assert.ok(taskItemMatches && taskItemMatches.length >= 3, 'Should have compact task item structure without line breaks');
+    
+    // 验证checked和unchecked状态
+    assert.ok(result.html.includes('markdown-task-unchecked'), 'Should have unchecked tasks');
+    assert.ok(result.html.includes('markdown-task-checked'), 'Should have checked tasks');
+    assert.ok(result.html.includes('checked'), 'Should have checked attribute for completed tasks');
+  });
 });

@@ -503,10 +503,7 @@ export class MarkdownParser {
       found = true;
       const checked = check === 'x';
       const checkedClass = checked ? 'markdown-task-checked' : 'markdown-task-unchecked';
-      return `${indent}<div class="markdown-task-item ${checkedClass}">
-        <input type="checkbox" class="markdown-task-checkbox" ${checked ? 'checked' : ''} disabled>
-        <span class="markdown-task-text">${text}</span>
-      </div>`;
+      return `${indent}<div class="markdown-task-item ${checkedClass}"><input type="checkbox" class="markdown-task-checkbox" ${checked ? 'checked' : ''} disabled><span class="markdown-task-text">${text}</span></div>`;
     });
     return { html, found };
   }

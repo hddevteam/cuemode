@@ -202,23 +202,27 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     /* Markdown Task Lists */
     .markdown-task-item {
       display: flex;
-      align-items: flex-start;
-      margin: 0.3em 0;
+      align-items: center;
+      margin: 0.5em 0;
       color: ${theme.textColor};
-      line-height: 1.4;
+      line-height: 1.6;
+      min-height: 1.5em;
     }
     
     .markdown-task-checkbox {
-      margin-right: 0.5em;
-      margin-top: 0.1em;
+      margin-right: 0.75em;
+      margin-top: 0;
       cursor: pointer;
       flex-shrink: 0;
+      vertical-align: middle;
     }
     
     .markdown-task-text {
       flex: 1;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      white-space: normal;
+      min-width: 0;
     }
     
     .markdown-task-checked .markdown-task-text {
