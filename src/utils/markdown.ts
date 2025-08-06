@@ -39,12 +39,30 @@ export class MarkdownParser {
     let html = content;
     const elementsFound: string[] = [];
     const originalLength = content.length;
+    const protectedElements: Map<string, string> = new Map();
+    let protectedIndex = 0;
 
     // Apply parsing in order of precedence to avoid conflicts
     if (features.code) {
       const codeResult = this.parseCodeBlocks(html);
       html = codeResult.html;
       if (codeResult.found) elementsFound.push('code-blocks');
+    }
+
+    // Parse and protect tables FIRST to prevent their content from being processed by other parsers
+    if (features.tables) {
+      const tableResult = this.parseTablesWithProtection(html, protectedElements, protectedIndex, features);
+      html = tableResult.html;
+      protectedIndex = tableResult.nextIndex;
+      if (tableResult.found) {
+        elementsFound.push('tables');
+        // Add inner elements found in tables
+        tableResult.innerElementsFound.forEach(element => {
+          if (!elementsFound.includes(element)) {
+            elementsFound.push(element);
+          }
+        });
+      }
     }
 
     if (features.code) {
@@ -63,12 +81,6 @@ export class MarkdownParser {
       const hrResult = this.parseHorizontalRule(html);
       html = hrResult.html;
       if (hrResult.found) elementsFound.push('horizontal-rule');
-    }
-
-    if (features.tables) {
-      const tableResult = this.parseTables(html);
-      html = tableResult.html;
-      if (tableResult.found) elementsFound.push('tables');
     }
 
     if (features.taskLists) {
@@ -106,6 +118,11 @@ export class MarkdownParser {
       html = strikeResult.html;
       if (strikeResult.found) elementsFound.push('strikethrough');
     }
+
+    // Restore protected elements
+    protectedElements.forEach((value, key) => {
+      html = html.replace(key, value);
+    });
 
     return {
       html: html.trim(),
@@ -389,35 +406,52 @@ export class MarkdownParser {
   }
 
   /**
-   * Parse tables (| col1 | col2 |)
+   * Generate complete table HTML structure
    */
-  private static parseTables(content: string): { html: string; found: boolean } {
+  private static generateTableHtml(headerRow: string | null, tableRows: string[]): string {
+    const parts = ['<table class="markdown-table">'];
+    
+    if (headerRow) {
+      parts.push('  <thead class="markdown-table-head">');
+      parts.push('    <tr class="markdown-table-header-row">');
+      parts.push(headerRow);
+      parts.push('    </tr>');
+      parts.push('  </thead>');
+    }
+    
+    if (tableRows.length > 0) {
+      parts.push('  <tbody class="markdown-table-body">');
+      parts.push(...tableRows);
+      parts.push('  </tbody>');
+    }
+    
+    parts.push('</table>');
+    return parts.join('\n');
+  }
+
+  /**
+   * Parse tables with content protection from further markdown processing
+   */
+  private static parseTablesWithProtection(content: string, protectedElements: Map<string, string>, startIndex: number, features: MarkdownFeatures): { html: string; found: boolean; nextIndex: number; innerElementsFound: string[] } {
     let found = false;
+    let protectedIndex = startIndex;
     const lines = content.split('\n');
     const result: string[] = [];
     let inTable = false;
     let tableRows: string[] = [];
     let headerRow: string | null = null;
+    const innerElementsFound: string[] = [];
 
     for (let i = 0; i < lines.length; i++) {
       const currentLine = lines[i];
       if (!currentLine) {
         if (inTable) {
-          // End of table
-          result.push('<table class="markdown-table">');
-          if (headerRow) {
-            result.push('  <thead class="markdown-table-head">');
-            result.push('    <tr class="markdown-table-header-row">');
-            result.push(headerRow);
-            result.push('    </tr>');
-            result.push('  </thead>');
-          }
-          if (tableRows.length > 0) {
-            result.push('  <tbody class="markdown-table-body">');
-            result.push(...tableRows);
-            result.push('  </tbody>');
-          }
-          result.push('</table>');
+          // End of table - generate and protect it
+          const tableHtml = this.generateTableHtml(headerRow, tableRows);
+          const placeholder = `<!--MARKDOWN-TABLE-${protectedIndex}-->`;
+          protectedElements.set(placeholder, tableHtml);
+          result.push(placeholder);
+          protectedIndex++;
           
           inTable = false;
           headerRow = null;
@@ -441,29 +475,41 @@ export class MarkdownParser {
         
         if (!inTable) {
           inTable = true;
-          headerRow = cells.map(cell => `    <th class="markdown-table-header">${cell}</th>`).join('\n');
+          headerRow = cells.map(cell => {
+            const processedCell = this.parseTableCell(cell, features);
+            return `    <th class="markdown-table-header">${processedCell}</th>`;
+          }).join('\n');
           tableRows = [];
         } else {
-          const row = cells.map(cell => `    <td class="markdown-table-cell">${cell}</td>`).join('\n');
+          const row = cells.map(cell => {
+            const processedCell = this.parseTableCell(cell, features);
+            return `    <td class="markdown-table-cell">${processedCell}</td>`;
+          }).join('\n');
           tableRows.push(`  <tr class="markdown-table-row">\n${row}\n  </tr>`);
         }
       } else {
         if (inTable) {
-          // End of table
-          result.push('<table class="markdown-table">');
-          if (headerRow) {
-            result.push('  <thead class="markdown-table-head">');
-            result.push('    <tr class="markdown-table-header-row">');
-            result.push(headerRow);
-            result.push('    </tr>');
-            result.push('  </thead>');
+          // End of table - generate and protect it
+          const tableHtml = this.generateTableHtml(headerRow, tableRows);
+          
+          // Check for inner elements in the generated HTML
+          if (tableHtml.includes('class="markdown-inline-code"') && !innerElementsFound.includes('inline-code')) {
+            innerElementsFound.push('inline-code');
           }
-          if (tableRows.length > 0) {
-            result.push('  <tbody class="markdown-table-body">');
-            result.push(...tableRows);
-            result.push('  </tbody>');
+          if (tableHtml.includes('class="markdown-bold"') && !innerElementsFound.includes('emphasis')) {
+            innerElementsFound.push('emphasis');
           }
-          result.push('</table>');
+          if (tableHtml.includes('class="markdown-italic"') && !innerElementsFound.includes('emphasis')) {
+            innerElementsFound.push('emphasis');
+          }
+          if (tableHtml.includes('class="markdown-strikethrough"') && !innerElementsFound.includes('strikethrough')) {
+            innerElementsFound.push('strikethrough');
+          }
+          
+          const placeholder = `<!--MARKDOWN-TABLE-${protectedIndex}-->`;
+          protectedElements.set(placeholder, tableHtml);
+          result.push(placeholder);
+          protectedIndex++;
           
           inTable = false;
           headerRow = null;
@@ -475,23 +521,69 @@ export class MarkdownParser {
 
     // Handle table at end of content
     if (inTable) {
-      result.push('<table class="markdown-table">');
-      if (headerRow) {
-        result.push('  <thead class="markdown-table-head">');
-        result.push('    <tr class="markdown-table-header-row">');
-        result.push(headerRow);
-        result.push('    </tr>');
-        result.push('  </thead>');
+      const tableHtml = this.generateTableHtml(headerRow, tableRows);
+      
+      // Check for inner elements in the generated HTML
+      if (tableHtml.includes('class="markdown-inline-code"') && !innerElementsFound.includes('inline-code')) {
+        innerElementsFound.push('inline-code');
       }
-      if (tableRows.length > 0) {
-        result.push('  <tbody class="markdown-table-body">');
-        result.push(...tableRows);
-        result.push('  </tbody>');
+      if (tableHtml.includes('class="markdown-bold"') && !innerElementsFound.includes('emphasis')) {
+        innerElementsFound.push('emphasis');
       }
-      result.push('</table>');
+      if (tableHtml.includes('class="markdown-italic"') && !innerElementsFound.includes('emphasis')) {
+        innerElementsFound.push('emphasis');
+      }
+      if (tableHtml.includes('class="markdown-strikethrough"') && !innerElementsFound.includes('strikethrough')) {
+        innerElementsFound.push('strikethrough');
+      }
+      
+      const placeholder = `<!--MARKDOWN-TABLE-${protectedIndex}-->`;
+      protectedElements.set(placeholder, tableHtml);
+      result.push(placeholder);
+      protectedIndex++;
     }
 
-    return { html: result.join('\n'), found };
+    return { 
+      html: result.join('\n'), 
+      found,
+      nextIndex: protectedIndex,
+      innerElementsFound
+    };
+  }
+  private static parseTableCell(cellContent: string, features?: MarkdownFeatures): string {
+    let content = cellContent;
+
+    // Store inline code blocks temporarily to protect them from markdown parsing
+    const codeBlocks: string[] = [];
+    let codeIndex = 0;
+
+    // Extract and temporarily replace inline code (this protects the code content)
+    content = content.replace(/`([^`]+)`/g, (_match, code) => {
+      const placeholder = `<!--MARKDOWN-CODE-${codeIndex}-->`;
+      codeBlocks[codeIndex] = `<code class="markdown-inline-code">${MarkdownParser.escapeHtml(code)}</code>`;
+      codeIndex++;
+      return placeholder;
+    });
+
+    // Now safely apply other markdown formatting (code content is protected)
+    // Only apply if features are enabled
+    if (!features || features.emphasis) {
+      // Bold
+      content = content.replace(/\*\*([^*]+)\*\*/g, '<strong class="markdown-bold">$1</strong>');
+      // Italic  
+      content = content.replace(/\*([^*]+)\*/g, '<em class="markdown-italic">$1</em>');
+    }
+    
+    if (!features || features.strikethrough) {
+      content = content.replace(/~~([^~]+)~~/g, '<del class="markdown-strikethrough">$1</del>');
+    }
+
+    // Restore code blocks
+    codeBlocks.forEach((codeBlock, index) => {
+      content = content.replace(`<!--MARKDOWN-CODE-${index}-->`, codeBlock);
+    });
+
+    return content;
   }
 
   /**

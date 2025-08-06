@@ -43,7 +43,7 @@ export class WebViewManager {
           blockquotes: true,
           tables: true,
           taskLists: true,
-          strikethrough: false,
+          strikethrough: true,
           horizontalRule: true
         }
       },
