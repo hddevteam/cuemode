@@ -273,6 +273,58 @@ npm run lint
 - **Coverage Target**: 80%+ test coverage
 - **Performance Tests**: Activation time and memory usage
 - **Accessibility Tests**: Color contrast validation
+- **Markdown Rendering Tests**: Dedicated debugging tools for comprehensive markdown parsing validation
+
+### Debugging Tools
+
+The project includes advanced debugging tools for markdown rendering:
+
+#### CueModeRenderer (cuemode-renderer.js)
+- **Purpose**: Production-grade debugging renderer using real extension modules
+- **Features**: Real MarkdownParser, ThemeManager, CSS generation with debug capabilities
+- **Usage**: `const renderer = new CueModeRenderer(options); renderer.renderFile(markdownPath, outputPath);`
+- **Output**: Interactive HTML with debug information, block boundaries, and real-time style adjustment
+
+#### CLI Debugging Tool (debug-md.js)
+- **Purpose**: Command-line interface for quick markdown file testing
+- **Usage**: `node debug-md.js <markdown-file> [options]`
+- **Options**: 
+  - `--fontSize=<number>`: Font size (default: 25)
+  - `--lineHeight=<number>`: Line height (default: 1)
+  - `--padding=<number>`: Padding (default: 10)
+  - `--theme=<theme>`: Theme (default: rose)
+  - `--output=<file>`: Output filename
+- **Features**: Automatic browser opening, detailed statistics, interactive debugging
+
+#### Integration Testing Workflow
+
+1. **Create test markdown file**: Include complex cases like nested lists, code blocks, tables
+2. **Generate debug HTML**: `node debug-md.js test-file.md --output=debug-result.html`
+3. **Visual validation**: Check HTML output in browser for proper rendering
+4. **Code inspection**: Use browser developer tools to verify CSS application
+5. **Performance analysis**: Monitor rendering statistics and block processing
+
+#### Example Testing Commands
+
+```bash
+# Test specific markdown file with custom settings
+node debug-md.js src/test/test-md-doc.md --fontSize=30 --theme=dark
+
+# Generate debug output for code indentation testing
+node debug-md.js test-code-indentation.md --output=code-test-debug.html
+
+# Quick theme testing
+node debug-md.js sample.md --theme=ocean --fontSize=25
+```
+
+#### Debug Features
+
+- **Visual Block Boundaries**: Red borders around logical blocks
+- **Element Type Highlighting**: Color-coded backgrounds (blue=headers, yellow=tables, purple=code, green=lists)
+- **Interactive Inspection**: Click any block to see details in console
+- **Real-time Style Adjustment**: CSS debugging capabilities
+- **Statistics Display**: Block count, filtering results, configuration details
+- **CSS Synchronization**: Identical styling between extension and debugging tools
 
 ### Performance Benchmarks
 

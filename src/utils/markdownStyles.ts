@@ -15,7 +15,7 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     /* Markdown Headers */
     .markdown-header {
       font-weight: 600;
-      margin: 0.5em 0 0.3em 0;
+      margin: 0.15em 0 0.1em 0;
       line-height: 1.2;
       color: ${theme.textColor};
     }
@@ -70,8 +70,9 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
 
     /* Markdown Lists */
     .markdown-list {
-      margin: 0.5em 0;
-      padding-left: 1.5em;
+      margin: 0.02em 0;
+      padding-left: 0;
+      margin-left: 0.6em;
       color: ${theme.textColor};
     }
     
@@ -84,8 +85,8 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     }
     
     .markdown-list-item {
-      margin: 0.2em 0;
-      line-height: 1.4;
+      margin: 0.01em 0;
+      line-height: 1.1;
     }
 
     /* Markdown Code */
@@ -104,11 +105,12 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
       border: 1px solid rgba(127, 127, 127, 0.3);
       border-radius: 6px;
       padding: 1em;
-      margin: 1em 0;
+      margin: 0.25em 0;
       overflow-x: auto;
       font-family: 'Courier New', Consolas, 'Liberation Mono', Menlo, monospace;
       font-size: 0.9em;
       line-height: 1.4;
+      white-space: pre;
       color: ${theme.textColor};
     }
     
@@ -124,7 +126,7 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     .markdown-blockquote {
       border-left: 4px solid ${theme.accentColor || theme.textColor};
       padding: 0.5em 0 0.5em 1em;
-      margin: 1em 0;
+      margin: 0.25em 0;
       font-style: italic;
       color: ${theme.textColor};
       opacity: 0.9;
@@ -175,8 +177,9 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     /* Markdown Tables */
     .markdown-table {
       border-collapse: collapse;
+      border-spacing: 0;
       width: 100%;
-      margin: 1em 0;
+      margin: 0.02em 0 0.05em 0;
       font-size: 0.95em;
     }
     
@@ -184,13 +187,13 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
       background-color: rgba(127, 127, 127, 0.15);
       font-weight: 600;
       text-align: left;
-      padding: 0.6em 0.8em;
+      padding: 0.3em 0.5em;
       border: 1px solid rgba(127, 127, 127, 0.3);
       color: ${theme.textColor};
     }
     
     .markdown-table-cell {
-      padding: 0.5em 0.8em;
+      padding: 0.3em 0.5em;
       border: 1px solid rgba(127, 127, 127, 0.3);
       color: ${theme.textColor};
     }

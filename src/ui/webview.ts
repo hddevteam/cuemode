@@ -4,6 +4,7 @@ import { CueModeConfig, CueModeState, WebviewMessage } from '../types';
 import { ThemeManager } from '../utils/theme';
 import { MarkdownParser } from '../utils/markdown';
 import { generateMarkdownCSS } from '../utils/markdownStyles';
+import { generateWebViewCSS } from '../utils/webviewStyles';
 import { t, getCurrentLanguage } from '../i18n';
 
 /**
@@ -296,6 +297,9 @@ export class WebViewManager {
       generateMarkdownCSS(ThemeManager.getTheme(config.colorTheme)) : 
       '';
 
+    // Generate WebView-specific CSS
+    const webviewCSS = generateWebViewCSS();
+
     // Process content for display
     const processedContent = this.processContent(content);
 
@@ -314,153 +318,9 @@ export class WebViewManager {
         <style>
           ${css}
           ${markdownCSS}
+          ${webviewCSS}
           body {
             ${startingPositionCSS}
-          }
-          * {
-            box-sizing: border-box;
-          }
-          pre {
-            border: none !important;
-            outline: none !important;
-            background: transparent !important;
-            margin: 0 !important;
-            padding: 0 !important;
-          }
-          .cue-line {
-            display: inline-block;
-            width: 100%;
-            transition: filter 0.3s ease;
-            border: none !important;
-            outline: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
-            text-decoration: none !important;
-          }
-          .cue-line:empty {
-            min-height: 1em;
-          }
-          .cue-line:hover {
-            border: none !important;
-            outline: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
-            text-decoration: none !important;
-          }
-          .cue-line:focus {
-            border: none !important;
-            outline: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
-            text-decoration: none !important;
-          }
-          .focus-indicator {
-            position: fixed;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            pointer-events: none;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-left: none;
-            border-right: none;
-            display: none;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: none;
-          }
-          .focus-indicator.active {
-            display: block;
-          }
-          
-          /* Markdown specific styles */
-          .markdown-content {
-            width: 100%;
-          }
-          
-          .markdown-line {
-            display: block;
-            width: 100%;
-            transition: filter 0.3s ease;
-          }
-          
-          .markdown-line:empty {
-            min-height: 1em;
-          }
-          
-          /* Ensure markdown elements work with focus mode */
-          .markdown-content pre {
-            margin: 0;
-            padding: 0;
-            background: transparent;
-            border: none;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-          }
-          
-          /* Override any conflicting styles for markdown elements */
-          .markdown-content * {
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-          }
-          
-          /* Mirror flip styles */
-          .mirror-flip {
-            transform: scaleX(-1);
-            transition: transform 0.3s ease;
-          }
-          
-          .mirror-flip-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-          }
-          
-          /* Mirror flip status indicator */
-          .mirror-status {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          }
-          
-          .mirror-status.active {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          
-          .mirror-status.enabled {
-            background: rgba(0, 100, 200, 0.9);
-            border-color: rgba(100, 150, 255, 0.5);
-          }
-          
-          .mirror-status.disabled {
-            background: rgba(100, 100, 100, 0.7);
-            border-color: rgba(150, 150, 150, 0.3);
-          }
-          
-          /* Hide status indicator after delay */
-          @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-10px); }
-          }
-          
-          .mirror-status.hiding {
-            animation: fadeOut 0.3s ease forwards;
           }
         </style>
       </head>
@@ -990,22 +850,84 @@ export class WebViewManager {
       // Parse markdown content with user's selected features
       const result = MarkdownParser.parse(content, this.state.config.markdownFeatures);
       
-      // Split content into lines and wrap each line for focus mode support
-      const lines = result.html.split('\n');
-      const processedLines = lines.map((line, index) => {
-        // For markdown, we need to preserve HTML structure while adding focus classes
-        const lineWithFocus = line.trim() ? 
-          `<span class="cue-line markdown-line" data-line="${index}">${line}</span>` :
-          `<span class="cue-line markdown-line" data-line="${index}">&nbsp;</span>`;
-        return lineWithFocus;
+      // Instead of splitting by lines, parse logical blocks
+      // This preserves HTML structure while still supporting focus mode
+      const logicalBlocks = this.parseMarkdownBlocks(result.html);
+      
+      const processedBlocks = logicalBlocks.map((block, index) => {
+        if (block.trim() === '') {
+          return ''; // Skip empty blocks entirely
+        }
+        
+        // Wrap each logical block for focus mode support
+        return `<div class="cue-line markdown-block" data-block="${index}">${block}</div>`;
       });
       
-      return `<div class="markdown-content">${processedLines.join('\n')}</div>`;
+      // Filter out empty blocks to avoid unnecessary spacing
+      const filteredBlocks = processedBlocks.filter(block => block !== '');
+      
+      return `<div class="markdown-content">${filteredBlocks.join('')}</div>`;
     } catch (error) {
       // Fallback to plain text processing if markdown parsing fails
       console.warn('Markdown parsing failed, falling back to plain text:', error);
       return this.processPlainTextContent(content);
     }
+  }
+
+  /**
+   * Parse markdown HTML into logical blocks instead of physical lines
+   */
+  private parseMarkdownBlocks(html: string): string[] {
+    const blocks: string[] = [];
+    
+    // Split by major block elements
+    const blockElements = [
+      'h[1-6]', 'p', 'div', 'table', 'ul', 'ol', 'blockquote', 'pre'
+    ];
+    
+    const blockRegex = new RegExp(`(<(?:${blockElements.join('|')})[^>]*>.*?</(?:${blockElements.join('|')})>)`, 'gs');
+    
+    let lastIndex = 0;
+    let match;
+    
+    while ((match = blockRegex.exec(html)) !== null) {
+      // Add any text before this block
+      if (match.index > lastIndex) {
+        const beforeText = html.slice(lastIndex, match.index).trim();
+        if (beforeText) {
+          // For plain text content, split by single newlines to create separate display blocks
+          // This allows each line to be shown independently in presentation mode
+          const lines = beforeText.split(/\n/).filter(line => line.trim());
+          lines.forEach(line => {
+            if (line.trim()) {
+              blocks.push(line.trim());
+            }
+          });
+        }
+      }
+      
+      // Add the block itself
+      if (match[1]) {
+        blocks.push(match[1]);
+      }
+      lastIndex = match.index + match[0].length;
+    }
+    
+    // Add any remaining text
+    if (lastIndex < html.length) {
+      const remainingText = html.slice(lastIndex).trim();
+      if (remainingText) {
+        // For plain text content, split by single newlines to create separate display blocks
+        const lines = remainingText.split(/\n/).filter(line => line.trim());
+        lines.forEach(line => {
+          if (line.trim()) {
+            blocks.push(line.trim());
+          }
+        });
+      }
+    }
+    
+    return blocks;
   }
 
   private processPlainTextContent(content: string): string {

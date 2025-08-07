@@ -15,6 +15,17 @@ coverage/
 *.tmp
 *.temp
 
+# Debug HTML files (exclude test outputs but keep debug tools)
+debug-*.html
+test-*.html
+*-debug.html
+*-test.html
+
+# Temporary debug scripts
+debug-*.js
+!cuemode-renderer.js
+!debug-md.js
+
 # IDE files
 .idea/
 *.swp

@@ -353,7 +353,9 @@ export class MarkdownParser {
     const html = content.replace(/```(\w+)?\n([\s\S]*?)```/g, (_match, language, code) => {
       found = true;
       const lang = language ? ` data-language="${language}"` : '';
-      return `<pre class="markdown-code-block"${lang}><code>${this.escapeHtml(code.trim())}</code></pre>`;
+      // Preserve all whitespace including leading spaces, only remove trailing newlines
+      const preservedCode = code.replace(/\n+$/, '');
+      return `<pre class="markdown-code-block"${lang}><code>${this.escapeHtml(preservedCode)}</code></pre>`;
     });
     return { html, found };
   }
@@ -458,6 +460,18 @@ export class MarkdownParser {
           tableRows = [];
         }
         result.push('');
+        continue;
+      }
+
+      // Skip processing lines that are inside code blocks (already processed)
+      const isCodeBlockStart = currentLine.includes('<pre class="markdown-code-block"');
+      const isCodeBlockEnd = currentLine.includes('</pre>');
+      const previousLine = i > 0 ? lines[i-1] : null;
+      const isPreviousLineCodeBlock = previousLine ? previousLine.includes('<pre class="markdown-code-block"') : false;
+      
+      if (isCodeBlockStart || isCodeBlockEnd || (isPreviousLineCodeBlock && !isCodeBlockEnd)) {
+        // This line is part of a code block, don't trim it
+        result.push(currentLine);
         continue;
       }
 
