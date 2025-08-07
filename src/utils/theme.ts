@@ -455,6 +455,7 @@ export class ThemeManager {
         z-index: 1000;
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
         font-size: 0.7em;
+        -webkit-backdrop-filter: blur(12px);
         backdrop-filter: blur(12px);
         overflow: hidden;
         color: var(--text-color);

@@ -66,6 +66,7 @@ pre:not(.markdown-code-block) {
   border-right: none;
   display: none;
   background: rgba(255, 255, 255, 0.02);
+  -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
@@ -231,6 +232,7 @@ pre:not(.markdown-code-block) {
   background: rgba(0, 0, 0, 0.8);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

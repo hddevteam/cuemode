@@ -61,7 +61,6 @@ try {
   console.log('');
   console.log('🎛️ Debug features:');
   console.log('  - Click any block to view details');
-  console.log('  - Use bottom-right sliders to adjust styles in real-time');
   console.log('  - Check browser console for detailed information');
   
   // Auto-open browser (macOS)
