@@ -6,6 +6,7 @@
   "cuemode.toggleFocusMode": "切换聚焦模式",
   "cuemode.toggleMirrorFlip": "切换镜像反转",
   "cuemode.toggleMarkdownMode": "切换Markdown模式",
+  "cuemode.adjustLineHeight": "调整行间距",
   "cuemode.configureMarkdownFeatures": "配置Markdown功能",
   "cuemode.description": "将VS Code转换为专业提词器，适用于编程视频、教程和演示。支持自动滚屏、可定制主题和无干扰阅读。",
   "cuemode.configuration.title": "提词器模式",

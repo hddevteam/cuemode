@@ -6,6 +6,7 @@
   "cuemode.toggleFocusMode": "Toggle Focus Mode",
   "cuemode.toggleMirrorFlip": "Toggle Mirror Flip",
   "cuemode.toggleMarkdownMode": "Toggle Markdown Mode",
+  "cuemode.adjustLineHeight": "Adjust Line Height",
   "cuemode.configureMarkdownFeatures": "Configure Markdown Features",
   "cuemode.description": "Transform VS Code into a professional teleprompter for coding videos, tutorials, and presentations. Auto-scroll, customizable themes, and distraction-free reading.",
   "cuemode.configuration.title": "Teleprompter Mode",

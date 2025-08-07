@@ -254,6 +254,11 @@ export class WebViewManager {
         vscode.commands.executeCommand('cuemode.toggleMarkdownMode');
         break;
       
+      case 'adjustLineHeight':
+        // Call the main extension's adjustLineHeight command
+        vscode.commands.executeCommand('cuemode.adjustLineHeight');
+        break;
+      
       case 'scroll':
         // Handle scroll events if needed
         break;
@@ -360,6 +365,7 @@ export class WebViewManager {
                   <li><kbd>F</kbd> <span>${t('help.shortcuts.f')}</span></li>
                   <li><kbd>M</kbd> <span>${t('help.shortcuts.m')}</span></li>
                   <li><kbd>D</kbd> <span>${t('help.shortcuts.d')}</span></li>
+                  <li><kbd>L</kbd> <span>${t('help.shortcuts.l')}</span></li>
                   <li><kbd>H</kbd> <span>${t('help.shortcuts.h')}</span></li>
                 </ul>
               </div>
@@ -736,6 +742,12 @@ export class WebViewManager {
               case 'D':
                 // Toggle markdown mode
                 toggleMarkdownMode();
+                e.preventDefault();
+                break;
+              case 'l':
+              case 'L':
+                // Adjust line height
+                vscode.postMessage({ type: 'adjustLineHeight' });
                 e.preventDefault();
                 break;
             }

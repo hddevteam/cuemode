@@ -7,7 +7,8 @@
     "toggleFocusMode": "切换聚焦模式",
     "toggleMirrorFlip": "切换镜像反转",
     "toggleMarkdownMode": "切换Markdown模式",
-    "configureMarkdownFeatures": "配置Markdown功能"
+    "configureMarkdownFeatures": "配置Markdown功能",
+    "adjustLineHeight": "调整行间距"
   },
   "notifications": {
     "activated": "提词器模式已激活",
@@ -21,7 +22,8 @@
     "mirrorFlipEnabled": "镜像反转已启用",
     "mirrorFlipDisabled": "镜像反转已禁用",
     "markdownModeEnabled": "Markdown模式已启用",
-    "markdownModeDisabled": "Markdown模式已禁用"
+    "markdownModeDisabled": "Markdown模式已禁用",
+    "lineHeightChanged": "行间距已调整为 {{height}}"
   },
   "errors": {
     "noActiveEditor": "未找到活动编辑器",
@@ -98,6 +100,7 @@
       "f": "切换聚焦模式",
       "m": "切换镜像反转",
       "d": "切换Markdown模式",
+      "l": "调整行间距",
       "h": "显示/隐藏帮助"
     },
     "vsCodeShortcuts": {

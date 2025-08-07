@@ -7,7 +7,8 @@
     "toggleFocusMode": "Toggle Focus Mode",
     "toggleMirrorFlip": "Toggle Mirror Flip",
     "toggleMarkdownMode": "Toggle Markdown Mode",
-    "configureMarkdownFeatures": "Configure Markdown Features"
+    "configureMarkdownFeatures": "Configure Markdown Features",
+    "adjustLineHeight": "Adjust Line Height"
   },
   "notifications": {
     "activated": "Teleprompter mode activated",
@@ -22,7 +23,8 @@
     "mirrorFlipEnabled": "Mirror flip enabled",
     "mirrorFlipDisabled": "Mirror flip disabled",
     "markdownModeEnabled": "Markdown mode enabled",
-    "markdownModeDisabled": "Markdown mode disabled"
+    "markdownModeDisabled": "Markdown mode disabled",
+    "lineHeightChanged": "Line height changed to {{height}}"
   },
   "errors": {
     "noActiveEditor": "No active editor found",
@@ -99,6 +101,7 @@
       "f": "Toggle focus mode",
       "m": "Toggle mirror flip",
       "d": "Toggle markdown mode",
+      "l": "Adjust line height",
       "h": "Show/Hide help"
     },
     "vsCodeShortcuts": {

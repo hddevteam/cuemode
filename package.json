@@ -2,7 +2,7 @@
   "name": "cuemode",
   "displayName": "%cuemode.displayName%",
   "description": "%cuemode.description%",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -21,7 +21,11 @@
     "tutorial",
     "education",
     "readability",
-    "fullscreen"
+    "fullscreen",
+    "markdown",
+    "markdown parser",
+    "formatted content",
+    "documentation"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
@@ -54,6 +58,10 @@
       {
         "command": "cuemode.configureMarkdownFeatures",
         "title": "%cuemode.configureMarkdownFeatures%"
+      },
+      {
+        "command": "cuemode.adjustLineHeight",
+        "title": "%cuemode.adjustLineHeight%"
       }
     ],
     "menus": {
@@ -93,6 +101,12 @@
         "command": "cuemode.toggleMarkdownMode",
         "key": "ctrl+shift+d",
         "mac": "cmd+shift+d",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "cuemode.adjustLineHeight",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l",
         "when": "editorTextFocus"
       }
     ],

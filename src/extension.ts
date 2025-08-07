@@ -97,7 +97,12 @@ export class CueModeExtension {
       this.toggleMarkdownMode();
     });
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand);
+    // Adjust line height command
+    const adjustLineHeightCommand = vscode.commands.registerCommand('cuemode.adjustLineHeight', () => {
+      this.adjustLineHeight();
+    });
+
+    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand);
   }
 
   /**
@@ -372,6 +377,37 @@ export class CueModeExtension {
       vscode.window.setStatusBarMessage(message, 2000);
       
       // Update webview if active - this will trigger server-side re-rendering
+      if (this.webViewManager.isActive()) {
+        const updatedConfig = ConfigManager.getConfig();
+        await this.webViewManager.updateConfig(updatedConfig);
+      }
+      
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Adjust line height
+   */
+  private async adjustLineHeight(): Promise<void> {
+    try {
+      const currentConfig = ConfigManager.getConfig();
+      
+      // Define line height values to cycle through
+      const lineHeights = [1.0, 1.2, 1.5, 1.8, 2.0];
+      const currentIndex = lineHeights.findIndex(height => Math.abs(height - currentConfig.lineHeight) < 0.01);
+      const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % lineHeights.length : 0;
+      const newLineHeight = lineHeights[nextIndex] as number; // Type assertion since we know it exists
+      
+      // Update configuration
+      await ConfigManager.updateConfig('lineHeight', newLineHeight);
+      
+      // Show notification with the new line height value
+      const message = t('notifications.lineHeightChanged', { height: newLineHeight.toString() });
+      vscode.window.setStatusBarMessage(message, 2000);
+      
+      // Update webview if active
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
