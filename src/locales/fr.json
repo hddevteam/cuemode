@@ -4,7 +4,8 @@
     "description": "Activer le mode télésouffleur pour de meilleures présentations",
     "changeTheme": "Changer le thème du télésouffleur",
     "removeLeadingSpaces": "Supprimer les espaces en début",
-    "toggleFocusMode": "Basculer le mode focus"
+    "toggleFocusMode": "Basculer le mode focus",
+    "adjustLineHeight": "Ajuster la hauteur de ligne"
   },
   "notifications": {
     "activated": "Mode télésouffleur activé",
@@ -15,7 +16,8 @@
     "spacesRemoved_plural": "Espaces en début supprimés de {{count}} lignes",
     "error": "Erreur du mode télésouffleur : {{message}}",
     "focusModeEnabled": "Mode focus activé",
-    "focusModeDisabled": "Mode focus désactivé"
+    "focusModeDisabled": "Mode focus désactivé",
+    "lineHeightChanged": "Hauteur de ligne changée vers {{height}}"
   },
   "errors": {
     "noActiveEditor": "Aucun éditeur actif trouvé",
@@ -71,12 +73,14 @@
       "homeEnd": "Aller au début/fin",
       "t": "Changer de thème",
       "f": "Basculer le mode focus",
-      "h": "Afficher/masquer l'aide"
+      "h": "Afficher/masquer l'aide",
+      "l": "Ajuster la hauteur de ligne"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Changer de thème",
       "removeSpaces": "Supprimer les espaces en début",
-      "toggleFocus": "Basculer le mode focus"
+      "toggleFocus": "Basculer le mode focus",
+      "adjustLineHeight": "Ajuster la hauteur de ligne"
     }
   },
   "accessibility": {

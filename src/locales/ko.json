@@ -4,7 +4,8 @@
     "description": "더 나은 프레젠테이션을 위한 텔레프롬프터 모드 활성화",
     "changeTheme": "텔레프롬프터 테마 변경",
     "removeLeadingSpaces": "앞쪽 공백 제거",
-    "toggleFocusMode": "포커스 모드 전환"
+    "toggleFocusMode": "포커스 모드 전환",
+    "adjustLineHeight": "줄 높이 조정"
   },
   "notifications": {
     "activated": "텔레프롬프터 모드가 활성화되었습니다",
@@ -15,7 +16,8 @@
     "spacesRemoved_plural": "{{count}}줄에서 앞쪽 공백을 제거했습니다",
     "error": "텔레프롬프터 모드 오류: {{message}}",
     "focusModeEnabled": "포커스 모드가 활성화되었습니다",
-    "focusModeDisabled": "포커스 모드가 비활성화되었습니다"
+    "focusModeDisabled": "포커스 모드가 비활성화되었습니다",
+    "lineHeightChanged": "줄 높이가 {{height}}로 변경되었습니다"
   },
   "errors": {
     "noActiveEditor": "활성 편집기를 찾을 수 없습니다",
@@ -71,12 +73,14 @@
       "homeEnd": "시작/끝으로 이동",
       "t": "테마 전환",
       "f": "포커스 모드 전환",
-      "h": "도움말 표시/숨기기"
+      "h": "도움말 표시/숨기기",
+      "l": "줄 높이 조정"
     },
     "vsCodeShortcuts": {
       "changeTheme": "테마 변경",
       "removeSpaces": "앞쪽 공백 제거",
-      "toggleFocus": "포커스 모드 전환"
+      "toggleFocus": "포커스 모드 전환",
+      "adjustLineHeight": "줄 높이 조정"
     }
   },
   "accessibility": {

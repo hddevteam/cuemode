@@ -397,8 +397,21 @@ export class CueModeExtension {
       // Define line height values to cycle through
       const lineHeights = [1.0, 1.2, 1.5, 1.8, 2.0];
       const currentIndex = lineHeights.findIndex(height => Math.abs(height - currentConfig.lineHeight) < 0.01);
-      const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % lineHeights.length : 0;
-      const newLineHeight = lineHeights[nextIndex] as number; // Type assertion since we know it exists
+      let nextIndex = (currentIndex + 1) % lineHeights.length;
+      if (currentIndex < 0) {
+        nextIndex = 0;
+      }
+      
+      // Get the new line height using safe array access
+      let newLineHeight: number;
+      switch (nextIndex) {
+        case 0: newLineHeight = 1.0; break;
+        case 1: newLineHeight = 1.2; break;
+        case 2: newLineHeight = 1.5; break;
+        case 3: newLineHeight = 1.8; break;
+        case 4: newLineHeight = 2.0; break;
+        default: newLineHeight = 1.5; break; // fallback
+      }
       
       // Update configuration
       await ConfigManager.updateConfig('lineHeight', newLineHeight);

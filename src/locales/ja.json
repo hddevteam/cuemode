@@ -4,7 +4,8 @@
     "description": "プレゼンテーションを向上させるためのテレプロンプターモードを有効化",
     "changeTheme": "テレプロンプターテーマを変更",
     "removeLeadingSpaces": "先頭の空白を削除",
-    "toggleFocusMode": "フォーカスモードを切り替え"
+    "toggleFocusMode": "フォーカスモードを切り替え",
+    "adjustLineHeight": "行の高さを調整"
   },
   "notifications": {
     "activated": "テレプロンプターモードが有効になりました",
@@ -15,7 +16,8 @@
     "spacesRemoved_plural": "{{count}}行から先頭の空白を削除しました",
     "error": "テレプロンプターモードエラー: {{message}}",
     "focusModeEnabled": "フォーカスモードが有効になりました",
-    "focusModeDisabled": "フォーカスモードが無効になりました"
+    "focusModeDisabled": "フォーカスモードが無効になりました",
+    "lineHeightChanged": "行の高さが{{height}}に変更されました"
   },
   "errors": {
     "noActiveEditor": "アクティブなエディターが見つかりません",
@@ -71,12 +73,14 @@
       "homeEnd": "開始/終了にジャンプ",
       "t": "テーマを切り替え",
       "f": "フォーカスモードを切り替え",
-      "h": "ヘルプの表示/非表示"
+      "h": "ヘルプの表示/非表示",
+      "l": "行の高さを調整"
     },
     "vsCodeShortcuts": {
       "changeTheme": "テーマを変更",
       "removeSpaces": "先頭の空白を削除",
-      "toggleFocus": "フォーカスモードを切り替え"
+      "toggleFocus": "フォーカスモードを切り替え",
+      "adjustLineHeight": "行の高さを調整"
     }
   },
   "accessibility": {

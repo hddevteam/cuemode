@@ -4,7 +4,8 @@
     "description": "Teleprompter-Modus für bessere Präsentationen aktivieren",
     "changeTheme": "Teleprompter-Theme ändern",
     "removeLeadingSpaces": "Führende Leerzeichen entfernen",
-    "toggleFocusMode": "Fokus-Modus umschalten"
+    "toggleFocusMode": "Fokus-Modus umschalten",
+    "adjustLineHeight": "Zeilenhöhe anpassen"
   },
   "notifications": {
     "activated": "Teleprompter-Modus aktiviert",
@@ -15,7 +16,8 @@
     "spacesRemoved_plural": "Führende Leerzeichen von {{count}} Zeilen entfernt",
     "error": "Teleprompter-Modus-Fehler: {{message}}",
     "focusModeEnabled": "Fokus-Modus aktiviert",
-    "focusModeDisabled": "Fokus-Modus deaktiviert"
+    "focusModeDisabled": "Fokus-Modus deaktiviert",
+    "lineHeightChanged": "Zeilenhöhe zu {{height}} geändert"
   },
   "errors": {
     "noActiveEditor": "Kein aktiver Editor gefunden",
@@ -71,12 +73,14 @@
       "homeEnd": "Zum Anfang/Ende springen",
       "t": "Theme wechseln",
       "f": "Fokus-Modus umschalten",
-      "h": "Hilfe anzeigen/verbergen"
+      "h": "Hilfe anzeigen/verbergen",
+      "l": "Zeilenhöhe anpassen"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Theme ändern",
       "removeSpaces": "Führende Leerzeichen entfernen",
-      "toggleFocus": "Fokus-Modus umschalten"
+      "toggleFocus": "Fokus-Modus umschalten",
+      "adjustLineHeight": "Zeilenhöhe anpassen"
     }
   },
   "accessibility": {

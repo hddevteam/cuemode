@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CueMode - Professional Teleprompter for VS Code</title>
-    <meta name="description" content="CueMode v2.2.0 - Professional teleprompter extension for VS Code with Mirror Flip, Focus Mode, 6-language internationalization, auto-scroll, and theme cycling. Perfect for livestreams, video tutorials, and presentations.">
+    <meta name="description" content="CueMode v2.3.0 - Professional teleprompter extension for VS Code with Line Height Adjustment, Markdown Display Toggle, Mirror Flip, Focus Mode, 6-language internationalization, auto-scroll, and theme cycling. Perfect for livestreams, video tutorials, and presentations.">
     <meta name="keywords" content="vscode extension, teleprompter, prompter, auto-scroll, live streaming, video recording, content creation, professional teleprompter, screen recording, code presentation, theme cycling, typescript">
     <meta name="author" content="HDDevTeam">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="CueMode - Professional Teleprompter for VS Code">
-    <meta property="og:description" content="Transform VS Code into a professional teleprompter with Mirror Flip, Focus Mode, 6-language support, theme cycling, and seamless auto-scroll controls. v2.2.0 now with professional teleprompter hardware support.">
+    <meta property="og:description" content="Transform VS Code into a professional teleprompter with Line Height Adjustment, Markdown Display Toggle, Mirror Flip, Focus Mode, 6-language support, theme cycling, and seamless auto-scroll controls. v2.3.0 now with enhanced text customization and display features.">
     <meta property="og:image" content="https://hddevteam.github.io/cuemode/assets/images/hero-banner.png">
     <meta property="og:url" content="https://hddevteam.github.io/cuemode/">
     <meta property="og:type" content="website">
@@ -34,8 +34,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "CueMode",
-      "version": "2.2.0",
-      "description": "Professional teleprompter extension for VS Code with Mirror Flip, theme cycling and presentation features",
+      "version": "2.3.0",
+      "description": "Professional teleprompter extension for VS Code with Line Height Adjustment, Markdown Display Toggle, Mirror Flip, theme cycling and presentation features",
       "url": "https://hddevteam.github.io/cuemode/",
       "downloadUrl": "https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode",
       "applicationCategory": "DeveloperApplication",
@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -102,7 +102,6 @@
         .theme-card.ocean { background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%); color: #fff; }
         .theme-card.rose { background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%); color: #fff; }
     </style>
-    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -132,7 +131,7 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <i class="fas fa-scroll"></i>
-                    Latest v2.2.0 - Mirror Flip & Professional Teleprompter Support!
+                    Latest v2.3.0 - Line Height Adjustment & Markdown Display Toggle!
                 </div>
                 <h1 class="hero-title">
                     Transform VS Code into a <span class="highlight">Professional Teleprompter</span>
@@ -275,7 +274,8 @@
                     <h3 class="feature-title">Seamless Control</h3>
                     <p class="feature-description">
                         Intuitive keyboard controls: Space to toggle auto-scroll, +/- for speed adjustment, 
-                        R for direction toggle, F for focus mode, M for mirror flip, T for theme cycling, arrow keys for manual navigation, and Escape to exit.
+                        R for direction toggle, F for focus mode, M for mirror flip, T for theme cycling, 
+                        L for line height adjustment, D for markdown display toggle, arrow keys for manual navigation, and Escape to exit.
                     </p>
                 </div>
                 
@@ -309,6 +309,28 @@
                     <p class="feature-description">
                         🆕 Professional horizontal text mirroring for teleprompter hardware setups. 
                         Toggle with M key in webview or Ctrl+Shift+M in VS Code. Perfect for professional video production studios.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-text-height"></i>
+                    </div>
+                    <h3 class="feature-title">Line Height Adjustment</h3>
+                    <p class="feature-description">
+                        🆕 Dynamic line height adjustment for optimal readability. 
+                        Cycle through 1.0x, 1.2x, 1.5x, 1.8x, and 2.0x spacing with L key or Ctrl+Shift+L command. Perfect for different content types and viewing distances.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3 class="feature-title">Markdown Display Toggle</h3>
+                    <p class="feature-description">
+                        🆕 Switch between rendered markdown and raw text display. 
+                        Toggle with D key for flexible content presentation. Ideal for both technical documentation and script reading.
                     </p>
                 </div>
                 
