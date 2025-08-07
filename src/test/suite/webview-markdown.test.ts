@@ -147,12 +147,13 @@ suite('WebView Markdown Rendering Tests', () => {
       const contentSection = html.substring(contentStart, contentEnd);
       
       // Count cue-line spans in content area - should have multiple lines
-      const cueLineMatches = contentSection.match(/class="cue-line markdown-line"/g);
+      // Look for cue-line markdown-block divs (the actual implementation)
+      const cueLineMatches = contentSection.match(/class="cue-line markdown-block"/g);
       assert.ok(cueLineMatches && cueLineMatches.length > 0, `Should have cue-line divs, found ${cueLineMatches?.length || 0}`);
       
-      // Check data-line attributes exist (not necessarily sequential due to list processing)
-      assert.ok(contentSection.includes('data-line="0"'), 'Should have line number 0');
-      assert.ok(contentSection.includes('data-line='), 'Should have data-line attributes');
+      // Check data-block attributes exist (markdown uses blocks, not lines)
+      assert.ok(contentSection.includes('data-block="0"'), 'Should have block number 0');
+      assert.ok(contentSection.includes('data-block='), 'Should have data-block attributes');
     });
 
     test('should handle empty lines correctly', async () => {
@@ -163,9 +164,10 @@ suite('WebView Markdown Rendering Tests', () => {
       await webViewManager.create(markdownContent, 'test.md', config);
       const html = await webViewManager.getHtml();
       
-      // Should have 3 lines including the empty one
-      const cueLineMatches = html.match(/class="cue-line markdown-line"/g);
-      assert.strictEqual(cueLineMatches?.length, 3, 'Should handle empty lines');
+      // Should have 3 blocks: header, empty line (filtered), text
+      // Note: Markdown mode filters out empty blocks, so we expect 2 blocks not 3
+      const cueLineMatches = html.match(/class="cue-line markdown-block"/g);
+      assert.strictEqual(cueLineMatches?.length, 2, 'Should handle empty lines by filtering them out');
     });
   });
 
