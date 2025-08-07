@@ -5,146 +5,150 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Pre-Release Preparation
 
 ### 🔍 Code Quality & Testing
-- [x] All TypeScript compilation errors resolved (`npm run compile`)
-- [x] All linting issues fixed (`npm run lint`)
-- [x] All tests passing (`npm test`) - 82/82 tests passing
-- [x] Test coverage maintained at 80%+
-- [x] Integration tests for new features completed
+- [ ] All TypeScript compilation errors resolved (`npm run compile`)
+- [ ] All linting issues fixed (`npm run lint`)
+- [ ] All tests passing (`npm test`) - Target: 134/134 tests passing
+- [ ] Test coverage maintained at 80%+
+- [ ] Integration tests for new features completed
 - [ ] Manual testing on Windows, macOS, and Linux
 
 ### 📦 Version Management
-- [x] Latest code pulled from remote repository (`git pull origin main`)
-- [x] All merged PRs and contributions are included
-- [x] Version number updated in `package.json` - v2.2.0
-- [x] Version number updated in `docs/index.html` JSON-LD schema
-- [x] Version consistency across all documentation files
-- [x] Git working directory is clean (`git status`)
+- [ ] Latest code pulled from remote repository (`git pull origin main`)
+- [ ] All merged PRs and contributions are included
+- [ ] Version number updated in `package.json` - v2.3.0
+- [ ] Version number updated in `docs/index.html` JSON-LD schema
+- [ ] Version consistency across all documentation files
+- [ ] Git working directory is clean (`git status`)
 
 ### 🌐 Internationalization (i18n)
-- [x] All hardcoded strings replaced with i18n keys
-- [x] Translation files updated for all 6 languages:
-  - [x] `src/locales/en.json` (English)
-  - [x] `src/locales/zh-CN.json` (Chinese Simplified)
-  - [x] `src/locales/de.json` (German)
-  - [x] `src/locales/fr.json` (French)
-  - [x] `src/locales/ja.json` (Japanese)
-  - [x] `src/locales/ko.json` (Korean)
-- [x] Translation key consistency validated across all languages
-- [x] i18next integration tested for all languages
-- [x] Dynamic language switching functionality verified
+- [ ] All hardcoded strings replaced with i18n keys
+- [ ] Translation files updated for all 6 languages:
+  - [ ] `src/locales/en.json` (English)
+  - [ ] `src/locales/zh-CN.json` (Chinese Simplified)
+  - [ ] `src/locales/de.json` (German)
+  - [ ] `src/locales/fr.json` (French)
+  - [ ] `src/locales/ja.json` (Japanese)
+  - [ ] `src/locales/ko.json` (Korean)
+- [ ] Translation key consistency validated across all languages
+- [ ] i18next integration tested for all languages
+- [ ] Dynamic language switching functionality verified
 
 ### 📝 Documentation Updates
-- [x] `CHANGELOG.md` updated with new version entry
-- [x] `CHANGELOG.zh-CN.md` synchronized with English version
-- [x] Version history summary table updated in both languages
-- [x] All new features documented with examples
-- [x] Feature cards updated in `docs/index.html` with new functionality
-- [x] Feature cards updated in `docs/zh-cn.html` with new functionality
-- [x] `README.md` updated with new features and version information
-- [x] `README.zh-CN.md` updated with new features and version information
-- [x] README badges updated to reflect new version
-- [x] README feature descriptions synchronized with new functionality
+- [ ] `CHANGELOG.md` updated with new version entry
+- [ ] `CHANGELOG.zh-CN.md` synchronized with English version
+- [ ] Version history summary table updated in both languages
+- [ ] All new features documented with examples
+- [ ] Feature cards updated in `docs/index.html` with new functionality
+- [ ] Feature cards updated in `docs/zh-cn.html` with new functionality
+- [ ] `README.md` updated with new features and version information
+- [ ] `README.zh-CN.md` updated with new features and version information
+- [ ] README badges updated to reflect new version
+- [ ] README feature descriptions synchronized with new functionality
 - [ ] Breaking changes clearly highlighted
 - [ ] Migration guides provided if necessary
 
 ## Build & Package Optimization
 
 ### ⚡ Performance Optimization
-- [x] Package size optimized (`npm run package`)
-- [x] `.vscodeignore` updated to exclude unnecessary files:
-  - [x] Demo files (e.g., `demo.gif`)
-  - [x] Development artifacts
-  - [x] Source maps (if not needed for production)
-  - [x] Test files and documentation
-- [x] Build pipeline optimized (`npm run vscode:prepublish`)
-- [x] Resource bundling efficiency verified
-- [x] Memory usage profiled and optimized
+- [ ] Package size optimized (`npm run package`)
+- [ ] `.vscodeignore` updated to exclude unnecessary files:
+  - [ ] Demo files (e.g., `demo.gif`)
+  - [ ] Development artifacts
+  - [ ] Source maps (if not needed for production)
+  - [ ] Test files and documentation
+- [ ] Build pipeline optimized (`npm run vscode:prepublish`)
+- [ ] Resource bundling efficiency verified
+- [ ] Memory usage profiled and optimized
 
 ### 📦 Package Creation
-- [x] VSIX package created successfully
-- [x] Package size is reasonable (target: <1MB for CueMode) - 66.85KB
-- [x] Package contents verified:
-  - [x] All required source files included
-  - [x] All 6 language files included in `out/locales/`
-  - [x] No unnecessary files included
-  - [x] Package.json metadata correct
+- [ ] VSIX package created successfully
+- [ ] Package size is reasonable (target: <1MB for CueMode)
+- [ ] Package contents verified:
+  - [ ] All required source files included
+  - [ ] All 6 language files included in `out/locales/`
+  - [ ] No unnecessary files included
+  - [ ] Package.json metadata correct
 
 ## Feature Validation
 
 ### 🎯 Core Features Testing
-- [x] Teleprompter mode activation/deactivation
-- [x] Auto-scroll functionality (Space key)
-- [x] Speed controls (+/- keys)
-- [x] Direction toggle (R key)
-- [x] Theme cycling (T key)
-- [x] Focus mode toggle (F key)
-- [x] Help dialog display (H key)
-- [x] Exit functionality (Esc key)
-- [x] Mirror flip toggle (M key) - New in v2.2.0
+- [ ] Teleprompter mode activation/deactivation
+- [ ] Auto-scroll functionality (Space key)
+- [ ] Speed controls (+/- keys)
+- [ ] Direction toggle (R key)
+- [ ] Theme cycling (T key)
+- [ ] Focus mode toggle (F key)
+- [ ] Help dialog display (H key)
+- [ ] Exit functionality (Esc key)
+- [ ] Mirror flip toggle (M key) - New in v2.2.0
+- [ ] Markdown parsing toggle (D key) - New in v2.3.0
+- [ ] Line height adjustment (L key) - New in v2.3.0
 
 ### 🎨 UI/UX Testing
-- [x] All 7 color themes working correctly
-- [x] Help dialog layout optimized (no text ellipsis)
-- [x] Responsive design on different screen sizes
-- [x] Keyboard shortcuts documented and functional
-- [x] Visual indicators for focus mode working
-- [x] Theme switching animations smooth
-- [x] Mirror flip status indicator positioned correctly
+- [ ] All 7 color themes working correctly
+- [ ] Help dialog layout optimized (no text ellipsis)
+- [ ] Responsive design on different screen sizes
+- [ ] Keyboard shortcuts documented and functional
+- [ ] Visual indicators for focus mode working
+- [ ] Theme switching animations smooth
+- [ ] Mirror flip status indicator positioned correctly
+- [ ] Markdown mode status indicator working
+- [ ] Line height adjustment feedback working
 
 ### 🌐 Internationalization Testing
-- [x] Language auto-detection from VS Code environment
-- [x] Manual language switching functionality
-- [x] All UI elements translated in each language
-- [x] Proper text rendering for all character sets
-- [x] Right-to-left language support (if applicable)
-- [x] Pluralization rules working correctly
+- [ ] Language auto-detection from VS Code environment
+- [ ] Manual language switching functionality
+- [ ] All UI elements translated in each language
+- [ ] Proper text rendering for all character sets
+- [ ] Right-to-left language support (if applicable)
+- [ ] Pluralization rules working correctly
 
 ## Release Execution
 
 ### 📋 Git Management
-- [x] All changes committed with descriptive messages
-- [x] Version tag created (`git tag -a v{version}`)
-- [x] Tag includes comprehensive release notes
-- [x] Code pushed to remote repository (`git push origin main`)
-- [x] Tags pushed to remote repository (`git push origin --tags`)
+- [ ] All changes committed with descriptive messages
+- [ ] Version tag created (`git tag -a v{version}`)
+- [ ] Tag includes comprehensive release notes
+- [ ] Code pushed to remote repository (`git push origin main`)
+- [ ] Tags pushed to remote repository (`git push origin --tags`)
 
 ### 🚀 VS Code Marketplace
-- [x] Extension published to marketplace (`vsce publish`)
-- [x] Publication successful (check marketplace URL)
-- [x] Extension description and metadata accurate
-- [x] Screenshots and documentation up to date
-- [x] Marketplace listing reflects new features
+- [ ] Extension published to marketplace (`vsce publish`)
+- [ ] Publication successful (check marketplace URL)
+- [ ] Extension description and metadata accurate
+- [ ] Screenshots and documentation up to date
+- [ ] Marketplace listing reflects new features
 
 ### 🌟 GitHub Release
-- [x] GitHub Release created (`gh release create`)
-- [x] Release notes comprehensive and well-formatted
-- [x] VSIX file attached to release
-- [x] Release marked as "Latest" if it's the current version
-- [x] Release description includes:
-  - [x] Major features overview
-  - [x] Breaking changes (if any)
-  - [x] Installation instructions
-  - [x] Supported languages list
-  - [x] Changelog link
+- [ ] GitHub Release created (`gh release create`)
+- [ ] Release notes comprehensive and well-formatted
+- [ ] VSIX file attached to release
+- [ ] Release marked as "Latest" if it's the current version
+- [ ] Release description includes:
+  - [ ] Major features overview
+  - [ ] Breaking changes (if any)
+  - [ ] Installation instructions
+  - [ ] Supported languages list
+  - [ ] Changelog link
 
 ## Post-Release Verification
 
 ### 🔍 Quality Assurance
-- [x] Extension installs correctly from marketplace
-- [x] All features work in fresh VS Code installation
-- [x] No console errors or warnings
-- [x] Performance metrics within acceptable ranges
+- [ ] Extension installs correctly from marketplace
+- [ ] All features work in fresh VS Code installation
+- [ ] No console errors or warnings
+- [ ] Performance metrics within acceptable ranges
 - [ ] User-reported issues addressed promptly
 
 ### 📖 Documentation Sync
-- [x] GitHub Pages updated (`docs/index.html`)
-- [x] Chinese documentation updated (`docs/zh-cn.html`)
-- [x] Version badges updated on both pages
-- [x] Feature descriptions synchronized
-- [x] Meta descriptions updated with new features
-- [x] Language support statistics updated
-- [x] GitHub repository description updated with new features
-- [x] GitHub repository topics/tags updated to reflect new capabilities
+- [ ] GitHub Pages updated (`docs/index.html`)
+- [ ] Chinese documentation updated (`docs/zh-cn.html`)
+- [ ] Version badges updated on both pages
+- [ ] Feature descriptions synchronized
+- [ ] Meta descriptions updated with new features
+- [ ] Language support statistics updated
+- [ ] GitHub repository description updated with new features
+- [ ] GitHub repository topics/tags updated to reflect new capabilities
 
 ### 📊 Monitoring & Analytics
 - [ ] Download statistics monitored
@@ -195,6 +199,6 @@ This checklist ensures a comprehensive and successful release process for CueMod
 
 ---
 
-**Last Updated**: 2025-07-15 for CueMode v2.2.0  
-**Checklist Version**: 1.1  
-**Applicable From**: CueMode v2.2.0+
+**Last Updated**: 2025-08-07 for CueMode v2.3.0  
+**Checklist Version**: 1.2  
+**Applicable From**: CueMode v2.3.0+

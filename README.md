@@ -19,6 +19,7 @@ CueMode is a next-generation teleprompter extension that transforms your VS Code
 **✨ Version 2.3 Features:**
 
 - **📝 Selective Markdown Parsing** - **NEW!** Intelligent markdown formatting for presentations with D-key toggle
+- **📏 Line Height Adjustment** - **NEW!** Professional line spacing control with L-key cycling (1.0, 1.2, 1.5, 1.8, 2.0)
 - **🪞 M-Key Mirror Flip** - Professional horizontal text mirroring for teleprompter hardware setups
 - **📍 Smart Status Indicators** - Visual feedback system with intelligent positioning to avoid UI conflicts
 - **🎨 T-Key Theme Cycling** - Instant theme switching across all 7 professional themes during presentations

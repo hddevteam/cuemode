@@ -16,6 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Visual status indicator** - Smart positioning that avoids UI conflicts
   - **Persistent settings** - Markdown mode preference saved across sessions
 
+- **Line Height Adjustment**: Professional line spacing control for optimal readability
+  - **Quick adjustment** - Cycle through 5 preset line heights: 1.0, 1.2, 1.5, 1.8, 2.0
+  - **L key toggle** - Instant line height cycling in webview mode
+  - **VS Code command** - `Ctrl+Shift+L` (Cmd+Shift+L on macOS) for system-wide access
+  - **Visual feedback** - Status bar notifications show current line height value
+  - **Real-time application** - Immediate visual updates without reloading
+
 ### 📊 Supported Markdown Elements
 
 - **Text Formatting**: Headers (H1-H6), bold/italic, code spans, links
@@ -27,9 +34,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **New Setting**: `cuemode.markdownParsing` (boolean, default: false)
 - **Command**: `cuemode.toggleMarkdownParsing` for VS Code command palette
+- **Command**: `cuemode.adjustLineHeight` for line height cycling
 - **Keyboard Shortcuts**: 
-  - `D` key in webview for instant toggle
+  - `D` key in webview for instant markdown toggle
   - `Ctrl+Shift+D` (Cmd+Shift+D on macOS) from VS Code
+  - `L` key in webview for line height adjustment
+  - `Ctrl+Shift+L` (Cmd+Shift+L on macOS) for line height from VS Code
 - **Performance**: < 50ms parsing time for smooth user experience
 
 ### 🔧 Technical Improvements

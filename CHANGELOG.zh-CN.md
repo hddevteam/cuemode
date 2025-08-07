@@ -5,6 +5,43 @@ CueMode 提词器扩展的所有重要更改都将记录在此文件中。
 格式基于 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 项目遵循 [语义化版本控制](https://semver.org/spec/v2.0.0.html)。
 
+## [2.3.0] - 2025-08-07 - 选择性Markdown解析与行间距调整
+
+### 📝 新功能
+
+- **选择性Markdown解析**：为专业演示提供革命性的markdown处理
+  - **智能解析** - 将markdown内容转换为格式优美、提词器优化的文本
+  - **D键切换** - 在webview中即时切换原始文本和解析后的markdown
+  - **VS Code命令** - `Ctrl+Shift+D`（macOS上为`Cmd+Shift+D`）随时切换
+  - **视觉状态指示器** - 智能定位，避免UI冲突
+  - **持久化设置** - Markdown模式偏好跨会话保存
+
+- **行间距调整**：专业行距控制，实现最佳可读性
+  - **快速调整** - 循环切换5个预设行高：1.0、1.2、1.5、1.8、2.0
+  - **L键切换** - 在webview模式下即时调整行间距
+  - **VS Code命令** - `Ctrl+Shift+L`（macOS上为`Cmd+Shift+L`）系统级访问
+  - **视觉反馈** - 状态栏通知显示当前行间距值
+  - **实时应用** - 无需重新加载即可立即更新视觉效果
+
+### 📊 支持的Markdown元素
+
+- **文本格式**：标题（H1-H6）、粗体/斜体、代码段、链接
+- **结构化内容**：表格、项目符号/数字列表、任务列表、引用块
+- **代码内容**：带语言检测的语法高亮代码块
+- **提词器优化**：智能间距、主题集成、聚焦模式兼容性
+
+### ⚙️ 配置
+
+- **新设置**：`cuemode.markdownParsing`（布尔值，默认：false）
+- **命令**：`cuemode.toggleMarkdownParsing` 用于VS Code命令面板
+- **命令**：`cuemode.adjustLineHeight` 用于行间距循环调整
+- **键盘快捷键**：
+  - `D`键在webview中即时切换markdown
+  - `Ctrl+Shift+D`（macOS上为`Cmd+Shift+D`）从VS Code切换
+  - `L`键在webview中调整行间距
+  - `Ctrl+Shift+L`（macOS上为`Cmd+Shift+L`）从VS Code调整行间距
+- **性能**：平滑用户体验的解析时间< 50ms
+
 ## [2.2.0] - 2025-07-15 - 镜像反转功能
 
 ### 🪞 新功能
