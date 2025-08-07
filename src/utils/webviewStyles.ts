@@ -82,8 +82,9 @@ pre:not(.markdown-code-block) {
   display: block;
   width: 100%;
   transition: filter 0.3s ease;
-  margin: 0 0 8px 0; /* Increase paragraph spacing */
+  margin: 0 0 16px 0; /* Increased paragraph spacing from 8px to 16px */
   padding: 0;
+  line-height: inherit; /* Use the configured line height from theme settings */
 }
 
 .markdown-block:empty {
@@ -97,21 +98,21 @@ pre:not(.markdown-code-block) {
 .markdown-content .markdown-block h4, 
 .markdown-content .markdown-block h5, 
 .markdown-content .markdown-block h6 {
-  margin: 0 0 8px 0 !important; /* Increase header spacing */
-  line-height: 1.2 !important;
+  margin: 0 0 16px 0 !important; /* Increased header spacing to match paragraph spacing */
+  line-height: calc(var(--line-height) * 0.9) !important; /* Slightly tighter line height for headers */
   padding: 0 !important;
 }
 
 .markdown-content .markdown-block .markdown-table {
-  margin: 8px 0 !important; /* Increase table spacing */
-  line-height: 1 !important;
+  margin: 16px 0 !important; /* Increased table spacing to match paragraph spacing */
+  line-height: calc(var(--line-height) * 0.8) !important; /* Tighter line height for tables */
   border-spacing: 0 !important;
   border-collapse: collapse !important;
 }
 
 .markdown-content .markdown-block .markdown-code-block {
   margin: 8px 0 !important; /* Increase code block spacing */
-  line-height: 1.2 !important;
+  line-height: calc(var(--line-height) * 0.9) !important; /* Use configured line height for code blocks */
   padding: 4px 8px !important;
   white-space: pre !important; /* Preserve original indentation and spaces */
   font-family: 'Courier New', Consolas, 'Liberation Mono', Monaco, 'Lucida Console', monospace !important; /* Monospace font */
@@ -120,15 +121,17 @@ pre:not(.markdown-code-block) {
 
 /* List spacing reset */
 .markdown-content .markdown-block ul {
-  margin: 8px 0 !important; /* Increase list spacing */
+  margin: 12px 0 !important; /* Increased list spacing */
   padding-left: 0 !important;
   margin-left: 25px !important; /* Slightly increase unordered list indentation */
+  line-height: inherit !important; /* Use configured line height for list items */
 }
 
 .markdown-content .markdown-block ol {
-  margin: 8px 0 !important; /* Increase list spacing */
+  margin: 12px 0 !important; /* Increased list spacing */
   padding-left: 0 !important;
   margin-left: 50px !important; /* Significantly increase ordered list indentation to fully show number sequences */
+  line-height: inherit !important; /* Use configured line height for list items */
 }
 
 /* Sub-list identification based on markdown-list class */
@@ -161,7 +164,7 @@ pre:not(.markdown-code-block) {
 .markdown-content .markdown-block li {
   margin: 0 !important;
   padding: 0 !important;
-  line-height: 1.1 !important;
+  line-height: inherit !important; /* Use configured line height for list items */
 }
 
 /* Table cell spacing control */
@@ -169,7 +172,7 @@ pre:not(.markdown-code-block) {
 .markdown-content .markdown-block .markdown-table-cell {
   padding: 4px 8px !important;
   border: 1px solid currentColor !important;
-  line-height: 1.1 !important;
+  line-height: calc(var(--line-height) * 0.8) !important; /* Use configured line height for table cells */
 }
 
 /* Table style reset */

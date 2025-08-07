@@ -11,15 +11,20 @@ coverage/
 .nyc_output/
 *.tsbuildinfo
 
-# Temporary files
+# Temporary files and debugging
 *.tmp
 *.temp
+.temp/
+temp/
 
 # Debug HTML files (exclude test outputs but keep debug tools)
 debug-*.html
 test-*.html
 *-debug.html
 *-test.html
+
+# Temporary test markdown files
+test-*.md
 
 # Temporary debug scripts
 debug-*.js

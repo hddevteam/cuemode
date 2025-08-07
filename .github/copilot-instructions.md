@@ -279,6 +279,23 @@ npm run lint
 
 The project includes advanced debugging tools for markdown rendering:
 
+#### File Organization for Testing
+
+**Temporary File Structure:**
+```
+.temp/
+├── debug/          # Generated HTML debug files
+├── test-files/     # Temporary test markdown files
+└── reports/        # Test reports and analysis
+```
+
+**File Management Rules:**
+- All temporary test files should be created in `.temp/test-files/`
+- Generated debug HTML files should be output to `.temp/debug/`
+- Use descriptive naming: `test-[feature]-[variant].md` and `debug-[feature]-[variant].html`
+- The `.temp/` directory is gitignored and can be safely deleted
+- Keep only essential debug tools (`cuemode-renderer.js`, `debug-md.js`) in root
+
 #### CueModeRenderer (cuemode-renderer.js)
 - **Purpose**: Production-grade debugging renderer using real extension modules
 - **Features**: Real MarkdownParser, ThemeManager, CSS generation with debug capabilities
@@ -298,23 +315,30 @@ The project includes advanced debugging tools for markdown rendering:
 
 #### Integration Testing Workflow
 
-1. **Create test markdown file**: Include complex cases like nested lists, code blocks, tables
-2. **Generate debug HTML**: `node debug-md.js test-file.md --output=debug-result.html`
-3. **Visual validation**: Check HTML output in browser for proper rendering
+1. **Create test markdown file**: `echo "# Test" > .temp/test-files/test-[feature].md`
+2. **Generate debug HTML**: `node debug-md.js .temp/test-files/test-[feature].md --output=.temp/debug/debug-[feature].html`
+3. **Visual validation**: Open `.temp/debug/debug-[feature].html` in browser for proper rendering
 4. **Code inspection**: Use browser developer tools to verify CSS application
 5. **Performance analysis**: Monitor rendering statistics and block processing
+6. **Cleanup**: Remove temporary files after testing
 
 #### Example Testing Commands
 
 ```bash
-# Test specific markdown file with custom settings
-node debug-md.js src/test/test-md-doc.md --fontSize=30 --theme=dark
+# Create test file in proper location
+echo "# Test Content" > .temp/test-files/test-feature.md
 
-# Generate debug output for code indentation testing
-node debug-md.js test-code-indentation.md --output=code-test-debug.html
+# Generate debug output with organized file structure
+node debug-md.js .temp/test-files/test-indentation.md --output=.temp/debug/debug-indentation.html
 
-# Quick theme testing
-node debug-md.js sample.md --theme=ocean --fontSize=25
+# Test specific features with custom settings
+node debug-md.js .temp/test-files/test-complex.md --fontSize=30 --theme=dark --output=.temp/debug/debug-complex.html
+
+# Quick theme testing with organized output
+node debug-md.js .temp/test-files/sample.md --theme=ocean --fontSize=25 --output=.temp/debug/debug-ocean-theme.html
+
+# Clean up temporary files when done
+rm -rf .temp/debug/*.html .temp/test-files/*.md
 ```
 
 #### Debug Features

@@ -464,14 +464,31 @@ export class MarkdownParser {
       }
 
       // Skip processing lines that are inside code blocks (already processed)
+      // Code blocks after processing become multi-line HTML elements
       const isCodeBlockStart = currentLine.includes('<pre class="markdown-code-block"');
-      const isCodeBlockEnd = currentLine.includes('</pre>');
-      const previousLine = i > 0 ? lines[i-1] : null;
-      const isPreviousLineCodeBlock = previousLine ? previousLine.includes('<pre class="markdown-code-block"') : false;
+      const isCodeBlockEnd = currentLine.includes('</code></pre>');
       
-      if (isCodeBlockStart || isCodeBlockEnd || (isPreviousLineCodeBlock && !isCodeBlockEnd)) {
-        // This line is part of a code block, don't trim it
+      // Track if we're inside a code block
+      if (isCodeBlockStart) {
+        // Starting a code block, add the line and mark that we're inside one
         result.push(currentLine);
+        // Check if it's a single-line code block (start and end on same line)
+        if (isCodeBlockEnd) {
+          continue;
+        }
+        // Multi-line code block, continue processing until we find the end
+        i++; // Move to next line
+        while (i < lines.length) {
+          const codeLine = lines[i];
+          if (codeLine) {
+            result.push(codeLine);
+            if (codeLine.includes('</code></pre>')) {
+              // Found the end of the code block
+              break;
+            }
+          }
+          i++;
+        }
         continue;
       }
 
