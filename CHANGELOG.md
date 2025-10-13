@@ -5,6 +5,47 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2025-01-22 - Enhanced Visual Hierarchy & Speaker Notes
+
+### 🎨 New Features
+
+- **Differentiated Header Sizes**: Professional visual hierarchy for markdown headers
+  - **H1**: 2.0x base font size - Largest header with bottom border
+  - **H2**: 1.7x base font size - Secondary header with bottom border
+  - **H3**: 1.4x base font size - Medium-large header
+  - **H4**: 1.2x base font size - Standard header
+  - **H5**: 1.05x base font size - Slightly larger than base text
+  - **H6**: 0.95x base font size - Slightly smaller with reduced opacity
+  - **Responsive design** - Automatic size adjustments for mobile devices (<768px)
+  - **Theme compatibility** - Works seamlessly with all 7 color themes
+
+- **HTML Comment Visibility**: Display markdown comments for speaker notes and presentation cues
+  - **Subtle display** - Comments shown with 0.4 opacity and italic style
+  - **Special marker** - Comments prefixed with ※ symbol for easy identification
+  - **Monospace font** - Comment text displayed in monospace for readability
+  - **Security** - HTML escaping prevents XSS attacks
+  - **Use cases**:
+    - Slide markers: `<!-- Slide 1 End -->`
+    - Speaking notes: `<!-- Emphasize this point -->`
+    - Time markers: `<!-- 5 minute mark -->`
+    - Interaction cues: `<!-- Pause for questions -->`
+
+### 🔧 Technical Improvements
+
+- **Parser Enhancement**: Added `parseHtmlComments()` method to MarkdownParser
+- **CSS Styling**: New `.markdown-comment` classes for consistent styling
+- **Performance**: Efficient regex parsing with negligible performance impact
+- **Focus Mode Compatibility**: Comments blur/focus along with other content
+- **International Support**: Full Unicode support including Chinese, Japanese, Korean
+- **Test Coverage**: All 134 tests passing, maintaining 100% success rate
+
+### 📚 Documentation
+
+- **Feature Documentation**: Comprehensive guide at `.github/development/HEADER_SIZES_AND_COMMENTS_FEATURE.md`
+- **Usage Guide**: Best practices for speaker notes and presentation cues
+- **Technical Details**: Implementation guide with code examples
+- **Future Enhancements**: Roadmap for comment-related features
+
 ## [2.3.0] - 2025-01-21 - Selective Markdown Parsing
 
 ### 📝 New Features
