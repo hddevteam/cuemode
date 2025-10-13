@@ -12,7 +12,7 @@ import { ThemeConfig } from '../types';
  */
 export function generateMarkdownCSS(theme: ThemeConfig): string {
   return `
-    /* Markdown Headers */
+    /* Markdown Headers - Different sizes for better visual hierarchy */
     .markdown-header {
       font-weight: 600;
       margin: 0.15em 0 0.1em 0;
@@ -21,34 +21,55 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     }
     
     .markdown-h1 {
-      font-size: 1.8em;
+      font-size: 2.0em;  /* Largest heading */
       border-bottom: 2px solid ${theme.accentColor || theme.textColor};
       padding-bottom: 0.2em;
     }
     
     .markdown-h2 {
-      font-size: 1.5em;
+      font-size: 1.7em;  /* Slightly smaller than h1 */
       border-bottom: 1px solid ${theme.accentColor || theme.textColor};
       padding-bottom: 0.1em;
     }
     
     .markdown-h3 {
-      font-size: 1.3em;
+      font-size: 1.4em;  /* Medium-large heading */
     }
     
     .markdown-h4 {
-      font-size: 1.1em;
+      font-size: 1.2em;  /* Medium heading */
     }
     
     .markdown-h5 {
-      font-size: 1em;
+      font-size: 1.05em; /* Slightly larger than base */
       font-weight: 700;
     }
     
     .markdown-h6 {
-      font-size: 0.9em;
+      font-size: 0.95em; /* Slightly smaller than base */
       font-weight: 700;
       opacity: 0.8;
+    }
+
+    /* Markdown HTML Comments - Subtle, unobtrusive display */
+    .markdown-comment {
+      color: ${theme.textColor};
+      opacity: 0.4;
+      font-size: 0.85em;
+      font-style: italic;
+      padding: 0.3em 0;
+      margin: 0.2em 0;
+      line-height: 1.3;
+    }
+    
+    .markdown-comment-marker {
+      font-style: normal;
+      opacity: 0.6;
+      margin-right: 0.3em;
+    }
+    
+    .markdown-comment-text {
+      font-family: 'Courier New', Consolas, 'Liberation Mono', Menlo, monospace;
     }
 
     /* Markdown Emphasis */
@@ -327,11 +348,23 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
       }
       
       .markdown-h1 {
-        font-size: 1.6em;
+        font-size: 1.7em;
       }
       
       .markdown-h2 {
-        font-size: 1.4em;
+        font-size: 1.5em;
+      }
+      
+      .markdown-h3 {
+        font-size: 1.3em;
+      }
+      
+      .markdown-h4 {
+        font-size: 1.15em;
+      }
+      
+      .markdown-comment {
+        font-size: 0.8em;
       }
     }
 

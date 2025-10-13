@@ -42,6 +42,11 @@ export class MarkdownParser {
     const protectedElements: Map<string, string> = new Map();
     let protectedIndex = 0;
 
+    // Parse HTML comments first (always enabled)
+    const commentsResult = this.parseHtmlComments(html);
+    html = commentsResult.html;
+    if (commentsResult.found) elementsFound.push('html-comments');
+
     // Apply parsing in order of precedence to avoid conflicts
     if (features.code) {
       const codeResult = this.parseCodeBlocks(html);
@@ -651,6 +656,19 @@ export class MarkdownParser {
     const html = content.replace(/^([-*_]){3,}$/gm, () => {
       found = true;
       return '<hr class="markdown-hr">';
+    });
+    return { html, found };
+  }
+
+  /**
+   * Parse HTML comments (<!-- comment -->)
+   * Display them in a subtle, unobtrusive way
+   */
+  private static parseHtmlComments(content: string): { html: string; found: boolean } {
+    let found = false;
+    const html = content.replace(/<!--\s*(.+?)\s*-->/g, (_match, commentText) => {
+      found = true;
+      return `<div class="markdown-comment"><span class="markdown-comment-marker">※</span> <span class="markdown-comment-text">${this.escapeHtml(commentText)}</span></div>`;
     });
     return { html, found };
   }
