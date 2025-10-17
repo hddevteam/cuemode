@@ -2,7 +2,7 @@
   "name": "cuemode",
   "displayName": "%cuemode.displayName%",
   "description": "%cuemode.description%",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -62,6 +62,14 @@
       {
         "command": "cuemode.adjustLineHeight",
         "title": "%cuemode.adjustLineHeight%"
+      },
+      {
+        "command": "cuemode.increaseFontSize",
+        "title": "%cuemode.increaseFontSize%"
+      },
+      {
+        "command": "cuemode.decreaseFontSize",
+        "title": "%cuemode.decreaseFontSize%"
       }
     ],
     "menus": {
@@ -107,6 +115,18 @@
         "command": "cuemode.adjustLineHeight",
         "key": "ctrl+shift+l",
         "mac": "cmd+shift+l",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "cuemode.increaseFontSize",
+        "key": "ctrl+shift+=",
+        "mac": "cmd+shift+=",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "cuemode.decreaseFontSize",
+        "key": "ctrl+shift+-",
+        "mac": "cmd+shift+-",
         "when": "editorTextFocus"
       }
     ],

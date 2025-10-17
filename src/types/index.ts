@@ -59,7 +59,7 @@ export interface ThemeConfig {
  * Webview message types
  */
 export interface WebviewMessage {
-  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror' | 'toggleMarkdown' | 'configureMarkdown' | 'adjustLineHeight';
+  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror' | 'toggleMarkdown' | 'configureMarkdown' | 'adjustLineHeight' | 'increaseFontSize' | 'decreaseFontSize';
   data?: {
     scrollTop?: number;
     scrollHeight?: number;

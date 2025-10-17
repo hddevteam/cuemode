@@ -8,7 +8,9 @@
     "toggleMirrorFlip": "切换镜像反转",
     "toggleMarkdownMode": "切换Markdown模式",
     "configureMarkdownFeatures": "配置Markdown功能",
-    "adjustLineHeight": "调整行间距"
+    "adjustLineHeight": "调整行间距",
+    "increaseFontSize": "增大字体",
+    "decreaseFontSize": "减小字体"
   },
   "notifications": {
     "activated": "提词器模式已激活",
@@ -23,7 +25,10 @@
     "mirrorFlipDisabled": "镜像反转已禁用",
     "markdownModeEnabled": "Markdown模式已启用",
     "markdownModeDisabled": "Markdown模式已禁用",
-    "lineHeightChanged": "行间距已调整为 {{height}}"
+    "lineHeightChanged": "行间距已调整为 {{height}}",
+    "fontSizeChanged": "字体大小已调整为 {{size}}点",
+    "fontSizeMax": "字体大小已达到最大值(100点)",
+    "fontSizeMin": "字体大小已达到最小值(8点)"
   },
   "errors": {
     "noActiveEditor": "未找到活动编辑器",
@@ -101,6 +106,7 @@
       "m": "切换镜像反转",
       "d": "切换Markdown模式",
       "l": "调整行间距",
+      "fontSize": "减小/增大字体",
       "h": "显示/隐藏帮助"
     },
     "vsCodeShortcuts": {

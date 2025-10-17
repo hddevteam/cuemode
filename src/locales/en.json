@@ -8,7 +8,9 @@
     "toggleMirrorFlip": "Toggle Mirror Flip",
     "toggleMarkdownMode": "Toggle Markdown Mode",
     "configureMarkdownFeatures": "Configure Markdown Features",
-    "adjustLineHeight": "Adjust Line Height"
+    "adjustLineHeight": "Adjust Line Height",
+    "increaseFontSize": "Increase Font Size",
+    "decreaseFontSize": "Decrease Font Size"
   },
   "notifications": {
     "activated": "Teleprompter mode activated",
@@ -24,7 +26,10 @@
     "mirrorFlipDisabled": "Mirror flip disabled",
     "markdownModeEnabled": "Markdown mode enabled",
     "markdownModeDisabled": "Markdown mode disabled",
-    "lineHeightChanged": "Line height changed to {{height}}"
+    "lineHeightChanged": "Line height changed to {{height}}",
+    "fontSizeChanged": "Font size changed to {{size}}pt",
+    "fontSizeMax": "Font size is already at maximum (100pt)",
+    "fontSizeMin": "Font size is already at minimum (8pt)"
   },
   "errors": {
     "noActiveEditor": "No active editor found",
@@ -102,6 +107,7 @@
       "m": "Toggle mirror flip",
       "d": "Toggle markdown mode",
       "l": "Adjust line height",
+      "fontSize": "Decrease/Increase font size",
       "h": "Show/Hide help"
     },
     "vsCodeShortcuts": {

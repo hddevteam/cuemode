@@ -5,6 +5,50 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2025-10-17 - Font Size Control & UI Improvements
+
+### ✨ New Features
+
+- **Font Size Adjustment Shortcuts**: Dynamic font size control with keyboard shortcuts
+  - **VS Code Shortcuts**: `Ctrl+Shift+=` / `Cmd+Shift+=` to increase, `Ctrl+Shift+-` / `Cmd+Shift+-` to decrease
+  - **Webview Shortcuts**: `]` key to increase, `[` key to decrease
+  - **Incremental Adjustment**: 2-point font size steps for precise control
+  - **Range**: 8pt - 100pt with boundary notifications
+  - **Auto-Save**: Settings persist across sessions via `cuemode.fontSize`
+  - **Real-time Preview**: Instant visual feedback in teleprompter mode
+  - **Help Integration**: New shortcuts documented in help dialog (H key)
+
+### 🎨 UI/UX Improvements
+
+- **Fixed UI Element Sizing**: Help panel and control buttons now use fixed pixel sizes
+  - Help panel: Fixed at 14px (was relative to content font size)
+  - Control buttons: Fixed at 13px for consistent usability
+  - Independent font families for better readability
+  - Prevents UI becoming unusable when content font is very large/small
+
+### 🌐 Internationalization
+
+- **Complete i18n Support**: All 6 languages updated with new feature translations
+  - English, Chinese (Simplified), German, French, Japanese, Korean
+  - Command descriptions: "Increase Font Size" / "Decrease Font Size"
+  - Notifications: Font size changed, maximum/minimum reached
+  - Help shortcuts: "[/]: Decrease/Increase font size" in all languages
+
+### 🔧 Technical Improvements
+
+- Enhanced `WebviewMessage` type with `increaseFontSize` and `decreaseFontSize` message types
+- Added `increaseFontSize()` and `decreaseFontSize()` methods to extension
+- Improved CSS architecture with fixed-size UI components
+- Message passing between webview and extension for font adjustments
+- Maintained 100% test coverage (134/134 tests passing)
+
+### 📚 Documentation
+
+- Updated help dialog with font size adjustment shortcuts
+- Added keyboard shortcut descriptions to all language files
+- Updated package.nls.* files for proper VS Code integration
+- Enhanced user experience with clear boundary feedback
+
 ## [2.4.0] - 2025-01-22 - Enhanced Visual Hierarchy & Speaker Notes
 
 ### 🎨 New Features

@@ -406,7 +406,8 @@ export class ThemeManager {
         padding: 0.4em 0.8em;
         border-radius: 6px;
         cursor: pointer;
-        font-size: clamp(0.6em, 1.5vw, 0.75em);
+        font-size: 13px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
         margin: 0;
         transition: all 0.3s ease;
         min-width: auto;
@@ -437,15 +438,17 @@ export class ThemeManager {
         
         .cue-button {
           padding: 0.3em 0.6em;
-          font-size: 0.65em;
+          font-size: 11px;
         }
       }
 
-      .cue-help {
+            .cue-help {
         position: fixed;
         top: 10px;
         right: 10px;
-        background: rgba(0, 0, 0, 0.95);
+        background: rgba(30, 30, 30, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border: 2px solid var(--accent-color);
         border-radius: 8px;
         padding: 1em 1.2em;
@@ -454,7 +457,8 @@ export class ThemeManager {
         max-height: calc(100vh - 60px);
         z-index: 1000;
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
-        font-size: 0.7em;
+        font-size: 14px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
         -webkit-backdrop-filter: blur(12px);
         backdrop-filter: blur(12px);
         overflow: hidden;
@@ -474,7 +478,7 @@ export class ThemeManager {
       .cue-help h3 {
         margin: 0 0 0.7em 0;
         color: var(--accent-color);
-        font-size: 1em;
+        font-size: 16px;
         text-align: center;
         border-bottom: 1px solid var(--accent-color);
         padding-bottom: 0.4em;
@@ -495,7 +499,7 @@ export class ThemeManager {
       .help-section h4 {
         margin: 0 0 0.5em 0;
         color: var(--accent-color);
-        font-size: 0.85em;
+        font-size: 13px;
         font-weight: bold;
         opacity: 0.9;
         padding-bottom: 0.2em;
@@ -510,8 +514,8 @@ export class ThemeManager {
 
       .cue-help li {
         margin: 0.3em 0;
-        font-size: 0.85em;
-        line-height: 1.3;
+        font-size: 12px;
+        line-height: 1.4;
         display: flex;
         align-items: center;
         gap: 0.5em;
@@ -528,8 +532,8 @@ export class ThemeManager {
         color: white;
         padding: 0.2em 0.4em;
         border-radius: 4px;
-        font-family: inherit;
-        font-size: 0.75em;
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 11px;
         font-weight: bold;
         min-width: 2.5em;
         text-align: center;
@@ -548,7 +552,7 @@ export class ThemeManager {
           max-width: none;
           min-width: 0;
           padding: 1em;
-          font-size: 0.75em;
+          font-size: 13px;
         }
         
         .help-grid {
@@ -571,7 +575,7 @@ export class ThemeManager {
         
         .cue-help h3 {
           margin-bottom: 0.6em;
-          font-size: 1em;
+          font-size: 15px;
         }
         
         .help-grid {
@@ -580,7 +584,7 @@ export class ThemeManager {
         
         .help-section h4 {
           margin-bottom: 0.5em;
-          font-size: 0.85em;
+          font-size: 12px;
         }
         
         .cue-help li {
@@ -635,7 +639,7 @@ export class ThemeManager {
           width: auto;
           max-width: none;
           padding: 0.9em;
-          font-size: 0.65em;
+          font-size: 12px;
           max-height: calc(100vh - 30px);
         }
 
@@ -646,7 +650,7 @@ export class ThemeManager {
 
         .cue-help li {
           margin: 0.25em 0;
-          font-size: 0.8em;
+          font-size: 11px;
         }
 
         .cue-help kbd {

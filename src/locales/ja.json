@@ -5,7 +5,12 @@
     "changeTheme": "テレプロンプターテーマを変更",
     "removeLeadingSpaces": "先頭の空白を削除",
     "toggleFocusMode": "フォーカスモードを切り替え",
-    "adjustLineHeight": "行の高さを調整"
+    "toggleMirrorFlip": "ミラー反転を切り替え",
+    "toggleMarkdownMode": "Markdownモードを切り替え",
+    "configureMarkdownFeatures": "Markdown機能を設定",
+    "adjustLineHeight": "行の高さを調整",
+    "increaseFontSize": "フォントサイズを拡大",
+    "decreaseFontSize": "フォントサイズを縮小"
   },
   "notifications": {
     "activated": "テレプロンプターモードが有効になりました",
@@ -17,7 +22,14 @@
     "error": "テレプロンプターモードエラー: {{message}}",
     "focusModeEnabled": "フォーカスモードが有効になりました",
     "focusModeDisabled": "フォーカスモードが無効になりました",
-    "lineHeightChanged": "行の高さが{{height}}に変更されました"
+    "mirrorFlipEnabled": "ミラー反転が有効になりました",
+    "mirrorFlipDisabled": "ミラー反転が無効になりました",
+    "markdownModeEnabled": "Markdownモードが有効になりました",
+    "markdownModeDisabled": "Markdownモードが無効になりました",
+    "lineHeightChanged": "行の高さが{{height}}に変更されました",
+    "fontSizeChanged": "フォントサイズが{{size}}ptに変更されました",
+    "fontSizeMax": "フォントサイズは既に最大です(100pt)",
+    "fontSizeMin": "フォントサイズは既に最小です(8pt)"
   },
   "errors": {
     "noActiveEditor": "アクティブなエディターが見つかりません",
@@ -56,7 +68,13 @@
     "loading": "読み込み中...",
     "ready": "準備完了",
     "focusMode": "フォーカスモード",
-    "exitFocus": "フォーカス終了"
+    "exitFocus": "フォーカス終了",
+    "mirrorFlip": "ミラー反転",
+    "mirrorOn": "ミラー：オン",
+    "mirrorOff": "ミラー：オフ",
+    "markdownMode": "Markdownモード",
+    "markdownOn": "Markdown：オン",
+    "markdownOff": "Markdown：オフ"
   },
   "help": {
     "title": "テレプロンプターモードのショートカット",
@@ -73,8 +91,11 @@
       "homeEnd": "開始/終了にジャンプ",
       "t": "テーマを切り替え",
       "f": "フォーカスモードを切り替え",
-      "h": "ヘルプの表示/非表示",
-      "l": "行の高さを調整"
+      "m": "ミラー反転を切り替え",
+      "d": "Markdownモードを切り替え",
+      "l": "行の高さを調整",
+      "fontSize": "フォントサイズを縮小/拡大",
+      "h": "ヘルプの表示/非表示"
     },
     "vsCodeShortcuts": {
       "changeTheme": "テーマを変更",

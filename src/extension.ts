@@ -102,7 +102,17 @@ export class CueModeExtension {
       this.adjustLineHeight();
     });
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand);
+    // Increase font size command
+    const increaseFontSizeCommand = vscode.commands.registerCommand('cuemode.increaseFontSize', () => {
+      this.increaseFontSize();
+    });
+
+    // Decrease font size command
+    const decreaseFontSizeCommand = vscode.commands.registerCommand('cuemode.decreaseFontSize', () => {
+      this.decreaseFontSize();
+    });
+
+    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand, increaseFontSizeCommand, decreaseFontSizeCommand);
   }
 
   /**
@@ -418,6 +428,82 @@ export class CueModeExtension {
       
       // Show notification with the new line height value
       const message = t('notifications.lineHeightChanged', { height: newLineHeight.toString() });
+      vscode.window.setStatusBarMessage(message, 2000);
+      
+      // Update webview if active
+      if (this.webViewManager.isActive()) {
+        const updatedConfig = ConfigManager.getConfig();
+        await this.webViewManager.updateConfig(updatedConfig);
+      }
+      
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Increase font size
+   */
+  private async increaseFontSize(): Promise<void> {
+    try {
+      const currentConfig = ConfigManager.getConfig();
+      const currentFontSize = currentConfig.fontSize;
+      const maxFontSize = 100;
+      
+      // Increase by 2 points, max 100
+      const newFontSize = Math.min(currentFontSize + 2, maxFontSize);
+      
+      if (newFontSize === currentFontSize) {
+        vscode.window.setStatusBarMessage(
+          t('notifications.fontSizeMax'),
+          2000
+        );
+        return;
+      }
+      
+      // Update configuration
+      await ConfigManager.updateConfig('fontSize', newFontSize);
+      
+      // Show notification
+      const message = t('notifications.fontSizeChanged', { size: newFontSize.toString() });
+      vscode.window.setStatusBarMessage(message, 2000);
+      
+      // Update webview if active
+      if (this.webViewManager.isActive()) {
+        const updatedConfig = ConfigManager.getConfig();
+        await this.webViewManager.updateConfig(updatedConfig);
+      }
+      
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Decrease font size
+   */
+  private async decreaseFontSize(): Promise<void> {
+    try {
+      const currentConfig = ConfigManager.getConfig();
+      const currentFontSize = currentConfig.fontSize;
+      const minFontSize = 8;
+      
+      // Decrease by 2 points, min 8
+      const newFontSize = Math.max(currentFontSize - 2, minFontSize);
+      
+      if (newFontSize === currentFontSize) {
+        vscode.window.setStatusBarMessage(
+          t('notifications.fontSizeMin'),
+          2000
+        );
+        return;
+      }
+      
+      // Update configuration
+      await ConfigManager.updateConfig('fontSize', newFontSize);
+      
+      // Show notification
+      const message = t('notifications.fontSizeChanged', { size: newFontSize.toString() });
       vscode.window.setStatusBarMessage(message, 2000);
       
       // Update webview if active

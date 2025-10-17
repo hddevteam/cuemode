@@ -5,7 +5,12 @@
     "changeTheme": "Teleprompter-Theme ändern",
     "removeLeadingSpaces": "Führende Leerzeichen entfernen",
     "toggleFocusMode": "Fokus-Modus umschalten",
-    "adjustLineHeight": "Zeilenhöhe anpassen"
+    "toggleMirrorFlip": "Spiegelung umschalten",
+    "toggleMarkdownMode": "Markdown-Modus umschalten",
+    "configureMarkdownFeatures": "Markdown-Funktionen konfigurieren",
+    "adjustLineHeight": "Zeilenhöhe anpassen",
+    "increaseFontSize": "Schriftgröße erhöhen",
+    "decreaseFontSize": "Schriftgröße verringern"
   },
   "notifications": {
     "activated": "Teleprompter-Modus aktiviert",
@@ -17,7 +22,14 @@
     "error": "Teleprompter-Modus-Fehler: {{message}}",
     "focusModeEnabled": "Fokus-Modus aktiviert",
     "focusModeDisabled": "Fokus-Modus deaktiviert",
-    "lineHeightChanged": "Zeilenhöhe zu {{height}} geändert"
+    "mirrorFlipEnabled": "Spiegelung aktiviert",
+    "mirrorFlipDisabled": "Spiegelung deaktiviert",
+    "markdownModeEnabled": "Markdown-Modus aktiviert",
+    "markdownModeDisabled": "Markdown-Modus deaktiviert",
+    "lineHeightChanged": "Zeilenhöhe zu {{height}} geändert",
+    "fontSizeChanged": "Schriftgröße zu {{size}}pt geändert",
+    "fontSizeMax": "Schriftgröße ist bereits maximal (100pt)",
+    "fontSizeMin": "Schriftgröße ist bereits minimal (8pt)"
   },
   "errors": {
     "noActiveEditor": "Kein aktiver Editor gefunden",
@@ -56,7 +68,13 @@
     "loading": "Lädt...",
     "ready": "Bereit",
     "focusMode": "Fokus-Modus",
-    "exitFocus": "Fokus verlassen"
+    "exitFocus": "Fokus verlassen",
+    "mirrorFlip": "Spiegelung",
+    "mirrorOn": "Spiegel: EIN",
+    "mirrorOff": "Spiegel: AUS",
+    "markdownMode": "Markdown-Modus",
+    "markdownOn": "Markdown: EIN",
+    "markdownOff": "Markdown: AUS"
   },
   "help": {
     "title": "Teleprompter-Modus-Tastenkürzel",
@@ -73,8 +91,11 @@
       "homeEnd": "Zum Anfang/Ende springen",
       "t": "Theme wechseln",
       "f": "Fokus-Modus umschalten",
-      "h": "Hilfe anzeigen/verbergen",
-      "l": "Zeilenhöhe anpassen"
+      "m": "Spiegelung umschalten",
+      "d": "Markdown-Modus umschalten",
+      "l": "Zeilenhöhe anpassen",
+      "fontSize": "Schriftgröße verringern/erhöhen",
+      "h": "Hilfe anzeigen/verbergen"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Theme ändern",

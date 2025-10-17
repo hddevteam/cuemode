@@ -5,7 +5,12 @@
     "changeTheme": "텔레프롬프터 테마 변경",
     "removeLeadingSpaces": "앞쪽 공백 제거",
     "toggleFocusMode": "포커스 모드 전환",
-    "adjustLineHeight": "줄 높이 조정"
+    "toggleMirrorFlip": "미러 반전 전환",
+    "toggleMarkdownMode": "Markdown 모드 전환",
+    "configureMarkdownFeatures": "Markdown 기능 구성",
+    "adjustLineHeight": "줄 높이 조정",
+    "increaseFontSize": "글꼴 크기 증가",
+    "decreaseFontSize": "글꼴 크기 감소"
   },
   "notifications": {
     "activated": "텔레프롬프터 모드가 활성화되었습니다",
@@ -17,7 +22,14 @@
     "error": "텔레프롬프터 모드 오류: {{message}}",
     "focusModeEnabled": "포커스 모드가 활성화되었습니다",
     "focusModeDisabled": "포커스 모드가 비활성화되었습니다",
-    "lineHeightChanged": "줄 높이가 {{height}}로 변경되었습니다"
+    "mirrorFlipEnabled": "미러 반전이 활성화되었습니다",
+    "mirrorFlipDisabled": "미러 반전이 비활성화되었습니다",
+    "markdownModeEnabled": "Markdown 모드가 활성화되었습니다",
+    "markdownModeDisabled": "Markdown 모드가 비활성화되었습니다",
+    "lineHeightChanged": "줄 높이가 {{height}}로 변경되었습니다",
+    "fontSizeChanged": "글꼴 크기가 {{size}}pt로 변경되었습니다",
+    "fontSizeMax": "글꼴 크기가 이미 최대입니다 (100pt)",
+    "fontSizeMin": "글꼴 크기가 이미 최소입니다 (8pt)"
   },
   "errors": {
     "noActiveEditor": "활성 편집기를 찾을 수 없습니다",
@@ -56,7 +68,13 @@
     "loading": "로딩 중...",
     "ready": "준비 완료",
     "focusMode": "포커스 모드",
-    "exitFocus": "포커스 종료"
+    "exitFocus": "포커스 종료",
+    "mirrorFlip": "미러 반전",
+    "mirrorOn": "미러: 켜짐",
+    "mirrorOff": "미러: 꺼짐",
+    "markdownMode": "Markdown 모드",
+    "markdownOn": "Markdown: 켜짐",
+    "markdownOff": "Markdown: 꺼짐"
   },
   "help": {
     "title": "텔레프롬프터 모드 단축키",
@@ -73,8 +91,11 @@
       "homeEnd": "시작/끝으로 이동",
       "t": "테마 전환",
       "f": "포커스 모드 전환",
-      "h": "도움말 표시/숨기기",
-      "l": "줄 높이 조정"
+      "m": "미러 반전 전환",
+      "d": "Markdown 모드 전환",
+      "l": "줄 높이 조정",
+      "fontSize": "글꼴 크기 감소/증가",
+      "h": "도움말 표시/숨기기"
     },
     "vsCodeShortcuts": {
       "changeTheme": "테마 변경",

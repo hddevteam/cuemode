@@ -259,6 +259,16 @@ export class WebViewManager {
         vscode.commands.executeCommand('cuemode.adjustLineHeight');
         break;
       
+      case 'increaseFontSize':
+        // Call the main extension's increaseFontSize command
+        vscode.commands.executeCommand('cuemode.increaseFontSize');
+        break;
+      
+      case 'decreaseFontSize':
+        // Call the main extension's decreaseFontSize command
+        vscode.commands.executeCommand('cuemode.decreaseFontSize');
+        break;
+      
       case 'scroll':
         // Handle scroll events if needed
         break;
@@ -366,6 +376,7 @@ export class WebViewManager {
                   <li><kbd>M</kbd> <span>${t('help.shortcuts.m')}</span></li>
                   <li><kbd>D</kbd> <span>${t('help.shortcuts.d')}</span></li>
                   <li><kbd>L</kbd> <span>${t('help.shortcuts.l')}</span></li>
+                  <li><kbd>[/]</kbd> <span>${t('help.shortcuts.fontSize')}</span></li>
                   <li><kbd>H</kbd> <span>${t('help.shortcuts.h')}</span></li>
                 </ul>
               </div>
@@ -748,6 +759,16 @@ export class WebViewManager {
               case 'L':
                 // Adjust line height
                 vscode.postMessage({ type: 'adjustLineHeight' });
+                e.preventDefault();
+                break;
+              case '[':
+                // Decrease font size
+                vscode.postMessage({ type: 'decreaseFontSize' });
+                e.preventDefault();
+                break;
+              case ']':
+                // Increase font size
+                vscode.postMessage({ type: 'increaseFontSize' });
                 e.preventDefault();
                 break;
             }

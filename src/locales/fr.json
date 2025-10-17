@@ -5,7 +5,12 @@
     "changeTheme": "Changer le thème du télésouffleur",
     "removeLeadingSpaces": "Supprimer les espaces en début",
     "toggleFocusMode": "Basculer le mode focus",
-    "adjustLineHeight": "Ajuster la hauteur de ligne"
+    "toggleMirrorFlip": "Basculer le miroir",
+    "toggleMarkdownMode": "Basculer le mode Markdown",
+    "configureMarkdownFeatures": "Configurer les fonctions Markdown",
+    "adjustLineHeight": "Ajuster la hauteur de ligne",
+    "increaseFontSize": "Augmenter la taille de police",
+    "decreaseFontSize": "Diminuer la taille de police"
   },
   "notifications": {
     "activated": "Mode télésouffleur activé",
@@ -17,7 +22,14 @@
     "error": "Erreur du mode télésouffleur : {{message}}",
     "focusModeEnabled": "Mode focus activé",
     "focusModeDisabled": "Mode focus désactivé",
-    "lineHeightChanged": "Hauteur de ligne changée vers {{height}}"
+    "mirrorFlipEnabled": "Miroir activé",
+    "mirrorFlipDisabled": "Miroir désactivé",
+    "markdownModeEnabled": "Mode Markdown activé",
+    "markdownModeDisabled": "Mode Markdown désactivé",
+    "lineHeightChanged": "Hauteur de ligne changée vers {{height}}",
+    "fontSizeChanged": "Taille de police changée vers {{size}}pt",
+    "fontSizeMax": "La taille de police est déjà au maximum (100pt)",
+    "fontSizeMin": "La taille de police est déjà au minimum (8pt)"
   },
   "errors": {
     "noActiveEditor": "Aucun éditeur actif trouvé",
@@ -56,7 +68,13 @@
     "loading": "Chargement...",
     "ready": "Prêt",
     "focusMode": "Mode focus",
-    "exitFocus": "Quitter le focus"
+    "exitFocus": "Quitter le focus",
+    "mirrorFlip": "Miroir",
+    "mirrorOn": "Miroir : ACTIVÉ",
+    "mirrorOff": "Miroir : DÉSACTIVÉ",
+    "markdownMode": "Mode Markdown",
+    "markdownOn": "Markdown : ACTIVÉ",
+    "markdownOff": "Markdown : DÉSACTIVÉ"
   },
   "help": {
     "title": "Raccourcis du mode télésouffleur",
@@ -73,8 +91,11 @@
       "homeEnd": "Aller au début/fin",
       "t": "Changer de thème",
       "f": "Basculer le mode focus",
-      "h": "Afficher/masquer l'aide",
-      "l": "Ajuster la hauteur de ligne"
+      "m": "Basculer le miroir",
+      "d": "Basculer le mode Markdown",
+      "l": "Ajuster la hauteur de ligne",
+      "fontSize": "Diminuer/Augmenter la taille de police",
+      "h": "Afficher/masquer l'aide"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Changer de thème",
