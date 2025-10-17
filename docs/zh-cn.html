@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CueMode - VS Code 专业提词器</title>
-    <meta name="description" content="CueMode v2.4.0 - VS Code 专业提词器扩展，具有分级标题大小、HTML注释可见化、行高调整、Markdown显示切换、镜像翻转、聚焦模式、6语言国际化、T键主题循环和自动滚动功能。完美适用于直播、视频教程和演示。">
+    <title>CueMode - VS Code 专业提词器扩展</title>
+    <meta name="description" content="CueMode v2.5.0 - VS Code 专业提词器扩展，具有字体大小控制、差异化标题大小、HTML 注释可见性、行高调整、Markdown 显示切换、镜像翻转、专注模式、6 语言国际化、自动滚动和主题切换功能。非常适合直播、视频教程和演示。">
     <meta name="keywords" content="vscode扩展, 提词器, 自动滚动, 直播, 视频录制, 内容创作, 专业提词器, 屏幕录制, 代码演示, 主题循环, typescript">
     <meta name="author" content="HDDevTeam">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="CueMode - VS Code 专业提词器">
-    <meta property="og:description" content="将 VS Code 转换为专业提词器，具有分级标题大小、演讲备注的HTML注释可见化、行高调整、Markdown显示切换、镜像翻转、聚焦模式、6语言支持、主题循环和无缝自动滚动控制。v2.4.0 版本现已支持增强视觉层级和演示功能。">
+    <meta property="og:title" content="CueMode - VS Code 专业提词器扩展">
+    <meta property="og:description" content="将 VS Code 转变为专业提词器，具有字体大小控制、差异化标题大小、用于演讲者备注的 HTML 注释可见性、行高调整、Markdown 显示切换、镜像翻转、专注模式、6 语言支持、主题切换和无缝自动滚动控制。v2.5.0 现已增加动态字体调整和增强演示功能。">
     <meta property="og:image" content="https://hddevteam.github.io/cuemode/assets/images/hero-banner.png">
     <meta property="og:url" content="https://hddevteam.github.io/cuemode/zh-cn.html">
     <meta property="og:type" content="website">
@@ -35,9 +35,9 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "CueMode",
-      "version": "2.4.0",
-      "description": "VS Code 专业提词器扩展，具有分级标题大小、HTML注释可见化、行高调整、Markdown显示切换、镜像翻转、主题循环和演示功能",
-      "url": "https://hddevteam.github.io/cuemode/zh-cn.html",
+      "version": "2.5.0",
+      "description": "VS Code 专业提词器扩展，具有字体大小控制、差异化标题大小、HTML 注释可见性、行高调整、Markdown 显示切换、镜像翻转、主题切换和演示功能",
+      "url": "https://hddevteam.github.io/cuemode/",
       "downloadUrl": "https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": ["Windows", "macOS", "Linux"],
@@ -58,6 +58,28 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./assets/images/icon.png">
+    
+    <!-- Language Detection & Auto-redirect -->
+    <script>
+        (function() {
+            // Check if user manually selected language
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('lang') !== null) {
+                return; // User manually selected, don't auto-redirect
+            }
+            
+            // Get browser language
+            var userLang = navigator.language || navigator.userLanguage;
+            var currentPage = window.location.pathname;
+            
+            // Check if user doesn't prefer Chinese and is on Chinese page
+            if (!(userLang.toLowerCase().startsWith('zh') || userLang === 'zh-CN' || userLang === 'zh-cn') 
+                && currentPage.indexOf('zh-cn.html') !== -1) {
+                // Redirect to English version
+                window.location.href = './index.html';
+            }
+        })();
+    </script>
     
     <!-- CSS Styles -->
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -116,9 +138,9 @@
                 <a href="#features" class="nav-link">功能特色</a>
                 <a href="#themes" class="nav-link">主题</a>
                 <a href="#installation" class="nav-link">安装</a>
-                <a href="#usage" class="nav-link">使用</a>
+                <a href="#usage" class="nav-link">使用方法</a>
                 <a href="#support" class="nav-link">支持</a>
-                <a href="./index.html" class="nav-link">English</a>
+                <a href="./index.html?lang=en" class="nav-link">English</a>
                 <a href="https://github.com/hddevteam/cuemode" class="nav-link" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-github"></i> GitHub
                 </a>
@@ -132,7 +154,7 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <i class="fas fa-scroll"></i>
-                    最新版本 v2.4.0 - 增强视觉层级与演讲备注！
+                    最新版本 v2.5.0 - 字体大小控制与增强演示！
                 </div>
                 <h1 class="hero-title">
                     将 VS Code 变成<span class="highlight">专业提词器</span>

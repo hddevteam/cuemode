@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CueMode - Professional Teleprompter for VS Code</title>
-    <meta name="description" content="CueMode v2.4.0 - Professional teleprompter extension for VS Code with Differentiated Header Sizes, HTML Comment Visibility, Line Height Adjustment, Markdown Display Toggle, Mirror Flip, Focus Mode, 6-language internationalization, auto-scroll, and theme cycling. Perfect for livestreams, video tutorials, and presentations.">
+    <meta name="description" content="CueMode v2.5.0 - Professional teleprompter extension for VS Code with Font Size Control, Differentiated Header Sizes, HTML Comment Visibility, Line Height Adjustment, Markdown Display Toggle, Mirror Flip, Focus Mode, 6-language internationalization, auto-scroll, and theme cycling. Perfect for livestreams, video tutorials, and presentations.">
     <meta name="keywords" content="vscode extension, teleprompter, prompter, auto-scroll, live streaming, video recording, content creation, professional teleprompter, screen recording, code presentation, theme cycling, typescript">
     <meta name="author" content="HDDevTeam">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="CueMode - Professional Teleprompter for VS Code">
-    <meta property="og:description" content="Transform VS Code into a professional teleprompter with Differentiated Header Sizes, HTML Comment Visibility for speaker notes, Line Height Adjustment, Markdown Display Toggle, Mirror Flip, Focus Mode, 6-language support, theme cycling, and seamless auto-scroll controls. v2.4.0 now with enhanced visual hierarchy and presentation features.">
+    <meta property="og:description" content="Transform VS Code into a professional teleprompter with Font Size Control, Differentiated Header Sizes, HTML Comment Visibility for speaker notes, Line Height Adjustment, Markdown Display Toggle, Mirror Flip, Focus Mode, 6-language support, theme cycling, and seamless auto-scroll controls. v2.5.0 now with dynamic font adjustment and enhanced presentation features.">
     <meta property="og:image" content="https://hddevteam.github.io/cuemode/assets/images/hero-banner.png">
     <meta property="og:url" content="https://hddevteam.github.io/cuemode/">
     <meta property="og:type" content="website">
@@ -34,8 +34,8 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "CueMode",
-      "version": "2.4.0",
-      "description": "Professional teleprompter extension for VS Code with Differentiated Header Sizes, HTML Comment Visibility, Line Height Adjustment, Markdown Display Toggle, Mirror Flip, theme cycling and presentation features",
+      "version": "2.5.0",
+      "description": "Professional teleprompter extension for VS Code with Font Size Control, Differentiated Header Sizes, HTML Comment Visibility, Line Height Adjustment, Markdown Display Toggle, Mirror Flip, theme cycling and presentation features",
       "url": "https://hddevteam.github.io/cuemode/",
       "downloadUrl": "https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode",
       "applicationCategory": "DeveloperApplication",
@@ -61,6 +61,28 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./assets/images/icon.png">
+    
+    <!-- Language Detection & Auto-redirect -->
+    <script>
+        (function() {
+            // Check if user manually selected language
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('lang') !== null) {
+                return; // User manually selected, don't auto-redirect
+            }
+            
+            // Get browser language
+            var userLang = navigator.language || navigator.userLanguage;
+            var currentPage = window.location.pathname;
+            
+            // Check if user prefers Chinese and is on English page
+            if ((userLang.toLowerCase().startsWith('zh') || userLang === 'zh-CN' || userLang === 'zh-cn') 
+                && currentPage.indexOf('zh-cn.html') === -1) {
+                // Redirect to Chinese version
+                window.location.href = './zh-cn.html';
+            }
+        })();
+    </script>
     
     <!-- CSS Styles -->
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -117,7 +139,7 @@
                 <a href="#installation" class="nav-link">Installation</a>
                 <a href="#usage" class="nav-link">Usage</a>
                 <a href="#support" class="nav-link">Support</a>
-                <a href="./zh-cn.html" class="nav-link">中文</a>
+                <a href="./zh-cn.html?lang=zh" class="nav-link">中文</a>
                 <a href="https://github.com/hddevteam/cuemode" class="nav-link" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-github"></i> GitHub
                 </a>
@@ -131,7 +153,7 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <i class="fas fa-scroll"></i>
-                    Latest v2.4.0 - Enhanced Visual Hierarchy & Speaker Notes!
+                    Latest v2.5.0 - Font Size Control & Enhanced Presentation!
                 </div>
                 <h1 class="hero-title">
                     Transform VS Code into a <span class="highlight">Professional Teleprompter</span>
