@@ -14,7 +14,7 @@
   },
   "notifications": {
     "activated": "Teleprompter mode activated",
-    "deactivated": "Teleprompter mode deactivated", 
+    "deactivated": "Teleprompter mode deactivated",
     "configUpdated": "Teleprompter mode configuration updated",
     "themeChanged": "Theme changed to {{theme}}",
     "spacesRemoved": "Leading spaces removed from {{count}} line",
@@ -40,7 +40,7 @@
     "initializationFailed": "Failed to initialize extension: {{error}}"
   },
   "settings": {
-    "colorTheme": "Color Theme", 
+    "colorTheme": "Color Theme",
     "maxWidth": "Maximum Width",
     "fontSize": "Font Size",
     "lineHeight": "Line Height",
@@ -66,7 +66,7 @@
   },
   "themes": {
     "classic": "Classic",
-    "inverted": "Inverted", 
+    "inverted": "Inverted",
     "midnightBlue": "Midnight Blue",
     "sunset": "Sunset",
     "forest": "Forest",
@@ -76,7 +76,7 @@
   "ui": {
     "title": "Teleprompter Mode - {{filename}}",
     "close": "Close",
-    "help": "Help", 
+    "help": "Help",
     "shortcuts": "Keyboard Shortcuts",
     "loading": "Loading...",
     "ready": "Ready",
@@ -95,7 +95,7 @@
     "navigationModes": "Navigation & Modes",
     "shortcuts": {
       "space": "Start/Stop auto-scroll",
-      "plus": "Increase scroll speed", 
+      "plus": "Increase scroll speed",
       "minus": "Decrease scroll speed",
       "r": "Toggle scroll direction",
       "escape": "Exit teleprompter mode",

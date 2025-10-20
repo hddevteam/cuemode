@@ -16,6 +16,7 @@ export class WebViewManager {
   private state: CueModeState;
   private configChangeListener: vscode.Disposable | undefined;
   private documentChangeListener: vscode.Disposable | undefined;
+  private onCloseCallback: (() => void) | undefined;
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
@@ -167,6 +168,13 @@ export class WebViewManager {
    */
   public async getHtml(): Promise<string> {
     return await this.generateHTML();
+  }
+
+  /**
+   * Set callback to be called when webview closes
+   */
+  public setOnCloseCallback(callback: () => void): void {
+    this.onCloseCallback = callback;
   }
 
   /**
@@ -999,6 +1007,12 @@ export class WebViewManager {
     if (this.documentChangeListener) {
       this.documentChangeListener.dispose();
       this.documentChangeListener = undefined;
+    }
+
+    // Call onClose callback to restore UI state
+    if (this.onCloseCallback) {
+      this.onCloseCallback();
+      this.onCloseCallback = undefined;
     }
   }
 

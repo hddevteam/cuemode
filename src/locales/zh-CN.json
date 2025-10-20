@@ -2,7 +2,7 @@
   "commands": {
     "title": "提词器模式",
     "description": "激活提词器模式以获得更好的演示体验",
-    "changeTheme": "切换提词器主题", 
+    "changeTheme": "切换提词器主题",
     "removeLeadingSpaces": "移除行首空格",
     "toggleFocusMode": "切换聚焦模式",
     "toggleMirrorFlip": "切换镜像反转",
@@ -32,7 +32,7 @@
   },
   "errors": {
     "noActiveEditor": "未找到活动编辑器",
-    "noContent": "没有内容可显示", 
+    "noContent": "没有内容可显示",
     "webviewFailed": "创建网页视图失败",
     "configInvalid": "配置无效：{{details}}",
     "noSelection": "未选择文本。请选择文本以移除行首空格。",
@@ -41,7 +41,7 @@
   "settings": {
     "colorTheme": "颜色主题",
     "maxWidth": "最大宽度",
-    "fontSize": "字体大小", 
+    "fontSize": "字体大小",
     "lineHeight": "行高",
     "padding": "内边距",
     "scrollSpeed": "滚动速度",
@@ -68,7 +68,7 @@
     "inverted": "反转",
     "midnightBlue": "午夜蓝",
     "sunset": "日落",
-    "forest": "森林", 
+    "forest": "森林",
     "ocean": "海洋",
     "rose": "玫瑰"
   },
@@ -95,7 +95,7 @@
     "shortcuts": {
       "space": "开始/暂停自动滚屏",
       "plus": "增加滚屏速度",
-      "minus": "减少滚屏速度", 
+      "minus": "减少滚屏速度",
       "r": "切换滚屏方向",
       "escape": "退出提词器模式",
       "arrows": "手动导航",
@@ -111,7 +111,7 @@
     },
     "vsCodeShortcuts": {
       "changeTheme": "切换主题",
-      "removeSpaces": "移除行首空格", 
+      "removeSpaces": "移除行首空格",
       "toggleFocus": "切换聚焦模式",
       "toggleMirror": "切换镜像反转",
       "toggleMarkdown": "切换Markdown模式"

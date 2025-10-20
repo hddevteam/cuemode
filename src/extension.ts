@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { WebViewManager } from './ui/webview';
 import { ConfigManager } from './utils/config';
+import { UIStateManager } from './utils/uiState';
 import { t, initializeI18n } from './i18n';
 import { CueModeError } from './types';
 
@@ -9,10 +10,12 @@ import { CueModeError } from './types';
  */
 export class CueModeExtension {
   private webViewManager: WebViewManager;
+  private uiStateManager: UIStateManager;
   private configChangeListener: vscode.Disposable | undefined;
 
   constructor(private context: vscode.ExtensionContext) {
     this.webViewManager = new WebViewManager(context);
+    this.uiStateManager = new UIStateManager();
   }
 
   /**
@@ -44,8 +47,13 @@ export class CueModeExtension {
   /**
    * Deactivate the extension
    */
-  public deactivate(): void {
+  public async deactivate(): Promise<void> {
     console.log('CueMode extension is deactivating...');
+    
+    // Restore UI state if saved
+    if (this.uiStateManager.hasSavedState()) {
+      await this.uiStateManager.restore();
+    }
     
     // Close webview if active
     if (this.webViewManager.isActive()) {
@@ -166,8 +174,16 @@ export class CueModeExtension {
       // Get configuration
       const config = ConfigManager.getSafeConfig();
 
+      // Hide UI elements before creating webview
+      await this.uiStateManager.hideUI();
+
       // Create webview
       await this.webViewManager.create(content, filename, config);
+
+      // Register callback to restore UI state when webview closes
+      this.webViewManager.setOnCloseCallback(async () => {
+        await this.uiStateManager.restore();
+      });
 
       // Show short auto-dismiss notification
       vscode.window.setStatusBarMessage(

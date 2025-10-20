@@ -5,6 +5,36 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2025-10-20 - Automatic UI Management
+
+### ✨ New Features
+
+- **Automatic UI Management**: CueMode now provides a distraction-free presentation experience
+  - **Auto-close Sidebar**: Sidebar is automatically closed when CueMode activates
+  - **Auto-close Panel**: Terminal, output, and debug panels are hidden during presentation
+  - **Smart Restoration**: Sidebar is restored when CueMode exits
+  - **Non-blocking**: CueMode continues to work even if UI optimization fails
+
+### 🎨 UX Improvements
+
+- **Seamless Activation**: No manual UI cleanup required before starting presentations
+- **Professional Experience**: Clean, distraction-free fullscreen presentation mode
+- **Automatic Recovery**: UI state is preserved and restored without user intervention
+
+### 🔧 Technical Improvements
+
+- New `UIStateManager` class for managing VS Code UI state
+- Integration with WebViewManager for automatic state restoration
+- Robust error handling with graceful degradation
+- Comprehensive unit tests for UI state management
+- Async state save/restore with proper timing
+
+### 📚 Documentation
+
+- Technical implementation details in code comments
+- Testing guidelines and user experience flow
+- Known limitations and future enhancements
+
 ## [2.5.0] - 2025-10-17 - Font Size Control & UI Improvements
 
 ### ✨ New Features
@@ -46,7 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated help dialog with font size adjustment shortcuts
 - Added keyboard shortcut descriptions to all language files
-- Updated package.nls.* files for proper VS Code integration
+- Updated package.nls.\* files for proper VS Code integration
 - Enhanced user experience with clear boundary feedback
 
 ## [2.4.0] - 2025-01-22 - Enhanced Visual Hierarchy & Speaker Notes
@@ -54,6 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🎨 New Features
 
 - **Differentiated Header Sizes**: Professional visual hierarchy for markdown headers
+
   - **H1**: 2.0x base font size - Largest header with bottom border
   - **H2**: 1.7x base font size - Secondary header with bottom border
   - **H3**: 1.4x base font size - Medium-large header
@@ -95,6 +126,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 📝 New Features
 
 - **Selective Markdown Parsing**: Revolutionary markdown processing for professional presentations
+
   - **Intelligent parsing** - Transform markdown content into beautifully formatted, teleprompter-optimized text
   - **D key toggle** - Instant switching between raw and parsed markdown in webview
   - **VS Code command** - `Ctrl+Shift+D` (Cmd+Shift+D on macOS) to toggle from anywhere
@@ -120,7 +152,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **New Setting**: `cuemode.markdownParsing` (boolean, default: false)
 - **Command**: `cuemode.toggleMarkdownParsing` for VS Code command palette
 - **Command**: `cuemode.adjustLineHeight` for line height cycling
-- **Keyboard Shortcuts**: 
+- **Keyboard Shortcuts**:
   - `D` key in webview for instant markdown toggle
   - `Ctrl+Shift+D` (Cmd+Shift+D on macOS) from VS Code
   - `L` key in webview for line height adjustment
@@ -183,7 +215,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Package Optimization**: Added esbuild bundling for better performance and smaller bundle size
 - **Localization Package Files**: Added VS Code package localization files for marketplace display
   - Added `package.nls.de.json` for German marketplace listing
-  - Added `package.nls.fr.json` for French marketplace listing  
+  - Added `package.nls.fr.json` for French marketplace listing
   - Added `package.nls.ja.json` for Japanese marketplace listing
   - Added `package.nls.ko.json` for Korean marketplace listing
 - **Improved .vscodeignore**: Better exclusion of development files for smaller package size
@@ -227,6 +259,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Type Safety**: Improved type safety for translation keys and parameters
 
 - **Six New Languages Added**: Complete localization support for:
+
   - 🇺🇸 **English (en)** - Native language with complete feature set
   - 🇨� **Chinese Simplified (zh-CN)** - 简体中文完整本地化
   - �🇩🇪 **German (de)** - Deutsche Übersetzung für professionelle Nutzung
@@ -242,6 +275,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🔧 Architecture Improvements
 
 - **🌐 Advanced Internationalization Framework**:
+
   - Migrated from TypeScript files to JSON-based translation system
   - Implemented centralized `src/i18n.ts` manager with i18next integration
   - Added `src/locales/` directory with 6 complete language files
@@ -282,6 +316,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🧪 Quality Assurance
 
 - **🌐 Comprehensive Multilingual Testing**:
+
   - Automated test suite covering all 6 supported languages
   - Translation key consistency validation across all locales
   - Cultural adaptation and character encoding verification
@@ -297,7 +332,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🛠️ Technical Improvements
 
-- **🌐 Multilingual Build System**: 
+- **🌐 Multilingual Build System**:
+
   - Automatic copying of JSON translation files during compilation
   - Build validation for translation file integrity
   - Optimized resource bundling for all language assets
@@ -306,7 +342,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Build System Optimization**: Automatic copying of JSON translation files
 - **Performance Optimizations**:
   - Efficient translation loading and caching with i18next
-  - Language-specific resource optimization 
+  - Language-specific resource optimization
   - Optimized focus mode blur calculations using requestAnimationFrame
   - Improved memory management and resource cleanup
 - **Asynchronous Extension Activation**: Proper async activation flow for i18n initialization
@@ -462,14 +498,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History Summary
 
-| Version | Release Date | Key Features |
-|---------|-------------|--------------|
-| 2.2.0   | 2025-07-15  | **Mirror Flip & Professional Teleprompter Support** - M-key toggle, horizontal mirroring, status indicators, UI optimization |
-| 2.1.0   | 2025-07-14  | **Focus Mode & i18n System Reconstruction** - F-key toggle, 6-language support, i18next integration, enhanced testing |
-| 2.0.0   | 2025-07-12  | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests |
-| 1.1.3   | 2025-07-12  | Bug fixes, performance improvements |
-| 1.1.0   | 2024        | Real-time updates, live sync, improved positioning |
-| 1.0.0   | 2024        | Initial release, basic functionality |
+| Version | Release Date | Key Features                                                                                                                 |
+| ------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| 2.2.0   | 2025-07-15   | **Mirror Flip & Professional Teleprompter Support** - M-key toggle, horizontal mirroring, status indicators, UI optimization |
+| 2.1.0   | 2025-07-14   | **Focus Mode & i18n System Reconstruction** - F-key toggle, 6-language support, i18next integration, enhanced testing        |
+| 2.0.0   | 2025-07-12   | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests                                            |
+| 1.1.3   | 2025-07-12   | Bug fixes, performance improvements                                                                                          |
+| 1.1.0   | 2024         | Real-time updates, live sync, improved positioning                                                                           |
+| 1.0.0   | 2024         | Initial release, basic functionality                                                                                         |
 
 ---
 
@@ -489,4 +525,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-*For more information about upcoming features, see our [Roadmap](ROADMAP.md).*
+_For more information about upcoming features, see our [Roadmap](ROADMAP.md)._
