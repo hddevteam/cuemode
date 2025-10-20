@@ -14,12 +14,16 @@
 
 ## 🎯 What is CueMode?
 
-CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.
+CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **automatic UI management**, **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.
 
-**✨ Version 2.3 Features:**
+**✨ Version 2.6 Features:**
 
-- **📝 Selective Markdown Parsing** - **NEW!** Intelligent markdown formatting for presentations with D-key toggle
-- **📏 Line Height Adjustment** - **NEW!** Professional line spacing control with L-key cycling (1.0, 1.2, 1.5, 1.8, 2.0)
+- **🎯 Automatic UI Management** - **NEW!** Distraction-free presentations with auto-hide sidebar/panel and smart restoration
+- **🔤 Font Size Control** - Dynamic font adjustment with keyboard shortcuts (Ctrl+Shift+=/−, [ / ] keys)
+- **📐 Differentiated Header Sizes** - Professional visual hierarchy for H1-H6 headers with responsive design
+- **💬 HTML Comment Visibility** - Display markdown comments for speaker notes and presentation cues
+- **📝 Selective Markdown Parsing** - Intelligent markdown formatting for presentations with D-key toggle
+- **📏 Line Height Adjustment** - Professional line spacing control with L-key cycling (1.0, 1.2, 1.5, 1.8, 2.0)
 - **🪞 M-Key Mirror Flip** - Professional horizontal text mirroring for teleprompter hardware setups
 - **📍 Smart Status Indicators** - Visual feedback system with intelligent positioning to avoid UI conflicts
 - **🎨 T-Key Theme Cycling** - Instant theme switching across all 7 professional themes during presentations
@@ -117,8 +121,9 @@ CueMode provides professional teleprompter functionality for modern content crea
    - **Spacebar**: Start/pause auto-scrolling
    - **T Key**: **Enhanced!** Instant theme switching across all 7 themes
    - **F Key**: **New!** Toggle enhanced focus mode with gradient blur
-   - **D Key**: **NEW!** Toggle selective markdown parsing for formatted content
-   - **M Key**: **New!** Toggle mirror flip mode
+   - **D Key**: Toggle selective markdown parsing for formatted content
+   - **M Key**: Toggle mirror flip mode
+   - **[ / ]**: **NEW!** Decrease/Increase font size dynamically
    - **+/-**: Real-time reading speed adjustment
    - **R Key**: Reverse scrolling direction
    - **Arrow keys**: Manual navigation
@@ -128,10 +133,11 @@ CueMode provides professional teleprompter functionality for modern content crea
 **🎯 Main Controls:**
 
 - **Spacebar** - Start/pause auto-scrolling (primary control)
-- **T Key** - **Enhanced!** Instant theme cycling through all 7 professional themes
-- **F Key** - **New!** Toggle enhanced focus mode with smart gradient blur
-- **D Key** - **NEW!** Toggle selective markdown parsing for formatted presentations
-- **M Key** - **New!** Toggle mirror flip mode for teleprompter hardware
+- **T Key** - Instant theme cycling through all 7 professional themes
+- **F Key** - Toggle enhanced focus mode with smart gradient blur
+- **D Key** - Toggle selective markdown parsing for formatted presentations
+- **M Key** - Toggle mirror flip mode for teleprompter hardware
+- **[ / ]** - **NEW!** Decrease/Increase font size (8-100pt range)
 - **+/-** - Increase/decrease scrolling speed in real-time
 - **R Key** - Toggle scrolling direction (up/down)
 
@@ -143,10 +149,12 @@ CueMode provides professional teleprompter functionality for modern content crea
 
 **⚙️ Advanced Controls:**
 
-- **Ctrl+Shift+T** (Cmd+Shift+T on Mac) - **New!** Open theme selection menu
-- **Ctrl+Shift+R** (Cmd+Shift+R on Mac) - **New!** Remove leading spaces from text
-- **Ctrl+Shift+M** (Cmd+Shift+M on Mac) - **New!** Toggle mirror flip mode
-- **Ctrl+Shift+D** (Cmd+Shift+D on Mac) - **NEW!** Toggle selective markdown parsing mode
+- **Ctrl+Shift+T** (Cmd+Shift+T on Mac) - Open theme selection menu
+- **Ctrl+Shift+R** (Cmd+Shift+R on Mac) - Remove leading spaces from text
+- **Ctrl+Shift+M** (Cmd+Shift+M on Mac) - Toggle mirror flip mode
+- **Ctrl+Shift+D** (Cmd+Shift+D on Mac) - Toggle selective markdown parsing mode
+- **Ctrl+Shift+=** (Cmd+Shift+= on Mac) - **NEW!** Increase font size
+- **Ctrl+Shift+−** (Cmd+Shift+− on Mac) - **NEW!** Decrease font size
 - **H Key** - Show/hide help panel
 - **Esc Key** - Exit teleprompter mode
 
@@ -159,6 +167,7 @@ CueMode now features intelligent markdown parsing that enhances your presentatio
 Selective markdown parsing transforms your markdown content into beautifully formatted, teleprompter-optimized text while preserving the natural flow needed for smooth reading during presentations.
 
 **Key Benefits:**
+
 - **Enhanced readability** - Clean, formatted content without distracting syntax
 - **Professional appearance** - Tables, lists, and headers properly styled
 - **Maintained flow** - Optimized for natural reading rhythm
@@ -174,10 +183,12 @@ Selective markdown parsing transforms your markdown content into beautifully for
 ### ⌨️ **Markdown Mode Controls**
 
 **🎯 Toggle Markdown Parsing:**
+
 - **D Key** (in webview) - Instant toggle between raw and parsed markdown
 - **Ctrl+Shift+D** (Cmd+Shift+D on Mac) - Toggle from VS Code or webview
 
 **📱 Visual Feedback:**
+
 - **Status indicator** - Shows current parsing mode (Raw/Parsed)
 - **Smart positioning** - Status avoids conflicts with other UI elements
 - **Theme integration** - Status styling matches your selected theme
@@ -185,23 +196,27 @@ Selective markdown parsing transforms your markdown content into beautifully for
 ### 🎨 **Supported Markdown Elements**
 
 **📝 Text Formatting:**
+
 - **Headers** (H1-H6) - Properly sized and styled for hierarchy
 - **Bold/Italic** - Emphasized text maintains readability
 - **Code spans** - Inline code with syntax highlighting
 - **Links** - Clean link presentation for references
 
 **📋 Structured Content:**
+
 - **Tables** - Professional table layouts with proper spacing
 - **Lists** - Bulleted and numbered lists with clean formatting
 - **Task lists** - Interactive checkboxes for presentation checklists
 - **Blockquotes** - Styled quotes for emphasis
 
 **💻 Code Content:**
+
 - **Code blocks** - Syntax-highlighted code with proper spacing
 - **Language support** - Automatic detection and highlighting
 - **Preserved formatting** - Maintains indentation and structure
 
 **🎯 Teleprompter-Optimized:**
+
 - **Smart spacing** - Optimal line heights for comfortable reading
 - **Theme integration** - All 7 themes support markdown styling
 - **Performance optimized** - < 50ms parsing for smooth experience
@@ -210,12 +225,14 @@ Selective markdown parsing transforms your markdown content into beautifully for
 ### 📊 **Markdown Configuration**
 
 **Default Settings:**
+
 - **Markdown parsing**: Disabled by default (preserves existing workflow)
 - **Easy activation**: Toggle with D key or Ctrl+Shift+D
 - **Persistent mode**: Setting saved across sessions
 - **Performance**: Optimized parsing with < 50ms processing time
 
 **Customization:**
+
 - **Theme integration** - Markdown styles adapt to your selected theme
 - **Font scaling** - Markdown elements scale with your teleprompter font size
 - **Focus compatibility** - Works with all focus mode settings
@@ -223,6 +240,7 @@ Selective markdown parsing transforms your markdown content into beautifully for
 ### 🎬 **Perfect for Presentations**
 
 **📺 Content Types:**
+
 - **Technical presentations** - Code examples with syntax highlighting
 - **Documentation reviews** - Formatted docs for clear presentation
 - **Tutorial scripts** - Step-by-step guides with proper formatting
@@ -230,6 +248,7 @@ Selective markdown parsing transforms your markdown content into beautifully for
 - **Educational content** - Well-formatted educational materials
 
 **🚀 Professional Benefits:**
+
 - **Consistent formatting** - Professional appearance across all content
 - **Reduced preparation time** - Use existing markdown files directly
 - **Enhanced credibility** - Clean, well-formatted content for better delivery
@@ -304,7 +323,7 @@ In teleprompter mode, simply press T key to cycle through all themes:
 ### ⚡ Enhanced Commands
 
 - **Ctrl+Shift+T**: Open theme selection menu (with preview)
-- **Ctrl+Shift+R**: Smart removal of leading spaces and indentation  
+- **Ctrl+Shift+R**: Smart removal of leading spaces and indentation
 - **Ctrl+Shift+M**: Toggle mirror flip mode for teleprompter hardware
 
 ### 📱 Smart Notifications
