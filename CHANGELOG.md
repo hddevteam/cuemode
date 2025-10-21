@@ -5,6 +5,55 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2025-10-21 - Double-Click to Edit
+
+### ✨ New Features
+
+- **Double-Click to Edit**: Revolutionary editing workflow that transforms presentation and editing experience
+  - **Character-Level Precision**: Click any text to jump to the exact character position in source document
+  - **Smart Word Detection**: Automatically identifies word boundaries (supports English and Chinese)
+  - **Triple-Layer Matching Algorithm**: Ensures accurate positioning using context text
+    - Method 1: Exact pattern matching with before/after context
+    - Method 2: Direct clicked text search
+    - Method 3: Relative position calculation from context
+  - **Auto Text Selection**: Clicked word/phrase is automatically selected for immediate editing
+  - **Position Memory**: Scroll position is saved and restored when returning to presentation
+  - **Seamless Navigation**: Edit source → Return to presentation → Position automatically restored
+  - **Universal Support**: Works with plain text, markdown, code blocks, tables, and all content types
+
+### 🎨 UX Improvements
+
+- **Visual Feedback**: Status messages show line and column position when available
+- **Smooth Workflow**: No manual position tracking needed - everything is automatic
+- **Non-Intrusive**: Double-click only on text lines, won't interfere with normal scrolling
+- **Professional Experience**: Edit-present-edit cycle is now seamless and intuitive
+
+### 🔧 Technical Improvements
+
+- Enhanced `WebviewMessage` type with character-level data fields
+- Advanced click detection using `document.caretRangeFromPoint()` API
+- Intelligent word boundary detection with Unicode support
+- Three-method positioning algorithm for maximum accuracy
+- View state listener for automatic position restoration
+- Comprehensive error handling and graceful degradation
+- Extended internationalization with column position messages
+
+### 📚 Documentation
+
+- Updated README with double-click feature explanation
+- Added usage examples and workflow illustrations
+- Documented technical implementation details
+- Updated shortcuts reference
+
+### 🧪 Testing
+
+- All 153 test cases passing (12 new tests for double-click feature)
+- Character-level positioning validated
+- Multi-language text support verified
+- Position restoration tested across scenarios
+- Comprehensive double-click navigation tests
+- Edge case handling validated
+
 ## [2.6.0] - 2025-10-20 - Automatic UI Management
 
 ### ✨ New Features

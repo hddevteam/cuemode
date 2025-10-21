@@ -120,7 +120,26 @@ export class CueModeExtension {
       this.decreaseFontSize();
     });
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand, increaseFontSizeCommand, decreaseFontSizeCommand);
+    // Open editor at line command (internal)
+    const openEditorAtLineCommand = vscode.commands.registerCommand('cuemode.openEditorAtLine', (args: {
+      lineNumber: number;
+      contextText?: string;
+      clickedText?: string;
+      beforeText?: string;
+      afterText?: string;
+      webviewManager: WebViewManager;
+    }) => {
+      this.openEditorAtLine(
+        args.lineNumber, 
+        args.contextText, 
+        args.webviewManager,
+        args.clickedText,
+        args.beforeText,
+        args.afterText
+      );
+    });
+
+    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand, increaseFontSizeCommand, decreaseFontSizeCommand, openEditorAtLineCommand);
   }
 
   /**
@@ -177,13 +196,16 @@ export class CueModeExtension {
       // Hide UI elements before creating webview
       await this.uiStateManager.hideUI();
 
-      // Create webview
-      await this.webViewManager.create(content, filename, config);
+      // Create webview with source document reference
+      await this.webViewManager.create(content, filename, config, document);
 
       // Register callback to restore UI state when webview closes
       this.webViewManager.setOnCloseCallback(async () => {
         await this.uiStateManager.restore();
       });
+
+      // Register view state change listener to restore scroll position
+      this.setupViewStateListener();
 
       // Show short auto-dismiss notification
       vscode.window.setStatusBarMessage(
@@ -528,6 +550,164 @@ export class CueModeExtension {
         await this.webViewManager.updateConfig(updatedConfig);
       }
       
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Setup view state change listener for restoring scroll position
+   */
+  private setupViewStateListener(): void {
+    // Listen for view column changes to detect when user returns to CueMode
+    const listener = vscode.window.onDidChangeActiveTextEditor(async (editor) => {
+      if (editor && this.webViewManager.isActive()) {
+        // User might be switching back from source document
+        await this.webViewManager.restoreScrollPosition();
+      }
+    });
+
+    this.context.subscriptions.push(listener);
+  }
+
+  /**
+   * Open editor at specific line and character position
+   */
+  private async openEditorAtLine(
+    lineNumber: number, 
+    contextText: string | undefined, 
+    webviewManager: WebViewManager,
+    clickedText?: string,
+    beforeText?: string,
+    afterText?: string
+  ): Promise<void> {
+    try {
+      const state = webviewManager.getState();
+      const sourceDocument = state.sourceDocument;
+
+      if (!sourceDocument) {
+        vscode.window.showWarningMessage(t('errors.noActiveEditor'));
+        return;
+      }
+
+      // Show notification
+      vscode.window.setStatusBarMessage(
+        t('notifications.openingEditor', { line: (lineNumber + 1).toString() }),
+        2000
+      );
+
+      // Open the document
+      const doc = await vscode.workspace.openTextDocument(sourceDocument.uri);
+      const editor = await vscode.window.showTextDocument(doc, {
+        viewColumn: vscode.ViewColumn.One,
+        preserveFocus: false,
+        preview: false
+      });
+
+      // Calculate the target line (handle markdown mode line mapping)
+      let targetLine = lineNumber;
+      let targetCharacter = 0;
+      
+      // If we have context text, try to find the exact line
+      if (contextText && contextText.trim()) {
+        const lines = doc.getText().split('\n');
+        let bestMatch = lineNumber;
+        let bestScore = 0;
+
+        // Search around the expected line number
+        const searchRange = 10;
+        const startLine = Math.max(0, lineNumber - searchRange);
+        const endLine = Math.min(lines.length - 1, lineNumber + searchRange);
+
+        for (let i = startLine; i <= endLine; i++) {
+          const line = lines[i];
+          if (line && line.includes(contextText.trim())) {
+            // Calculate similarity score (simple substring match)
+            const score = contextText.trim().length / line.length;
+            if (score > bestScore) {
+              bestScore = score;
+              bestMatch = i;
+            }
+          }
+        }
+
+        if (bestScore > 0) {
+          targetLine = bestMatch;
+        }
+        
+        // Try to find exact character position if we have clicked text
+        if (clickedText && clickedText.trim() && targetLine >= 0 && targetLine < lines.length) {
+          const line = lines[targetLine];
+          
+          if (line) {
+            // Method 1: Try to find exact match with surrounding context
+            if (beforeText || afterText) {
+              const pattern = `${beforeText || ''}${clickedText}${afterText || ''}`;
+              const patternIndex = line.indexOf(pattern);
+              if (patternIndex >= 0) {
+                targetCharacter = patternIndex + (beforeText?.length || 0);
+              }
+            }
+            
+            // Method 2: Try to find the clicked text directly
+            if (targetCharacter === 0) {
+              const clickedIndex = line.indexOf(clickedText.trim());
+              if (clickedIndex >= 0) {
+                targetCharacter = clickedIndex;
+              }
+            }
+            
+            // Method 3: Find using context text position
+            if (targetCharacter === 0 && contextText) {
+              const contextIndex = line.indexOf(contextText.substring(0, 30));
+              if (contextIndex >= 0) {
+                // Try to find clicked text relative to context
+                const relativePos = contextText.indexOf(clickedText);
+                if (relativePos >= 0) {
+                  targetCharacter = contextIndex + relativePos;
+                } else {
+                  targetCharacter = contextIndex;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Ensure line number is within bounds
+      targetLine = Math.max(0, Math.min(targetLine, doc.lineCount - 1));
+      const lineText = doc.lineAt(targetLine).text;
+      targetCharacter = Math.max(0, Math.min(targetCharacter, lineText.length));
+
+      // Set selection with precise character position
+      const startPosition = new vscode.Position(targetLine, targetCharacter);
+      
+      // If we have clicked text, select the whole word/phrase
+      let endPosition = startPosition;
+      if (clickedText && clickedText.trim()) {
+        const clickedLength = clickedText.trim().length;
+        const potentialEnd = targetCharacter + clickedLength;
+        if (potentialEnd <= lineText.length) {
+          endPosition = new vscode.Position(targetLine, potentialEnd);
+        }
+      }
+      
+      // Set selection and reveal
+      editor.selection = new vscode.Selection(startPosition, endPosition);
+      editor.revealRange(
+        new vscode.Range(startPosition, endPosition),
+        vscode.TextEditorRevealType.InCenter
+      );
+
+      // Show success notification
+      const positionInfo = targetCharacter > 0 
+        ? ` (${t('notifications.column')}: ${targetCharacter + 1})`
+        : '';
+      vscode.window.setStatusBarMessage(
+        t('notifications.editorOpened') + positionInfo,
+        2000
+      );
+
     } catch (error) {
       this.handleError(error);
     }

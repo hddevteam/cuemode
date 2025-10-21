@@ -28,7 +28,11 @@
     "lineHeightChanged": "行间距已调整为 {{height}}",
     "fontSizeChanged": "字体大小已调整为 {{size}}点",
     "fontSizeMax": "字体大小已达到最大值(100点)",
-    "fontSizeMin": "字体大小已达到最小值(8点)"
+    "fontSizeMin": "字体大小已达到最小值(8点)",
+    "openingEditor": "正在打开源文档第 {{line}} 行...",
+    "editorOpened": "源文档已打开",
+    "positionRestored": "滚动位置已恢复",
+    "column": "列"
   },
   "errors": {
     "noActiveEditor": "未找到活动编辑器",
@@ -107,7 +111,8 @@
       "d": "切换Markdown模式",
       "l": "调整行间距",
       "fontSize": "减小/增大字体",
-      "h": "显示/隐藏帮助"
+      "h": "显示/隐藏帮助",
+      "doubleClick": "双击任意行可在源文档中编辑"
     },
     "vsCodeShortcuts": {
       "changeTheme": "切换主题",

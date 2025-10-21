@@ -16,9 +16,10 @@
 
 CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **automatic UI management**, **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.
 
-**✨ Version 2.6 Features:**
+**✨ Version 2.7 Features:**
 
-- **🎯 Automatic UI Management** - **NEW!** Distraction-free presentations with auto-hide sidebar/panel and smart restoration
+- **🎯 Double-Click to Edit** - **NEW!** Click any text to jump to exact position in source for editing, with auto-selection and position memory
+- **🎯 Automatic UI Management** - Distraction-free presentations with auto-hide sidebar/panel and smart restoration
 - **🔤 Font Size Control** - Dynamic font adjustment with keyboard shortcuts (Ctrl+Shift+=/−, [ / ] keys)
 - **📐 Differentiated Header Sizes** - Professional visual hierarchy for H1-H6 headers with responsive design
 - **💬 HTML Comment Visibility** - Display markdown comments for speaker notes and presentation cues
@@ -32,7 +33,7 @@ CueMode is a next-generation teleprompter extension that transforms your VS Code
 - **📱 Smart Notifications** - Non-intrusive status bar feedback
 - **🌐 Expanded Internationalization** - Support for 6 languages: English, Chinese, German, French, Japanese, Korean
 - **🛠️ TypeScript Architecture** - Robust, maintainable codebase
-- **🧪 Comprehensive Testing** - 134 test cases ensuring reliability
+- **🧪 Comprehensive Testing** - 153 test cases ensuring reliability
 
 **Core Teleprompter Features:**
 
@@ -118,6 +119,7 @@ CueMode provides professional teleprompter functionality for modern content crea
 3. **Activate teleprompter** - Use Ctrl+Shift+P (Cmd+Shift+P on Mac) and search for "Teleprompter Mode"
 4. **Start reading** - Press spacebar to begin auto-scrolling
 5. **Control during presentation**:
+   - **Double-Click**: **NEW!** Click any text to jump to that exact position in source for editing
    - **Spacebar**: Start/pause auto-scrolling
    - **T Key**: **Enhanced!** Instant theme switching across all 7 themes
    - **F Key**: **New!** Toggle enhanced focus mode with gradient blur

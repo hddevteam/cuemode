@@ -29,7 +29,11 @@
     "lineHeightChanged": "Line height changed to {{height}}",
     "fontSizeChanged": "Font size changed to {{size}}pt",
     "fontSizeMax": "Font size is already at maximum (100pt)",
-    "fontSizeMin": "Font size is already at minimum (8pt)"
+    "fontSizeMin": "Font size is already at minimum (8pt)",
+    "openingEditor": "Opening source document at line {{line}}...",
+    "editorOpened": "Source document opened",
+    "positionRestored": "Scroll position restored",
+    "column": "col"
   },
   "errors": {
     "noActiveEditor": "No active editor found",
@@ -108,7 +112,8 @@
       "d": "Toggle markdown mode",
       "l": "Adjust line height",
       "fontSize": "Decrease/Increase font size",
-      "h": "Show/Hide help"
+      "h": "Show/Hide help",
+      "doubleClick": "Double-click any line to edit in source document"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Change theme",

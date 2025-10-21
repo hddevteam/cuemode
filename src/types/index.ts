@@ -1,3 +1,5 @@
+import * as vscode from 'vscode';
+
 /**
  * CueMode configuration interface
  */
@@ -59,7 +61,7 @@ export interface ThemeConfig {
  * Webview message types
  */
 export interface WebviewMessage {
-  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror' | 'toggleMarkdown' | 'configureMarkdown' | 'adjustLineHeight' | 'increaseFontSize' | 'decreaseFontSize';
+  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror' | 'toggleMarkdown' | 'configureMarkdown' | 'adjustLineHeight' | 'increaseFontSize' | 'decreaseFontSize' | 'openEditor';
   data?: {
     scrollTop?: number;
     scrollHeight?: number;
@@ -67,6 +69,12 @@ export interface WebviewMessage {
     theme?: string;
     config?: CueModeConfig;
     markdownFeatures?: MarkdownFeatures;
+    lineNumber?: number;
+    contextText?: string;
+    clickedText?: string;
+    beforeText?: string;
+    afterText?: string;
+    characterOffset?: number;
   };
   command?: string;
 }
@@ -79,6 +87,8 @@ export interface CueModeState {
   content: string;
   config: CueModeConfig;
   filename: string;
+  sourceDocument?: vscode.TextDocument | undefined;
+  savedScrollPosition?: number | undefined;
 }
 
 /**

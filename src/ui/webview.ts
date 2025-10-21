@@ -49,14 +49,16 @@ export class WebViewManager {
           horizontalRule: true
         }
       },
-      filename: ''
+      filename: '',
+      sourceDocument: undefined,
+      savedScrollPosition: undefined
     };
   }
 
   /**
    * Create and show webview panel
    */
-  public async create(content: string, filename: string, config: CueModeConfig): Promise<void> {
+  public async create(content: string, filename: string, config: CueModeConfig, sourceDocument?: vscode.TextDocument): Promise<void> {
     try {
       // Close existing panel if it exists
       if (this.panel) {
@@ -68,7 +70,9 @@ export class WebViewManager {
         isActive: true,
         content,
         config,
-        filename
+        filename,
+        sourceDocument,
+        savedScrollPosition: undefined
       };
 
       // Create new panel
@@ -229,6 +233,25 @@ export class WebViewManager {
   }
 
   /**
+   * Save current scroll position
+   */
+  public saveScrollPosition(scrollTop: number): void {
+    this.state.savedScrollPosition = scrollTop;
+  }
+
+  /**
+   * Restore saved scroll position
+   */
+  public async restoreScrollPosition(): Promise<void> {
+    if (this.panel && this.state.savedScrollPosition !== undefined) {
+      await this.panel.webview.postMessage({
+        type: 'restoreScroll',
+        data: { scrollTop: this.state.savedScrollPosition }
+      });
+    }
+  }
+
+  /**
    * Handle messages from webview
    */
   private handleWebviewMessage(message: WebviewMessage): void {
@@ -278,7 +301,24 @@ export class WebViewManager {
         break;
       
       case 'scroll':
-        // Handle scroll events if needed
+        // Save scroll position for restoration
+        if (message.data?.scrollTop !== undefined) {
+          this.saveScrollPosition(message.data.scrollTop);
+        }
+        break;
+      
+      case 'openEditor':
+        // Handle double-click to open editor at specific line and character
+        if (message.data?.lineNumber !== undefined) {
+          vscode.commands.executeCommand('cuemode.openEditorAtLine', {
+            lineNumber: message.data.lineNumber,
+            contextText: message.data.contextText,
+            clickedText: message.data.clickedText,
+            beforeText: message.data.beforeText,
+            afterText: message.data.afterText,
+            webviewManager: this
+          });
+        }
         break;
       
       default:
@@ -303,7 +343,8 @@ export class WebViewManager {
       rShortcut: `R: ${t('help.shortcuts.r')}`,
       speedShortcut: `+/-: ${t('help.shortcuts.plus')} / ${t('help.shortcuts.minus')}`,
       helpShortcut: `H: ${t('help.shortcuts.h')}`,
-      escShortcut: `Esc: ${t('help.shortcuts.escape')}`
+      escShortcut: `Esc: ${t('help.shortcuts.escape')}`,
+      doubleClickHint: t('help.shortcuts.doubleClick')
     };
     
     // Generate CSS for current theme
@@ -386,6 +427,12 @@ export class WebViewManager {
                   <li><kbd>L</kbd> <span>${t('help.shortcuts.l')}</span></li>
                   <li><kbd>[/]</kbd> <span>${t('help.shortcuts.fontSize')}</span></li>
                   <li><kbd>H</kbd> <span>${t('help.shortcuts.h')}</span></li>
+                </ul>
+              </div>
+              <div class="help-section">
+                <h4>${t('help.basicControls')}</h4>
+                <ul>
+                  <li><kbd>Double-Click</kbd> <span>${t('help.shortcuts.doubleClick')}</span></li>
                 </ul>
               </div>
             </div>
@@ -823,6 +870,14 @@ export class WebViewManager {
                 currentContent = message.content;
                 // Note: No longer calling updateContentDisplay() - content is updated server-side
               }
+            } else if (message.type === 'restoreScroll') {
+              // Restore scroll position
+              if (message.data && message.data.scrollTop !== undefined) {
+                window.scrollTo({
+                  top: message.data.scrollTop,
+                  behavior: 'smooth'
+                });
+              }
             }
           });
           
@@ -831,6 +886,94 @@ export class WebViewManager {
           
           // Apply initial mirror flip state
           applyMirrorFlip();
+          
+          // Add double-click event handler to open source document
+          const contentContainer = document.getElementById('content');
+          if (contentContainer) {
+            contentContainer.addEventListener('dblclick', (event) => {
+              // Find the clicked line element
+              let target = event.target;
+              while (target && target !== contentContainer) {
+                if (target.classList && target.classList.contains('cue-line')) {
+                  // Get line number from data attribute
+                  const lineAttr = target.getAttribute('data-line');
+                  const lineNumberAttr = target.getAttribute('data-line-number');
+                  const blockAttr = target.getAttribute('data-block');
+                  
+                  // Use whichever attribute is available
+                  const lineNumber = lineAttr || lineNumberAttr || blockAttr;
+                  
+                  if (lineNumber !== null) {
+                    // Get full text content of the line
+                    const fullText = target.textContent || '';
+                    
+                    // Try to get the exact clicked text using selection/range
+                    let clickedText = '';
+                    let characterOffset = 0;
+                    let beforeText = '';
+                    let afterText = '';
+                    
+                    try {
+                      // Get the text node at click position
+                      const range = document.caretRangeFromPoint(event.clientX, event.clientY);
+                      if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+                        const textNode = range.startContainer;
+                        const clickOffset = range.startOffset;
+                        const nodeText = textNode.textContent || '';
+                        
+                        // Extract word around click position
+                        let start = clickOffset;
+                        let end = clickOffset;
+                        
+                        // Find word boundaries (support English and Chinese)
+                        // Using Unicode property escapes for proper word boundary detection
+                        const wordBoundary = /[\\s\\u3000-\\u303f\\uff00-\\uffef]/;
+                        
+                        // Go backward to find word start
+                        while (start > 0 && !wordBoundary.test(nodeText[start - 1])) {
+                          start--;
+                        }
+                        
+                        // Go forward to find word end
+                        while (end < nodeText.length && !wordBoundary.test(nodeText[end])) {
+                          end++;
+                        }
+                        
+                        clickedText = nodeText.substring(start, end).trim();
+                        characterOffset = clickOffset;
+                        
+                        // Get surrounding context (20 chars before and after)
+                        beforeText = nodeText.substring(Math.max(0, start - 20), start);
+                        afterText = nodeText.substring(end, Math.min(nodeText.length, end + 20));
+                      }
+                    } catch (err) {
+                      console.warn('Could not determine exact click position:', err);
+                    }
+                    
+                    // Fallback to first 50 characters if no specific text
+                    const contextText = clickedText || fullText.substring(0, 50);
+                    
+                    // Send message to extension
+                    vscode.postMessage({
+                      type: 'openEditor',
+                      data: {
+                        lineNumber: parseInt(lineNumber, 10),
+                        contextText: fullText.substring(0, 100), // Longer context for matching
+                        clickedText: clickedText,
+                        beforeText: beforeText,
+                        afterText: afterText,
+                        characterOffset: characterOffset
+                      }
+                    });
+                    
+                    event.preventDefault();
+                    return;
+                  }
+                }
+                target = target.parentElement;
+              }
+            });
+          }
           
           // Listen for window resize events
           window.addEventListener('resize', () => {
