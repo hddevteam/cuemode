@@ -5,6 +5,35 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2025-11-04 - Clearer Code Demos & Cleaner Start
+
+### ✨ New Features
+
+- **Clear code line breaks**: Visual markers now appear at real line break positions inside code blocks (including an end-of-line marker for the last line). Helps audiences follow code structure at a glance. Not shown at auto-wrap positions.
+- **Cleaner activation**: CueMode now also closes the right-side Chat panel on activation, alongside sidebar and bottom panel, for a distraction-free start.
+
+### 🎨 UX Improvements
+
+- Code blocks wrap by default (white-space: pre-wrap) to avoid horizontal scrolling
+- Better readability for long tokens via word-break/overflow-wrap
+
+### 🔧 Technical Improvements
+
+- Added `cuemode.showLineBreaks` setting (default: true), fully wired into types/config
+- Parser injects explicit span markers before `<br>` at real newlines inside code blocks; `.cm-break-eol` shows final line when no trailing newline
+- Webview CSS scopes markers to code blocks; regular paragraphs unaffected
+- `UIStateManager.hideUI()` attempts `workbench.action.closeAuxiliaryBar` with graceful fallback
+
+### 📚 Documentation
+
+- Updated README (EN/zh-CN) with value-focused descriptions of line break markers and cleaner activation
+- GitHub Pages updated to reflect v2.8.0 highlights
+
+### 🧪 Testing
+
+- Updated tests to include `showLineBreaks` in config and verify code block wrapping styles
+- Verified markers appear only in code blocks and EOL marker renders correctly
+
 ## [2.7.0] - 2025-10-21 - Double-Click to Edit
 
 ### ✨ New Features

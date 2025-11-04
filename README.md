@@ -12,6 +12,11 @@
 
 ![Teleprompter Demo](./images/demo.gif)
 
+### What's new in 2.8.0
+
+- Clearer code demos: Real line break markers now appear inside code blocks, including an end-of-line marker for the last line. Audiences can follow code structure at a glance. Enabled by default and configurable in Settings.
+- Cleaner start: On activation, CueMode also closes the right-side Chat panel in addition to the sidebar and bottom panel for a truly distraction-free screen.
+
 ## 🎯 What is CueMode?
 
 CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **automatic UI management**, **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.

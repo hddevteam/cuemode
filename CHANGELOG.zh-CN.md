@@ -5,6 +5,38 @@ CueMode 提词器扩展的所有重要更改都将记录在此文件中。
 格式基于 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)，
 项目遵循 [语义化版本控制](https://semver.org/spec/v2.0.0.html)。
 
+## [2.8.0] - 2025-11-04 - 代码换行符标记与 UI 清理
+
+### ✨ 新功能
+
+- **代码块换行符可视化**：仅在代码块中的真实换行位置显示标记
+  - 通过在 <br> 前插入显式 `<span class="cm-break-marker"></span>` 实现可靠渲染
+  - 不在自动换行位置显示
+  - 即使最后一行没有结尾换行符也显示行尾标记（`cm-break-eol`）
+- **激活时关闭右侧辅助栏（Chat）**：无干扰模式现会同时关闭侧边栏、面板和辅助栏
+
+### 🎨 用户体验改进
+
+- 代码块默认启用换行（white-space: pre-wrap），避免水平滚动
+- 针对长 token 增加 word-break/overflow-wrap，提升可读性
+
+### 🔧 技术改进
+
+- 新增 `cuemode.showLineBreaks` 设置（默认：true），类型与配置完整接入
+- 解析器在 `<pre class="markdown-code-block"><code>…</code></pre>` 中的真实换行处注入标记
+- Webview CSS 仅在代码块内渲染标记，普通段落不受影响
+- `UIStateManager.hideUI()` 增加 `workbench.action.closeAuxiliaryBar` 调用并优雅降级
+
+### 📚 文档
+
+- 更新英文/中文 README，说明换行标记与辅助栏关闭行为
+- 更新 GitHub Pages 至 v2.8.0，加入新功能说明
+
+### 🧪 测试
+
+- 更新测试以包含 `showLineBreaks` 配置并校验代码块换行样式
+- 验证标记仅出现在代码块中，行尾标记正确显示
+
 ## [2.6.0] - 2025-10-20 - 自动 UI 管理
 
 ### ✨ 新功能
