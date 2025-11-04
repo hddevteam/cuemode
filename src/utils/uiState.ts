@@ -29,6 +29,14 @@ export class UIStateManager {
       // Close sidebar - this will close any visible sidebar
       await vscode.commands.executeCommand('workbench.action.closeSidebar');
 
+      // Close right-side auxiliary bar (e.g., Chat panel)
+      try {
+        await vscode.commands.executeCommand('workbench.action.closeAuxiliaryBar');
+      } catch (e) {
+        // Ignore if command not available in this VS Code version
+        console.debug('Auxiliary bar close command not available:', e);
+      }
+
       // Close panel (terminal, output, problems, etc.)
       await vscode.commands.executeCommand('workbench.action.closePanel');
 
