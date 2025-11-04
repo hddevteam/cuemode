@@ -115,9 +115,11 @@ pre:not(.markdown-code-block) {
   margin: 8px 0 !important; /* Increase code block spacing */
   line-height: calc(var(--line-height) * 0.9) !important; /* Use configured line height for code blocks */
   padding: 4px 8px !important;
-  white-space: pre !important; /* Preserve original indentation and spaces */
+  white-space: pre-wrap !important; /* Preserve indentation but allow wrapping */
+  word-break: break-word !important; /* Break long tokens */
+  overflow-wrap: anywhere !important; /* Wrap anywhere as last resort */
   font-family: 'Courier New', Consolas, 'Liberation Mono', Monaco, 'Lucida Console', monospace !important; /* Monospace font */
-  overflow-x: auto !important; /* Horizontal scroll instead of line wrap */
+  overflow-x: hidden !important; /* Avoid horizontal scrollbars when wrapping */
 }
 
 /* List spacing reset */
@@ -287,7 +289,7 @@ export function generateDebugCSS(): string {
 
 .markdown-block .markdown-code-block {
   background: rgba(255, 0, 255, 0.05) !important;
-  white-space: pre !important;
+  white-space: pre-wrap !important;
 }
 
 .markdown-block ul, .markdown-block ol {

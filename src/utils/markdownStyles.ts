@@ -131,7 +131,9 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
       font-family: 'Courier New', Consolas, 'Liberation Mono', Menlo, monospace;
       font-size: 0.9em;
       line-height: 1.4;
-      white-space: pre;
+      white-space: pre-wrap; /* allow wrapping while preserving indentation */
+      word-break: break-word; /* break long tokens */
+      overflow-wrap: anywhere; /* wrap anywhere as last resort */
       color: ${theme.textColor};
     }
     
@@ -141,6 +143,9 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
       padding: 0;
       font-size: inherit;
       color: inherit;
+      white-space: inherit; /* follow container wrapping */
+      word-break: inherit;
+      overflow-wrap: inherit;
     }
 
     /* Markdown Blockquotes */

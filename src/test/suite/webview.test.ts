@@ -174,7 +174,8 @@ suite('WebViewManager Tests', () => {
         taskLists: true,
         strikethrough: false,
         horizontalRule: true
-      }
+      },
+      showLineBreaks: true
     };
 
     // Should not throw error

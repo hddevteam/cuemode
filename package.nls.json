@@ -24,6 +24,7 @@
   "cuemode.configuration.focusLineCount": "Number of lines to highlight in focus mode",
   "cuemode.configuration.mirrorFlip": "Enable horizontal mirror flip for teleprompter use in video production",
   "cuemode.configuration.markdownMode": "Enable selective markdown parsing for formatted text display",
+  "cuemode.configuration.showLineBreaks": "Show visual markers at actual line break positions (not word wrap positions)",
   "cuemode.configuration.markdownFeatures": "Configure which markdown features to parse and display",
   "cuemode.configuration.markdownFeatures.headers": "Parse headers (# ## ### etc.)",
   "cuemode.configuration.markdownFeatures.emphasis": "Parse bold (**text**) and italic (*text*) formatting",

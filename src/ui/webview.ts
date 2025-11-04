@@ -36,6 +36,7 @@ export class WebViewManager {
         focusLineCount: 3,
         mirrorFlip: false,
         markdownMode: true,
+        showLineBreaks: true,
         markdownFeatures: {
           headers: true,
           emphasis: true,
@@ -386,6 +387,23 @@ export class WebViewManager {
           body {
             ${startingPositionCSS}
           }
+          ${this.state.config.showLineBreaks ? `
+          /* Line break markers - enhanced visibility for presenters (code blocks only) */
+          pre.markdown-code-block code .cm-break-marker::before {
+            content: '↵';
+            color: var(--accent-color);
+            opacity: 0.85;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-right: 0.15em;
+            pointer-events: none;
+            filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
+          }
+          /* Slightly different spacing for end-of-line marker */
+          pre.markdown-code-block code .cm-break-eol::before {
+            margin-left: 0.15em;
+          }
+          ` : ''}
         </style>
       </head>
       <body>

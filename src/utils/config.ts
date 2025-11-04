@@ -19,6 +19,7 @@ export class ConfigManager {
     focusLineCount: 3,
     mirrorFlip: false,
     markdownMode: true,
+    showLineBreaks: true,
     markdownFeatures: {
       headers: true,
       emphasis: true,
@@ -52,6 +53,7 @@ export class ConfigManager {
       focusLineCount: config.get<number>('focusLineCount', this.DEFAULT_CONFIG.focusLineCount),
       mirrorFlip: config.get<boolean>('mirrorFlip', this.DEFAULT_CONFIG.mirrorFlip),
       markdownMode: config.get<boolean>('markdownMode', this.DEFAULT_CONFIG.markdownMode),
+      showLineBreaks: config.get<boolean>('showLineBreaks', this.DEFAULT_CONFIG.showLineBreaks),
       markdownFeatures: config.get<MarkdownFeatures>('markdownFeatures', this.DEFAULT_CONFIG.markdownFeatures)
     };
   }

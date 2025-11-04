@@ -105,6 +105,11 @@ export class CueModeExtension {
       this.toggleMarkdownMode();
     });
 
+    // Toggle wrap markers command
+    const toggleWrapMarkersCommand = vscode.commands.registerCommand('cuemode.toggleWrapMarkers', () => {
+      this.toggleWrapMarkers();
+    });
+
     // Adjust line height command
     const adjustLineHeightCommand = vscode.commands.registerCommand('cuemode.adjustLineHeight', () => {
       this.adjustLineHeight();
@@ -139,7 +144,7 @@ export class CueModeExtension {
       );
     });
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand, increaseFontSizeCommand, decreaseFontSizeCommand, openEditorAtLineCommand);
+    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand, increaseFontSizeCommand, decreaseFontSizeCommand, openEditorAtLineCommand, toggleWrapMarkersCommand);
   }
 
   /**
@@ -430,6 +435,29 @@ export class CueModeExtension {
         await this.webViewManager.updateConfig(updatedConfig);
       }
       
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Toggle wrap markers in code blocks
+   */
+  private async toggleWrapMarkers(): Promise<void> {
+    try {
+      const currentConfig = ConfigManager.getConfig();
+      const newValue = !currentConfig.showLineBreaks;
+      await ConfigManager.updateConfig('showLineBreaks', newValue);
+
+      const message = newValue
+        ? t('notifications.wrapMarkersEnabled')
+        : t('notifications.wrapMarkersDisabled');
+      vscode.window.setStatusBarMessage(message, 2000);
+
+      if (this.webViewManager.isActive()) {
+        const updatedConfig = ConfigManager.getConfig();
+        await this.webViewManager.updateConfig(updatedConfig);
+      }
     } catch (error) {
       this.handleError(error);
     }

@@ -334,6 +334,32 @@ suite('WebView Markdown Rendering Tests', () => {
   });
 
   suite('Specific Element Testing', () => {
+    test('should apply wrapping CSS to code blocks (SQL)', async () => {
+      const markdownContent = '```sql\n    CustomerID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n```';
+      const config = ConfigManager.getSafeConfig();
+      config.markdownMode = true;
+      // Force narrow width to simulate wrapping need
+      config.maxWidth = 240;
+
+      await webViewManager.create(markdownContent, 'schema.sql', config);
+      const html = await webViewManager.getHtml();
+
+      // Ensure code block is rendered
+      assert.ok(html.includes('<pre class="markdown-code-block"'), 'Should render a markdown code block');
+      assert.ok(html.includes('AUTOINCREMENT') || html.includes('Autoincrement'), 'Should contain SQL keyword AUTOINCREMENT');
+
+      // Extract <style> section for CSS checks
+      const styleStart = html.indexOf('<style>');
+      const styleEnd = html.indexOf('</style>', styleStart);
+      assert.ok(styleStart >= 0 && styleEnd > styleStart, 'Should contain a style section');
+      const styleSection = html.substring(styleStart, styleEnd);
+
+      // Verify wrapping-related CSS is present for code blocks
+      assert.ok(styleSection.includes('markdown-code-block') && styleSection.includes('white-space: pre-wrap'), 'Code blocks should use pre-wrap');
+      assert.ok(styleSection.includes('word-break: break-word'), 'Code blocks should break long tokens');
+      assert.ok(styleSection.includes('overflow-wrap: anywhere'), 'Code blocks should allow wrap anywhere');
+      assert.ok(styleSection.includes('overflow-x: hidden'), 'Code blocks should avoid horizontal scrollbars');
+    });
     test('should handle different header levels correctly', async () => {
       const content = '# Level 1\\n## Level 2\\n### Level 3\\n#### Level 4 (not supported)\\n##### Level 5 (not supported)';
       const config = ConfigManager.getSafeConfig();
@@ -469,6 +495,30 @@ suite('WebView Markdown Rendering Tests', () => {
       assert.ok(contentSection.includes('粗体'), 'Should contain table cell content');
       assert.ok(contentSection.includes('斜体'), 'Should contain table cell content');
       assert.ok(contentSection.includes('删除线'), 'Should contain table cell content');
+    });
+
+    test('code block CSS should include wrapping properties in final CSS rule', async () => {
+      const markdownContent = '```sql\n    CustomerID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n```';
+      const config = ConfigManager.getSafeConfig();
+      config.markdownMode = true;
+      config.maxWidth = 240;
+
+      await webViewManager.create(markdownContent, 'schema.sql', config);
+      const html = await webViewManager.getHtml();
+
+      const styleStart = html.indexOf('<style>');
+      const styleEnd = html.indexOf('</style>', styleStart);
+      const styleSection = html.substring(styleStart, styleEnd);
+      const ruleIdx = styleSection.indexOf('.markdown-content .markdown-block .markdown-code-block');
+      assert.ok(ruleIdx >= 0, 'Should contain code block rule in CSS');
+      const braceOpenIdx = styleSection.indexOf('{', ruleIdx);
+      const braceCloseIdx = styleSection.indexOf('}', braceOpenIdx);
+      assert.ok(braceOpenIdx > ruleIdx && braceCloseIdx > braceOpenIdx, 'Should locate full CSS rule block');
+      const ruleSnippet = styleSection.substring(braceOpenIdx, braceCloseIdx);
+      assert.ok(ruleSnippet.includes('white-space: pre-wrap'), 'Code block rule should use pre-wrap');
+      assert.ok(ruleSnippet.includes('word-break: break-word'), 'Code block rule should break long tokens');
+      assert.ok(ruleSnippet.includes('overflow-wrap: anywhere'), 'Code block rule should allow wrap anywhere');
+      assert.ok(ruleSnippet.includes('overflow-x: hidden'), 'Code block rule should avoid horizontal scroll');
     });
   });
 });

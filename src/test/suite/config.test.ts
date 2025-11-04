@@ -112,7 +112,8 @@ suite('ConfigManager Tests', () => {
         taskLists: true,
         strikethrough: false,
         horizontalRule: true
-      }
+      },
+      showLineBreaks: true
     };
     
     const result = ConfigManager.validateConfig(validConfig);
@@ -275,7 +276,8 @@ suite('ConfigManager Tests', () => {
         taskLists: true,
         strikethrough: false,
         horizontalRule: true
-      }
+      },
+      showLineBreaks: true
     };
     
     let result = ConfigManager.validateConfig(testConfig);

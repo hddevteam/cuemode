@@ -218,6 +218,11 @@
           "default": false,
           "description": "%cuemode.configuration.markdownMode%"
         },
+        "cuemode.showLineBreaks": {
+          "type": "boolean",
+          "default": true,
+          "description": "%cuemode.configuration.showLineBreaks%"
+        },
         "cuemode.markdownFeatures": {
           "type": "object",
           "default": {

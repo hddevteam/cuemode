@@ -129,6 +129,10 @@ export class MarkdownParser {
       html = html.replace(key, value);
     });
 
+    // Convert line breaks to <br> tags ONLY inside code blocks
+    // Normal paragraphs should not show visible line break markers
+    html = this.convertCodeLineBreaksToBr(html);
+
     return {
       html: html.trim(),
       originalLength,
@@ -685,6 +689,24 @@ export class MarkdownParser {
       "'": '&#39;'
     };
     return text.replace(/[&<>"']/g, (char) => htmlEscapes[char] || char);
+  }
+
+  /**
+   * Convert line breaks (\n) to <br> tags, but preserve them inside HTML tags
+   * This allows us to show visual markers at actual line break positions
+   */
+  private static convertCodeLineBreaksToBr(html: string): string {
+    // Replace newlines ONLY inside code blocks within pre tags
+    // We insert an empty span placeholder and render the symbol via CSS ::before
+    const codeBlockRegex = /(<pre\b[^>]*class="[^"]*\bmarkdown-code-block\b[^"]*"[^>]*>\s*<code[^>]*>)([\s\S]*?)(<\/code>\s*<\/pre>)/g;
+    return html.replace(codeBlockRegex, (_m, startTag, codeContent, endTag) => {
+      let withBreaks = codeContent.replace(/\n/g, '<span class="cm-break-marker" aria-hidden="true"></span><br>');
+      // Ensure end-of-line marker for the last line (when no trailing newline)
+      if (!withBreaks.endsWith('<br>')) {
+        withBreaks += '<span class="cm-break-marker cm-break-eol" aria-hidden="true"></span>';
+      }
+      return `${startTag}${withBreaks}${endTag}`;
+    });
   }
 
   /**

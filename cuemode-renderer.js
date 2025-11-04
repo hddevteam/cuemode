@@ -38,16 +38,16 @@ class CueModeRenderer {
    */
   parseMarkdownBlocks(html) {
     const blocks = [];
-    
+
     const blockElements = [
       'h[1-6]', 'p', 'div', 'table', 'ul', 'ol', 'blockquote', 'pre'
     ];
-    
+
     const blockRegex = new RegExp(`(<(?:${blockElements.join('|')})[^>]*>.*?</(?:${blockElements.join('|')})>)`, 'gs');
-    
+
     let lastIndex = 0;
     let match;
-    
+
     while ((match = blockRegex.exec(html)) !== null) {
       if (match.index > lastIndex) {
         const beforeText = html.slice(lastIndex, match.index).trim();
@@ -62,13 +62,13 @@ class CueModeRenderer {
           });
         }
       }
-      
+
       if (match[1]) {
         blocks.push(match[1]);
       }
       lastIndex = match.index + match[0].length;
     }
-    
+
     if (lastIndex < html.length) {
       const remainingText = html.slice(lastIndex).trim();
       if (remainingText) {
@@ -81,7 +81,7 @@ class CueModeRenderer {
         });
       }
     }
-    
+
     return blocks;
   }
 
@@ -92,19 +92,19 @@ class CueModeRenderer {
     try {
       // Use actual MarkdownParser
       const result = MarkdownParser.parse(content, this.config.features);
-      
+
       // Use actual block-level processing logic
       const logicalBlocks = this.parseMarkdownBlocks(result.html);
-      
+
       const processedBlocks = logicalBlocks.map((block, index) => {
         if (block.trim() === '') {
           return '';
         }
         return `<div class="cue-line markdown-block" data-block="${index}">${block}</div>`;
       });
-      
+
       const filteredBlocks = processedBlocks.filter(block => block !== '');
-      
+
       return {
         content: `<div class="markdown-content">${filteredBlocks.join('')}</div>`,
         stats: {
@@ -176,6 +176,21 @@ ${css.markdown}
 
 /* Debug-specific styles */
 ${css.debug}
+
+/* Line break markers - show visual indicators at actual line breaks */
+br {
+  position: relative;
+}
+br::after {
+  content: ' ↵';
+  color: var(--accent-color);
+  opacity: 0.7;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-left: 0.3em;
+  pointer-events: none;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+}
     </style>
 </head>
 <body>

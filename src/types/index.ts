@@ -17,6 +17,7 @@ export interface CueModeConfig {
   mirrorFlip: boolean;
   markdownMode: boolean;
   markdownFeatures: MarkdownFeatures;
+  showLineBreaks: boolean;
 }
 
 /**
