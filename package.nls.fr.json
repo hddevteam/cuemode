@@ -22,4 +22,6 @@
   "cuemode.configuration.focusMode": "Activer le mode focus pour mettre en évidence la zone de lecture actuelle",
   "cuemode.configuration.focusOpacity": "Intensité du flou du contenu non focalisé en mode focus (0.1=flou léger, 0.8=flou intense)",
   "cuemode.configuration.focusLineCount": "Nombre de lignes à mettre en évidence en mode focus"
+  ,
+  "cuemode.configuration.showLineBreaks": "Afficher des marqueurs visuels aux véritables retours à la ligne dans les blocs de code (pas aux retours automatiques)"
 }

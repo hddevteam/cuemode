@@ -22,4 +22,6 @@
   "cuemode.configuration.focusMode": "현재 읽기 영역을 강조하는 포커스 모드 활성화",
   "cuemode.configuration.focusOpacity": "포커스 모드에서 비포커스 콘텐츠의 흐림 강도(0.1=가벼운 흐림, 0.8=강한 흐림)",
   "cuemode.configuration.focusLineCount": "포커스 모드에서 강조할 줄 수"
+  ,
+  "cuemode.configuration.showLineBreaks": "코드 블록의 실제 줄바꿈 위치에 시각적 마커 표시(자동 줄바꿈 위치 제외)"
 }

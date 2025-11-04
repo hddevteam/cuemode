@@ -22,4 +22,6 @@
   "cuemode.configuration.focusMode": "現在の読書エリアをハイライトするフォーカスモードを有効化",
   "cuemode.configuration.focusOpacity": "フォーカスモードでの非フォーカスコンテンツのブラー強度（0.1=軽いブラー、0.8=重いブラー）",
   "cuemode.configuration.focusLineCount": "フォーカスモードでハイライトする行数"
+  ,
+  "cuemode.configuration.showLineBreaks": "コードブロック内の実際の改行位置にマーカーを表示（自動折り返し位置は対象外）"
 }

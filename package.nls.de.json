@@ -22,4 +22,6 @@
   "cuemode.configuration.focusMode": "Fokus-Modus aktivieren, um den aktuellen Lesebereich hervorzuheben",
   "cuemode.configuration.focusOpacity": "Unschärfestärke des unfokussierten Inhalts im Fokus-Modus (0.1=leichte Unschärfe, 0.8=starke Unschärfe)",
   "cuemode.configuration.focusLineCount": "Anzahl der Zeilen, die im Fokus-Modus hervorgehoben werden sollen"
+  ,
+  "cuemode.configuration.showLineBreaks": "Visuelle Markierungen an echten Zeilenumbrüchen in Codeblöcken anzeigen (nicht an automatischen Zeilenumbrüchen)"
 }
