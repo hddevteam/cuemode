@@ -117,13 +117,13 @@
             transform: translateY(-5px);
         }
         
-        .theme-card.classic { background: linear-gradient(135deg, #000 0%, #333 100%); color: #fff; }
-        .theme-card.inverted { background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%); color: #000; }
-        .theme-card.midnight { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; }
-        .theme-card.sunset { background: linear-gradient(135deg, #ff7b7b 0%, #ff6b35 100%); color: #fff; }
-        .theme-card.forest { background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%); color: #fff; }
-        .theme-card.ocean { background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%); color: #fff; }
-        .theme-card.rose { background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%); color: #fff; }
+        .theme-card.classic { background-color: #1e1e1e; color: #d4d4d4; }
+        .theme-card.inverted { background-color: #ffffff; color: #333333; border: 1px solid #e5e7eb; }
+        .theme-card.midnight { background-color: #0f172a; color: #f8fafc; }
+        .theme-card.sunset { background-color: #431407; color: #ffedd5; }
+        .theme-card.forest { background-color: #064e3b; color: #ecfdf5; }
+        .theme-card.ocean { background-color: #1e3a8a; color: #eff6ff; }
+        .theme-card.rose { background-color: #4c0519; color: #ffe4e6; }
     </style>
 </head>
 <body>
@@ -153,16 +153,14 @@
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <i class="fas fa-scroll"></i>
-                    最新版本 v3.0.0 - 演示可发布，多语言已全量同步！
+                    <i class="fas fa-rocket"></i>
+                    全新 v3.0 - 引领专业级演示与全面国际化支持
                 </div>
                 <h1 class="hero-title">
-                    将 VS Code 变成<span class="highlight">专业提词器</span>
+                    在 VS Code 中进行 <span class="highlight">专业级路演</span>
                 </h1>
                 <p class="hero-description">
-                    使用 CueMode 将您的代码编辑器变成专业提词器，这是一个强大的 VS Code 扩展。
-                    非常适合视频录制、直播、内容创作和专业演示，具有
-                    自动滚动功能、可定制速度控制和无缝键盘导航。
+                    为开发者量身打造的终极演示与双屏提词器插件。让你无需离开熟悉的代码编辑器，即可完成完美的技术分享、录制编程教程并无缝阅读讲稿。
                 </p>
                 <div class="hero-buttons">
                     <a href="https://marketplace.visualstudio.com/items?itemName=luckyXmobile.cuemode" 
@@ -178,16 +176,16 @@
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-number">7</div>
-                        <div class="stat-label">颜色主题</div>
+                        <div class="stat-number">全新</div>
+                        <div class="stat-label">路演模式 (分镜)</div>
                     </div>
                     <div class="stat">
                         <div class="stat-number">6</div>
-                        <div class="stat-label">语言版本</div>
+                        <div class="stat-label">多国语言适配</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">自定义选项</div>
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">专业级风格主题</div>
                     </div>
                 </div>
             </div>
@@ -228,80 +226,31 @@
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">专业提词器功能</h2>
+                <h2 class="section-title">为演讲与技术分享而生</h2>
                 <p class="section-description">
-                    专业视频录制和内容创作所需的一切功能
+                    全方位重塑您的代码演示体验：从编写到路演，一切浑然天成。
                 </p>
             </div>
+            
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-font"></i>
+                        <i class="fas fa-desktop"></i>
                     </div>
-                    <h3 class="feature-title">大字体，易阅读</h3>
+                    <h3 class="feature-title">多页幻灯片路演</h3>
                     <p class="feature-description">
-                        为专业提词器可读性自动优化字体大小和间距，适用于视频录制和直播。
+                        将您的 Markdown 文档瞬间转化为优雅的多页幻灯片。基于分隔符 `---` 轻松分页，在 VS Code 内部通过左右方向键实现无缝翻页演说。
                     </p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-align-center"></i>
+                        <i class="fas fa-code"></i>
                     </div>
-                    <h3 class="feature-title">居中提词器布局</h3>
+                    <h3 class="feature-title">原生代码格式渲染</h3>
                     <p class="feature-description">
-                        专业提词器布局，具有居中文本和可调整的内容宽度，录制期间获得最佳阅读体验。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3 class="feature-title">7 种精美主题</h3>
-                    <p class="feature-description">
-                        从精心制作的颜色主题中选择，包括经典、午夜蓝、日落、森林、海洋、玫瑰和反色模式。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-scroll"></i>
-                    </div>
-                    <h3 class="feature-title">自动滚动提词器</h3>
-                    <p class="feature-description">
-                        专业的自动滚动功能，可定制速度控制（空格键切换，+/- 调节速度，R 键切换方向）。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <h3 class="feature-title">完全可自定义</h3>
-                    <p class="feature-description">
-                        调整字体大小、行高、内容宽度、内边距、滚动速度和起始位置，以匹配您的演示需求。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-keyboard"></i>
-                    </div>
-                    <h3 class="feature-title">无缝控制</h3>
-                    <p class="feature-description">
-                        直观的键盘控制：空格键切换自动滚动，+/- 调节速度，R 切换方向，F 键聚焦模式，M 键镜像反转，T 键主题循环，L 键行高调整，D 键Markdown显示切换，箭头键手动导航，Escape 退出。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <h3 class="feature-title">实时更新</h3>
-                    <p class="feature-description">
-                        无需重新进入 CueMode 即可立即看到文本更改，设置更改立即生效。
+                        精准保留代码片段的原始结构与真实换行效果，无需为了提词器妥协排版，带来原汁原味的技术教程展示体验。
                     </p>
                 </div>
                 
@@ -309,43 +258,9 @@
                     <div class="feature-icon">
                         <i class="fas fa-eye"></i>
                     </div>
-                    <h3 class="feature-title">聚焦模式</h3>
+                    <h3 class="feature-title">专注模式与自动滚动</h3>
                     <p class="feature-description">
-                        🆕 F键聚焦模式通过模糊非焦点内容突出显示当前阅读区域。
-                        可配置聚焦不透明度（0.1-0.8）和聚焦行数（1-10行），提升专注力。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-arrows-alt-h"></i>
-                    </div>
-                    <h3 class="feature-title">镜像反转模式</h3>
-                    <p class="feature-description">
-                        🆕 专业的水平文本镜像反转，适用于提词器硬件设备。
-                        在webview中使用M键或在VS Code中使用Ctrl+Shift+M切换。完美适配专业视频制作工作室。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-text-height"></i>
-                    </div>
-                    <h3 class="feature-title">行高调整</h3>
-                    <p class="feature-description">
-                        🆕 动态行高调整，优化阅读体验。
-                        使用L键或Ctrl+Shift+L命令在1.0x、1.2x、1.5x、1.8x和2.0x间距之间循环。适合不同内容类型和观看距离。
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-file-code"></i>
-                    </div>
-                    <h3 class="feature-title">Markdown显示切换</h3>
-                    <p class="feature-description">
-                        🆕 在渲染Markdown和原始文本显示之间切换。
-                        使用D键进行灵活的内容展示。既适合技术文档也适合脚本阅读。
+                        启用智能高亮区域并自定义滚动速率，让阅读节奏保持自然流畅，不论是直播还是长篇演讲都不再迷失上下文。
                     </p>
                 </div>
                 
@@ -353,22 +268,33 @@
                     <div class="feature-icon">
                         <i class="fas fa-globe"></i>
                     </div>
-                    <h3 class="feature-title">6语言国际化支持</h3>
+                    <h3 class="feature-title">原生多国语言支持</h3>
                     <p class="feature-description">
-                        🆕 全面的国际化支持，包括中文、英文、德文、法文、日文和韩文界面。
-                        i18next集成，根据 VS Code 环境自动检测语言。
+                        深度适配中、英、德、法、日、韩六国语言的原生界面，精准契合跨国开源项目开发团队和创作者的使用习惯。
                     </p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-mouse-pointer"></i>
+                        <i class="fas fa-palette"></i>
                     </div>
-                    <h3 class="feature-title">便捷访问</h3>
+                    <h3 class="feature-title">极简专业色彩主题</h3>
                     <p class="feature-description">
-                        右键上下文菜单集成和命令面板访问，可从 VS Code 中的任何位置快速激活。
+                        全系重构为沉稳克制的极简风格，7 款精心设计的 WCAG 标准高级主题，保障拍摄画面清爽且消除视觉疲劳与频闪。
                     </p>
                 </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3 class="feature-title">极速快捷键控制流</h3>
+                    <p class="feature-description">
+                        一切核心操作皆由快捷键顺畅驱动：空格键切换自动滚动、方向键控制多镜翻页、F 键聚焦、T 键切换主题，尽在掌控。
+                    </p>
+                </div>
+            </div>
+
             </div>
         </div>
     </section>

@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: linear-gradient(135deg, #6366f1, #22d3ee);
+                background: #007acc;
                 display: flex;
                 align-items: center;
                 justify-content: center;
