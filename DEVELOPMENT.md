@@ -1,5 +1,7 @@
 # CueMode Development Guide
 
+> Sync note: This file is maintained in sync with `project_docs/0-development.zh-CN.md`.
+
 ## 🏗️ Architecture Overview
 
 CueMode is built as a modern TypeScript VS Code extension with a focus on performance, internationalization, focus mode, and maintainability.
@@ -8,15 +10,9 @@ CueMode is built as a modern TypeScript VS Code extension with a focus on perfor
 
 ```sh
 src/
+├── core/                 # Reserved for future core modules
 ├── extension.ts           # Main extension entry point with CueModeExtension class
 ├── i18n.ts               # i18next-based internationalization system
-├── types/                 # TypeScript type definitions
-│   └── index.ts          # Core types and interfaces
-├── ui/                   # User interface components
-│   └── webview.ts        # Webview management and HTML generation
-├── utils/                # Utility modules
-│   ├── config.ts         # Configuration management with validation
-│   └── theme.ts          # Theme system with 7 professional themes
 ├── locales/              # Language resource files
 │   ├── en.json           # English translations
 │   ├── zh-CN.json        # Chinese translations
@@ -24,14 +20,37 @@ src/
 │   ├── fr.json           # French translations
 │   ├── ja.json           # Japanese translations
 │   └── ko.json           # Korean translations
-└── test/                 # Test suite
-    ├── runTest.ts        # Test runner
-    └── suite/            # Test cases
-        ├── extension.test.ts
-        ├── i18n.test.ts
-        ├── theme.test.ts
-        ├── config.test.ts
-        └── webview.test.ts
+├── test/                 # Test suite
+│   ├── runTest.ts        # Test runner
+│   └── suite/            # Test cases
+│       ├── config.test.ts
+│       ├── contentRenderer.test.ts
+│       ├── debug-markdown.test.ts
+│       ├── double-click.test.ts
+│       ├── extension.test.ts
+│       ├── i18n.test.ts
+│       ├── markdown.test.ts
+│       ├── mainView.test.ts
+│       ├── presentation.test.ts
+│       ├── theme.test.ts
+│       ├── uiState.test.ts
+│       ├── webview-markdown.test.ts
+│       └── webview.test.ts
+├── types/                 # TypeScript type definitions
+│   └── index.ts          # Core types and interfaces
+├── ui/                   # User interface components
+│   ├── contentRenderer.ts # Content processing and markdown/plain rendering
+│   ├── mainView.ts       # Main teleprompter HTML generation
+│   ├── presentationView.ts # Presentation mode HTML generation
+│   ├── webview.ts        # Webview manager and lifecycle orchestration
+│   └── webviewMessageHandler.ts # Webview message routing
+├── utils/                # Utility modules
+│   ├── config.ts         # Configuration management with validation
+│   ├── markdown.ts       # Markdown parsing utilities
+│   ├── markdownStyles.ts # Markdown style generation
+│   ├── theme.ts          # Theme system with 7 professional themes
+│   ├── uiState.ts        # VS Code UI state hide/restore helpers
+│   └── webviewStyles.ts  # Shared webview CSS generation
 ```
 
 ### Key Features
@@ -48,7 +67,7 @@ src/
 
 **VS Code Shortcuts:**
 
-- `Ctrl+Shift+P` (Cmd+Shift+P): Activate CueMode
+- `Ctrl+Alt+C` (Ctrl+Cmd+C on Mac): Activate CueMode
 - `Ctrl+Shift+T` (Cmd+Shift+T): Change theme
 - `Ctrl+Shift+R` (Cmd+Shift+R): Remove leading spaces
 
@@ -282,10 +301,12 @@ We follow Semantic Versioning (semver):
 ### Content Security Policy
 
 ```html
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src 'none'; 
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'none'; 
                script-src 'nonce-{nonce}'; 
-               style-src 'unsafe-inline';">
+               style-src 'unsafe-inline';"
+/>
 ```
 
 ### Input Validation
@@ -302,7 +323,7 @@ We follow Semantic Versioning (semver):
 // I18nManager class with singleton pattern
 export class I18nManager {
   private i18n: typeof i18next;
-  
+
   public async initialize(): Promise<void> {
     await this.i18n.init({
       lng: this.detectLanguage(),
@@ -313,14 +334,14 @@ export class I18nManager {
         de: { translation: await this.loadTranslationResource('de') },
         fr: { translation: await this.loadTranslationResource('fr') },
         ja: { translation: await this.loadTranslationResource('ja') },
-        ko: { translation: await this.loadTranslationResource('ko') }
+        ko: { translation: await this.loadTranslationResource('ko') },
       },
       interpolation: { escapeValue: false },
       pluralSeparator: '_',
       missingKeyHandler: (lng, ns, key, fallbackValue) => {
         console.warn(`Missing translation: ${key} in ${lng}`);
         return fallbackValue || key;
-      }
+      },
     });
   }
 }
@@ -340,7 +361,7 @@ private detectLanguage(): string {
     if (lang.startsWith('ko')) return 'ko';
     return 'en';
   }
-  
+
   // Environment variable fallback
   if (process.env.VSCODE_NLS_CONFIG) {
     const nlsConfig = JSON.parse(process.env.VSCODE_NLS_CONFIG);
@@ -351,7 +372,7 @@ private detectLanguage(): string {
     if (locale?.startsWith('ja')) return 'ja';
     if (locale?.startsWith('ko')) return 'ko';
   }
-  
+
   return 'en';
 }
 ```
@@ -462,3 +483,5 @@ private detectLanguage(): string {
 For detailed API documentation, see the inline TypeScript documentation in the source files.
 
 For contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Last synchronized: 2026-03-01

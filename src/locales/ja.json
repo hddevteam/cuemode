@@ -10,11 +10,14 @@
     "configureMarkdownFeatures": "Markdown機能を設定",
     "adjustLineHeight": "行の高さを調整",
     "increaseFontSize": "フォントサイズを拡大",
-    "decreaseFontSize": "フォントサイズを縮小"
+    "decreaseFontSize": "フォントサイズを縮小",
+    "presentationMode": "プレゼンテーションモード（スライド）"
   },
   "notifications": {
     "activated": "テレプロンプターモードが有効になりました",
-    "deactivated": "テレプロンプターモードが無効になりました", 
+    "presentationActivated": "プレゼンテーションモードが有効になりました（{{count}}枚のスライド）",
+    "presentationActivated_plural": "プレゼンテーションモードが有効になりました（{{count}}枚のスライド）",
+    "deactivated": "テレプロンプターモードが無効になりました",
     "configUpdated": "テレプロンプターモードの設定が更新されました",
     "themeChanged": "テーマが{{theme}}に変更されました",
     "spacesRemoved": "{{count}}行から先頭の空白を削除しました",
@@ -29,7 +32,11 @@
     "lineHeightChanged": "行の高さが{{height}}に変更されました",
     "fontSizeChanged": "フォントサイズが{{size}}ptに変更されました",
     "fontSizeMax": "フォントサイズは既に最大です(100pt)",
-    "fontSizeMin": "フォントサイズは既に最小です(8pt)"
+    "fontSizeMin": "フォントサイズは既に最小です(8pt)",
+    "openingEditor": "{{line}}行目でソースドキュメントを開いています...",
+    "editorOpened": "ソースドキュメントを開きました",
+    "positionRestored": "スクロール位置を復元しました",
+    "column": "列"
   },
   "errors": {
     "noActiveEditor": "アクティブなエディターが見つかりません",
@@ -40,7 +47,7 @@
     "initializationFailed": "拡張機能の初期化に失敗しました: {{error}}"
   },
   "settings": {
-    "colorTheme": "カラーテーマ", 
+    "colorTheme": "カラーテーマ",
     "maxWidth": "最大幅",
     "fontSize": "フォントサイズ",
     "lineHeight": "行の高さ",
@@ -49,11 +56,24 @@
     "startingPosition": "開始位置",
     "focusMode": "フォーカスモード",
     "focusOpacity": "フォーカスブラー強度",
-    "focusLineCount": "フォーカス行数"
+    "focusLineCount": "フォーカス行数",
+    "mirrorFlip": "ミラー反転",
+    "markdownMode": "Markdownモード",
+    "markdownFeatures": "Markdown機能",
+    "markdownFeatures.headers": "見出し (# ## ###)",
+    "markdownFeatures.emphasis": "太字と斜体テキスト",
+    "markdownFeatures.lists": "リスト (- * + と 1. 2. 3.)",
+    "markdownFeatures.links": "リンク [テキスト](URL)",
+    "markdownFeatures.code": "コードブロックとインラインコード",
+    "markdownFeatures.blockquotes": "引用 (> テキスト)",
+    "markdownFeatures.tables": "表",
+    "markdownFeatures.taskLists": "タスクリスト (- [x] 完了)",
+    "markdownFeatures.strikethrough": "取り消し線 (~~text~~)",
+    "markdownFeatures.horizontalRule": "水平線 (---)"
   },
   "themes": {
     "classic": "クラシック",
-    "inverted": "反転", 
+    "inverted": "反転",
     "midnightBlue": "ミッドナイトブルー",
     "sunset": "サンセット",
     "forest": "フォレスト",
@@ -63,7 +83,7 @@
   "ui": {
     "title": "テレプロンプターモード - {{filename}}",
     "close": "閉じる",
-    "help": "ヘルプ", 
+    "help": "ヘルプ",
     "shortcuts": "キーボードショートカット",
     "loading": "読み込み中...",
     "ready": "準備完了",
@@ -82,7 +102,7 @@
     "navigationModes": "ナビゲーション & モード",
     "shortcuts": {
       "space": "自動スクロールの開始/停止",
-      "plus": "スクロール速度を上げる", 
+      "plus": "スクロール速度を上げる",
       "minus": "スクロール速度を下げる",
       "r": "スクロール方向を切り替え",
       "escape": "テレプロンプターモードを終了",
@@ -95,19 +115,43 @@
       "d": "Markdownモードを切り替え",
       "l": "行の高さを調整",
       "fontSize": "フォントサイズを縮小/拡大",
-      "h": "ヘルプの表示/非表示"
+      "h": "ヘルプの表示/非表示",
+      "doubleClick": "任意の行をダブルクリックしてソースドキュメントで編集"
     },
     "vsCodeShortcuts": {
       "changeTheme": "テーマを変更",
       "removeSpaces": "先頭の空白を削除",
       "toggleFocus": "フォーカスモードを切り替え",
-      "adjustLineHeight": "行の高さを調整"
+      "toggleMirror": "ミラー反転を切り替え"
     }
+  },
+  "presentation": {
+    "title": "プレゼンテーションモード - {{filename}}",
+    "slideCounter": "{{current}} / {{total}}",
+    "prev": "前へ",
+    "next": "次へ",
+    "close": "閉じる",
+    "help": "ヘルプ",
+    "helpTitle": "プレゼンテーションモードのショートカット",
+    "shortcutLeft": "前のスライド",
+    "shortcutRight": "次のスライド",
+    "shortcutT": "テーマを切り替え",
+    "shortcutH": "ヘルプの表示/非表示",
+    "shortcutL": "行の高さを調整",
+    "shortcutBracketL": "フォントサイズを縮小",
+    "shortcutBracketR": "フォントサイズを拡大",
+    "shortcutEsc": "プレゼンテーションモードを終了",
+    "noContent": "表示するコンテンツがありません",
+    "separatorHint": "ヒント: ---（3つのハイフンを1行に単独で記述）で内容を複数スライドに分割できます",
+    "separatorLabel": "スライド区切り",
+    "separatorValue": "---（1行のみの水平線）",
+    "singleSlideHint": "ヒント: 1行に --- を追加すると複数スライドを作成できます"
   },
   "accessibility": {
     "scrollIndicator": "自動スクロール: {{status}}",
     "speedIndicator": "スクロール速度: {{speed}}",
     "themeIndicator": "現在のテーマ: {{theme}}",
-    "focusIndicator": "フォーカスモード: {{status}}"
+    "focusIndicator": "フォーカスモード: {{status}}",
+    "mirrorIndicator": "ミラー反転: {{status}}"
   }
 }

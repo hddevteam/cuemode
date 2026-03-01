@@ -3,7 +3,7 @@
  * Provides styling for parsed markdown elements that integrates with all themes
  */
 
-import { ThemeConfig } from '../types';
+import type { ThemeConfig } from '../types';
 
 /**
  * Generate CSS styles for markdown elements
@@ -92,8 +92,8 @@ export function generateMarkdownCSS(theme: ThemeConfig): string {
     /* Markdown Lists */
     .markdown-list {
       margin: 0.02em 0;
-      padding-left: 0;
-      margin-left: 0.6em;
+      padding-left: 1.5em;
+      margin-left: 0;
       color: ${theme.textColor};
     }
     

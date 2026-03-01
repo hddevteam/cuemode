@@ -33,7 +33,7 @@
 
 详细的开发设置请参考我们的开发指南：
 
-📖 **[开发指南 (DEVELOPMENT.zh-CN.md)](DEVELOPMENT.zh-CN.md)**
+📖 **[开发指南 (project_docs/0-development.zh-CN.md)](project_docs/0-development.zh-CN.md)**
 🇺🇸 **[Development Guide (DEVELOPMENT.md)](DEVELOPMENT.md)**
 
 快速开始：
@@ -47,7 +47,7 @@ npm run compile
 
 ## 📋 项目结构
 
-详细架构请参考 [DEVELOPMENT.zh-CN.md](架构概览)
+详细架构请参考 [0号开发文档（中文）](project_docs/0-development.zh-CN.md)
 
 ## 🎯 编码规范
 
@@ -90,7 +90,7 @@ export class ThemeManager {
 
 ## 🧪 测试指南
 
-全面的测试指南请参考 [DEVELOPMENT.zh-CN.md](DEVELOPMENT.zh-CN.md#测试策略)。
+全面的测试指南请参考 [project_docs/0-development.zh-CN.md](project_docs/0-development.zh-CN.md#-测试策略)。
 
 ### 快速测试
 
@@ -101,7 +101,7 @@ npm run lint            # 代码质量检查
 
 ## 🌐 国际化指南
 
-详细的国际化指南请参考 [DEVELOPMENT.zh-CN.md](DEVELOPMENT.zh-CN.md#国际化实现)。
+详细的国际化指南请参考 [project_docs/0-development.zh-CN.md](project_docs/0-development.zh-CN.md#-国际化实现)。
 
 ## 📦 提交指南
 

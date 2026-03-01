@@ -10,11 +10,14 @@
     "configureMarkdownFeatures": "Markdown 기능 구성",
     "adjustLineHeight": "줄 높이 조정",
     "increaseFontSize": "글꼴 크기 증가",
-    "decreaseFontSize": "글꼴 크기 감소"
+    "decreaseFontSize": "글꼴 크기 감소",
+    "presentationMode": "프레젠테이션 모드(슬라이드)"
   },
   "notifications": {
     "activated": "텔레프롬프터 모드가 활성화되었습니다",
-    "deactivated": "텔레프롬프터 모드가 비활성화되었습니다", 
+    "presentationActivated": "프레젠테이션 모드가 활성화되었습니다 ({{count}}장 슬라이드)",
+    "presentationActivated_plural": "프레젠테이션 모드가 활성화되었습니다 ({{count}}장 슬라이드)",
+    "deactivated": "텔레프롬프터 모드가 비활성화되었습니다",
     "configUpdated": "텔레프롬프터 모드 설정이 업데이트되었습니다",
     "themeChanged": "테마가 {{theme}}로 변경되었습니다",
     "spacesRemoved": "{{count}}줄에서 앞쪽 공백을 제거했습니다",
@@ -29,7 +32,11 @@
     "lineHeightChanged": "줄 높이가 {{height}}로 변경되었습니다",
     "fontSizeChanged": "글꼴 크기가 {{size}}pt로 변경되었습니다",
     "fontSizeMax": "글꼴 크기가 이미 최대입니다 (100pt)",
-    "fontSizeMin": "글꼴 크기가 이미 최소입니다 (8pt)"
+    "fontSizeMin": "글꼴 크기가 이미 최소입니다 (8pt)",
+    "openingEditor": "{{line}}번째 줄에서 원본 문서를 여는 중...",
+    "editorOpened": "원본 문서를 열었습니다",
+    "positionRestored": "스크롤 위치가 복원되었습니다",
+    "column": "열"
   },
   "errors": {
     "noActiveEditor": "활성 편집기를 찾을 수 없습니다",
@@ -40,7 +47,7 @@
     "initializationFailed": "확장 프로그램 초기화에 실패했습니다: {{error}}"
   },
   "settings": {
-    "colorTheme": "색상 테마", 
+    "colorTheme": "색상 테마",
     "maxWidth": "최대 너비",
     "fontSize": "글꼴 크기",
     "lineHeight": "줄 높이",
@@ -49,11 +56,24 @@
     "startingPosition": "시작 위치",
     "focusMode": "포커스 모드",
     "focusOpacity": "포커스 흐림 강도",
-    "focusLineCount": "포커스 줄 수"
+    "focusLineCount": "포커스 줄 수",
+    "mirrorFlip": "미러 반전",
+    "markdownMode": "Markdown 모드",
+    "markdownFeatures": "Markdown 기능",
+    "markdownFeatures.headers": "헤더 (# ## ###)",
+    "markdownFeatures.emphasis": "굵게 및 기울임 텍스트",
+    "markdownFeatures.lists": "목록 (- * + 및 1. 2. 3.)",
+    "markdownFeatures.links": "링크 [텍스트](url)",
+    "markdownFeatures.code": "코드 블록 및 인라인 코드",
+    "markdownFeatures.blockquotes": "인용문 (> 텍스트)",
+    "markdownFeatures.tables": "표",
+    "markdownFeatures.taskLists": "작업 목록 (- [x] 완료)",
+    "markdownFeatures.strikethrough": "취소선 (~~text~~)",
+    "markdownFeatures.horizontalRule": "수평선 (---)"
   },
   "themes": {
     "classic": "클래식",
-    "inverted": "반전", 
+    "inverted": "반전",
     "midnightBlue": "미드나이트 블루",
     "sunset": "석양",
     "forest": "포레스트",
@@ -63,7 +83,7 @@
   "ui": {
     "title": "텔레프롬프터 모드 - {{filename}}",
     "close": "닫기",
-    "help": "도움말", 
+    "help": "도움말",
     "shortcuts": "키보드 단축키",
     "loading": "로딩 중...",
     "ready": "준비 완료",
@@ -82,7 +102,7 @@
     "navigationModes": "탐색 & 모드",
     "shortcuts": {
       "space": "자동 스크롤 시작/정지",
-      "plus": "스크롤 속도 증가", 
+      "plus": "스크롤 속도 증가",
       "minus": "스크롤 속도 감소",
       "r": "스크롤 방향 전환",
       "escape": "텔레프롬프터 모드 종료",
@@ -95,19 +115,43 @@
       "d": "Markdown 모드 전환",
       "l": "줄 높이 조정",
       "fontSize": "글꼴 크기 감소/증가",
-      "h": "도움말 표시/숨기기"
+      "h": "도움말 표시/숨기기",
+      "doubleClick": "아무 줄이나 더블 클릭해 원본 문서에서 편집"
     },
     "vsCodeShortcuts": {
       "changeTheme": "테마 변경",
       "removeSpaces": "앞쪽 공백 제거",
       "toggleFocus": "포커스 모드 전환",
-      "adjustLineHeight": "줄 높이 조정"
+      "toggleMirror": "미러 반전 전환"
     }
+  },
+  "presentation": {
+    "title": "프레젠테이션 모드 - {{filename}}",
+    "slideCounter": "{{current}} / {{total}}",
+    "prev": "이전",
+    "next": "다음",
+    "close": "닫기",
+    "help": "도움말",
+    "helpTitle": "프레젠테이션 모드 단축키",
+    "shortcutLeft": "이전 슬라이드",
+    "shortcutRight": "다음 슬라이드",
+    "shortcutT": "테마 순환",
+    "shortcutH": "도움말 표시/숨기기",
+    "shortcutL": "줄 높이 조정",
+    "shortcutBracketL": "글꼴 크기 감소",
+    "shortcutBracketR": "글꼴 크기 증가",
+    "shortcutEsc": "프레젠테이션 모드 종료",
+    "noContent": "표시할 콘텐츠가 없습니다",
+    "separatorHint": "팁: --- (한 줄에 대시 3개)로 콘텐츠를 여러 슬라이드로 나눌 수 있습니다",
+    "separatorLabel": "슬라이드 구분선",
+    "separatorValue": "--- (한 줄짜리 수평선)",
+    "singleSlideHint": "팁: 한 줄에 --- 를 추가하면 여러 슬라이드를 만들 수 있습니다"
   },
   "accessibility": {
     "scrollIndicator": "자동 스크롤: {{status}}",
     "speedIndicator": "스크롤 속도: {{speed}}",
     "themeIndicator": "현재 테마: {{theme}}",
-    "focusIndicator": "포커스 모드: {{status}}"
+    "focusIndicator": "포커스 모드: {{status}}",
+    "mirrorIndicator": "미러 반전: {{status}}"
   }
 }

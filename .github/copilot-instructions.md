@@ -19,6 +19,7 @@ CueMode is a VS Code extension that provides professional teleprompter functiona
 ## Available Development Tools
 
 ### Local Tools & CLI
+
 - **GitHub CLI (`gh`)**: Used for repository management, issue tracking, and automated workflows
   - Branch operations and pull requests
   - Issue and release management
@@ -34,18 +35,21 @@ CueMode is a VS Code extension that provides professional teleprompter functiona
 ### Tool Usage Guidelines
 
 #### GitHub CLI Best Practices
+
 - Use `gh` for automated workflows and CI/CD integration
 - Maintain consistent commit messages and branch naming
 - Follow repository governance through CLI commands
 - Automate release and version management
 
 #### SVG Asset Management
+
 - Convert icons and badges during build process
 - Maintain vector source files in repository
 - Generate optimized assets for documentation
 - Support high DPI and accessibility requirements
 
 ### Integration with VS Code Extension
+
 - GitHub CLI for extension publishing workflow
 - SVG conversion for extension icons and badges
 - Automated asset pipeline in build process
@@ -55,7 +59,7 @@ CueMode is a VS Code extension that provides professional teleprompter functiona
 
 - **VS Code Marketplace**: Published as "CueMode" (luckyxmobile.cuemode)
 - **GitHub Repository**: <https://github.com/hddevteam/cuemode>
-- **Current Version**: 2.1.0
+- **Current Version**: 3.0.0
 - **License**: MIT
 - **Target Audience**: Developers, presenters, educators, streamers, content creators
 
@@ -94,7 +98,7 @@ src/
 
 **VS Code Shortcuts:**
 
-- `Ctrl+Shift+P` (Cmd+Shift+P): Activate CueMode
+- `Ctrl+Alt+C` (Ctrl+Cmd+C on Mac): Activate CueMode
 - `Ctrl+Shift+T` (Cmd+Shift+T): Change theme
 - `Ctrl+Shift+R` (Cmd+Shift+R): Remove leading spaces
 
@@ -282,6 +286,7 @@ The project includes advanced debugging tools for markdown rendering:
 #### File Organization for Testing
 
 **Temporary File Structure:**
+
 ```
 .temp/
 ├── debug/          # Generated HTML debug files
@@ -290,6 +295,7 @@ The project includes advanced debugging tools for markdown rendering:
 ```
 
 **File Management Rules:**
+
 - All temporary test files should be created in `.temp/test-files/`
 - Generated debug HTML files should be output to `.temp/debug/`
 - Use descriptive naming: `test-[feature]-[variant].md` and `debug-[feature]-[variant].html`
@@ -297,15 +303,17 @@ The project includes advanced debugging tools for markdown rendering:
 - Keep only essential debug tools (`cuemode-renderer.js`, `debug-md.js`) in root
 
 #### CueModeRenderer (cuemode-renderer.js)
+
 - **Purpose**: Production-grade debugging renderer using real extension modules
 - **Features**: Real MarkdownParser, ThemeManager, CSS generation with debug capabilities
 - **Usage**: `const renderer = new CueModeRenderer(options); renderer.renderFile(markdownPath, outputPath);`
 - **Output**: Interactive HTML with debug information, block boundaries, and real-time style adjustment
 
 #### CLI Debugging Tool (debug-md.js)
+
 - **Purpose**: Command-line interface for quick markdown file testing
 - **Usage**: `node debug-md.js <markdown-file> [options]`
-- **Options**: 
+- **Options**:
   - `--fontSize=<number>`: Font size (default: 25)
   - `--lineHeight=<number>`: Line height (default: 1)
   - `--padding=<number>`: Padding (default: 10)

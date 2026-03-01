@@ -3,7 +3,7 @@
  * Provides selective parsing of markdown elements based on user configuration
  */
 
-import { MarkdownFeatures } from '../types';
+import type { MarkdownFeatures } from '../types';
 
 /**
  * Parsed markdown content with HTML output
@@ -32,7 +32,7 @@ export class MarkdownParser {
         html: '',
         originalLength: 0,
         parsedLength: 0,
-        elementsFound: []
+        elementsFound: [],
       };
     }
 
@@ -56,7 +56,12 @@ export class MarkdownParser {
 
     // Parse and protect tables FIRST to prevent their content from being processed by other parsers
     if (features.tables) {
-      const tableResult = this.parseTablesWithProtection(html, protectedElements, protectedIndex, features);
+      const tableResult = this.parseTablesWithProtection(
+        html,
+        protectedElements,
+        protectedIndex,
+        features
+      );
       html = tableResult.html;
       protectedIndex = tableResult.nextIndex;
       if (tableResult.found) {
@@ -137,7 +142,7 @@ export class MarkdownParser {
       html: html.trim(),
       originalLength,
       parsedLength: html.length,
-      elementsFound
+      elementsFound,
     };
   }
 
@@ -216,10 +221,10 @@ export class MarkdownParser {
 
       if (unorderedMatch || orderedMatch) {
         found = true;
-        
+
         // Start processing consecutive list items
         const listItems: Array<{ text: string; level: number; isOrdered: boolean }> = [];
-        
+
         // Process all consecutive list items (including this one)
         while (i < lines.length) {
           const currentLine = lines[i];
@@ -230,17 +235,19 @@ export class MarkdownParser {
 
           const unorderedItemMatch = currentLine.match(/^(\s*)([-*+])\s+(.+)$/);
           const orderedItemMatch = currentLine.match(/^(\s*)(\d+\.)\s+(.+)$/);
-          
+
           if (unorderedItemMatch || orderedItemMatch) {
             const itemIsOrdered = !!orderedItemMatch;
             const itemIndent = (unorderedItemMatch?.[1] || orderedItemMatch?.[1] || '').length;
             const itemLevel = Math.floor(itemIndent / 2) + 1;
-            const itemText = itemIsOrdered ? (orderedItemMatch?.[3] || '') : (unorderedItemMatch?.[3] || '');
-            
+            const itemText = itemIsOrdered
+              ? orderedItemMatch?.[3] || ''
+              : unorderedItemMatch?.[3] || '';
+
             listItems.push({
               text: itemText,
               level: itemLevel,
-              isOrdered: itemIsOrdered
+              isOrdered: itemIsOrdered,
             });
             i++;
           } else {
@@ -248,7 +255,7 @@ export class MarkdownParser {
             break;
           }
         }
-        
+
         // Generate proper nested list HTML
         result.push(this.generateNestedListHTML(listItems));
         // Don't increment i again because the while loop already did it
@@ -265,23 +272,26 @@ export class MarkdownParser {
   /**
    * Generate properly nested list HTML with correct numbering
    */
-  private static generateNestedListHTML(listItems: Array<{ text: string; level: number; isOrdered: boolean }>): string {
+  private static generateNestedListHTML(
+    listItems: Array<{ text: string; level: number; isOrdered: boolean }>
+  ): string {
     if (listItems.length === 0) return '';
-    
+
     const html: string[] = [];
     const stack: Array<{ type: string; level: number }> = [];
     const listCounters: Map<string, number> = new Map(); // Track numbering for each level+type combination
-    
+
     for (const item of listItems) {
       const listType = item.isOrdered ? 'ol' : 'ul';
       const listClass = `markdown-list markdown-${listType}`;
-      const itemClass = item.level > 1 ? 
-        `markdown-list-item markdown-list-item-nested-${Math.min(item.level, 5)}` : 
-        'markdown-list-item';
-      
+      const itemClass =
+        item.level > 1
+          ? `markdown-list-item markdown-list-item-nested-${Math.min(item.level, 5)}`
+          : 'markdown-list-item';
+
       // Create a key for tracking list continuity
       const listKey = `${listType}-${item.level}`;
-      
+
       // Close lists that are at deeper levels
       while (stack.length > 0) {
         const lastInStack = stack[stack.length - 1];
@@ -297,40 +307,42 @@ export class MarkdownParser {
           html.push(`</${lastList.type}>`);
         }
       }
-      
+
       // Open new list if needed
       const lastInStack = stack[stack.length - 1];
-      const needsNewList = stack.length === 0 || !lastInStack || 
-        lastInStack.level < item.level || 
+      const needsNewList =
+        stack.length === 0 ||
+        !lastInStack ||
+        lastInStack.level < item.level ||
         (lastInStack.level === item.level && lastInStack.type !== listType);
-      
+
       if (needsNewList) {
         let startAttr = '';
         if (item.isOrdered) {
           // For ordered lists, check if we need to continue numbering
           const currentCount = listCounters.get(listKey) || 0;
           const nextNumber = currentCount + 1;
-          
+
           // Only add start attribute if it's not starting from 1
           if (nextNumber > 1) {
             startAttr = ` start="${nextNumber}"`;
           }
         }
-        
+
         html.push(`<${listType} class="${listClass}"${startAttr}>`);
         stack.push({ type: listType, level: item.level });
       }
-      
+
       // Add list item
       html.push(`<li class="${itemClass}">${item.text}</li>`);
-      
+
       // Update counter for this list type and level
       if (item.isOrdered) {
         const currentCount = listCounters.get(listKey) || 0;
         listCounters.set(listKey, currentCount + 1);
       }
     }
-    
+
     // Close remaining open lists
     while (stack.length > 0) {
       const lastList = stack.pop();
@@ -338,7 +350,7 @@ export class MarkdownParser {
         html.push(`</${lastList.type}>`);
       }
     }
-    
+
     return html.join('\n');
   }
 
@@ -384,13 +396,13 @@ export class MarkdownParser {
         found = true;
         const level = blockquoteMatch[1]?.length || 1;
         const text = blockquoteMatch[2] || '';
-        
+
         // Generate proper CSS classes for nested levels
         let cssClasses = 'markdown-blockquote';
         if (level > 1) {
           cssClasses += ` markdown-blockquote-nested-${Math.min(level, 5)}`;
         }
-        
+
         // Each blockquote line is rendered independently
         result.push(`<blockquote class="${cssClasses}">${text}</blockquote>`);
       } else {
@@ -421,7 +433,7 @@ export class MarkdownParser {
    */
   private static generateTableHtml(headerRow: string | null, tableRows: string[]): string {
     const parts = ['<table class="markdown-table">'];
-    
+
     if (headerRow) {
       parts.push('  <thead class="markdown-table-head">');
       parts.push('    <tr class="markdown-table-header-row">');
@@ -429,13 +441,13 @@ export class MarkdownParser {
       parts.push('    </tr>');
       parts.push('  </thead>');
     }
-    
+
     if (tableRows.length > 0) {
       parts.push('  <tbody class="markdown-table-body">');
       parts.push(...tableRows);
       parts.push('  </tbody>');
     }
-    
+
     parts.push('</table>');
     return parts.join('\n');
   }
@@ -443,7 +455,12 @@ export class MarkdownParser {
   /**
    * Parse tables with content protection from further markdown processing
    */
-  private static parseTablesWithProtection(content: string, protectedElements: Map<string, string>, startIndex: number, features: MarkdownFeatures): { html: string; found: boolean; nextIndex: number; innerElementsFound: string[] } {
+  private static parseTablesWithProtection(
+    content: string,
+    protectedElements: Map<string, string>,
+    startIndex: number,
+    features: MarkdownFeatures
+  ): { html: string; found: boolean; nextIndex: number; innerElementsFound: string[] } {
     let found = false;
     let protectedIndex = startIndex;
     const lines = content.split('\n');
@@ -463,7 +480,7 @@ export class MarkdownParser {
           protectedElements.set(placeholder, tableHtml);
           result.push(placeholder);
           protectedIndex++;
-          
+
           inTable = false;
           headerRow = null;
           tableRows = [];
@@ -476,7 +493,7 @@ export class MarkdownParser {
       // Code blocks after processing become multi-line HTML elements
       const isCodeBlockStart = currentLine.includes('<pre class="markdown-code-block"');
       const isCodeBlockEnd = currentLine.includes('</code></pre>');
-      
+
       // Track if we're inside a code block
       if (isCodeBlockStart) {
         // Starting a code block, add the line and mark that we're inside one
@@ -502,7 +519,7 @@ export class MarkdownParser {
       }
 
       const line = currentLine.trim();
-      
+
       if (line.startsWith('|') && line.endsWith('|')) {
         // Check if this is a separator row (|------|-----|)
         if (line.match(/^\|[\s\-:|]+\|$/)) {
@@ -511,46 +528,65 @@ export class MarkdownParser {
         }
 
         found = true;
-        const cells = line.split('|').slice(1, -1).map(cell => cell.trim());
-        
+        const cells = line
+          .split('|')
+          .slice(1, -1)
+          .map(cell => cell.trim());
+
         if (!inTable) {
           inTable = true;
-          headerRow = cells.map(cell => {
-            const processedCell = this.parseTableCell(cell, features);
-            return `    <th class="markdown-table-header">${processedCell}</th>`;
-          }).join('\n');
+          headerRow = cells
+            .map(cell => {
+              const processedCell = this.parseTableCell(cell, features);
+              return `    <th class="markdown-table-header">${processedCell}</th>`;
+            })
+            .join('\n');
           tableRows = [];
         } else {
-          const row = cells.map(cell => {
-            const processedCell = this.parseTableCell(cell, features);
-            return `    <td class="markdown-table-cell">${processedCell}</td>`;
-          }).join('\n');
+          const row = cells
+            .map(cell => {
+              const processedCell = this.parseTableCell(cell, features);
+              return `    <td class="markdown-table-cell">${processedCell}</td>`;
+            })
+            .join('\n');
           tableRows.push(`  <tr class="markdown-table-row">\n${row}\n  </tr>`);
         }
       } else {
         if (inTable) {
           // End of table - generate and protect it
           const tableHtml = this.generateTableHtml(headerRow, tableRows);
-          
+
           // Check for inner elements in the generated HTML
-          if (tableHtml.includes('class="markdown-inline-code"') && !innerElementsFound.includes('inline-code')) {
+          if (
+            tableHtml.includes('class="markdown-inline-code"') &&
+            !innerElementsFound.includes('inline-code')
+          ) {
             innerElementsFound.push('inline-code');
           }
-          if (tableHtml.includes('class="markdown-bold"') && !innerElementsFound.includes('emphasis')) {
+          if (
+            tableHtml.includes('class="markdown-bold"') &&
+            !innerElementsFound.includes('emphasis')
+          ) {
             innerElementsFound.push('emphasis');
           }
-          if (tableHtml.includes('class="markdown-italic"') && !innerElementsFound.includes('emphasis')) {
+          if (
+            tableHtml.includes('class="markdown-italic"') &&
+            !innerElementsFound.includes('emphasis')
+          ) {
             innerElementsFound.push('emphasis');
           }
-          if (tableHtml.includes('class="markdown-strikethrough"') && !innerElementsFound.includes('strikethrough')) {
+          if (
+            tableHtml.includes('class="markdown-strikethrough"') &&
+            !innerElementsFound.includes('strikethrough')
+          ) {
             innerElementsFound.push('strikethrough');
           }
-          
+
           const placeholder = `<!--MARKDOWN-TABLE-${protectedIndex}-->`;
           protectedElements.set(placeholder, tableHtml);
           result.push(placeholder);
           protectedIndex++;
-          
+
           inTable = false;
           headerRow = null;
           tableRows = [];
@@ -562,32 +598,41 @@ export class MarkdownParser {
     // Handle table at end of content
     if (inTable) {
       const tableHtml = this.generateTableHtml(headerRow, tableRows);
-      
+
       // Check for inner elements in the generated HTML
-      if (tableHtml.includes('class="markdown-inline-code"') && !innerElementsFound.includes('inline-code')) {
+      if (
+        tableHtml.includes('class="markdown-inline-code"') &&
+        !innerElementsFound.includes('inline-code')
+      ) {
         innerElementsFound.push('inline-code');
       }
       if (tableHtml.includes('class="markdown-bold"') && !innerElementsFound.includes('emphasis')) {
         innerElementsFound.push('emphasis');
       }
-      if (tableHtml.includes('class="markdown-italic"') && !innerElementsFound.includes('emphasis')) {
+      if (
+        tableHtml.includes('class="markdown-italic"') &&
+        !innerElementsFound.includes('emphasis')
+      ) {
         innerElementsFound.push('emphasis');
       }
-      if (tableHtml.includes('class="markdown-strikethrough"') && !innerElementsFound.includes('strikethrough')) {
+      if (
+        tableHtml.includes('class="markdown-strikethrough"') &&
+        !innerElementsFound.includes('strikethrough')
+      ) {
         innerElementsFound.push('strikethrough');
       }
-      
+
       const placeholder = `<!--MARKDOWN-TABLE-${protectedIndex}-->`;
       protectedElements.set(placeholder, tableHtml);
       result.push(placeholder);
       protectedIndex++;
     }
 
-    return { 
-      html: result.join('\n'), 
+    return {
+      html: result.join('\n'),
       found,
       nextIndex: protectedIndex,
-      innerElementsFound
+      innerElementsFound,
     };
   }
   private static parseTableCell(cellContent: string, features?: MarkdownFeatures): string {
@@ -600,7 +645,8 @@ export class MarkdownParser {
     // Extract and temporarily replace inline code (this protects the code content)
     content = content.replace(/`([^`]+)`/g, (_match, code) => {
       const placeholder = `<!--MARKDOWN-CODE-${codeIndex}-->`;
-      codeBlocks[codeIndex] = `<code class="markdown-inline-code">${MarkdownParser.escapeHtml(code)}</code>`;
+      codeBlocks[codeIndex] =
+        `<code class="markdown-inline-code">${MarkdownParser.escapeHtml(code)}</code>`;
       codeIndex++;
       return placeholder;
     });
@@ -610,10 +656,10 @@ export class MarkdownParser {
     if (!features || features.emphasis) {
       // Bold
       content = content.replace(/\*\*([^*]+)\*\*/g, '<strong class="markdown-bold">$1</strong>');
-      // Italic  
+      // Italic
       content = content.replace(/\*([^*]+)\*/g, '<em class="markdown-italic">$1</em>');
     }
-    
+
     if (!features || features.strikethrough) {
       content = content.replace(/~~([^~]+)~~/g, '<del class="markdown-strikethrough">$1</del>');
     }
@@ -631,12 +677,15 @@ export class MarkdownParser {
    */
   private static parseTaskLists(content: string): { html: string; found: boolean } {
     let found = false;
-    const html = content.replace(/^(\s*)-\s+\[([ x])\]\s+(.+)$/gm, (_match, indent, check, text) => {
-      found = true;
-      const checked = check === 'x';
-      const checkedClass = checked ? 'markdown-task-checked' : 'markdown-task-unchecked';
-      return `${indent}<div class="markdown-task-item ${checkedClass}"><input type="checkbox" class="markdown-task-checkbox" ${checked ? 'checked' : ''} disabled><span class="markdown-task-text">${text}</span></div>`;
-    });
+    const html = content.replace(
+      /^(\s*)-\s+\[([ x])\]\s+(.+)$/gm,
+      (_match, indent, check, text) => {
+        found = true;
+        const checked = check === 'x';
+        const checkedClass = checked ? 'markdown-task-checked' : 'markdown-task-unchecked';
+        return `${indent}<div class="markdown-task-item ${checkedClass}"><input type="checkbox" class="markdown-task-checkbox" ${checked ? 'checked' : ''} disabled><span class="markdown-task-text">${text}</span></div>`;
+      }
+    );
     return { html, found };
   }
 
@@ -686,9 +735,9 @@ export class MarkdownParser {
       '<': '&lt;',
       '>': '&gt;',
       '"': '&quot;',
-      "'": '&#39;'
+      "'": '&#39;',
     };
-    return text.replace(/[&<>"']/g, (char) => htmlEscapes[char] || char);
+    return text.replace(/[&<>"']/g, char => htmlEscapes[char] || char);
   }
 
   /**
@@ -698,9 +747,13 @@ export class MarkdownParser {
   private static convertCodeLineBreaksToBr(html: string): string {
     // Replace newlines ONLY inside code blocks within pre tags
     // We insert an empty span placeholder and render the symbol via CSS ::before
-    const codeBlockRegex = /(<pre\b[^>]*class="[^"]*\bmarkdown-code-block\b[^"]*"[^>]*>\s*<code[^>]*>)([\s\S]*?)(<\/code>\s*<\/pre>)/g;
+    const codeBlockRegex =
+      /(<pre\b[^>]*class="[^"]*\bmarkdown-code-block\b[^"]*"[^>]*>\s*<code[^>]*>)([\s\S]*?)(<\/code>\s*<\/pre>)/g;
     return html.replace(codeBlockRegex, (_m, startTag, codeContent, endTag) => {
-      let withBreaks = codeContent.replace(/\n/g, '<span class="cm-break-marker" aria-hidden="true"></span><br>');
+      let withBreaks = codeContent.replace(
+        /\n/g,
+        '<span class="cm-break-marker" aria-hidden="true"></span><br>'
+      );
       // Ensure end-of-line marker for the last line (when no trailing newline)
       if (!withBreaks.endsWith('<br>')) {
         withBreaks += '<span class="cm-break-marker cm-break-eol" aria-hidden="true"></span>';
@@ -720,7 +773,7 @@ export class MarkdownParser {
     return {
       compressionRatio: result.originalLength > 0 ? result.parsedLength / result.originalLength : 1,
       elementsCount: result.elementsFound.length,
-      hasMarkdown: result.elementsFound.length > 0
+      hasMarkdown: result.elementsFound.length > 0,
     };
   }
 }

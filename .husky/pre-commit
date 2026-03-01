@@ -1,0 +1,5 @@
+# Run lint-staged (ESLint + Prettier on staged files)
+npx lint-staged
+
+# TypeScript compile check (type errors catch)
+npm run compile --silent

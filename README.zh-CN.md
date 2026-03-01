@@ -11,16 +11,18 @@
 **将 VS Code 转换为专业提词器。** 非常适合编程直播、技术演示、教育视频和专业内容创作。具有即时主题切换、增强聚焦模式、自动滚屏控制和无干扰阅读体验。
 
 ![提词器演示](./images/demo.gif)
-### 2.8.0 有哪些改进？
 
-- 代码演示更清晰：在代码块中显示真实换行位置标记，并在最后一行显示行尾标记。观众可一眼看懂代码结构。默认开启，可在设置中调整。
-- 启动更干净：激活时除关闭侧边栏和底部面板外，也会自动关闭右侧 Chat 辅助栏，营造更纯净的演示画面。
+### 3.0.0 有哪些改进？
+
+- 演示模式（Presentation Mode）进入稳定发布阶段，多幻灯片流程与快捷键控制进一步完善。
+- 已完成所有支持语种的本地化同步（英文、中文、德文、法文、日文、韩文），包括运行时文案与 VS Code Marketplace 本地化键。
+- 继承 2.8.0 的改进：代码换行标记更清晰，激活流程更干净。
 
 ## 🎯 什么是 CueMode？
 
 CueMode 是下一代提词器扩展，可将您的 VS Code 编辑器转换为专业的提词器解决方案。现在具有**自动 UI 管理**、**即时主题循环**、**增强聚焦模式**、**扩展国际化支持**和**专业级功能**，专为开发者、教育工作者和内容创作者设计。
 
-**✨ 2.7 版本功能：**
+**✨ 功能亮点：**
 
 - **🎯 双击编辑定位** - **新功能！** 双击任意文本跳转到源文档精确位置进行编辑,自动选中文本并记忆位置
 - **🎯 自动 UI 管理** - 无干扰演示，自动隐藏侧边栏/面板并智能恢复
@@ -118,7 +120,7 @@ CueMode 为现代内容创作者提供专业的提词器功能：
 
 1. **准备脚本** - 创建或打开包含演示内容的文本文件
 2. **选择脚本文本**（可选 - 如果未选择，将使用整个文件）
-3. **激活提词器** - 使用 Ctrl+Shift+P（Mac 上 Cmd+Shift+P）并搜索"提词器模式"
+3. **激活提词器** - 按 `Ctrl+Alt+C`（Mac 上为 `Ctrl+Cmd+C`），或通过命令面板搜索"提词器模式"
 4. **开始阅读** - 按空格键开始自动滚动
 5. **演示时控制**：
    - **双击**：**新功能！** 双击任意文本跳转到源文档的精确位置进行编辑
@@ -242,7 +244,7 @@ CueMode 为现代内容创作者提供专业的提词器功能：
 
 我们欢迎贡献！请查看我们的[贡献指南](CONTRIBUTING.md)了解详情。
 
-开发设置请参考 [DEVELOPMENT.zh-CN.md](DEVELOPMENT.zh-CN.md)。
+开发设置请参考 [0号开发文档（中文）](project_docs/0-development.zh-CN.md)。
 
 ## 📝 许可证
 
@@ -256,7 +258,7 @@ CueMode 为现代内容创作者提供专业的提词器功能：
 
 - [贡献指南 (中文)](CONTRIBUTING.zh-CN.md)
 - [Contributing Guide (English)](CONTRIBUTING.md)
-- [开发指南 (中文)](DEVELOPMENT.zh-CN.md)
+- [开发指南 (中文)](project_docs/0-development.zh-CN.md)
 - [Development Guide (English)](DEVELOPMENT.md)
 
 ## 🔗 链接
@@ -265,7 +267,7 @@ CueMode 为现代内容创作者提供专业的提词器功能：
 - **GitHub 仓库**: [hddevteam/cuemode](https://github.com/hddevteam/cuemode)
 - **项目文档**: [GitHub Pages](https://hddevteam.github.io/cuemode/zh-cn.html)
 - **English Version**: [README.md](README.md)
-- **开发指南**: [DEVELOPMENT.zh-CN.md](DEVELOPMENT.zh-CN.md)
+- **开发指南**: [project_docs/0-development.zh-CN.md](project_docs/0-development.zh-CN.md)
 - **路线图**: [ROADMAP.zh-CN.md](ROADMAP.zh-CN.md)
 - **问题报告**: [GitHub Issues](https://github.com/hddevteam/cuemode/issues)
 

@@ -2,7 +2,7 @@
   "name": "cuemode",
   "displayName": "%cuemode.displayName%",
   "description": "%cuemode.description%",
-  "version": "2.8.0",
+  "version": "3.0.0",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -70,6 +70,10 @@
       {
         "command": "cuemode.decreaseFontSize",
         "title": "%cuemode.decreaseFontSize%"
+      },
+      {
+        "command": "cuemode.presentationMode",
+        "title": "%cuemode.presentationMode%"
       }
     ],
     "menus": {
@@ -77,14 +81,18 @@
         {
           "command": "cuemode.cueMode",
           "group": "navigation"
+        },
+        {
+          "command": "cuemode.presentationMode",
+          "group": "navigation"
         }
       ]
     },
     "keybindings": [
       {
         "command": "cuemode.cueMode",
-        "key": "ctrl+shift+p",
-        "mac": "cmd+shift+p",
+        "key": "ctrl+alt+c",
+        "mac": "ctrl+cmd+c",
         "when": "editorTextFocus"
       },
       {
@@ -127,6 +135,12 @@
         "command": "cuemode.decreaseFontSize",
         "key": "ctrl+shift+-",
         "mac": "cmd+shift+-",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "cuemode.presentationMode",
+        "key": "ctrl+alt+p",
+        "mac": "ctrl+cmd+p",
         "when": "editorTextFocus"
       }
     ],
@@ -309,7 +323,11 @@
     "test": "node ./out/test/runTest.js",
     "test:unit": "mocha out/test/suite/**/*.test.js",
     "test:integration": "node ./out/test/runTest.js",
-    "package": "npm run vscode:prepublish && vsce package"
+    "package": "npm run vscode:prepublish && vsce package",
+    "format": "prettier --write 'src/**/*.ts'",
+    "format:check": "prettier --check 'src/**/*.ts'",
+    "docs:check": "node scripts/docs-check.js",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
@@ -322,12 +340,24 @@
     "esbuild": "^0.25.6",
     "eslint": "^8.47.0",
     "glob": "^10.3.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.0",
     "mocha": "^10.2.0",
+    "prettier": "^3.8.1",
     "typescript": "^5.1.6"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/hddevteam/cuemode.git"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "i18next": "^25.3.2"

@@ -321,3 +321,213 @@ export function generateDebugCSS(): string {
 }
 `;
 }
+
+/**
+ * Generate CSS specific to Presentation Mode (slide-centered layout)
+ */
+export function generatePresentationCSS(): string {
+  return `
+/* ===== Presentation Mode ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+/* Slide container takes the full viewport */
+.pm-slide-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Each slide is vertically + horizontally centered */
+.pm-slide {
+  display: none;
+  position: absolute;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 80px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.pm-slide.active {
+  display: flex;
+  animation: pmFadeIn 0.25s ease;
+}
+
+@keyframes pmFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Slide inner content wrapper — constrains width and scrolls if truly overflow */
+.pm-slide-inner {
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: visible;
+  scrollbar-width: none;
+}
+
+.pm-slide-inner::-webkit-scrollbar {
+  display: none;
+}
+
+/* Single-slide (no ---) shows a bit bigger font */
+.pm-single .pm-slide-inner {
+  font-size: 1.15em;
+}
+
+/* Navigation bar at the bottom */
+.pm-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.35);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  transition: opacity 0.3s ease;
+}
+
+.pm-nav.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pm-nav-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: inherit;
+  padding: 4px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  opacity: 0.8;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.pm-nav-btn:hover {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.pm-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.pm-counter {
+  font-size: 13px;
+  opacity: 0.7;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Top control bar */
+.pm-controls {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 12px;
+  background: rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  transition: opacity 0.3s ease;
+}
+
+.pm-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pm-ctrl-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  opacity: 1;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.pm-ctrl-btn:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Help overlay */
+.pm-help {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 20, 20, 0.92);
+  color: #eee;
+  border-radius: 10px;
+  padding: 28px 36px;
+  z-index: 200;
+  min-width: 320px;
+  display: none;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.pm-help.visible {
+  display: block;
+}
+
+.pm-help h3 {
+  margin: 0 0 16px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.pm-help ul {
+  list-style: disc;
+  margin: 0;
+  padding: 0 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pm-help li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.pm-help kbd {
+  background: rgba(255,255,255,0.9);
+  color: #111;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: monospace;
+  font-size: 12px;
+  min-width: 60px;
+  text-align: center;
+}
+`;
+}

@@ -9,6 +9,7 @@
   "cuemode.adjustLineHeight": "行の高さを調整",
   "cuemode.increaseFontSize": "フォントサイズを拡大",
   "cuemode.decreaseFontSize": "フォントサイズを縮小",
+  "cuemode.presentationMode": "プレゼンテーションモード（スライド）",
   "cuemode.configureMarkdownFeatures": "Markdown機能を設定",
   "cuemode.description": "VS Codeをプロフェッショナルなテレプロンプターに変換します。プログラミング動画、チュートリアル、プレゼンテーションに最適。自動スクロール、カスタマイズ可能なテーマ、集中できる読書体験。",
   "cuemode.configuration.title": "テレプロンプターモード",
@@ -21,7 +22,19 @@
   "cuemode.configuration.startingPosition": "コンテンツの開始位置（画面の高さの百分率）",
   "cuemode.configuration.focusMode": "現在の読書エリアをハイライトするフォーカスモードを有効化",
   "cuemode.configuration.focusOpacity": "フォーカスモードでの非フォーカスコンテンツのブラー強度（0.1=軽いブラー、0.8=重いブラー）",
-  "cuemode.configuration.focusLineCount": "フォーカスモードでハイライトする行数"
-  ,
-  "cuemode.configuration.showLineBreaks": "コードブロック内の実際の改行位置にマーカーを表示（自動折り返し位置は対象外）"
+  "cuemode.configuration.focusLineCount": "フォーカスモードでハイライトする行数",
+  "cuemode.configuration.mirrorFlip": "動画制作でのテレプロンプター利用のために水平ミラー反転を有効化",
+  "cuemode.configuration.markdownMode": "整形テキスト表示のために選択的Markdown解析を有効化",
+  "cuemode.configuration.showLineBreaks": "コードブロック内の実際の改行位置にマーカーを表示（自動折り返し位置は対象外）",
+  "cuemode.configuration.markdownFeatures": "解析・表示するMarkdown機能を設定",
+  "cuemode.configuration.markdownFeatures.headers": "見出しを解析 (# ## ### など)",
+  "cuemode.configuration.markdownFeatures.emphasis": "太字 (**text**) と斜体 (*text*) を解析",
+  "cuemode.configuration.markdownFeatures.lists": "リストを解析 (- * + と番号付きリスト)",
+  "cuemode.configuration.markdownFeatures.links": "リンクを解析 [text](url)",
+  "cuemode.configuration.markdownFeatures.code": "コードブロック (```code```) とインラインコード (`code`) を解析",
+  "cuemode.configuration.markdownFeatures.blockquotes": "引用を解析 (> text)",
+  "cuemode.configuration.markdownFeatures.tables": "表を解析 (| 列1 | 列2 |)",
+  "cuemode.configuration.markdownFeatures.taskLists": "タスクリストを解析 (- [x] 完了, - [ ] 未完了)",
+  "cuemode.configuration.markdownFeatures.strikethrough": "取り消し線を解析 (~~text~~)",
+  "cuemode.configuration.markdownFeatures.horizontalRule": "水平線を解析 (---)"
 }

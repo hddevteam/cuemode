@@ -9,6 +9,7 @@
   "cuemode.adjustLineHeight": "Ajuster la hauteur de ligne",
   "cuemode.increaseFontSize": "Augmenter la taille de police",
   "cuemode.decreaseFontSize": "Diminuer la taille de police",
+  "cuemode.presentationMode": "Mode Présentation (Diapositives)",
   "cuemode.configureMarkdownFeatures": "Configurer les fonctions Markdown",
   "cuemode.description": "Transformez VS Code en télésouffleur professionnel pour les vidéos de programmation, tutoriels et présentations. Défilement automatique, thèmes personnalisables et lecture sans distraction.",
   "cuemode.configuration.title": "Mode Télésouffleur",
@@ -21,7 +22,19 @@
   "cuemode.configuration.startingPosition": "Position de départ du contenu en pourcentage de la hauteur d'écran",
   "cuemode.configuration.focusMode": "Activer le mode focus pour mettre en évidence la zone de lecture actuelle",
   "cuemode.configuration.focusOpacity": "Intensité du flou du contenu non focalisé en mode focus (0.1=flou léger, 0.8=flou intense)",
-  "cuemode.configuration.focusLineCount": "Nombre de lignes à mettre en évidence en mode focus"
-  ,
-  "cuemode.configuration.showLineBreaks": "Afficher des marqueurs visuels aux véritables retours à la ligne dans les blocs de code (pas aux retours automatiques)"
+  "cuemode.configuration.focusLineCount": "Nombre de lignes à mettre en évidence en mode focus",
+  "cuemode.configuration.mirrorFlip": "Activer le miroir horizontal pour une utilisation en production vidéo",
+  "cuemode.configuration.markdownMode": "Activer l'analyse sélective de Markdown pour un affichage formaté du texte",
+  "cuemode.configuration.showLineBreaks": "Afficher des marqueurs visuels aux véritables retours à la ligne dans les blocs de code (pas aux retours automatiques)",
+  "cuemode.configuration.markdownFeatures": "Configurer les fonctions Markdown à analyser et afficher",
+  "cuemode.configuration.markdownFeatures.headers": "Analyser les titres (# ## ### etc.)",
+  "cuemode.configuration.markdownFeatures.emphasis": "Analyser le gras (**texte**) et l'italique (*texte*)",
+  "cuemode.configuration.markdownFeatures.lists": "Analyser les listes (- * + et listes numérotées)",
+  "cuemode.configuration.markdownFeatures.links": "Analyser les liens [texte](url)",
+  "cuemode.configuration.markdownFeatures.code": "Analyser les blocs de code (```code```) et le code en ligne (`code`)",
+  "cuemode.configuration.markdownFeatures.blockquotes": "Analyser les citations (> texte)",
+  "cuemode.configuration.markdownFeatures.tables": "Analyser les tableaux (| col1 | col2 |)",
+  "cuemode.configuration.markdownFeatures.taskLists": "Analyser les listes de tâches (- [x] fait, - [ ] à faire)",
+  "cuemode.configuration.markdownFeatures.strikethrough": "Analyser le texte barré (~~texte~~)",
+  "cuemode.configuration.markdownFeatures.horizontalRule": "Analyser les lignes horizontales (---)"
 }

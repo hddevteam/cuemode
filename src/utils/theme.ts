@@ -1,4 +1,4 @@
-import { ColorTheme, ThemeConfig } from '../types';
+import type { ColorTheme, ThemeConfig } from '../types';
 
 /**
  * Theme manager for CueMode
@@ -9,44 +9,44 @@ export class ThemeManager {
       backgroundColor: '#000000',
       textColor: '#ffffff',
       accentColor: '#007acc',
-      borderColor: '#333333'
+      borderColor: '#333333',
     },
     inverted: {
       backgroundColor: '#ffffff',
       textColor: '#000000',
       accentColor: '#007acc',
-      borderColor: '#cccccc'
+      borderColor: '#cccccc',
     },
     midnightBlue: {
       backgroundColor: '#1e2a4a',
       textColor: '#e8f4f8',
       accentColor: '#4fc3f7',
-      borderColor: '#2d3a5a'
+      borderColor: '#2d3a5a',
     },
     sunset: {
       backgroundColor: '#2d1b2e',
       textColor: '#fff8dc',
       accentColor: '#ff8c00',
-      borderColor: '#4a2c3a'
+      borderColor: '#4a2c3a',
     },
     forest: {
       backgroundColor: '#1b2f1b',
       textColor: '#e8f5e8',
       accentColor: '#4caf50',
-      borderColor: '#2e4a2e'
+      borderColor: '#2e4a2e',
     },
     ocean: {
       backgroundColor: '#0d2b2e',
       textColor: '#e0f7fa',
       accentColor: '#26c6da',
-      borderColor: '#1e3a3e'
+      borderColor: '#1e3a3e',
     },
     rose: {
       backgroundColor: '#3d1a26',
       textColor: '#fce4ec',
       accentColor: '#e91e63',
-      borderColor: '#5a2735'
-    }
+      borderColor: '#5a2735',
+    },
   };
 
   /**
@@ -73,17 +73,23 @@ export class ThemeManager {
   /**
    * Generate CSS for theme
    */
-  public static generateCSS(theme: ColorTheme, fontSize: number, lineHeight: number, maxWidth: number, padding: number): string {
+  public static generateCSS(
+    theme: ColorTheme,
+    fontSize: number,
+    lineHeight: number,
+    maxWidth: number,
+    padding: number
+  ): string {
     const themeConfig = this.getTheme(theme);
-    
+
     return `
       :root {
         --bg-color: ${themeConfig.backgroundColor};
         --text-color: ${themeConfig.textColor};
         --accent-color: ${themeConfig.accentColor || '#007acc'};
         --border-color: ${themeConfig.borderColor || '#333333'};
-        --accent-color-alpha-50: ${this.hexToRgba(themeConfig.accentColor || '#007acc', 0.50)};
-        --accent-color-alpha-70: ${this.hexToRgba(themeConfig.accentColor || '#007acc', 0.70)};
+        --accent-color-alpha-50: ${this.hexToRgba(themeConfig.accentColor || '#007acc', 0.5)};
+        --accent-color-alpha-70: ${this.hexToRgba(themeConfig.accentColor || '#007acc', 0.7)};
         --font-size: ${fontSize}px;
         --line-height: ${lineHeight};
         --max-width: ${maxWidth}px;
@@ -736,11 +742,11 @@ export class ThemeManager {
       const r = parseInt(rgb.substr(0, 2), 16) / 255;
       const g = parseInt(rgb.substr(2, 2), 16) / 255;
       const b = parseInt(rgb.substr(4, 2), 16) / 255;
-      
+
       const sRGB = [r, g, b].map(c => {
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
       });
-      
+
       return 0.2126 * (sRGB[0] || 0) + 0.7152 * (sRGB[1] || 0) + 0.0722 * (sRGB[2] || 0);
     };
 
@@ -748,7 +754,7 @@ export class ThemeManager {
     const l2 = getLuminance(color2);
     const lighter = Math.max(l1, l2);
     const darker = Math.min(l1, l2);
-    
+
     return (lighter + 0.05) / (darker + 0.05);
   }
 
@@ -758,7 +764,7 @@ export class ThemeManager {
   public static validateThemeAccessibility(theme: ColorTheme): boolean {
     const themeConfig = this.getTheme(theme);
     const contrastRatio = this.getContrastRatio(themeConfig.backgroundColor, themeConfig.textColor);
-    
+
     // WCAG AA standard requires at least 4.5:1 contrast ratio for normal text
     return contrastRatio >= 4.5;
   }

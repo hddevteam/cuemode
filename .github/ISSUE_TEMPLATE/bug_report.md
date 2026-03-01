@@ -32,7 +32,7 @@ If applicable, add screenshots to help explain your problem.
 
 - **OS**: [e.g. Windows 10, macOS 12.0, Ubuntu 20.04]
 - **VS Code Version**: [e.g. 1.82.0]
-- **CueMode Version**: [e.g. 2.1.0]
+- **CueMode Version**: [e.g. 3.0.0]
 
 ## ⚙️ CueMode Settings
 

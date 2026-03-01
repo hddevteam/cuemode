@@ -23,7 +23,7 @@ export interface CueModeConfig {
 /**
  * Available color themes
  */
-export type ColorTheme = 
+export type ColorTheme =
   | 'classic'
   | 'inverted'
   | 'midnightBlue'
@@ -62,7 +62,21 @@ export interface ThemeConfig {
  * Webview message types
  */
 export interface WebviewMessage {
-  type: 'updateContent' | 'updateConfig' | 'scroll' | 'close' | 'changeTheme' | 'cycleTheme' | 'toggleFocus' | 'toggleMirror' | 'toggleMarkdown' | 'configureMarkdown' | 'adjustLineHeight' | 'increaseFontSize' | 'decreaseFontSize' | 'openEditor';
+  type:
+    | 'updateContent'
+    | 'updateConfig'
+    | 'scroll'
+    | 'close'
+    | 'changeTheme'
+    | 'cycleTheme'
+    | 'toggleFocus'
+    | 'toggleMirror'
+    | 'toggleMarkdown'
+    | 'configureMarkdown'
+    | 'adjustLineHeight'
+    | 'increaseFontSize'
+    | 'decreaseFontSize'
+    | 'openEditor';
   data?: {
     scrollTop?: number;
     scrollHeight?: number;
@@ -90,6 +104,8 @@ export interface CueModeState {
   filename: string;
   sourceDocument?: vscode.TextDocument | undefined;
   savedScrollPosition?: number | undefined;
+  isPresentationMode?: boolean;
+  slides?: string[];
 }
 
 /**
@@ -111,7 +127,10 @@ export interface ExtensionContext {
  * Error types
  */
 export class CueModeError extends Error {
-  constructor(message: string, public code?: string) {
+  constructor(
+    message: string,
+    public code?: string
+  ) {
     super(message);
     this.name = 'CueModeError';
   }

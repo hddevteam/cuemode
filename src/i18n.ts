@@ -33,27 +33,27 @@ export class I18nManager {
       lng: this.currentLanguage,
       fallbackLng: 'en',
       debug: false, // Set to true for debugging
-      
+
       // Resources will be loaded dynamically
       resources: {
         en: {
-          translation: await this.loadTranslationResource('en')
+          translation: await this.loadTranslationResource('en'),
         },
         'zh-CN': {
-          translation: await this.loadTranslationResource('zh-CN')
+          translation: await this.loadTranslationResource('zh-CN'),
         },
         ja: {
-          translation: await this.loadTranslationResource('ja')
+          translation: await this.loadTranslationResource('ja'),
         },
         ko: {
-          translation: await this.loadTranslationResource('ko')
+          translation: await this.loadTranslationResource('ko'),
         },
         fr: {
-          translation: await this.loadTranslationResource('fr')
+          translation: await this.loadTranslationResource('fr'),
         },
         de: {
-          translation: await this.loadTranslationResource('de')
-        }
+          translation: await this.loadTranslationResource('de'),
+        },
       },
 
       interpolation: {
@@ -63,7 +63,7 @@ export class I18nManager {
           if (format === 'uppercase') return value.toString().toUpperCase();
           if (format === 'lowercase') return value.toString().toLowerCase();
           return value.toString();
-        }
+        },
       },
 
       // Support for pluralization
@@ -87,7 +87,7 @@ export class I18nManager {
       missingKeyHandler: (lng, _ns, key, fallbackValue) => {
         console.warn(`[i18n] Missing translation for key: ${key} in language: ${lng}`);
         return fallbackValue || key;
-      }
+      },
     });
   }
 
@@ -213,7 +213,10 @@ export class I18nManager {
           return require('./locales/en.json');
       }
     } catch (error) {
-      console.warn(`[i18n] Failed to load translations for ${language}, falling back to English:`, error);
+      console.warn(
+        `[i18n] Failed to load translations for ${language}, falling back to English:`,
+        error
+      );
       return require('./locales/en.json');
     }
   }
@@ -228,7 +231,7 @@ export class I18nManager {
       { code: 'ja', name: 'Japanese', nativeName: '日本語' },
       { code: 'ko', name: 'Korean', nativeName: '한국어' },
       { code: 'fr', name: 'French', nativeName: 'Français' },
-      { code: 'de', name: 'German', nativeName: 'Deutsch' }
+      { code: 'de', name: 'German', nativeName: 'Deutsch' },
     ];
   }
 

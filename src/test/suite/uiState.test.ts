@@ -20,7 +20,7 @@ suite('UIStateManager Test Suite', () => {
   test('hasSavedState should return false after restore', async () => {
     await uiStateManager.hideUI();
     assert.strictEqual(uiStateManager.hasSavedState(), true);
-    
+
     await uiStateManager.restore();
     assert.strictEqual(uiStateManager.hasSavedState(), false);
   });
@@ -28,7 +28,7 @@ suite('UIStateManager Test Suite', () => {
   test('hasSavedState should return false after clearState', async () => {
     await uiStateManager.hideUI();
     assert.strictEqual(uiStateManager.hasSavedState(), true);
-    
+
     uiStateManager.clearState();
     assert.strictEqual(uiStateManager.hasSavedState(), false);
   });
@@ -42,10 +42,10 @@ suite('UIStateManager Test Suite', () => {
   test('hideUI should mark UI as modified', async () => {
     // Check that state is not saved initially
     assert.strictEqual(uiStateManager.hasSavedState(), false);
-    
+
     // Hide UI
     await uiStateManager.hideUI();
-    
+
     // Check that state is saved
     assert.strictEqual(uiStateManager.hasSavedState(), true);
   });
@@ -53,10 +53,10 @@ suite('UIStateManager Test Suite', () => {
   test('multiple hideUI calls should work correctly', async () => {
     await uiStateManager.hideUI();
     assert.strictEqual(uiStateManager.hasSavedState(), true);
-    
+
     await uiStateManager.restore();
     assert.strictEqual(uiStateManager.hasSavedState(), false);
-    
+
     await uiStateManager.hideUI();
     assert.strictEqual(uiStateManager.hasSavedState(), true);
   });

@@ -23,7 +23,7 @@ export class UIStateManager {
     try {
       // Mark that we're modifying UI
       this.savedState = {
-        uiWasModified: true
+        uiWasModified: true,
       };
 
       // Close sidebar - this will close any visible sidebar
@@ -42,7 +42,6 @@ export class UIStateManager {
 
       // Small delay to ensure UI updates complete
       await new Promise(resolve => setTimeout(resolve, 100));
-
     } catch (error) {
       console.error('Failed to hide UI elements:', error);
       // Don't throw error - CueMode should still work even if UI optimization fails
@@ -62,7 +61,7 @@ export class UIStateManager {
       // Note: VS Code doesn't provide reliable APIs to detect if sidebar/panel were open
       // The best we can do is toggle them back if they might have been visible
       // Users can manually adjust if needed
-      
+
       // Try to restore sidebar by focusing on it (this will open it if closed)
       // Only do this if we modified the UI
       if (this.savedState.uiWasModified) {
@@ -79,7 +78,6 @@ export class UIStateManager {
 
       // Clear saved state
       this.savedState = null;
-
     } catch (error) {
       console.error('Failed to restore UI state:', error);
       // Don't throw error - just log it

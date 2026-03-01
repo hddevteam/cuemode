@@ -9,6 +9,7 @@
   "cuemode.adjustLineHeight": "줄 높이 조정",
   "cuemode.increaseFontSize": "글꼴 크기 증가",
   "cuemode.decreaseFontSize": "글꼴 크기 감소",
+  "cuemode.presentationMode": "프레젠테이션 모드(슬라이드)",
   "cuemode.configureMarkdownFeatures": "Markdown 기능 구성",
   "cuemode.description": "VS Code를 프로페셔널 텔레프롬프터로 변환합니다. 코딩 비디오, 튜토리얼, 프레젠테이션에 완벽합니다. 자동 스크롤, 사용자 정의 테마, 집중력 있는 읽기 경험.",
   "cuemode.configuration.title": "텔레프롬프터 모드",
@@ -21,7 +22,19 @@
   "cuemode.configuration.startingPosition": "콘텐츠의 시작 위치(화면 높이의 백분율)",
   "cuemode.configuration.focusMode": "현재 읽기 영역을 강조하는 포커스 모드 활성화",
   "cuemode.configuration.focusOpacity": "포커스 모드에서 비포커스 콘텐츠의 흐림 강도(0.1=가벼운 흐림, 0.8=강한 흐림)",
-  "cuemode.configuration.focusLineCount": "포커스 모드에서 강조할 줄 수"
-  ,
-  "cuemode.configuration.showLineBreaks": "코드 블록의 실제 줄바꿈 위치에 시각적 마커 표시(자동 줄바꿈 위치 제외)"
+  "cuemode.configuration.focusLineCount": "포커스 모드에서 강조할 줄 수",
+  "cuemode.configuration.mirrorFlip": "비디오 제작용 텔레프롬프터 사용을 위해 가로 미러 반전 활성화",
+  "cuemode.configuration.markdownMode": "서식 있는 텍스트 표시를 위한 선택적 Markdown 파싱 활성화",
+  "cuemode.configuration.showLineBreaks": "코드 블록의 실제 줄바꿈 위치에 시각적 마커 표시(자동 줄바꿈 위치 제외)",
+  "cuemode.configuration.markdownFeatures": "파싱하고 표시할 Markdown 기능 구성",
+  "cuemode.configuration.markdownFeatures.headers": "헤더 파싱 (# ## ### 등)",
+  "cuemode.configuration.markdownFeatures.emphasis": "굵게(**text**) 및 기울임(*text*) 파싱",
+  "cuemode.configuration.markdownFeatures.lists": "목록 파싱 (- * + 및 번호 목록)",
+  "cuemode.configuration.markdownFeatures.links": "링크 파싱 [text](url)",
+  "cuemode.configuration.markdownFeatures.code": "코드 블록(```code```) 및 인라인 코드(`code`) 파싱",
+  "cuemode.configuration.markdownFeatures.blockquotes": "인용문 파싱 (> text)",
+  "cuemode.configuration.markdownFeatures.tables": "표 파싱 (| 열1 | 열2 |)",
+  "cuemode.configuration.markdownFeatures.taskLists": "작업 목록 파싱 (- [x] 완료, - [ ] 할 일)",
+  "cuemode.configuration.markdownFeatures.strikethrough": "취소선 텍스트 파싱 (~~text~~)",
+  "cuemode.configuration.markdownFeatures.horizontalRule": "수평선 파싱 (---)"
 }

@@ -1,4 +1,3 @@
-````markdown
 # Mirror Flip Feature Development Plan
 
 ## 📋 Overview
@@ -408,4 +407,3 @@ interface MirrorFlipState {
 **Priority**: High (User-requested feature)  
 **Complexity**: Medium (UI enhancement with configuration)  
 **Risk Level**: Low (Non-breaking additive feature)
-````

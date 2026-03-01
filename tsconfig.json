@@ -22,13 +22,9 @@
     "noUnusedParameters": true,
     "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "types": ["mocha"]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "out"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "out"]
 }

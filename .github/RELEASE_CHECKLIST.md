@@ -5,21 +5,24 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Pre-Release Preparation
 
 ### 🔍 Code Quality & Testing
+
 - [ ] All TypeScript compilation errors resolved (`npm run compile`)
 - [ ] All linting issues fixed (`npm run lint`)
-- [ ] All tests passing (`npm test`) - 134/134 tests passing
+- [ ] All tests passing (`npm test`) - latest test suite green
 - [ ] Test coverage maintained at 80%+
 - [ ] Integration tests for new features completed
 
 ### 📦 Version Management
-- [ ] Latest code pulled from remote repository (`git pull origin main`)
+
+- [ ] Latest code pulled from remote repository (`git pull origin develop`)
 - [ ] All merged PRs and contributions are included
-- [ ] Version number updated in `package.json` - v2.3.0
+- [ ] Version number updated in `package.json` - v3.0.0
 - [ ] Version number updated in `docs/index.html` JSON-LD schema
 - [ ] Version consistency across all documentation files
 - [ ] Git working directory is clean (`git status`) - **After commit**
 
 ### 🌐 Internationalization (i18n)
+
 - [ ] All hardcoded strings replaced with i18n keys
 - [ ] Translation files updated for all 6 languages:
   - [ ] `src/locales/en.json` (English)
@@ -33,6 +36,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] Dynamic language switching functionality verified
 
 ### 📝 Documentation Updates
+
 - [ ] `CHANGELOG.md` updated with new version entry
 - [ ] `CHANGELOG.zh-CN.md` synchronized with English version
 - [ ] Version history summary table updated in both languages
@@ -50,6 +54,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Build & Package Optimization
 
 ### ⚡ Performance Optimization
+
 - [ ] Package size optimized (`npm run package`)
 - [ ] `.vscodeignore` updated to exclude unnecessary files:
   - [ ] Demo files (e.g., `demo.gif`)
@@ -61,6 +66,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] Memory usage profiled and optimized
 
 ### 📦 Package Creation
+
 - [ ] VSIX package created successfully
 - [ ] Package size is reasonable (target: <1MB for CueMode)
 - [ ] Package contents verified:
@@ -72,6 +78,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Feature Validation
 
 ### 🎯 Core Features Testing
+
 - [ ] Teleprompter mode activation/deactivation
 - [ ] Auto-scroll functionality (Space key)
 - [ ] Speed controls (+/- keys)
@@ -80,11 +87,12 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] Focus mode toggle (F key)
 - [ ] Help dialog display (H key)
 - [ ] Exit functionality (Esc key)
-- [ ] Mirror flip toggle (M key) - New in v2.2.0
-- [ ] Markdown parsing toggle (D key) - New in v2.3.0
-- [ ] Line height adjustment (L key) - New in v2.3.0
+- [ ] Mirror flip toggle (M key)
+- [ ] Markdown parsing toggle (D key)
+- [ ] Line height adjustment (L key)
 
 ### 🎨 UI/UX Testing
+
 - [ ] All 7 color themes working correctly
 - [ ] Help dialog layout optimized (no text ellipsis)
 - [ ] Responsive design on different screen sizes
@@ -96,6 +104,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] Line height adjustment feedback working
 
 ### 🌐 Internationalization Testing
+
 - [ ] Language auto-detection from VS Code environment
 - [ ] Manual language switching functionality
 - [ ] All UI elements translated in each language
@@ -106,13 +115,15 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Release Execution
 
 ### 📋 Git Management
+
 - [ ] All changes committed with descriptive messages
 - [ ] Version tag created (`git tag -a v{version}`)
 - [ ] Tag includes comprehensive release notes
-- [ ] Code pushed to remote repository (`git push origin main`)
+- [ ] Code pushed to remote repository (`git push origin develop`)
 - [ ] Tags pushed to remote repository (`git push origin --tags`)
 
 ### 🚀 VS Code Marketplace
+
 - [ ] Extension published to marketplace (`vsce publish`)
 - [ ] Publication successful (check marketplace URL)
 - [ ] Extension description and metadata accurate
@@ -120,6 +131,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] Marketplace listing reflects new features
 
 ### 🌟 GitHub Release
+
 - [ ] GitHub Release created (`gh release create`)
 - [ ] Release notes comprehensive and well-formatted
 - [ ] VSIX file attached to release
@@ -134,6 +146,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Post-Release Verification
 
 ### 🔍 Quality Assurance
+
 - [ ] Extension installs correctly from marketplace
 - [ ] All features work in fresh VS Code installation
 - [ ] No console errors or warnings
@@ -141,6 +154,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] User-reported issues addressed promptly
 
 ### 📖 Documentation Sync
+
 - [ ] GitHub Pages updated (`docs/index.html`)
 - [ ] Chinese documentation updated (`docs/zh-cn.html`)
 - [ ] Version badges updated on both pages
@@ -151,6 +165,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [x] GitHub repository topics/tags updated to reflect new capabilities
 
 ### 📊 Monitoring & Analytics
+
 - [ ] Download statistics monitored
 - [ ] User feedback and reviews monitored
 - [ ] Error reporting systems checked
@@ -160,6 +175,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Rollback Plan
 
 ### 🚨 Emergency Procedures
+
 - [ ] Rollback procedure documented
 - [ ] Previous version VSIX file preserved
 - [ ] Marketplace rollback process understood
@@ -169,6 +185,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Release Communication
 
 ### 📢 Announcement Channels
+
 - [ ] Release announcement prepared
 - [ ] Social media posts scheduled (if applicable)
 - [ ] Community notifications sent
@@ -180,6 +197,7 @@ This checklist ensures a comprehensive and successful release process for CueMod
 ## Checklist Usage Notes
 
 ### For AI Agents:
+
 - Use this checklist as a comprehensive guide for release validation
 - Verify each item before proceeding to the next section
 - Document any deviations or issues encountered
@@ -187,18 +205,20 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - Pay special attention to internationalization completeness
 
 ### For Human Reviewers:
+
 - Review checklist completion before final release approval
 - Spot-check critical items manually
 - Validate that all automated checks passed
 - Ensure user experience remains consistent across languages
 
 ### Version-Specific Notes:
+
 - Update this checklist as new features are added
 - Maintain checklist version history for future reference
 - Adapt checklist items based on lessons learned from each release
 
 ---
 
-**Last Updated**: 2025-08-07 for CueMode v2.3.0  
+**Last Updated**: 2026-03-01 for CueMode v3.0.0  
 **Checklist Version**: 1.2  
-**Applicable From**: CueMode v2.3.0+
+**Applicable From**: CueMode v3.0.0+

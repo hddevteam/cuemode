@@ -13,7 +13,7 @@ export function run(): Promise<void> {
     ui: 'tdd',
     color: true,
     timeout: 10000,
-    reporter: 'spec'
+    reporter: 'spec',
   });
 
   const testsRoot = path.resolve(__dirname, '..');
@@ -21,9 +21,9 @@ export function run(): Promise<void> {
   return new Promise((resolve, reject) => {
     // Find all test files
     glob('**/**.test.js', { cwd: testsRoot })
-      .then((testFiles) => {
+      .then(testFiles => {
         // Add files to the test suite
-        testFiles.forEach((file) => {
+        testFiles.forEach(file => {
           mocha.addFile(path.resolve(testsRoot, file));
         });
 

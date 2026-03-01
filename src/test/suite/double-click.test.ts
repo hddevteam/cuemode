@@ -26,7 +26,7 @@ More text at the end.`;
     // Create temporary document
     testDocument = await vscode.workspace.openTextDocument({
       content: testContent,
-      language: 'markdown'
+      language: 'markdown',
     });
 
     await vscode.window.showTextDocument(testDocument);
@@ -39,14 +39,17 @@ More text at the end.`;
 
   test('openEditorAtLine command should be registered', async () => {
     const commands = await vscode.commands.getCommands();
-    assert.ok(commands.includes('cuemode.openEditorAtLine'), 'openEditorAtLine command should be registered');
+    assert.ok(
+      commands.includes('cuemode.openEditorAtLine'),
+      'openEditorAtLine command should be registered'
+    );
   });
 
   test('openEditorAtLine should navigate to correct line', async () => {
     await vscode.commands.executeCommand('cuemode.openEditorAtLine', {
       uri: testDocument.uri.toString(),
       line: 2,
-      contextText: 'This is a **test** document'
+      contextText: 'This is a **test** document',
     });
 
     // Wait a bit for the command to execute
@@ -54,7 +57,11 @@ More text at the end.`;
 
     const activeEditor = vscode.window.activeTextEditor;
     assert.ok(activeEditor, 'Should have active editor');
-    assert.strictEqual(activeEditor?.document.uri.toString(), testDocument.uri.toString(), 'Should be the test document');
+    assert.strictEqual(
+      activeEditor?.document.uri.toString(),
+      testDocument.uri.toString(),
+      'Should be the test document'
+    );
   });
 
   test('openEditorAtLine should handle character-level positioning with clickedText', async () => {
@@ -64,14 +71,14 @@ More text at the end.`;
       contextText: 'This is a **test** document',
       clickedText: 'test',
       beforeText: 'This is a **',
-      afterText: '** document'
+      afterText: '** document',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));
 
     const activeEditor = vscode.window.activeTextEditor;
     assert.ok(activeEditor, 'Should have active editor');
-    
+
     // The selection should include the clicked text
     const selection = activeEditor?.selection;
     assert.ok(selection, 'Should have a selection');
@@ -81,7 +88,7 @@ More text at the end.`;
     const chineseContent = '这是一个测试文档\n\n双击编辑功能测试\n\n更多中文内容';
     const chineseDoc = await vscode.workspace.openTextDocument({
       content: chineseContent,
-      language: 'markdown'
+      language: 'markdown',
     });
 
     await vscode.window.showTextDocument(chineseDoc);
@@ -92,14 +99,18 @@ More text at the end.`;
       contextText: '双击编辑功能测试',
       clickedText: '编辑',
       beforeText: '双击',
-      afterText: '功能测试'
+      afterText: '功能测试',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));
 
     const activeEditor = vscode.window.activeTextEditor;
     assert.ok(activeEditor, 'Should have active editor');
-    assert.strictEqual(activeEditor?.document.uri.toString(), chineseDoc.uri.toString(), 'Should be the Chinese document');
+    assert.strictEqual(
+      activeEditor?.document.uri.toString(),
+      chineseDoc.uri.toString(),
+      'Should be the Chinese document'
+    );
 
     await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
   });
@@ -108,7 +119,7 @@ More text at the end.`;
     await vscode.commands.executeCommand('cuemode.openEditorAtLine', {
       uri: testDocument.uri.toString(),
       line: 5,
-      contextText: 'Some content here'
+      contextText: 'Some content here',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -121,7 +132,7 @@ More text at the end.`;
     await vscode.commands.executeCommand('cuemode.openEditorAtLine', {
       uri: testDocument.uri.toString(),
       line: 9999,
-      contextText: 'nonexistent'
+      contextText: 'nonexistent',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -135,7 +146,7 @@ More text at the end.`;
       await vscode.commands.executeCommand('cuemode.openEditorAtLine', {
         uri: 'invalid://uri',
         line: 0,
-        contextText: 'test'
+        contextText: 'test',
       });
       // Should not throw
       assert.ok(true, 'Should handle invalid URI gracefully');
@@ -153,14 +164,14 @@ More text at the end.`;
       contextText: 'This is a **test** document for double-click functionality.',
       clickedText: 'double-click',
       beforeText: 'document for ',
-      afterText: ' functionality'
+      afterText: ' functionality',
     });
 
     await new Promise(resolve => setTimeout(resolve, 150));
 
     const activeEditor = vscode.window.activeTextEditor;
     assert.ok(activeEditor, 'Should have active editor');
-    
+
     const selection = activeEditor?.selection;
     if (selection && !selection.isEmpty) {
       const selectedText = activeEditor?.document.getText(selection);
@@ -176,7 +187,7 @@ More text at the end.`;
       contextText: 'const x = 42;',
       clickedText: 'const',
       beforeText: '',
-      afterText: ' x = 42;'
+      afterText: ' x = 42;',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -192,7 +203,7 @@ More text at the end.`;
       contextText: '- List item 1',
       clickedText: 'List',
       beforeText: '- ',
-      afterText: ' item 1'
+      afterText: ' item 1',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -208,7 +219,7 @@ More text at the end.`;
       contextText: 'This is a test',
       clickedText: '',
       beforeText: 'This is',
-      afterText: 'a test'
+      afterText: 'a test',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -221,7 +232,7 @@ More text at the end.`;
     const specialContent = 'Test with **bold** and `code` and [link](url)';
     const specialDoc = await vscode.workspace.openTextDocument({
       content: specialContent,
-      language: 'markdown'
+      language: 'markdown',
     });
 
     await vscode.window.showTextDocument(specialDoc);
@@ -232,7 +243,7 @@ More text at the end.`;
       contextText: specialContent,
       clickedText: 'bold',
       beforeText: 'with **',
-      afterText: '** and'
+      afterText: '** and',
     });
 
     await new Promise(resolve => setTimeout(resolve, 100));

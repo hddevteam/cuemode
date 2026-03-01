@@ -10,14 +10,18 @@
     "configureMarkdownFeatures": "配置Markdown功能",
     "adjustLineHeight": "调整行间距",
     "increaseFontSize": "增大字体",
-    "decreaseFontSize": "减小字体"
+    "decreaseFontSize": "减小字体",
+    "presentationMode": "演示模式（幻灯片）"
   },
   "notifications": {
     "activated": "提词器模式已激活",
+    "presentationActivated": "演示模式已激活（共 {{count}} 张幻灯片）",
+    "presentationActivated_plural": "演示模式已激活（共 {{count}} 张幻灯片）",
     "deactivated": "提词器模式已关闭",
     "configUpdated": "提词器模式配置已更新",
     "themeChanged": "主题已切换为 {{theme}}",
     "spacesRemoved": "已从 {{count}} 行中移除行首空格",
+    "spacesRemoved_plural": "已从 {{count}} 行中移除行首空格",
     "error": "提词器模式错误：{{message}}",
     "focusModeEnabled": "聚焦模式已启用",
     "focusModeDisabled": "聚焦模式已禁用",
@@ -118,9 +122,30 @@
       "changeTheme": "切换主题",
       "removeSpaces": "移除行首空格",
       "toggleFocus": "切换聚焦模式",
-      "toggleMirror": "切换镜像反转",
-      "toggleMarkdown": "切换Markdown模式"
+      "toggleMirror": "切换镜像反转"
     }
+  },
+  "presentation": {
+    "title": "演示模式 - {{filename}}",
+    "slideCounter": "{{current}} / {{total}}",
+    "prev": "上一张",
+    "next": "下一张",
+    "close": "关闭",
+    "help": "帮助",
+    "helpTitle": "演示模式快捷键",
+    "shortcutLeft": "上一张幻灯片",
+    "shortcutRight": "下一张幻灯片",
+    "shortcutT": "切换主题",
+    "shortcutH": "显示/隐藏帮助",
+    "shortcutL": "调整行间距",
+    "shortcutBracketL": "减小字体",
+    "shortcutBracketR": "增大字体",
+    "shortcutEsc": "退出演示模式",
+    "noContent": "没有内容可以展示",
+    "separatorHint": "提示：在新行单独输入 --- 可将内容分为多张幻灯片",
+    "separatorLabel": "分页符",
+    "separatorValue": "--- （单独一行的水平分隔线）",
+    "singleSlideHint": "提示：在新行单独输入 --- 可创建多张幻灯片"
   },
   "accessibility": {
     "scrollIndicator": "自动滚屏：{{status}}",

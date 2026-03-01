@@ -5,6 +5,25 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-03-01 - Presentation Mode Release & Full i18n Sync
+
+### ✨ Release Highlights
+
+- **Presentation mode release-ready**: multi-slide workflow and controls finalized for production usage.
+- **Full multilingual synchronization**: runtime locale files (`src/locales/*`) and marketplace localization files (`package.nls*`) are now fully aligned across all 6 supported languages.
+- **Release documentation refresh**: README, changelog, GitHub Pages, and release templates updated for 3.0.0.
+
+### 🌐 Internationalization
+
+- Completed missing key coverage for German, French, Japanese, and Korean locale resources.
+- Aligned Chinese locale keyset with English baseline (including plural keys and shortcut key consistency).
+- Verified key parity: 0 missing / 0 extra across all supported locale files.
+
+### 📚 Docs & Release Ops
+
+- Updated version references to `3.0.0` in package metadata and documentation surfaces.
+- Updated release checklist and issue template examples to reflect current release flow.
+
 ## [2.8.0] - 2025-11-04 - Clearer Code Demos & Cleaner Start
 
 ### ✨ New Features
@@ -162,7 +181,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🎨 New Features
 
 - **Differentiated Header Sizes**: Professional visual hierarchy for markdown headers
-
   - **H1**: 2.0x base font size - Largest header with bottom border
   - **H2**: 1.7x base font size - Secondary header with bottom border
   - **H3**: 1.4x base font size - Medium-large header
@@ -194,7 +212,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 📚 Documentation
 
-- **Feature Documentation**: Comprehensive guide at `.github/development/HEADER_SIZES_AND_COMMENTS_FEATURE.md`
+- **Feature Documentation**: Comprehensive guide at `project_docs/4-header-sizes-and-comments-feature.md`
 - **Usage Guide**: Best practices for speaker notes and presentation cues
 - **Technical Details**: Implementation guide with code examples
 - **Future Enhancements**: Roadmap for comment-related features
@@ -204,7 +222,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 📝 New Features
 
 - **Selective Markdown Parsing**: Revolutionary markdown processing for professional presentations
-
   - **Intelligent parsing** - Transform markdown content into beautifully formatted, teleprompter-optimized text
   - **D key toggle** - Instant switching between raw and parsed markdown in webview
   - **VS Code command** - `Ctrl+Shift+D` (Cmd+Shift+D on macOS) to toggle from anywhere
@@ -337,7 +354,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Type Safety**: Improved type safety for translation keys and parameters
 
 - **Six New Languages Added**: Complete localization support for:
-
   - 🇺🇸 **English (en)** - Native language with complete feature set
   - 🇨� **Chinese Simplified (zh-CN)** - 简体中文完整本地化
   - �🇩🇪 **German (de)** - Deutsche Übersetzung für professionelle Nutzung
@@ -353,7 +369,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🔧 Architecture Improvements
 
 - **🌐 Advanced Internationalization Framework**:
-
   - Migrated from TypeScript files to JSON-based translation system
   - Implemented centralized `src/i18n.ts` manager with i18next integration
   - Added `src/locales/` directory with 6 complete language files
@@ -394,7 +409,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🧪 Quality Assurance
 
 - **🌐 Comprehensive Multilingual Testing**:
-
   - Automated test suite covering all 6 supported languages
   - Translation key consistency validation across all locales
   - Cultural adaptation and character encoding verification
@@ -411,7 +425,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🛠️ Technical Improvements
 
 - **🌐 Multilingual Build System**:
-
   - Automatic copying of JSON translation files during compilation
   - Build validation for translation file integrity
   - Optimized resource bundling for all language assets
@@ -578,6 +591,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Release Date | Key Features                                                                                                                 |
 | ------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| 3.0.0   | 2026-03-01   | **Presentation Mode Release & Full i18n Sync** - release-ready slides flow, all locales synchronized, docs/Pages refreshed   |
 | 2.2.0   | 2025-07-15   | **Mirror Flip & Professional Teleprompter Support** - M-key toggle, horizontal mirroring, status indicators, UI optimization |
 | 2.1.0   | 2025-07-14   | **Focus Mode & i18n System Reconstruction** - F-key toggle, 6-language support, i18next integration, enhanced testing        |
 | 2.0.0   | 2025-07-12   | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests                                            |

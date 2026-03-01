@@ -1,0 +1,14 @@
+# Run integration tests before push (requires VS Code extension host / display)
+# Skip with: git push --no-verify
+echo "Running integration tests (requires display)..."
+if command -v xvfb-run &> /dev/null; then
+  xvfb-run npm test
+else
+  npm test || {
+    echo ""
+    echo "⚠ Integration tests failed or could not run (no display)."
+    echo "  Run manually: npm test"
+    echo "  Skip with:    git push --no-verify"
+    exit 1
+  }
+fi

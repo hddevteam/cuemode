@@ -12,16 +12,17 @@
 
 ![Teleprompter Demo](./images/demo.gif)
 
-### What's new in 2.8.0
+### What's new in 3.0.0
 
-- Clearer code demos: Real line break markers now appear inside code blocks, including an end-of-line marker for the last line. Audiences can follow code structure at a glance. Enabled by default and configurable in Settings.
-- Cleaner start: On activation, CueMode also closes the right-side Chat panel in addition to the sidebar and bottom panel for a truly distraction-free screen.
+- Presentation mode matured for production use with complete multi-slide workflow and polished keyboard controls.
+- Full localization synchronization completed across all supported languages (English, Chinese, German, French, Japanese, Korean), including runtime locale files and VS Code marketplace localization keys.
+- Includes all improvements from 2.8.0 (clearer code line-break markers and cleaner activation flow).
 
 ## 🎯 What is CueMode?
 
 CueMode is a next-generation teleprompter extension that transforms your VS Code editor into a professional teleprompter solution. Now featuring **automatic UI management**, **instant theme cycling**, **enhanced focus mode**, **expanded internationalization**, and **professional-grade functionality** designed for developers, educators, and content creators.
 
-**✨ Version 2.7 Features:**
+**✨ Feature Highlights:**
 
 - **🎯 Double-Click to Edit** - **NEW!** Click any text to jump to exact position in source for editing, with auto-selection and position memory
 - **🎯 Automatic UI Management** - Distraction-free presentations with auto-hide sidebar/panel and smart restoration
@@ -121,7 +122,7 @@ CueMode provides professional teleprompter functionality for modern content crea
 
 1. **Prepare script** - Create or open a text file with your presentation content
 2. **Select script text** (optional - if none selected, entire file will be used)
-3. **Activate teleprompter** - Use Ctrl+Shift+P (Cmd+Shift+P on Mac) and search for "Teleprompter Mode"
+3. **Activate teleprompter** - Press `Ctrl+Alt+C` (`Ctrl+Cmd+C` on Mac), or use the Command Palette and search for "Teleprompter Mode"
 4. **Start reading** - Press spacebar to begin auto-scrolling
 5. **Control during presentation**:
    - **Double-Click**: **NEW!** Click any text to jump to that exact position in source for editing
@@ -183,7 +184,7 @@ Selective markdown parsing transforms your markdown content into beautifully for
 ### 🚀 **How to Use Markdown Mode**
 
 1. **Prepare markdown content** - Create or open a `.md` file with your presentation content
-2. **Activate teleprompter** - Use Ctrl+Shift+P and search for "Teleprompter Mode"
+2. **Activate teleprompter** - Press `Ctrl+Alt+C` (`Ctrl+Cmd+C` on Mac)
 3. **Toggle markdown parsing** - Press **D key** in webview OR use **Ctrl+Shift+D** command
 4. **Present with confidence** - Enjoy clean, formatted content optimized for reading
 
@@ -364,7 +365,7 @@ For detailed information, please check:
 - [Contributing Guide (English)](CONTRIBUTING.md)
 - [贡献指南 (中文)](CONTRIBUTING.zh-CN.md)
 - [Development Guide (English)](DEVELOPMENT.md)
-- [开发指南 (中文)](DEVELOPMENT.zh-CN.md)
+- [开发指南 (中文)](project_docs/0-development.zh-CN.md)
 
 ## 🔗 Links
 

@@ -27,7 +27,7 @@ export class CueModeExtension {
     try {
       // Initialize i18n system first
       await initializeI18n();
-      
+
       // Register commands
       this.registerCommands();
 
@@ -35,9 +35,7 @@ export class CueModeExtension {
       this.setupConfigurationListener();
 
       // Register for cleanup
-      this.context.subscriptions.push(
-        { dispose: () => this.deactivate() }
-      );
+      this.context.subscriptions.push({ dispose: () => this.deactivate() });
     } catch (error) {
       console.error('Failed to activate CueMode extension:', error);
       vscode.window.showErrorMessage(t('errors.initializationFailed', { error: String(error) }));
@@ -49,12 +47,12 @@ export class CueModeExtension {
    */
   public async deactivate(): Promise<void> {
     console.log('CueMode extension is deactivating...');
-    
+
     // Restore UI state if saved
     if (this.uiStateManager.hasSavedState()) {
       await this.uiStateManager.restore();
     }
-    
+
     // Close webview if active
     if (this.webViewManager.isActive()) {
       this.webViewManager.close();
@@ -81,9 +79,12 @@ export class CueModeExtension {
     });
 
     // Remove leading spaces command
-    const removeLeadingSpacesCommand = vscode.commands.registerCommand('cuemode.removeLeadingSpaces', () => {
-      this.removeLeadingSpaces();
-    });
+    const removeLeadingSpacesCommand = vscode.commands.registerCommand(
+      'cuemode.removeLeadingSpaces',
+      () => {
+        this.removeLeadingSpaces();
+      }
+    );
 
     // Cycle theme command
     const cycleThemeCommand = vscode.commands.registerCommand('cuemode.cycleTheme', () => {
@@ -91,60 +92,106 @@ export class CueModeExtension {
     });
 
     // Toggle focus mode command
-    const toggleFocusModeCommand = vscode.commands.registerCommand('cuemode.toggleFocusMode', () => {
-      this.toggleFocusMode();
-    });
+    const toggleFocusModeCommand = vscode.commands.registerCommand(
+      'cuemode.toggleFocusMode',
+      () => {
+        this.toggleFocusMode();
+      }
+    );
 
     // Toggle mirror flip command
-    const toggleMirrorFlipCommand = vscode.commands.registerCommand('cuemode.toggleMirrorFlip', () => {
-      this.toggleMirrorFlip();
-    });
+    const toggleMirrorFlipCommand = vscode.commands.registerCommand(
+      'cuemode.toggleMirrorFlip',
+      () => {
+        this.toggleMirrorFlip();
+      }
+    );
 
     // Toggle markdown mode command
-    const toggleMarkdownModeCommand = vscode.commands.registerCommand('cuemode.toggleMarkdownMode', () => {
-      this.toggleMarkdownMode();
-    });
+    const toggleMarkdownModeCommand = vscode.commands.registerCommand(
+      'cuemode.toggleMarkdownMode',
+      () => {
+        this.toggleMarkdownMode();
+      }
+    );
 
     // Toggle wrap markers command
-    const toggleWrapMarkersCommand = vscode.commands.registerCommand('cuemode.toggleWrapMarkers', () => {
-      this.toggleWrapMarkers();
-    });
+    const toggleWrapMarkersCommand = vscode.commands.registerCommand(
+      'cuemode.toggleWrapMarkers',
+      () => {
+        this.toggleWrapMarkers();
+      }
+    );
+
+    // Presentation mode command
+    const presentationModeCommand = vscode.commands.registerCommand(
+      'cuemode.presentationMode',
+      () => {
+        this.activatePresentationMode();
+      }
+    );
 
     // Adjust line height command
-    const adjustLineHeightCommand = vscode.commands.registerCommand('cuemode.adjustLineHeight', () => {
-      this.adjustLineHeight();
-    });
+    const adjustLineHeightCommand = vscode.commands.registerCommand(
+      'cuemode.adjustLineHeight',
+      () => {
+        this.adjustLineHeight();
+      }
+    );
 
     // Increase font size command
-    const increaseFontSizeCommand = vscode.commands.registerCommand('cuemode.increaseFontSize', () => {
-      this.increaseFontSize();
-    });
+    const increaseFontSizeCommand = vscode.commands.registerCommand(
+      'cuemode.increaseFontSize',
+      () => {
+        this.increaseFontSize();
+      }
+    );
 
     // Decrease font size command
-    const decreaseFontSizeCommand = vscode.commands.registerCommand('cuemode.decreaseFontSize', () => {
-      this.decreaseFontSize();
-    });
+    const decreaseFontSizeCommand = vscode.commands.registerCommand(
+      'cuemode.decreaseFontSize',
+      () => {
+        this.decreaseFontSize();
+      }
+    );
 
     // Open editor at line command (internal)
-    const openEditorAtLineCommand = vscode.commands.registerCommand('cuemode.openEditorAtLine', (args: {
-      lineNumber: number;
-      contextText?: string;
-      clickedText?: string;
-      beforeText?: string;
-      afterText?: string;
-      webviewManager: WebViewManager;
-    }) => {
-      this.openEditorAtLine(
-        args.lineNumber, 
-        args.contextText, 
-        args.webviewManager,
-        args.clickedText,
-        args.beforeText,
-        args.afterText
-      );
-    });
+    const openEditorAtLineCommand = vscode.commands.registerCommand(
+      'cuemode.openEditorAtLine',
+      (args: {
+        lineNumber: number;
+        contextText?: string;
+        clickedText?: string;
+        beforeText?: string;
+        afterText?: string;
+        webviewManager: WebViewManager;
+      }) => {
+        this.openEditorAtLine(
+          args.lineNumber,
+          args.contextText,
+          args.webviewManager,
+          args.clickedText,
+          args.beforeText,
+          args.afterText
+        );
+      }
+    );
 
-    this.context.subscriptions.push(cueModeCommand, changeThemeCommand, removeLeadingSpacesCommand, cycleThemeCommand, toggleFocusModeCommand, toggleMirrorFlipCommand, toggleMarkdownModeCommand, adjustLineHeightCommand, increaseFontSizeCommand, decreaseFontSizeCommand, openEditorAtLineCommand, toggleWrapMarkersCommand);
+    this.context.subscriptions.push(
+      cueModeCommand,
+      changeThemeCommand,
+      removeLeadingSpacesCommand,
+      cycleThemeCommand,
+      toggleFocusModeCommand,
+      toggleMirrorFlipCommand,
+      toggleMarkdownModeCommand,
+      adjustLineHeightCommand,
+      increaseFontSizeCommand,
+      decreaseFontSizeCommand,
+      openEditorAtLineCommand,
+      toggleWrapMarkersCommand,
+      presentationModeCommand
+    );
   }
 
   /**
@@ -154,16 +201,72 @@ export class CueModeExtension {
     this.configChangeListener = ConfigManager.onConfigChanged(newConfig => {
       if (this.webViewManager.isActive()) {
         this.webViewManager.updateConfig(newConfig);
-        
+
         // Show short auto-dismiss notification
         vscode.window.setStatusBarMessage(
-          t('notifications.configUpdated'), 
+          t('notifications.configUpdated'),
           3000 // Auto-dismiss after 3 seconds
         );
       }
     });
 
     this.context.subscriptions.push(this.configChangeListener);
+  }
+
+  /**
+   * Activate Presentation Mode (slide-based centered display)
+   */
+  private async activatePresentationMode(): Promise<void> {
+    try {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        throw new CueModeError(t('errors.noActiveEditor'));
+      }
+
+      const document = editor.document;
+      const selection = editor.selection;
+
+      // Resolve raw text: selection takes priority, otherwise full document
+      const rawText = selection.isEmpty ? document.getText() : document.getText(selection);
+
+      if (!rawText.trim()) {
+        throw new CueModeError(t('errors.noContent'));
+      }
+
+      // Split into slides by horizontal rule (--- on its own line)
+      const slides = rawText
+        .split(/^\s*---\s*$/m)
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+
+      if (slides.length === 0) {
+        throw new CueModeError(t('errors.noContent'));
+      }
+
+      const filename = this.getFilename(document);
+      const config = ConfigManager.getSafeConfig();
+
+      // Hide VS Code chrome
+      await this.uiStateManager.hideUI();
+
+      await this.webViewManager.createPresentation(slides, filename, config, document);
+
+      this.webViewManager.setOnCloseCallback(async () => {
+        await this.uiStateManager.restore();
+      });
+
+      vscode.window.setStatusBarMessage(
+        t('notifications.presentationActivated', { count: slides.length }),
+        2500
+      );
+
+      // If only one slide detected, suggest using --- separator
+      if (slides.length === 1) {
+        vscode.window.showInformationMessage(t('presentation.singleSlideHint'));
+      }
+    } catch (error) {
+      this.handleError(error);
+    }
   }
 
   /**
@@ -180,7 +283,7 @@ export class CueModeExtension {
       // Get content
       const document = editor.document;
       const selection = editor.selection;
-      
+
       let content: string;
       if (!selection.isEmpty) {
         content = document.getText(selection);
@@ -214,10 +317,9 @@ export class CueModeExtension {
 
       // Show short auto-dismiss notification
       vscode.window.setStatusBarMessage(
-        t('notifications.activated'), 
+        t('notifications.activated'),
         2000 // Auto-dismiss after 2 seconds
       );
-
     } catch (error) {
       this.handleError(error);
     }
@@ -245,18 +347,18 @@ export class CueModeExtension {
       const themeLabels = themes.map(theme => {
         return {
           label: t(`themes.${theme}`),
-          value: theme
+          value: theme,
         };
       });
 
       const selected = await vscode.window.showQuickPick(themeLabels, {
-        placeHolder: t('commands.changeTheme')
+        placeHolder: t('commands.changeTheme'),
       });
 
       if (selected) {
         const config = vscode.workspace.getConfiguration('cuemode');
         await config.update('colorTheme', selected.value, vscode.ConfigurationTarget.Global);
-        
+
         vscode.window.setStatusBarMessage(
           t('notifications.themeChanged', { theme: selected.label }),
           3000 // Auto-dismiss after 3 seconds
@@ -275,7 +377,7 @@ export class CueModeExtension {
       const themes = ['classic', 'inverted', 'midnightBlue', 'sunset', 'forest', 'ocean', 'rose'];
       const config = vscode.workspace.getConfiguration('cuemode');
       const currentTheme = config.get<string>('colorTheme', 'classic');
-      
+
       const currentIndex = themes.indexOf(currentTheme);
       const nextIndex = (currentIndex + 1) % themes.length;
       const nextTheme = themes[nextIndex];
@@ -314,24 +416,31 @@ export class CueModeExtension {
 
       const selection = editor.selection;
       const document = editor.document;
-      
+
       // If no selection, use entire document
-      const range = selection.isEmpty 
-        ? new vscode.Range(0, 0, document.lineCount - 1, document.lineAt(document.lineCount - 1).text.length)
+      const range = selection.isEmpty
+        ? new vscode.Range(
+            0,
+            0,
+            document.lineCount - 1,
+            document.lineAt(document.lineCount - 1).text.length
+          )
         : selection;
 
       const text = document.getText(range);
       const lines = text.split('\n');
       let processedLines = 0;
 
-      const processedText = lines.map(line => {
-        // Remove leading spaces, tabs, and Chinese full-width spaces (U+3000)
-        const trimmedLine = line.replace(/^[\s\t\u3000]+/, '');
-        if (trimmedLine !== line) {
-          processedLines++;
-        }
-        return trimmedLine;
-      }).join('\n');
+      const processedText = lines
+        .map(line => {
+          // Remove leading spaces, tabs, and Chinese full-width spaces (U+3000)
+          const trimmedLine = line.replace(/^[\s\t\u3000]+/, '');
+          if (trimmedLine !== line) {
+            processedLines++;
+          }
+          return trimmedLine;
+        })
+        .join('\n');
 
       if (processedLines > 0) {
         await editor.edit(editBuilder => {
@@ -360,23 +469,22 @@ export class CueModeExtension {
     try {
       const currentConfig = ConfigManager.getConfig();
       const newFocusMode = !currentConfig.focusMode;
-      
+
       // Update configuration
       await ConfigManager.updateConfig('focusMode', newFocusMode);
-      
+
       // Show notification
-      const message = newFocusMode 
+      const message = newFocusMode
         ? t('notifications.focusModeEnabled')
         : t('notifications.focusModeDisabled');
-      
+
       vscode.window.setStatusBarMessage(message, 2000);
-      
+
       // Update webview if active
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
       }
-      
     } catch (error) {
       this.handleError(error);
     }
@@ -389,23 +497,22 @@ export class CueModeExtension {
     try {
       const currentConfig = ConfigManager.getConfig();
       const newMirrorFlip = !currentConfig.mirrorFlip;
-      
+
       // Update configuration
       await ConfigManager.updateConfig('mirrorFlip', newMirrorFlip);
-      
+
       // Show notification
-      const message = newMirrorFlip 
+      const message = newMirrorFlip
         ? t('notifications.mirrorFlipEnabled')
         : t('notifications.mirrorFlipDisabled');
-      
+
       vscode.window.setStatusBarMessage(message, 2000);
-      
+
       // Update webview if active
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
       }
-      
     } catch (error) {
       this.handleError(error);
     }
@@ -418,23 +525,22 @@ export class CueModeExtension {
     try {
       const currentConfig = ConfigManager.getConfig();
       const newMarkdownMode = !currentConfig.markdownMode;
-      
+
       // Update configuration
       await ConfigManager.updateConfig('markdownMode', newMarkdownMode);
-      
+
       // Show notification
-      const message = newMarkdownMode 
+      const message = newMarkdownMode
         ? t('notifications.markdownModeEnabled')
         : t('notifications.markdownModeDisabled');
-      
+
       vscode.window.setStatusBarMessage(message, 2000);
-      
+
       // Update webview if active - this will trigger server-side re-rendering
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
       }
-      
     } catch (error) {
       this.handleError(error);
     }
@@ -469,39 +575,52 @@ export class CueModeExtension {
   private async adjustLineHeight(): Promise<void> {
     try {
       const currentConfig = ConfigManager.getConfig();
-      
+
       // Define line height values to cycle through
       const lineHeights = [1.0, 1.2, 1.5, 1.8, 2.0];
-      const currentIndex = lineHeights.findIndex(height => Math.abs(height - currentConfig.lineHeight) < 0.01);
+      const currentIndex = lineHeights.findIndex(
+        height => Math.abs(height - currentConfig.lineHeight) < 0.01
+      );
       let nextIndex = (currentIndex + 1) % lineHeights.length;
       if (currentIndex < 0) {
         nextIndex = 0;
       }
-      
+
       // Get the new line height using safe array access
       let newLineHeight: number;
       switch (nextIndex) {
-        case 0: newLineHeight = 1.0; break;
-        case 1: newLineHeight = 1.2; break;
-        case 2: newLineHeight = 1.5; break;
-        case 3: newLineHeight = 1.8; break;
-        case 4: newLineHeight = 2.0; break;
-        default: newLineHeight = 1.5; break; // fallback
+        case 0:
+          newLineHeight = 1.0;
+          break;
+        case 1:
+          newLineHeight = 1.2;
+          break;
+        case 2:
+          newLineHeight = 1.5;
+          break;
+        case 3:
+          newLineHeight = 1.8;
+          break;
+        case 4:
+          newLineHeight = 2.0;
+          break;
+        default:
+          newLineHeight = 1.5;
+          break; // fallback
       }
-      
+
       // Update configuration
       await ConfigManager.updateConfig('lineHeight', newLineHeight);
-      
+
       // Show notification with the new line height value
       const message = t('notifications.lineHeightChanged', { height: newLineHeight.toString() });
       vscode.window.setStatusBarMessage(message, 2000);
-      
+
       // Update webview if active
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
       }
-      
     } catch (error) {
       this.handleError(error);
     }
@@ -515,31 +634,27 @@ export class CueModeExtension {
       const currentConfig = ConfigManager.getConfig();
       const currentFontSize = currentConfig.fontSize;
       const maxFontSize = 100;
-      
+
       // Increase by 2 points, max 100
       const newFontSize = Math.min(currentFontSize + 2, maxFontSize);
-      
+
       if (newFontSize === currentFontSize) {
-        vscode.window.setStatusBarMessage(
-          t('notifications.fontSizeMax'),
-          2000
-        );
+        vscode.window.setStatusBarMessage(t('notifications.fontSizeMax'), 2000);
         return;
       }
-      
+
       // Update configuration
       await ConfigManager.updateConfig('fontSize', newFontSize);
-      
+
       // Show notification
       const message = t('notifications.fontSizeChanged', { size: newFontSize.toString() });
       vscode.window.setStatusBarMessage(message, 2000);
-      
+
       // Update webview if active
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
       }
-      
     } catch (error) {
       this.handleError(error);
     }
@@ -553,31 +668,27 @@ export class CueModeExtension {
       const currentConfig = ConfigManager.getConfig();
       const currentFontSize = currentConfig.fontSize;
       const minFontSize = 8;
-      
+
       // Decrease by 2 points, min 8
       const newFontSize = Math.max(currentFontSize - 2, minFontSize);
-      
+
       if (newFontSize === currentFontSize) {
-        vscode.window.setStatusBarMessage(
-          t('notifications.fontSizeMin'),
-          2000
-        );
+        vscode.window.setStatusBarMessage(t('notifications.fontSizeMin'), 2000);
         return;
       }
-      
+
       // Update configuration
       await ConfigManager.updateConfig('fontSize', newFontSize);
-      
+
       // Show notification
       const message = t('notifications.fontSizeChanged', { size: newFontSize.toString() });
       vscode.window.setStatusBarMessage(message, 2000);
-      
+
       // Update webview if active
       if (this.webViewManager.isActive()) {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
       }
-      
     } catch (error) {
       this.handleError(error);
     }
@@ -588,7 +699,7 @@ export class CueModeExtension {
    */
   private setupViewStateListener(): void {
     // Listen for view column changes to detect when user returns to CueMode
-    const listener = vscode.window.onDidChangeActiveTextEditor(async (editor) => {
+    const listener = vscode.window.onDidChangeActiveTextEditor(async editor => {
       if (editor && this.webViewManager.isActive()) {
         // User might be switching back from source document
         await this.webViewManager.restoreScrollPosition();
@@ -602,8 +713,8 @@ export class CueModeExtension {
    * Open editor at specific line and character position
    */
   private async openEditorAtLine(
-    lineNumber: number, 
-    contextText: string | undefined, 
+    lineNumber: number,
+    contextText: string | undefined,
     webviewManager: WebViewManager,
     clickedText?: string,
     beforeText?: string,
@@ -629,13 +740,13 @@ export class CueModeExtension {
       const editor = await vscode.window.showTextDocument(doc, {
         viewColumn: vscode.ViewColumn.One,
         preserveFocus: false,
-        preview: false
+        preview: false,
       });
 
       // Calculate the target line (handle markdown mode line mapping)
       let targetLine = lineNumber;
       let targetCharacter = 0;
-      
+
       // If we have context text, try to find the exact line
       if (contextText && contextText.trim()) {
         const lines = doc.getText().split('\n');
@@ -662,11 +773,11 @@ export class CueModeExtension {
         if (bestScore > 0) {
           targetLine = bestMatch;
         }
-        
+
         // Try to find exact character position if we have clicked text
         if (clickedText && clickedText.trim() && targetLine >= 0 && targetLine < lines.length) {
           const line = lines[targetLine];
-          
+
           if (line) {
             // Method 1: Try to find exact match with surrounding context
             if (beforeText || afterText) {
@@ -676,7 +787,7 @@ export class CueModeExtension {
                 targetCharacter = patternIndex + (beforeText?.length || 0);
               }
             }
-            
+
             // Method 2: Try to find the clicked text directly
             if (targetCharacter === 0) {
               const clickedIndex = line.indexOf(clickedText.trim());
@@ -684,7 +795,7 @@ export class CueModeExtension {
                 targetCharacter = clickedIndex;
               }
             }
-            
+
             // Method 3: Find using context text position
             if (targetCharacter === 0 && contextText) {
               const contextIndex = line.indexOf(contextText.substring(0, 30));
@@ -709,7 +820,7 @@ export class CueModeExtension {
 
       // Set selection with precise character position
       const startPosition = new vscode.Position(targetLine, targetCharacter);
-      
+
       // If we have clicked text, select the whole word/phrase
       let endPosition = startPosition;
       if (clickedText && clickedText.trim()) {
@@ -719,7 +830,7 @@ export class CueModeExtension {
           endPosition = new vscode.Position(targetLine, potentialEnd);
         }
       }
-      
+
       // Set selection and reveal
       editor.selection = new vscode.Selection(startPosition, endPosition);
       editor.revealRange(
@@ -728,14 +839,9 @@ export class CueModeExtension {
       );
 
       // Show success notification
-      const positionInfo = targetCharacter > 0 
-        ? ` (${t('notifications.column')}: ${targetCharacter + 1})`
-        : '';
-      vscode.window.setStatusBarMessage(
-        t('notifications.editorOpened') + positionInfo,
-        2000
-      );
-
+      const positionInfo =
+        targetCharacter > 0 ? ` (${t('notifications.column')}: ${targetCharacter + 1})` : '';
+      vscode.window.setStatusBarMessage(t('notifications.editorOpened') + positionInfo, 2000);
     } catch (error) {
       this.handleError(error);
     }

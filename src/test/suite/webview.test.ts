@@ -16,18 +16,18 @@ suite('WebViewManager Tests', () => {
       subscriptions: [],
       globalState: {
         get: () => undefined,
-        update: () => Promise.resolve()
+        update: () => Promise.resolve(),
       },
       workspaceState: {
         get: () => undefined,
-        update: () => Promise.resolve()
+        update: () => Promise.resolve(),
       },
       extensionPath: __dirname,
       extensionUri: vscode.Uri.file(__dirname),
       storageUri: vscode.Uri.file(__dirname),
       globalStorageUri: vscode.Uri.file(__dirname),
       logUri: vscode.Uri.file(__dirname),
-      asAbsolutePath: (path: string) => path
+      asAbsolutePath: (path: string) => path,
     } as any;
 
     webViewManager = new WebViewManager(mockContext);
@@ -58,7 +58,7 @@ suite('WebViewManager Tests', () => {
     const config = ConfigManager.getSafeConfig();
 
     await webViewManager.create(content, filename, config);
-    
+
     assert.ok(webViewManager.isActive(), 'Should be active after creation');
   });
 
@@ -95,7 +95,7 @@ suite('WebViewManager Tests', () => {
       { content: 'console.log("Hello");', filename: 'test.js' },
       { content: 'def hello():\n    pass', filename: 'test.py' },
       { content: '# Markdown\n\nContent here', filename: 'test.md' },
-      { content: '<html><body>Hello</body></html>', filename: 'test.html' }
+      { content: '<html><body>Hello</body></html>', filename: 'test.html' },
     ];
 
     const config = ConfigManager.getSafeConfig();
@@ -113,11 +113,11 @@ suite('WebViewManager Tests', () => {
     const config = ConfigManager.getSafeConfig();
 
     await webViewManager.create(content, filename, config);
-    
+
     // Update configuration
     const newConfig = { ...config, fontSize: 32 };
     webViewManager.updateConfig(newConfig);
-    
+
     assert.ok(webViewManager.isActive(), 'Should remain active after config update');
   });
 
@@ -128,7 +128,7 @@ suite('WebViewManager Tests', () => {
 
     await webViewManager.create(content, filename, config);
     assert.ok(webViewManager.isActive(), 'Should be active before closing');
-    
+
     webViewManager.close();
     assert.ok(!webViewManager.isActive(), 'Should be inactive after closing');
   });
@@ -173,9 +173,9 @@ suite('WebViewManager Tests', () => {
         tables: true,
         taskLists: true,
         strikethrough: false,
-        horizontalRule: true
+        horizontalRule: true,
       },
-      showLineBreaks: true
+      showLineBreaks: true,
     };
 
     // Should not throw error
@@ -221,7 +221,7 @@ suite('WebViewManager Tests', () => {
 
   test('WebViewManager should handle update config when inactive', () => {
     const config = ConfigManager.getSafeConfig();
-    
+
     // Should not throw error when updating config on inactive webview
     assert.doesNotThrow(() => {
       webViewManager.updateConfig(config);

@@ -10,6 +10,7 @@
   "cuemode.increaseFontSize": "Increase Font Size",
   "cuemode.decreaseFontSize": "Decrease Font Size",
   "cuemode.configureMarkdownFeatures": "Configure Markdown Features",
+  "cuemode.presentationMode": "Presentation Mode (Slides)",
   "cuemode.description": "Transform VS Code into a professional teleprompter for coding videos, tutorials, and presentations. Auto-scroll, customizable themes, and distraction-free reading.",
   "cuemode.configuration.title": "Teleprompter Mode",
   "cuemode.configuration.colorTheme": "Color theme for the teleprompter mode",

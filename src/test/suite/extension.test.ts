@@ -16,7 +16,7 @@ suite('Extension Integration Tests', () => {
     if (!ext) {
       throw new Error('Extension not found');
     }
-    
+
     await ext.activate();
     // Note: We don't need to access internal context for these tests
   });
@@ -35,7 +35,7 @@ suite('Extension Integration Tests', () => {
   test('Extension should activate', async () => {
     const ext = vscode.extensions.getExtension('luckyXmobile.cuemode');
     assert.ok(ext);
-    
+
     await ext.activate();
     assert.strictEqual(ext.isActive, true);
   });
@@ -48,7 +48,7 @@ suite('Extension Integration Tests', () => {
   test('Configuration should be accessible', () => {
     const config = vscode.workspace.getConfiguration('cuemode');
     assert.ok(config);
-    
+
     // Test default values
     assert.strictEqual(config.get('colorTheme'), 'classic');
     assert.strictEqual(config.get('fontSize'), 24);
@@ -87,7 +87,7 @@ suite('Extension Integration Tests', () => {
   test('CueMode command should handle no active editor', async () => {
     // Close all editors
     await vscode.commands.executeCommand('workbench.action.closeAllEditors');
-    
+
     // Try to execute CueMode command
     try {
       await vscode.commands.executeCommand('cuemode.cueMode');
@@ -103,15 +103,15 @@ suite('Extension Integration Tests', () => {
     // Create a new untitled document
     const document = await vscode.workspace.openTextDocument({
       content: 'Hello, World!\nThis is a test document.',
-      language: 'plaintext'
+      language: 'plaintext',
     });
-    
+
     // Show the document
     await vscode.window.showTextDocument(document);
-    
+
     // Execute CueMode command
     await vscode.commands.executeCommand('cuemode.cueMode');
-    
+
     // Check if webview panel is created
     // Note: We can't directly access the webview panel from the test,
     // but we can check that the command executed without throwing
@@ -120,22 +120,30 @@ suite('Extension Integration Tests', () => {
 
   test('Configuration changes should be handled', async () => {
     const config = vscode.workspace.getConfiguration('cuemode');
-    
+
     // Change a configuration value
     await config.update('fontSize', 32, vscode.ConfigurationTarget.Global);
-    
+
     // Verify the change
     const newConfig = vscode.workspace.getConfiguration('cuemode');
     assert.strictEqual(newConfig.get('fontSize'), 32);
-    
+
     // Reset to original value
     await config.update('fontSize', 24, vscode.ConfigurationTarget.Global);
   });
 
   test('Theme configuration should be valid', () => {
-    const validThemes = ['classic', 'inverted', 'midnightBlue', 'sunset', 'forest', 'ocean', 'rose'];
+    const validThemes = [
+      'classic',
+      'inverted',
+      'midnightBlue',
+      'sunset',
+      'forest',
+      'ocean',
+      'rose',
+    ];
     const config = ConfigManager.getSafeConfig();
-    
+
     assert.ok(validThemes.includes(config.colorTheme));
   });
 
@@ -147,50 +155,50 @@ suite('Extension Integration Tests', () => {
   test('Mirror flip configuration should be accessible', () => {
     const config = vscode.workspace.getConfiguration('cuemode');
     const mirrorFlip = config.get('mirrorFlip');
-    
+
     assert.ok(typeof mirrorFlip === 'boolean');
   });
 
   test('Mirror flip toggle should update configuration', async () => {
     const config = vscode.workspace.getConfiguration('cuemode');
-    
+
     // Get current value
     const initialValue = config.get('mirrorFlip');
-    
+
     // Toggle mirror flip
     await vscode.commands.executeCommand('cuemode.toggleMirrorFlip');
-    
+
     // Wait a bit for configuration to update
     await new Promise(resolve => setTimeout(resolve, 100));
-    
+
     // Get fresh configuration instance
     const freshConfig = vscode.workspace.getConfiguration('cuemode');
     const newValue = freshConfig.get('mirrorFlip');
-    
+
     assert.strictEqual(newValue, !initialValue);
-    
+
     // Reset to original value
     await config.update('mirrorFlip', initialValue, vscode.ConfigurationTarget.Global);
   });
 
   test('Numeric configuration values should be within valid ranges', () => {
     const config = ConfigManager.getSafeConfig();
-    
+
     // Test fontSize range
     assert.ok(config.fontSize >= 8 && config.fontSize <= 100);
-    
+
     // Test maxWidth range
     assert.ok(config.maxWidth >= 200 && config.maxWidth <= 2000);
-    
+
     // Test lineHeight range
     assert.ok(config.lineHeight >= 0.5 && config.lineHeight <= 5.0);
-    
+
     // Test padding range
     assert.ok(config.padding >= 0 && config.padding <= 100);
-    
+
     // Test scrollSpeed range
     assert.ok(config.scrollSpeed >= 0.01 && config.scrollSpeed <= 1.0);
-    
+
     // Test startingPosition range
     assert.ok(config.startingPosition >= 0 && config.startingPosition <= 100);
   });

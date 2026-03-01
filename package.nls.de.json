@@ -9,6 +9,7 @@
   "cuemode.adjustLineHeight": "Zeilenhöhe anpassen",
   "cuemode.increaseFontSize": "Schriftgröße erhöhen",
   "cuemode.decreaseFontSize": "Schriftgröße verringern",
+  "cuemode.presentationMode": "Präsentationsmodus (Folien)",
   "cuemode.configureMarkdownFeatures": "Markdown-Funktionen konfigurieren",
   "cuemode.description": "Verwandeln Sie VS Code in einen professionellen Teleprompter für Programmiervideos, Tutorials und Präsentationen. Auto-Scroll, anpassbare Themes und ablenkungsfreies Lesen.",
   "cuemode.configuration.title": "Teleprompter-Modus",
@@ -21,7 +22,19 @@
   "cuemode.configuration.startingPosition": "Startposition des Inhalts in Prozent der Bildschirmhöhe",
   "cuemode.configuration.focusMode": "Fokus-Modus aktivieren, um den aktuellen Lesebereich hervorzuheben",
   "cuemode.configuration.focusOpacity": "Unschärfestärke des unfokussierten Inhalts im Fokus-Modus (0.1=leichte Unschärfe, 0.8=starke Unschärfe)",
-  "cuemode.configuration.focusLineCount": "Anzahl der Zeilen, die im Fokus-Modus hervorgehoben werden sollen"
-  ,
-  "cuemode.configuration.showLineBreaks": "Visuelle Markierungen an echten Zeilenumbrüchen in Codeblöcken anzeigen (nicht an automatischen Zeilenumbrüchen)"
+  "cuemode.configuration.focusLineCount": "Anzahl der Zeilen, die im Fokus-Modus hervorgehoben werden sollen",
+  "cuemode.configuration.mirrorFlip": "Horizontale Spiegelung für Teleprompter-Nutzung in der Videoproduktion aktivieren",
+  "cuemode.configuration.markdownMode": "Selektives Markdown-Parsing für formatierte Textanzeige aktivieren",
+  "cuemode.configuration.showLineBreaks": "Visuelle Markierungen an echten Zeilenumbrüchen in Codeblöcken anzeigen (nicht an automatischen Zeilenumbrüchen)",
+  "cuemode.configuration.markdownFeatures": "Konfigurieren, welche Markdown-Funktionen geparst und angezeigt werden",
+  "cuemode.configuration.markdownFeatures.headers": "Überschriften parsen (# ## ### usw.)",
+  "cuemode.configuration.markdownFeatures.emphasis": "Fett (**text**) und Kursiv (*text*) parsen",
+  "cuemode.configuration.markdownFeatures.lists": "Listen parsen (- * + und nummerierte Listen)",
+  "cuemode.configuration.markdownFeatures.links": "Links parsen [text](url)",
+  "cuemode.configuration.markdownFeatures.code": "Codeblöcke (```code```) und Inline-Code (`code`) parsen",
+  "cuemode.configuration.markdownFeatures.blockquotes": "Blockzitate parsen (> text)",
+  "cuemode.configuration.markdownFeatures.tables": "Tabellen parsen (| spalte1 | spalte2 |)",
+  "cuemode.configuration.markdownFeatures.taskLists": "Aufgabenlisten parsen (- [x] erledigt, - [ ] offen)",
+  "cuemode.configuration.markdownFeatures.strikethrough": "Durchgestrichenen Text parsen (~~text~~)",
+  "cuemode.configuration.markdownFeatures.horizontalRule": "Horizontale Linien parsen (---)"
 }

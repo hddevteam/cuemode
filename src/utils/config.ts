@@ -30,8 +30,8 @@ export class ConfigManager {
       tables: true,
       taskLists: true,
       strikethrough: false,
-      horizontalRule: true
-    }
+      horizontalRule: true,
+    },
   };
 
   /**
@@ -39,7 +39,7 @@ export class ConfigManager {
    */
   public static getConfig(): CueModeConfig {
     const config = vscode.workspace.getConfiguration(this.CONFIG_SECTION);
-    
+
     return {
       colorTheme: config.get<ColorTheme>('colorTheme', this.DEFAULT_CONFIG.colorTheme),
       maxWidth: config.get<number>('maxWidth', this.DEFAULT_CONFIG.maxWidth),
@@ -47,21 +47,30 @@ export class ConfigManager {
       lineHeight: config.get<number>('lineHeight', this.DEFAULT_CONFIG.lineHeight),
       padding: config.get<number>('padding', this.DEFAULT_CONFIG.padding),
       scrollSpeed: config.get<number>('scrollSpeed', this.DEFAULT_CONFIG.scrollSpeed),
-      startingPosition: config.get<number>('startingPosition', this.DEFAULT_CONFIG.startingPosition),
+      startingPosition: config.get<number>(
+        'startingPosition',
+        this.DEFAULT_CONFIG.startingPosition
+      ),
       focusMode: config.get<boolean>('focusMode', this.DEFAULT_CONFIG.focusMode),
       focusOpacity: config.get<number>('focusOpacity', this.DEFAULT_CONFIG.focusOpacity),
       focusLineCount: config.get<number>('focusLineCount', this.DEFAULT_CONFIG.focusLineCount),
       mirrorFlip: config.get<boolean>('mirrorFlip', this.DEFAULT_CONFIG.mirrorFlip),
       markdownMode: config.get<boolean>('markdownMode', this.DEFAULT_CONFIG.markdownMode),
       showLineBreaks: config.get<boolean>('showLineBreaks', this.DEFAULT_CONFIG.showLineBreaks),
-      markdownFeatures: config.get<MarkdownFeatures>('markdownFeatures', this.DEFAULT_CONFIG.markdownFeatures)
+      markdownFeatures: config.get<MarkdownFeatures>(
+        'markdownFeatures',
+        this.DEFAULT_CONFIG.markdownFeatures
+      ),
     };
   }
 
   /**
    * Update configuration
    */
-  public static async updateConfig(key: keyof CueModeConfig, value: CueModeConfig[keyof CueModeConfig]): Promise<void> {
+  public static async updateConfig(
+    key: keyof CueModeConfig,
+    value: CueModeConfig[keyof CueModeConfig]
+  ): Promise<void> {
     const config = vscode.workspace.getConfiguration(this.CONFIG_SECTION);
     await config.update(key, value, vscode.ConfigurationTarget.Global);
   }
@@ -79,15 +88,27 @@ export class ConfigManager {
       return {
         isValid: false,
         errors,
-        warnings
+        warnings,
       };
     }
 
     // Check required properties
     const requiredProperties: (keyof CueModeConfig)[] = [
-      'colorTheme', 'maxWidth', 'fontSize', 'lineHeight', 'padding', 'scrollSpeed', 'startingPosition', 'focusMode', 'focusOpacity', 'focusLineCount', 'mirrorFlip', 'markdownMode', 'markdownFeatures'
+      'colorTheme',
+      'maxWidth',
+      'fontSize',
+      'lineHeight',
+      'padding',
+      'scrollSpeed',
+      'startingPosition',
+      'focusMode',
+      'focusOpacity',
+      'focusLineCount',
+      'mirrorFlip',
+      'markdownMode',
+      'markdownFeatures',
     ];
-    
+
     for (const prop of requiredProperties) {
       if (!(prop in config) || config[prop] === undefined || config[prop] === null) {
         errors.push(`Missing or null property: ${prop}`);
@@ -99,12 +120,20 @@ export class ConfigManager {
       return {
         isValid: false,
         errors,
-        warnings
+        warnings,
       };
     }
 
     // Validate color theme
-    const validThemes: ColorTheme[] = ['classic', 'inverted', 'midnightBlue', 'sunset', 'forest', 'ocean', 'rose'];
+    const validThemes: ColorTheme[] = [
+      'classic',
+      'inverted',
+      'midnightBlue',
+      'sunset',
+      'forest',
+      'ocean',
+      'rose',
+    ];
     if (!validThemes.includes(config.colorTheme)) {
       errors.push(`Invalid color theme: ${config.colorTheme}`);
     }
@@ -137,11 +166,23 @@ export class ConfigManager {
     // Validate markdown features
     if (config.markdownFeatures && typeof config.markdownFeatures === 'object') {
       const markdownFeatureKeys: (keyof MarkdownFeatures)[] = [
-        'headers', 'emphasis', 'lists', 'links', 'code', 'blockquotes', 'tables', 'taskLists', 'strikethrough', 'horizontalRule'
+        'headers',
+        'emphasis',
+        'lists',
+        'links',
+        'code',
+        'blockquotes',
+        'tables',
+        'taskLists',
+        'strikethrough',
+        'horizontalRule',
       ];
-      
+
       for (const key of markdownFeatureKeys) {
-        if (!(key in config.markdownFeatures) || typeof config.markdownFeatures[key] !== 'boolean') {
+        if (
+          !(key in config.markdownFeatures) ||
+          typeof config.markdownFeatures[key] !== 'boolean'
+        ) {
           warnings.push(`Invalid or missing markdown feature: ${key}`);
         }
       }
@@ -161,7 +202,7 @@ export class ConfigManager {
     return {
       isValid: errors.length === 0,
       errors,
-      warnings
+      warnings,
     };
   }
 

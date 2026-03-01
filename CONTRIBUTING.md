@@ -20,7 +20,7 @@ CueMode is a professional teleprompter extension for VS Code, designed specifica
 For detailed setup instructions, please see our comprehensive development guide:
 
 📖 **[Development Guide (DEVELOPMENT.md)](DEVELOPMENT.md)**
-🇨🇳 **[开发指南 (DEVELOPMENT.zh-CN.md)](DEVELOPMENT.zh-CN.md)**
+🇨🇳 **[开发指南 (project_docs/0-development.zh-CN.md)](project_docs/0-development.zh-CN.md)**
 
 Quick start:
 
@@ -115,7 +115,7 @@ npm run lint            # Code quality checks
 Refer to our development documentation:
 
 - **[DEVELOPMENT.md](DEVELOPMENT.md)** - Complete development guide
-- **[DEVELOPMENT.zh-CN.md](DEVELOPMENT.zh-CN.md)** - 中文开发指南
+- **[project_docs/0-development.zh-CN.md](project_docs/0-development.zh-CN.md)** - 中文开发指南
 
 ### Documentation Requirements
 

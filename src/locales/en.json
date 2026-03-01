@@ -10,10 +10,13 @@
     "configureMarkdownFeatures": "Configure Markdown Features",
     "adjustLineHeight": "Adjust Line Height",
     "increaseFontSize": "Increase Font Size",
-    "decreaseFontSize": "Decrease Font Size"
+    "decreaseFontSize": "Decrease Font Size",
+    "presentationMode": "Presentation Mode (Slides)"
   },
   "notifications": {
     "activated": "Teleprompter mode activated",
+    "presentationActivated": "Presentation mode activated ({{count}} slide)",
+    "presentationActivated_plural": "Presentation mode activated ({{count}} slides)",
     "deactivated": "Teleprompter mode deactivated",
     "configUpdated": "Teleprompter mode configuration updated",
     "themeChanged": "Theme changed to {{theme}}",
@@ -121,6 +124,28 @@
       "toggleFocus": "Toggle focus mode",
       "toggleMirror": "Toggle mirror flip"
     }
+  },
+  "presentation": {
+    "title": "Presentation Mode - {{filename}}",
+    "slideCounter": "{{current}} / {{total}}",
+    "prev": "Prev",
+    "next": "Next",
+    "close": "Close",
+    "help": "Help",
+    "helpTitle": "Presentation Mode Shortcuts",
+    "shortcutLeft": "Previous slide",
+    "shortcutRight": "Next slide",
+    "shortcutT": "Cycle theme",
+    "shortcutH": "Show/Hide help",
+    "shortcutL": "Adjust line height",
+    "shortcutBracketL": "Decrease font size",
+    "shortcutBracketR": "Increase font size",
+    "shortcutEsc": "Exit presentation mode",
+    "noContent": "No content to present",
+    "separatorHint": "Tip: Use --- (three dashes on its own line) to split content into multiple slides",
+    "separatorLabel": "Slide separator",
+    "separatorValue": "--- (horizontal rule on its own line)",
+    "singleSlideHint": "Tip: Add --- on its own line to create multiple slides"
   },
   "accessibility": {
     "scrollIndicator": "Auto-scroll: {{status}}",

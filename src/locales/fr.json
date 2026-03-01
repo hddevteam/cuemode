@@ -10,11 +10,14 @@
     "configureMarkdownFeatures": "Configurer les fonctions Markdown",
     "adjustLineHeight": "Ajuster la hauteur de ligne",
     "increaseFontSize": "Augmenter la taille de police",
-    "decreaseFontSize": "Diminuer la taille de police"
+    "decreaseFontSize": "Diminuer la taille de police",
+    "presentationMode": "Mode Présentation (Diapositives)"
   },
   "notifications": {
     "activated": "Mode télésouffleur activé",
-    "deactivated": "Mode télésouffleur désactivé", 
+    "presentationActivated": "Mode présentation activé ({{count}} diapositive)",
+    "presentationActivated_plural": "Mode présentation activé ({{count}} diapositives)",
+    "deactivated": "Mode télésouffleur désactivé",
     "configUpdated": "Configuration du mode télésouffleur mise à jour",
     "themeChanged": "Thème changé vers {{theme}}",
     "spacesRemoved": "Espaces en début supprimés de {{count}} ligne",
@@ -29,7 +32,11 @@
     "lineHeightChanged": "Hauteur de ligne changée vers {{height}}",
     "fontSizeChanged": "Taille de police changée vers {{size}}pt",
     "fontSizeMax": "La taille de police est déjà au maximum (100pt)",
-    "fontSizeMin": "La taille de police est déjà au minimum (8pt)"
+    "fontSizeMin": "La taille de police est déjà au minimum (8pt)",
+    "openingEditor": "Ouverture du document source à la ligne {{line}}...",
+    "editorOpened": "Document source ouvert",
+    "positionRestored": "Position de défilement restaurée",
+    "column": "col"
   },
   "errors": {
     "noActiveEditor": "Aucun éditeur actif trouvé",
@@ -40,7 +47,7 @@
     "initializationFailed": "Échec d'initialisation de l'extension : {{error}}"
   },
   "settings": {
-    "colorTheme": "Thème de couleur", 
+    "colorTheme": "Thème de couleur",
     "maxWidth": "Largeur maximale",
     "fontSize": "Taille de police",
     "lineHeight": "Hauteur de ligne",
@@ -49,11 +56,24 @@
     "startingPosition": "Position de départ",
     "focusMode": "Mode focus",
     "focusOpacity": "Intensité du flou focus",
-    "focusLineCount": "Nombre de lignes focus"
+    "focusLineCount": "Nombre de lignes focus",
+    "mirrorFlip": "Miroir",
+    "markdownMode": "Mode Markdown",
+    "markdownFeatures": "Fonctions Markdown",
+    "markdownFeatures.headers": "Titres (# ## ###)",
+    "markdownFeatures.emphasis": "Texte en gras et italique",
+    "markdownFeatures.lists": "Listes (- * + et 1. 2. 3.)",
+    "markdownFeatures.links": "Liens [texte](url)",
+    "markdownFeatures.code": "Blocs de code et code en ligne",
+    "markdownFeatures.blockquotes": "Citations (> texte)",
+    "markdownFeatures.tables": "Tableaux",
+    "markdownFeatures.taskLists": "Listes de tâches (- [x] fait)",
+    "markdownFeatures.strikethrough": "Texte barré (~~texte~~)",
+    "markdownFeatures.horizontalRule": "Lignes horizontales (---)"
   },
   "themes": {
     "classic": "Classique",
-    "inverted": "Inversé", 
+    "inverted": "Inversé",
     "midnightBlue": "Bleu nuit",
     "sunset": "Coucher de soleil",
     "forest": "Forêt",
@@ -63,7 +83,7 @@
   "ui": {
     "title": "Mode Télésouffleur - {{filename}}",
     "close": "Fermer",
-    "help": "Aide", 
+    "help": "Aide",
     "shortcuts": "Raccourcis clavier",
     "loading": "Chargement...",
     "ready": "Prêt",
@@ -82,7 +102,7 @@
     "navigationModes": "Navigation & Modes",
     "shortcuts": {
       "space": "Démarrer/arrêter le défilement automatique",
-      "plus": "Augmenter la vitesse de défilement", 
+      "plus": "Augmenter la vitesse de défilement",
       "minus": "Diminuer la vitesse de défilement",
       "r": "Inverser la direction de défilement",
       "escape": "Quitter le mode télésouffleur",
@@ -95,19 +115,43 @@
       "d": "Basculer le mode Markdown",
       "l": "Ajuster la hauteur de ligne",
       "fontSize": "Diminuer/Augmenter la taille de police",
-      "h": "Afficher/masquer l'aide"
+      "h": "Afficher/masquer l'aide",
+      "doubleClick": "Double-cliquez sur une ligne pour l'éditer dans le document source"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Changer de thème",
       "removeSpaces": "Supprimer les espaces en début",
       "toggleFocus": "Basculer le mode focus",
-      "adjustLineHeight": "Ajuster la hauteur de ligne"
+      "toggleMirror": "Basculer le miroir"
     }
+  },
+  "presentation": {
+    "title": "Mode Présentation - {{filename}}",
+    "slideCounter": "{{current}} / {{total}}",
+    "prev": "Préc.",
+    "next": "Suiv.",
+    "close": "Fermer",
+    "help": "Aide",
+    "helpTitle": "Raccourcis du mode présentation",
+    "shortcutLeft": "Diapositive précédente",
+    "shortcutRight": "Diapositive suivante",
+    "shortcutT": "Changer de thème",
+    "shortcutH": "Afficher/masquer l'aide",
+    "shortcutL": "Ajuster la hauteur de ligne",
+    "shortcutBracketL": "Diminuer la taille de police",
+    "shortcutBracketR": "Augmenter la taille de police",
+    "shortcutEsc": "Quitter le mode présentation",
+    "noContent": "Aucun contenu à présenter",
+    "separatorHint": "Astuce : utilisez --- (trois tirets sur une ligne seule) pour diviser le contenu en plusieurs diapositives",
+    "separatorLabel": "Séparateur de diapositives",
+    "separatorValue": "--- (règle horizontale sur une ligne seule)",
+    "singleSlideHint": "Astuce : ajoutez --- sur une ligne seule pour créer plusieurs diapositives"
   },
   "accessibility": {
     "scrollIndicator": "Défilement automatique : {{status}}",
     "speedIndicator": "Vitesse de défilement : {{speed}}",
     "themeIndicator": "Thème actuel : {{theme}}",
-    "focusIndicator": "Mode focus : {{status}}"
+    "focusIndicator": "Mode focus : {{status}}",
+    "mirrorIndicator": "Miroir : {{status}}"
   }
 }

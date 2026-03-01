@@ -10,11 +10,14 @@
     "configureMarkdownFeatures": "Markdown-Funktionen konfigurieren",
     "adjustLineHeight": "Zeilenhöhe anpassen",
     "increaseFontSize": "Schriftgröße erhöhen",
-    "decreaseFontSize": "Schriftgröße verringern"
+    "decreaseFontSize": "Schriftgröße verringern",
+    "presentationMode": "Präsentationsmodus (Folien)"
   },
   "notifications": {
     "activated": "Teleprompter-Modus aktiviert",
-    "deactivated": "Teleprompter-Modus deaktiviert", 
+    "presentationActivated": "Präsentationsmodus aktiviert ({{count}} Folie)",
+    "presentationActivated_plural": "Präsentationsmodus aktiviert ({{count}} Folien)",
+    "deactivated": "Teleprompter-Modus deaktiviert",
     "configUpdated": "Teleprompter-Modus-Konfiguration aktualisiert",
     "themeChanged": "Theme zu {{theme}} geändert",
     "spacesRemoved": "Führende Leerzeichen von {{count}} Zeile entfernt",
@@ -29,7 +32,11 @@
     "lineHeightChanged": "Zeilenhöhe zu {{height}} geändert",
     "fontSizeChanged": "Schriftgröße zu {{size}}pt geändert",
     "fontSizeMax": "Schriftgröße ist bereits maximal (100pt)",
-    "fontSizeMin": "Schriftgröße ist bereits minimal (8pt)"
+    "fontSizeMin": "Schriftgröße ist bereits minimal (8pt)",
+    "openingEditor": "Quelldokument wird bei Zeile {{line}} geöffnet...",
+    "editorOpened": "Quelldokument geöffnet",
+    "positionRestored": "Scrollposition wiederhergestellt",
+    "column": "Sp."
   },
   "errors": {
     "noActiveEditor": "Kein aktiver Editor gefunden",
@@ -40,7 +47,7 @@
     "initializationFailed": "Initialisierung der Erweiterung fehlgeschlagen: {{error}}"
   },
   "settings": {
-    "colorTheme": "Farbthema", 
+    "colorTheme": "Farbthema",
     "maxWidth": "Maximale Breite",
     "fontSize": "Schriftgröße",
     "lineHeight": "Zeilenhöhe",
@@ -49,11 +56,24 @@
     "startingPosition": "Startposition",
     "focusMode": "Fokus-Modus",
     "focusOpacity": "Fokus-Unschärfestärke",
-    "focusLineCount": "Fokus-Zeilenanzahl"
+    "focusLineCount": "Fokus-Zeilenanzahl",
+    "mirrorFlip": "Spiegelung",
+    "markdownMode": "Markdown-Modus",
+    "markdownFeatures": "Markdown-Funktionen",
+    "markdownFeatures.headers": "Überschriften (# ## ###)",
+    "markdownFeatures.emphasis": "Fett- und Kursivtext",
+    "markdownFeatures.lists": "Listen (- * + und 1. 2. 3.)",
+    "markdownFeatures.links": "Links [Text](URL)",
+    "markdownFeatures.code": "Codeblöcke und Inline-Code",
+    "markdownFeatures.blockquotes": "Blockzitate (> Text)",
+    "markdownFeatures.tables": "Tabellen",
+    "markdownFeatures.taskLists": "Aufgabenlisten (- [x] erledigt)",
+    "markdownFeatures.strikethrough": "Durchgestrichen (~~Text~~)",
+    "markdownFeatures.horizontalRule": "Horizontale Linien (---)"
   },
   "themes": {
     "classic": "Klassisch",
-    "inverted": "Invertiert", 
+    "inverted": "Invertiert",
     "midnightBlue": "Mitternachtsblau",
     "sunset": "Sonnenuntergang",
     "forest": "Wald",
@@ -63,7 +83,7 @@
   "ui": {
     "title": "Teleprompter-Modus - {{filename}}",
     "close": "Schließen",
-    "help": "Hilfe", 
+    "help": "Hilfe",
     "shortcuts": "Tastaturkürzel",
     "loading": "Lädt...",
     "ready": "Bereit",
@@ -82,7 +102,7 @@
     "navigationModes": "Navigation & Modi",
     "shortcuts": {
       "space": "Auto-Scroll starten/stoppen",
-      "plus": "Scrollgeschwindigkeit erhöhen", 
+      "plus": "Scrollgeschwindigkeit erhöhen",
       "minus": "Scrollgeschwindigkeit verringern",
       "r": "Scrollrichtung umschalten",
       "escape": "Teleprompter-Modus verlassen",
@@ -95,19 +115,43 @@
       "d": "Markdown-Modus umschalten",
       "l": "Zeilenhöhe anpassen",
       "fontSize": "Schriftgröße verringern/erhöhen",
-      "h": "Hilfe anzeigen/verbergen"
+      "h": "Hilfe anzeigen/verbergen",
+      "doubleClick": "Doppelklick auf eine Zeile zum Bearbeiten im Quelldokument"
     },
     "vsCodeShortcuts": {
       "changeTheme": "Theme ändern",
       "removeSpaces": "Führende Leerzeichen entfernen",
       "toggleFocus": "Fokus-Modus umschalten",
-      "adjustLineHeight": "Zeilenhöhe anpassen"
+      "toggleMirror": "Spiegelung umschalten"
     }
+  },
+  "presentation": {
+    "title": "Präsentationsmodus - {{filename}}",
+    "slideCounter": "{{current}} / {{total}}",
+    "prev": "Zurück",
+    "next": "Weiter",
+    "close": "Schließen",
+    "help": "Hilfe",
+    "helpTitle": "Kurzbefehle für den Präsentationsmodus",
+    "shortcutLeft": "Vorherige Folie",
+    "shortcutRight": "Nächste Folie",
+    "shortcutT": "Theme wechseln",
+    "shortcutH": "Hilfe anzeigen/verbergen",
+    "shortcutL": "Zeilenhöhe anpassen",
+    "shortcutBracketL": "Schriftgröße verringern",
+    "shortcutBracketR": "Schriftgröße erhöhen",
+    "shortcutEsc": "Präsentationsmodus beenden",
+    "noContent": "Kein Inhalt zum Präsentieren",
+    "separatorHint": "Tipp: Verwenden Sie --- (drei Bindestriche in einer eigenen Zeile), um Inhalte in mehrere Folien zu teilen",
+    "separatorLabel": "Folientrenner",
+    "separatorValue": "--- (horizontale Linie in eigener Zeile)",
+    "singleSlideHint": "Tipp: Fügen Sie --- in einer eigenen Zeile hinzu, um mehrere Folien zu erstellen"
   },
   "accessibility": {
     "scrollIndicator": "Auto-Scroll: {{status}}",
     "speedIndicator": "Scrollgeschwindigkeit: {{speed}}",
     "themeIndicator": "Aktuelles Theme: {{theme}}",
-    "focusIndicator": "Fokus-Modus: {{status}}"
+    "focusIndicator": "Fokus-Modus: {{status}}",
+    "mirrorIndicator": "Spiegelung: {{status}}"
   }
 }
