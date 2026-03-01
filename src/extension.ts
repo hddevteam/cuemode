@@ -262,7 +262,20 @@ export class CueModeExtension {
 
       // If only one slide detected, suggest using --- separator
       if (slides.length === 1) {
-        vscode.window.showInformationMessage(t('presentation.singleSlideHint'));
+        const dismissed = this.context.globalState.get<boolean>(
+          'cuemode.dismissSingleSlideHint',
+          false
+        );
+        if (!dismissed) {
+          const btn = t('presentation.dontShowAgain');
+          const action = await vscode.window.showInformationMessage(
+            t('presentation.singleSlideHint'),
+            btn
+          );
+          if (action === btn) {
+            await this.context.globalState.update('cuemode.dismissSingleSlideHint', true);
+          }
+        }
       }
     } catch (error) {
       this.handleError(error);

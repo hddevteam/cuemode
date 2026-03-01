@@ -145,7 +145,8 @@
     "separatorHint": "提示：在新行单独输入 --- 可将内容分为多张幻灯片",
     "separatorLabel": "分页符",
     "separatorValue": "--- （单独一行的水平分隔线）",
-    "singleSlideHint": "提示：在新行单独输入 --- 可创建多张幻灯片"
+    "singleSlideHint": "提示：在新行单独输入 --- 可创建多张幻灯片",
+    "dontShowAgain": "不再提示"
   },
   "accessibility": {
     "scrollIndicator": "自动滚屏：{{status}}",

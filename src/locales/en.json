@@ -145,7 +145,8 @@
     "separatorHint": "Tip: Use --- (three dashes on its own line) to split content into multiple slides",
     "separatorLabel": "Slide separator",
     "separatorValue": "--- (horizontal rule on its own line)",
-    "singleSlideHint": "Tip: Add --- on its own line to create multiple slides"
+    "singleSlideHint": "Tip: Add --- on its own line to create multiple slides",
+    "dontShowAgain": "Don't show again"
   },
   "accessibility": {
     "scrollIndicator": "Auto-scroll: {{status}}",

@@ -5,6 +5,18 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2026-03-02 - Presentation Mode polish & UX fixes
+
+### 🛠 Fixes
+
+- Decoupled markdown newline handling between CueMode teleprompter view and Presentation mode to preserve expected markdown paragraph behavior in slides.
+- Fixed unintended leading-space trimming during markdown table processing by preserving original non-table lines.
+- Added persistent opt-out for single-slide pagination tips ("Don't show again").
+- Updated Presentation mode controls visibility behavior:
+  - Top Help/Close controls are visible for 5 seconds on entry.
+  - Afterwards, they are shown only when hovering the top controls area.
+  - Mouse movement/clicking on slide content no longer re-activates top controls.
+
 ## [3.0.0] - 2026-03-01 - Presentation Mode Release & Full i18n Sync
 
 ### ✨ Release Highlights

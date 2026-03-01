@@ -591,7 +591,9 @@ export class MarkdownParser {
           headerRow = null;
           tableRows = [];
         }
-        result.push(line);
+        // Preserve the original line (with leading spaces) instead of the trimmed version.
+        // The trimmed `line` is only used for table-row detection above.
+        result.push(currentLine);
       }
     }
 

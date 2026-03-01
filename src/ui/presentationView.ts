@@ -6,6 +6,46 @@ import { generatePresentationCSS } from '../utils/webviewStyles';
 import { t, getCurrentLanguage } from '../i18n';
 
 /**
+ * Block-level HTML tags that should NOT be wrapped in <p> tags.
+ * Used by wrapPresentationParagraphs to distinguish prose text from block elements.
+ */
+const BLOCK_ELEMENT_PATTERN =
+  /^<(h[1-6]|p|div|ul|ol|li|blockquote|pre|table|thead|tbody|tr|th|td|hr|figure|figcaption|section|article|aside|nav|header|footer|details|summary)[^>]*>/i;
+
+/**
+ * Wrap plain-text segments in the presentation HTML with proper <p> tags so that
+ * markdown paragraph and line-break semantics are preserved independently from the
+ * CueMode (teleprompter) content renderer.
+ *
+ * Rules (aligned with CommonMark / GFM):
+ *  - Blank lines between segments → separate <p> elements
+ *  - Single newlines inside a prose segment → <br> (GFM soft line-break extension)
+ *  - Segments that already start with a block-level HTML tag are left unchanged
+ */
+function wrapPresentationParagraphs(html: string): string {
+  // Split on one-or-more blank lines to get paragraph-level segments
+  const segments = html.split(/\n{2,}/);
+
+  const wrapped = segments
+    .map(segment => {
+      const trimmed = segment.trim();
+      if (!trimmed) return '';
+
+      // If the segment is already a block-level element, leave it as-is
+      if (BLOCK_ELEMENT_PATTERN.test(trimmed)) {
+        return trimmed;
+      }
+
+      // Convert single newlines within a prose paragraph to <br> (GFM soft line-breaks)
+      const lineContent = trimmed.replace(/\n/g, '<br>');
+      return `<p class="pm-paragraph">${lineContent}</p>`;
+    })
+    .filter(s => s !== '');
+
+  return wrapped.join('\n');
+}
+
+/**
  * Generate HTML for presentation (slide) mode.
  */
 export function generatePresentationHTML(
@@ -23,13 +63,16 @@ export function generatePresentationHTML(
   const markdownCSS = generateMarkdownCSS(ThemeManager.getTheme(config.colorTheme));
   const presentationCSS = generatePresentationCSS();
 
-  // Render each slide content via markdown parser
+  // Render each slide content via markdown parser, then apply presentation-specific
+  // paragraph wrapping (independent from the CueMode / teleprompter content renderer).
   const renderedSlides = slides
     .map((slideText, idx) => {
       let innerHtml: string;
       try {
         const parsed = MarkdownParser.parse(slideText.trim(), config.markdownFeatures);
-        innerHtml = parsed.html;
+        // Apply presentation-mode paragraph semantics (markdown line-break rules).
+        // This is intentionally separate from contentRenderer.ts used by CueMode.
+        innerHtml = wrapPresentationParagraphs(parsed.html);
       } catch {
         innerHtml = `<pre>${slideText
           .replace(/&/g, '&amp;')
@@ -104,8 +147,7 @@ export function generatePresentationHTML(
     const slides = document.querySelectorAll('.pm-slide');
     const totalSlides = ${slides.length};
     let current = 0;
-    let uiVisible = true;
-    let uiTimeout;
+    let navTimeout;
 
     function pmGoTo(idx) {
       if (idx < 0 || idx >= totalSlides) return;
@@ -127,22 +169,15 @@ export function generatePresentationHTML(
       help.classList.toggle('visible');
     }
 
-    function pmShowUI() {
-      clearTimeout(uiTimeout);
-      const ctrl = document.getElementById('pm-controls');
-      const nav  = document.getElementById('pm-nav');
-      ctrl.classList.remove('hidden');
-      if (totalSlides > 1) nav.classList.remove('hidden');
-      uiVisible = true;
-      uiTimeout = setTimeout(() => {
-        ctrl.classList.add('hidden');
-        nav.classList.add('hidden');
-        uiVisible = false;
-      }, 3000);
+    // Show nav bar on mouse move (for slide navigation only)
+    function pmShowNav() {
+      clearTimeout(navTimeout);
+      const nav = document.getElementById('pm-nav');
+      if (totalSlides <= 1) return;
+      nav.classList.remove('hidden');
+      navTimeout = setTimeout(() => nav.classList.add('hidden'), 3000);
     }
-
-    // Show UI on mouse move
-    document.addEventListener('mousemove', pmShowUI);
+    document.addEventListener('mousemove', pmShowNav);
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
@@ -177,12 +212,13 @@ export function generatePresentationHTML(
       }
     });
 
-    // Initial UI auto-hide after 2 s
-    uiTimeout = setTimeout(() => {
-      document.getElementById('pm-controls').classList.add('hidden');
-      document.getElementById('pm-nav').classList.add('hidden');
-      uiVisible = false;
-    }, 2000);
+    // Controls bar: visible for 5 s on entry, then CSS :hover takes over
+    const ctrl = document.getElementById('pm-controls');
+    ctrl.classList.add('pm-entering');
+    setTimeout(() => ctrl.classList.remove('pm-entering'), 5000);
+
+    // Nav bar: auto-hide after 2 s initially
+    setTimeout(() => document.getElementById('pm-nav').classList.add('hidden'), 2000);
 
     // Listen for theme update messages from extension
     window.addEventListener('message', event => {

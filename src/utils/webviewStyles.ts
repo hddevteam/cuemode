@@ -452,12 +452,16 @@ html, body {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   z-index: 100;
+  /* Hidden by default — visible only when hovered or during initial .pm-entering phase */
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-.pm-controls.hidden {
-  opacity: 0;
-  pointer-events: none;
+.pm-controls:hover,
+.pm-controls.pm-entering {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .pm-ctrl-btn {
@@ -528,6 +532,17 @@ html, body {
   font-size: 12px;
   min-width: 60px;
   text-align: center;
+}
+
+/* Prose paragraphs produced by the presentation-mode paragraph wrapper.
+   Kept independent from CueMode teleprompter styles (.cue-line). */
+.pm-paragraph {
+  margin: 0 0 0.75em;
+  line-height: inherit;
+}
+
+.pm-paragraph:last-child {
+  margin-bottom: 0;
 }
 `;
 }
