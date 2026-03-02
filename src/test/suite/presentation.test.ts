@@ -214,4 +214,37 @@ suite('Presentation Mode – WebViewManager.createPresentation', () => {
       'Nav should be hidden for 1 slide'
     );
   });
+
+  test('presentation content should sync after source document changes', async () => {
+    const document = await vscode.workspace.openTextDocument({
+      content: '# Slide 1\nA\n---\n# Slide 2\nB',
+      language: 'markdown',
+    });
+    await vscode.window.showTextDocument(document);
+
+    const config = ConfigManager.getSafeConfig();
+    await manager.createPresentation(
+      splitIntoSlides(document.getText()),
+      'live.md',
+      config,
+      document
+    );
+
+    // Use workspace edit to avoid depending on the active TextEditor (webview may steal focus)
+    const lastLine = document.lineAt(document.lineCount - 1);
+    const fullRange = new vscode.Range(0, 0, document.lineCount - 1, lastLine.text.length);
+    const edit = new vscode.WorkspaceEdit();
+    edit.replace(document.uri, fullRange, '# New 1\nX\n---\n# New 2\nY\n---\n# New 3\nZ');
+    await vscode.workspace.applyEdit(edit);
+
+    await new Promise(resolve => setTimeout(resolve, 350));
+
+    const state = manager.getState();
+    const updatedSlides = state.slides ?? [];
+    assert.strictEqual(updatedSlides.length, 3, 'Slides should be re-split after source changes');
+    assert.ok(updatedSlides[0]?.includes('# New 1'), 'Updated content should be reflected');
+
+    manager.close();
+    await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+  });
 });

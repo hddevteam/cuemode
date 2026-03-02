@@ -152,6 +152,11 @@ suite('Extension Integration Tests', () => {
     assert.ok(commands.includes('cuemode.toggleMirrorFlip'));
   });
 
+  test('Configure markdown features command should be registered', async () => {
+    const commands = await vscode.commands.getCommands(true);
+    assert.ok(commands.includes('cuemode.configureMarkdownFeatures'));
+  });
+
   test('Mirror flip configuration should be accessible', () => {
     const config = vscode.workspace.getConfiguration('cuemode');
     const mirrorFlip = config.get('mirrorFlip');

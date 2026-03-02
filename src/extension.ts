@@ -115,6 +115,14 @@ export class CueModeExtension {
       }
     );
 
+    // Configure markdown features command
+    const configureMarkdownFeaturesCommand = vscode.commands.registerCommand(
+      'cuemode.configureMarkdownFeatures',
+      () => {
+        this.configureMarkdownFeatures();
+      }
+    );
+
     // Toggle wrap markers command
     const toggleWrapMarkersCommand = vscode.commands.registerCommand(
       'cuemode.toggleWrapMarkers',
@@ -185,6 +193,7 @@ export class CueModeExtension {
       toggleFocusModeCommand,
       toggleMirrorFlipCommand,
       toggleMarkdownModeCommand,
+      configureMarkdownFeaturesCommand,
       adjustLineHeightCommand,
       increaseFontSizeCommand,
       decreaseFontSizeCommand,
@@ -554,6 +563,20 @@ export class CueModeExtension {
         const updatedConfig = ConfigManager.getConfig();
         await this.webViewManager.updateConfig(updatedConfig);
       }
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  /**
+   * Open settings to configure markdown features
+   */
+  private async configureMarkdownFeatures(): Promise<void> {
+    try {
+      await vscode.commands.executeCommand(
+        'workbench.action.openSettings',
+        'cuemode.markdownFeatures'
+      );
     } catch (error) {
       this.handleError(error);
     }

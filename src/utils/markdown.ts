@@ -292,6 +292,11 @@ export class MarkdownParser {
       // Create a key for tracking list continuity
       const listKey = `${listType}-${item.level}`;
 
+      // Track whether we just closed a deeper (nested) list.
+      // When resuming an ordered list after nested content, we reopen a new <ol>
+      // segment with a start="N" attribute to preserve numbering.
+      let closedDeeperList = false;
+
       // Close lists that are at deeper levels
       while (stack.length > 0) {
         const lastInStack = stack[stack.length - 1];
@@ -302,6 +307,25 @@ export class MarkdownParser {
           // Same level and type, can continue in the same list
           break;
         }
+        const lastList = stack.pop();
+        if (lastList) {
+          if (lastList.level > item.level) {
+            closedDeeperList = true;
+          }
+          html.push(`</${lastList.type}>`);
+        }
+      }
+
+      // If we are resuming an ordered list after nested lists, split into a new
+      // <ol> segment and continue numbering via start="N".
+      const stackTopAfterClose = stack[stack.length - 1];
+      if (
+        item.isOrdered &&
+        closedDeeperList &&
+        stackTopAfterClose &&
+        stackTopAfterClose.level === item.level &&
+        stackTopAfterClose.type === listType
+      ) {
         const lastList = stack.pop();
         if (lastList) {
           html.push(`</${lastList.type}>`);

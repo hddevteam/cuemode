@@ -384,20 +384,21 @@ html, body {
   font-size: 1.15em;
 }
 
-/* Navigation bar at the bottom */
+/* Navigation bar — bottom-right corner floating panel */
 .pm-nav {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
+  bottom: 20px;
+  right: 20px;
+  width: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  background: rgba(0, 0, 0, 0.35);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
   z-index: 100;
   transition: opacity 0.3s ease;
 }
@@ -409,57 +410,58 @@ html, body {
 
 .pm-nav-btn {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   color: inherit;
-  padding: 4px 14px;
-  border-radius: 4px;
+  padding: 5px 18px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 13px;
-  opacity: 0.8;
-  transition: opacity 0.2s, border-color 0.2s;
+  width: 100%;
+  text-align: center;
+  opacity: 0.85;
+  transition: opacity 0.2s, border-color 0.2s, background 0.2s;
 }
 
 .pm-nav-btn:hover {
   opacity: 1;
-  border-color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .pm-nav-btn:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   cursor: default;
 }
 
 .pm-counter {
-  font-size: 13px;
-  opacity: 0.7;
-  min-width: 60px;
+  font-size: 12px;
+  opacity: 0.65;
+  min-width: 50px;
   text-align: center;
 }
 
-/* Top control bar */
+/* Top-right corner control panel */
 .pm-controls {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
+  top: 16px;
+  right: 16px;
+  width: auto;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 0 12px;
-  background: rgba(0, 0, 0, 0.25);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
   z-index: 100;
-  /* Hidden by default — visible only when hovered or during initial .pm-entering phase */
+  /* Hidden by default — shown via JS when mouse enters top-right zone */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-.pm-controls:hover,
-.pm-controls.pm-entering {
+.pm-controls.pm-visible {
   opacity: 1;
   pointer-events: auto;
 }
@@ -468,11 +470,12 @@ html, body {
   background: transparent;
   border: none;
   color: inherit;
-  opacity: 1;
+  opacity: 0.85;
   cursor: pointer;
   font-size: 13px;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  transition: opacity 0.2s, background 0.2s;
 }
 
 .pm-ctrl-btn:hover {

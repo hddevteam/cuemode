@@ -149,14 +149,37 @@ export function generatePresentationHTML(
     let current = 0;
     let navTimeout;
 
+    // Restore last known slide index (persisted across webview reloads)
+    try {
+      const prevState = vscode.getState();
+      if (prevState && typeof prevState.pmCurrent === 'number') {
+        const idx = prevState.pmCurrent;
+        if (idx >= 0 && idx < totalSlides) {
+          current = idx;
+        }
+      }
+    } catch {
+      // Ignore state restore errors
+    }
+
     function pmGoTo(idx) {
       if (idx < 0 || idx >= totalSlides) return;
-      slides[current].classList.remove('active');
+      // Remove active state from any slide (robust across full HTML reloads)
+      const active = document.querySelector('.pm-slide.active');
+      if (active) active.classList.remove('active');
+
       current = idx;
       slides[current].classList.add('active');
       document.getElementById('pm-counter').textContent = (current + 1) + ' / ' + totalSlides;
       document.getElementById('pm-prev').disabled = current === 0;
       document.getElementById('pm-next').disabled = current === totalSlides - 1;
+
+      // Persist current slide index for reloads
+      try {
+        vscode.setState({ ...(vscode.getState() || {}), pmCurrent: current });
+      } catch {
+        // Ignore state persist errors
+      }
     }
 
     function pmNext() { pmGoTo(current + 1); }
@@ -169,15 +192,26 @@ export function generatePresentationHTML(
       help.classList.toggle('visible');
     }
 
-    // Show nav bar on mouse move (for slide navigation only)
-    function pmShowNav() {
-      clearTimeout(navTimeout);
+    // Zone-based show: bottom-right area → nav, top-right area → controls
+    let ctrlTimeout;
+    function pmShowNav(e) {
       const nav = document.getElementById('pm-nav');
       if (totalSlides <= 1) return;
-      nav.classList.remove('hidden');
-      navTimeout = setTimeout(() => nav.classList.add('hidden'), 3000);
+      if (e.clientX > window.innerWidth - 180 && e.clientY > window.innerHeight - 160) {
+        clearTimeout(navTimeout);
+        nav.classList.remove('hidden');
+        navTimeout = setTimeout(() => nav.classList.add('hidden'), 3000);
+      }
     }
-    document.addEventListener('mousemove', pmShowNav);
+    function pmShowControls(e) {
+      const ctrl = document.getElementById('pm-controls');
+      if (e.clientX > window.innerWidth - 180 && e.clientY < 80) {
+        clearTimeout(ctrlTimeout);
+        ctrl.classList.add('pm-visible');
+        ctrlTimeout = setTimeout(() => ctrl.classList.remove('pm-visible'), 3000);
+      }
+    }
+    document.addEventListener('mousemove', (e) => { pmShowNav(e); pmShowControls(e); });
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
@@ -212,13 +246,25 @@ export function generatePresentationHTML(
       }
     });
 
-    // Controls bar: visible for 5 s on entry, then CSS :hover takes over
+    // Controls bar: visible for 4 s on entry, then auto-hides
     const ctrl = document.getElementById('pm-controls');
-    ctrl.classList.add('pm-entering');
-    setTimeout(() => ctrl.classList.remove('pm-entering'), 5000);
+    ctrl.classList.add('pm-visible');
+    setTimeout(() => ctrl.classList.remove('pm-visible'), 4000);
 
-    // Nav bar: auto-hide after 2 s initially
+    // Nav bar: visible for 2 s on entry, then auto-hides
     setTimeout(() => document.getElementById('pm-nav').classList.add('hidden'), 2000);
+
+    // Ensure the restored slide is applied after initial DOM is ready
+    if (current !== 0) {
+      pmGoTo(current);
+    } else {
+      // Persist initial state as well
+      try {
+        vscode.setState({ ...(vscode.getState() || {}), pmCurrent: 0 });
+      } catch {
+        // Ignore state persist errors
+      }
+    }
 
     // Listen for theme update messages from extension
     window.addEventListener('message', event => {

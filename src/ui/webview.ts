@@ -10,10 +10,12 @@ import { handleWebviewMessage as dispatchWebviewMessage } from './webviewMessage
  * WebView manager for CueMode
  */
 export class WebViewManager {
+  private static readonly PRESENTATION_REFRESH_DEBOUNCE_MS = 200;
   private panel: vscode.WebviewPanel | undefined;
   private context: vscode.ExtensionContext;
   private state: CueModeState;
   private documentChangeListener: vscode.Disposable | undefined;
+  private presentationRefreshTimer: ReturnType<typeof setTimeout> | undefined;
   private onCloseCallback: (() => void) | undefined;
 
   constructor(context: vscode.ExtensionContext) {
@@ -266,11 +268,16 @@ export class WebViewManager {
     }
 
     this.documentChangeListener = vscode.workspace.onDidChangeTextDocument(async event => {
-      if (!this.panel || this.state.isPresentationMode) {
+      if (!this.panel) {
         return;
       }
 
       if (event.document.uri.toString() !== this.state.sourceDocument?.uri.toString()) {
+        return;
+      }
+
+      if (this.state.isPresentationMode) {
+        this.schedulePresentationRefresh(event.document);
         return;
       }
 
@@ -284,6 +291,52 @@ export class WebViewManager {
 
   private saveScrollPosition(scrollTop: number): void {
     this.state.savedScrollPosition = scrollTop;
+  }
+
+  private splitSlides(rawText: string): string[] {
+    const slides = rawText
+      .split(/^\s*---\s*$/m)
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    if (slides.length > 0) {
+      return slides;
+    }
+
+    return [t('presentation.noContent')];
+  }
+
+  private schedulePresentationRefresh(document: vscode.TextDocument): void {
+    if (this.presentationRefreshTimer) {
+      clearTimeout(this.presentationRefreshTimer);
+      this.presentationRefreshTimer = undefined;
+    }
+
+    this.presentationRefreshTimer = setTimeout(() => {
+      this.presentationRefreshFromDocument(document);
+    }, WebViewManager.PRESENTATION_REFRESH_DEBOUNCE_MS);
+  }
+
+  private presentationRefreshFromDocument(document: vscode.TextDocument): void {
+    if (!this.panel || !this.state.isPresentationMode) {
+      return;
+    }
+
+    if (document.uri.toString() !== this.state.sourceDocument?.uri.toString()) {
+      return;
+    }
+
+    const rawText = document.getText();
+    const slides = this.splitSlides(rawText);
+
+    this.state.content = rawText;
+    this.state.slides = slides;
+
+    this.panel.webview.html = this.generatePresentationHTML(
+      slides,
+      this.state.config,
+      this.state.filename
+    );
   }
 
   /**
@@ -327,6 +380,11 @@ export class WebViewManager {
   private cleanup(): void {
     this.state.isActive = false;
     this.panel = undefined;
+
+    if (this.presentationRefreshTimer) {
+      clearTimeout(this.presentationRefreshTimer);
+      this.presentationRefreshTimer = undefined;
+    }
 
     if (this.documentChangeListener) {
       this.documentChangeListener.dispose();
