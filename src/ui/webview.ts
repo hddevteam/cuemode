@@ -11,11 +11,14 @@ import { handleWebviewMessage as dispatchWebviewMessage } from './webviewMessage
  */
 export class WebViewManager {
   private static readonly PRESENTATION_REFRESH_DEBOUNCE_MS = 200;
+  private static readonly CUE_MODE_REFRESH_DEBOUNCE_MS = 120;
   private panel: vscode.WebviewPanel | undefined;
   private context: vscode.ExtensionContext;
   private state: CueModeState;
   private documentChangeListener: vscode.Disposable | undefined;
   private presentationRefreshTimer: ReturnType<typeof setTimeout> | undefined;
+  private cueModeRefreshTimer: ReturnType<typeof setTimeout> | undefined;
+  private pendingCueModeContent: string | undefined;
   private onCloseCallback: (() => void) | undefined;
 
   constructor(context: vscode.ExtensionContext) {
@@ -244,6 +247,20 @@ export class WebViewManager {
       this.context.subscriptions
     );
 
+    this.panel.onDidChangeViewState(
+      () => {
+        if (!this.panel?.visible || !this.pendingCueModeContent || this.state.isPresentationMode) {
+          return;
+        }
+
+        const content = this.pendingCueModeContent;
+        this.pendingCueModeContent = undefined;
+        void this.pushCueModeContentUpdate(content);
+      },
+      null,
+      this.context.subscriptions
+    );
+
     this.panel.webview.onDidReceiveMessage(
       (message: WebviewMessage) => {
         dispatchWebviewMessage(message, {
@@ -281,9 +298,7 @@ export class WebViewManager {
         return;
       }
 
-      this.state.content = event.document.getText();
-      this.panel.webview.html = await this.generateHTML();
-      await this.restoreScrollPosition();
+      this.scheduleCueModeRefresh(event.document);
     });
 
     this.context.subscriptions.push(this.documentChangeListener);
@@ -317,6 +332,17 @@ export class WebViewManager {
     }, WebViewManager.PRESENTATION_REFRESH_DEBOUNCE_MS);
   }
 
+  private scheduleCueModeRefresh(document: vscode.TextDocument): void {
+    if (this.cueModeRefreshTimer) {
+      clearTimeout(this.cueModeRefreshTimer);
+      this.cueModeRefreshTimer = undefined;
+    }
+
+    this.cueModeRefreshTimer = setTimeout(() => {
+      void this.refreshCueModeFromDocument(document);
+    }, WebViewManager.CUE_MODE_REFRESH_DEBOUNCE_MS);
+  }
+
   private presentationRefreshFromDocument(document: vscode.TextDocument): void {
     if (!this.panel || !this.state.isPresentationMode) {
       return;
@@ -337,6 +363,75 @@ export class WebViewManager {
       this.state.config,
       this.state.filename
     );
+  }
+
+  private async refreshCueModeFromDocument(document: vscode.TextDocument): Promise<void> {
+    if (!this.panel || this.state.isPresentationMode) {
+      return;
+    }
+
+    if (document.uri.toString() !== this.state.sourceDocument?.uri.toString()) {
+      return;
+    }
+
+    const updatedContent = document.getText();
+    this.state.content = updatedContent;
+
+    if (!this.panel.visible) {
+      this.pendingCueModeContent = updatedContent;
+      return;
+    }
+
+    await this.pushCueModeContentUpdate(updatedContent);
+  }
+
+  private async pushCueModeContentUpdate(content: string): Promise<void> {
+    if (!this.panel || this.state.isPresentationMode) {
+      return;
+    }
+
+    const processedContent = this.processContent(content);
+    await this.panel.webview.postMessage({
+      type: 'contentUpdate',
+      data: {
+        processedContent,
+      },
+    });
+
+    await this.restoreScrollPosition();
+  }
+
+  public async revealEditorCursor(editor?: vscode.TextEditor): Promise<boolean> {
+    if (!this.panel || !editor || this.state.isPresentationMode) {
+      return false;
+    }
+
+    const sourceUri = this.state.sourceDocument?.uri.toString();
+    if (!sourceUri || editor.document.uri.toString() !== sourceUri) {
+      return false;
+    }
+
+    this.panel.reveal(vscode.ViewColumn.One, false);
+
+    if (this.pendingCueModeContent) {
+      const content = this.pendingCueModeContent;
+      this.pendingCueModeContent = undefined;
+      await this.pushCueModeContentUpdate(content);
+    }
+
+    const selectedText = editor.selection.isEmpty ? '' : editor.document.getText(editor.selection);
+    const lineText = editor.document.lineAt(editor.selection.active.line).text;
+
+    await this.panel.webview.postMessage({
+      type: 'revealEditorCursor',
+      data: {
+        lineNumber: editor.selection.active.line,
+        lineText,
+        selectedText,
+      },
+    });
+
+    return true;
   }
 
   /**
@@ -385,6 +480,13 @@ export class WebViewManager {
       clearTimeout(this.presentationRefreshTimer);
       this.presentationRefreshTimer = undefined;
     }
+
+    if (this.cueModeRefreshTimer) {
+      clearTimeout(this.cueModeRefreshTimer);
+      this.cueModeRefreshTimer = undefined;
+    }
+
+    this.pendingCueModeContent = undefined;
 
     if (this.documentChangeListener) {
       this.documentChangeListener.dispose();

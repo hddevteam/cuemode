@@ -64,4 +64,17 @@ suite('mainView', () => {
     assert.ok(onHtml.includes('cm-break-marker::before'));
     assert.ok(!offHtml.includes('cm-break-marker::before'));
   });
+
+  test('includes lightweight content update and editor-cursor reveal handlers', () => {
+    const html = generateMainHTML({
+      content: '# Demo',
+      processedContent: '<div id="x">X</div>',
+      filename: 'demo.md',
+      config: makeConfig(true) as any,
+    });
+
+    assert.ok(html.includes("message.type === 'contentUpdate'"));
+    assert.ok(html.includes("message.type === 'revealEditorCursor'"));
+    assert.ok(html.includes('scrollIntoView'));
+  });
 });

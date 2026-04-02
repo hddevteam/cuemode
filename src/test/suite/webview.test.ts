@@ -258,4 +258,87 @@ suite('WebViewManager Tests', () => {
       webViewManager.close();
     }
   });
+
+  test('WebViewManager should post lightweight content updates for source edits', async () => {
+    const postedMessages: unknown[] = [];
+    const mockPanel = {
+      visible: true,
+      reveal: () => undefined,
+      webview: {
+        html: '<html>initial</html>',
+        postMessage: async (message: unknown) => {
+          postedMessages.push(message);
+          return true;
+        },
+      },
+    };
+
+    (webViewManager as any).panel = mockPanel;
+    (webViewManager as any).state = {
+      ...(webViewManager as any).state,
+      isActive: true,
+      isPresentationMode: false,
+      filename: 'test.md',
+      config: ConfigManager.getSafeConfig(),
+      sourceDocument: { uri: vscode.Uri.file('/tmp/test.md') },
+    };
+
+    await (webViewManager as any).refreshCueModeFromDocument({
+      uri: vscode.Uri.file('/tmp/test.md'),
+      getText: () => '# Updated',
+    });
+
+    assert.strictEqual(mockPanel.webview.html, '<html>initial</html>');
+    assert.ok(
+      postedMessages.some(
+        message =>
+          (message as { type?: string }).type === 'contentUpdate' &&
+          typeof (message as { data?: { processedContent?: string } }).data?.processedContent ===
+            'string'
+      ),
+      'Should send incremental content update instead of replacing full HTML'
+    );
+  });
+
+  test('WebViewManager should reveal the current editor cursor inside CueMode', async () => {
+    const postedMessages: unknown[] = [];
+    const mockPanel = {
+      visible: false,
+      dispose: () => undefined,
+      reveal: () => undefined,
+      webview: {
+        html: '<html>initial</html>',
+        postMessage: async (message: unknown) => {
+          postedMessages.push(message);
+          return true;
+        },
+      },
+    };
+
+    (webViewManager as any).panel = mockPanel;
+    (webViewManager as any).state = {
+      ...(webViewManager as any).state,
+      isActive: true,
+      isPresentationMode: false,
+      filename: 'test.md',
+      config: ConfigManager.getSafeConfig(),
+      sourceDocument: { uri: vscode.Uri.file('/tmp/test.md') },
+    };
+
+    const editor = {
+      document: {
+        uri: vscode.Uri.file('/tmp/test.md'),
+        lineAt: () => ({ text: '## Current section' }),
+        getText: () => 'Current section',
+      },
+      selection: new vscode.Selection(4, 3, 4, 10),
+    } as unknown as vscode.TextEditor;
+
+    const revealed = await webViewManager.revealEditorCursor(editor);
+
+    assert.strictEqual(revealed, true);
+    assert.ok(
+      postedMessages.some(message => (message as { type?: string }).type === 'revealEditorCursor')
+    );
+  });
 });

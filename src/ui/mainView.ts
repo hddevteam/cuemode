@@ -82,6 +82,12 @@ export function generateMainHTML(params: MainViewParams): string {
           body {
             ${startingPositionCSS}
           }
+          .cue-line.cue-reveal-target {
+            outline: 2px solid var(--accent-color);
+            border-radius: 6px;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
+            transition: outline-color 0.2s ease, box-shadow 0.2s ease;
+          }
           ${
             config.showLineBreaks
               ? `
@@ -362,6 +368,84 @@ export function generateMainHTML(params: MainViewParams): string {
               return \`<div class="cue-line" data-line-number="\${index}">\${escapedLine}</div>\`;
             }).join('');
           }
+
+          function normalizeCueText(text) {
+            return (text || '')
+              .replace(/\\r/g, '')
+              .replace(/^\\s{0,3}#{1,6}\\s+/gm, '')
+              .replace(/^\\s*>+\\s*/gm, '')
+              .replace(/^\\s*-\\s+\\[[ xX]\\]\\s+/gm, '')
+              .replace(/^\\s*(?:[-*+]|\\d+[.])\\s+/gm, '')
+              .replace(/!\\[([^\\]]*)\\]\\(([^)]+)\\)/g, '$1')
+              .replace(/\\[([^\\]]+)\\]\\(([^)]+)\\)/g, '$1')
+              .replace(/\\*\\*|__|\\*|_|~~|\\x60/g, '')
+              .replace(/\\s+/g, ' ')
+              .trim()
+              .toLowerCase();
+          }
+
+          function scoreTextOverlap(candidateText, queryText) {
+            if (!candidateText || !queryText) {
+              return 0;
+            }
+
+            const tokens = queryText.split(/[^\\p{L}\\p{N}]+/u).filter(Boolean);
+            if (tokens.length === 0) {
+              return candidateText.includes(queryText) ? 1 : 0;
+            }
+
+            const matchedTokenCount = tokens.filter(token => candidateText.includes(token)).length;
+            return matchedTokenCount / tokens.length;
+          }
+
+          function findBestRevealTarget(lineText, selectedText) {
+            const cueLines = Array.from(document.querySelectorAll('.cue-line'));
+            const normalizedLineText = normalizeCueText(lineText);
+            const normalizedSelectedText = normalizeCueText(selectedText);
+
+            let bestTarget = null;
+            let bestScore = Number.NEGATIVE_INFINITY;
+
+            for (const cueLine of cueLines) {
+              const normalizedCueLineText = normalizeCueText(cueLine.textContent || '');
+              let score = 0;
+
+              if (normalizedSelectedText && normalizedCueLineText.includes(normalizedSelectedText)) {
+                score += 500 + normalizedSelectedText.length;
+              }
+
+              if (normalizedLineText && normalizedCueLineText.includes(normalizedLineText)) {
+                score += 300 + normalizedLineText.length;
+              } else if (normalizedLineText) {
+                score += scoreTextOverlap(normalizedCueLineText, normalizedLineText) * 120;
+              }
+
+              if (score > bestScore) {
+                bestScore = score;
+                bestTarget = cueLine;
+              }
+            }
+
+            return bestTarget;
+          }
+
+          function revealEditorCursorInView(lineText, selectedText) {
+            const targetLine = findBestRevealTarget(lineText, selectedText);
+            if (!targetLine) {
+              return;
+            }
+
+            targetLine.classList.add('cue-reveal-target');
+            targetLine.scrollIntoView({ block: 'center', behavior: 'smooth' });
+
+            if (window.cueRevealTimeout) {
+              clearTimeout(window.cueRevealTimeout);
+            }
+
+            window.cueRevealTimeout = setTimeout(() => {
+              targetLine.classList.remove('cue-reveal-target');
+            }, 1800);
+          }
           
           function applyFocusMode() {
             const content = document.getElementById('content');
@@ -420,7 +504,7 @@ export function generateMainHTML(params: MainViewParams): string {
                 if (blurAmount === 0) {
                   line.style.filter = 'none';
                 } else {
-                  line.style.filter = \`blur(\${blurAmount}px)\`;
+                  line.style.filter = 'blur(' + blurAmount + 'px)';
                 }
               });
             } else {
@@ -665,6 +749,18 @@ export function generateMainHTML(params: MainViewParams): string {
                 // Note: Content display will be updated by server-side HTML regeneration
                 // No need to call updateContentDisplay() here as it uses simplified client-side processing
               }
+            } else if (message.type === 'contentUpdate') {
+              if (message.data && typeof message.data.processedContent === 'string') {
+                const contentElement = document.getElementById('content');
+                if (contentElement) {
+                  contentElement.innerHTML = message.data.processedContent;
+                  applyMirrorFlip();
+                  applyFocusMode();
+                  ensureKeyboardFocus();
+                }
+              }
+            } else if (message.type === 'revealEditorCursor') {
+              revealEditorCursorInView(message.data?.lineText, message.data?.selectedText);
             } else if (message.type === 'restoreScroll') {
               // Restore scroll position
               if (message.data && message.data.scrollTop !== undefined) {
@@ -709,37 +805,41 @@ export function generateMainHTML(params: MainViewParams): string {
                     let afterText = '';
                     
                     try {
-                      // Get the text node at click position
-                      const range = document.caretRangeFromPoint(event.clientX, event.clientY);
-                      if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
-                        const textNode = range.startContainer;
-                        const clickOffset = range.startOffset;
-                        const nodeText = textNode.textContent || '';
-                        
-                        // Extract word around click position
-                        let start = clickOffset;
-                        let end = clickOffset;
-                        
-                        // Find word boundaries (support English and Chinese)
-                        // Using Unicode property escapes for proper word boundary detection
-                        const wordBoundary = /[ \\t\\r\\n\\u3000-\\u303f\\uff00-\\uffef]/;
-                        
-                        // Go backward to find word start
-                        while (start > 0 && !wordBoundary.test(nodeText[start - 1])) {
+                      let caretRange = null;
+                      if (typeof document.caretRangeFromPoint === 'function') {
+                        caretRange = document.caretRangeFromPoint(event.clientX, event.clientY);
+                      } else if (typeof document.caretPositionFromPoint === 'function') {
+                        const caretPosition = document.caretPositionFromPoint(event.clientX, event.clientY);
+                        if (caretPosition) {
+                          caretRange = document.createRange();
+                          caretRange.setStart(caretPosition.offsetNode, caretPosition.offset);
+                          caretRange.setEnd(caretPosition.offsetNode, caretPosition.offset);
+                        }
+                      }
+
+                      if (caretRange) {
+                        const fullRange = document.createRange();
+                        fullRange.selectNodeContents(target);
+                        fullRange.setEnd(caretRange.startContainer, caretRange.startOffset);
+
+                        const rawOffset = fullRange.toString().length;
+                        const safeOffset = Math.max(0, Math.min(rawOffset, Math.max(fullText.length - 1, 0)));
+                        let start = safeOffset;
+                        let end = safeOffset;
+                        const wordBoundary = /[\\s\\t\\r\\n\\u3000,.!?;:()\\[\\]{}"'“”‘’、，。！？；：《》【】]/u;
+
+                        while (start > 0 && !wordBoundary.test(fullText[start - 1])) {
                           start--;
                         }
-                        
-                        // Go forward to find word end
-                        while (end < nodeText.length && !wordBoundary.test(nodeText[end])) {
+
+                        while (end < fullText.length && !wordBoundary.test(fullText[end])) {
                           end++;
                         }
-                        
-                        clickedText = nodeText.substring(start, end).trim();
-                        characterOffset = clickOffset;
-                        
-                        // Get surrounding context (20 chars before and after)
-                        beforeText = nodeText.substring(Math.max(0, start - 20), start);
-                        afterText = nodeText.substring(end, Math.min(nodeText.length, end + 20));
+
+                        clickedText = fullText.substring(start, end).trim();
+                        characterOffset = start;
+                        beforeText = fullText.substring(Math.max(0, start - 20), start);
+                        afterText = fullText.substring(end, Math.min(fullText.length, end + 20));
                       }
                     } catch (err) {
                       console.warn('Could not determine exact click position:', err);
@@ -754,10 +854,10 @@ export function generateMainHTML(params: MainViewParams): string {
                       data: {
                         lineNumber: parseInt(lineNumber, 10),
                         contextText: fullText.substring(0, 100), // Longer context for matching
-                        clickedText: clickedText,
-                        beforeText: beforeText,
-                        afterText: afterText,
-                        characterOffset: characterOffset
+                        clickedText,
+                        beforeText,
+                        afterText,
+                        characterOffset,
                       }
                     });
                     

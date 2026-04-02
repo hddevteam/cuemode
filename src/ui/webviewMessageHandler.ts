@@ -65,6 +65,7 @@ export function handleWebviewMessage(
           clickedText: message.data.clickedText,
           beforeText: message.data.beforeText,
           afterText: message.data.afterText,
+          characterOffset: message.data.characterOffset,
           webviewManager: deps.webviewManager,
         });
       }

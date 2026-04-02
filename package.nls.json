@@ -1,6 +1,7 @@
 {
   "cuemode.displayName": "CueMode - Professional Teleprompter",
   "cuemode.cueMode": "Teleprompter Mode",
+  "cuemode.cueModeFromCursor": "Teleprompter Mode (Cursor Position)",
   "cuemode.changeTheme": "Change Teleprompter Theme",
   "cuemode.removeLeadingSpaces": "Remove Leading Spaces",
   "cuemode.toggleFocusMode": "Toggle Focus Mode",

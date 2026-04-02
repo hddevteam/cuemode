@@ -1,6 +1,7 @@
 {
   "cuemode.displayName": "CueMode - 专业提词器",
   "cuemode.cueMode": "提词器模式",
+  "cuemode.cueModeFromCursor": "提词器模式（光标位置）",
   "cuemode.changeTheme": "切换提词器主题",
   "cuemode.removeLeadingSpaces": "移除行首空格",
   "cuemode.toggleFocusMode": "切换聚焦模式",

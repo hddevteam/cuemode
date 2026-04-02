@@ -4,6 +4,7 @@ import { ConfigManager } from './utils/config';
 import { UIStateManager } from './utils/uiState';
 import { t, initializeI18n } from './i18n';
 import { CueModeError } from './types';
+import { resolveEditorNavigationTarget } from './utils/editorNavigation';
 
 /**
  * Main extension class
@@ -73,7 +74,13 @@ export class CueModeExtension {
       this.activateCueMode();
     });
 
-    // Change theme command
+    const cueModeFromCursorCommand = vscode.commands.registerCommand(
+      'cuemode.cueModeFromCursor',
+      () => {
+        this.activateCueMode(true);
+      }
+    );
+
     const changeThemeCommand = vscode.commands.registerCommand('cuemode.changeTheme', () => {
       this.changeTheme();
     });
@@ -167,26 +174,32 @@ export class CueModeExtension {
     const openEditorAtLineCommand = vscode.commands.registerCommand(
       'cuemode.openEditorAtLine',
       (args: {
-        lineNumber: number;
+        lineNumber?: number;
+        line?: number;
+        uri?: string;
         contextText?: string;
         clickedText?: string;
         beforeText?: string;
         afterText?: string;
-        webviewManager: WebViewManager;
+        characterOffset?: number;
+        webviewManager?: WebViewManager;
       }) => {
         this.openEditorAtLine(
-          args.lineNumber,
+          args.lineNumber ?? args.line ?? 0,
           args.contextText,
           args.webviewManager,
           args.clickedText,
           args.beforeText,
-          args.afterText
+          args.afterText,
+          args.characterOffset,
+          args.uri
         );
       }
     );
 
     this.context.subscriptions.push(
       cueModeCommand,
+      cueModeFromCursorCommand,
       changeThemeCommand,
       removeLeadingSpacesCommand,
       cycleThemeCommand,
@@ -294,7 +307,7 @@ export class CueModeExtension {
   /**
    * Activate CueMode
    */
-  private async activateCueMode(): Promise<void> {
+  private async activateCueMode(revealCurrentCursor = false): Promise<void> {
     try {
       // Get active editor
       const editor = vscode.window.activeTextEditor;
@@ -307,7 +320,9 @@ export class CueModeExtension {
       const selection = editor.selection;
 
       let content: string;
-      if (!selection.isEmpty) {
+      if (revealCurrentCursor) {
+        content = document.getText();
+      } else if (!selection.isEmpty) {
         content = document.getText(selection);
       } else {
         content = document.getText();
@@ -342,6 +357,10 @@ export class CueModeExtension {
         t('notifications.activated'),
         2000 // Auto-dismiss after 2 seconds
       );
+
+      if (revealCurrentCursor) {
+        await this.webViewManager.revealEditorCursor(editor);
+      }
     } catch (error) {
       this.handleError(error);
     }
@@ -751,103 +770,49 @@ export class CueModeExtension {
   private async openEditorAtLine(
     lineNumber: number,
     contextText: string | undefined,
-    webviewManager: WebViewManager,
+    webviewManager: WebViewManager | undefined,
     clickedText?: string,
     beforeText?: string,
-    afterText?: string
+    afterText?: string,
+    characterOffset?: number,
+    sourceUri?: string
   ): Promise<void> {
     try {
-      const state = webviewManager.getState();
-      const sourceDocument = state.sourceDocument;
-
-      if (!sourceDocument) {
-        vscode.window.showWarningMessage(t('errors.noActiveEditor'));
-        return;
-      }
-
       // Show notification
       vscode.window.setStatusBarMessage(
         t('notifications.openingEditor', { line: (lineNumber + 1).toString() }),
         2000
       );
 
+      const state = webviewManager?.getState();
+      const sourceDocument = state?.sourceDocument;
+      const targetUri =
+        sourceDocument?.uri ?? (sourceUri ? vscode.Uri.parse(sourceUri) : undefined);
+
+      if (!targetUri) {
+        vscode.window.showWarningMessage(t('errors.noActiveEditor'));
+        return;
+      }
+
       // Open the document
-      const doc = await vscode.workspace.openTextDocument(sourceDocument.uri);
+      const doc = await vscode.workspace.openTextDocument(targetUri);
       const editor = await vscode.window.showTextDocument(doc, {
         viewColumn: vscode.ViewColumn.One,
         preserveFocus: false,
         preview: false,
       });
 
-      // Calculate the target line (handle markdown mode line mapping)
-      let targetLine = lineNumber;
-      let targetCharacter = 0;
+      const target = resolveEditorNavigationTarget(doc.getText(), {
+        lineNumber,
+        contextText,
+        clickedText,
+        beforeText,
+        afterText,
+        characterOffset,
+      });
 
-      // If we have context text, try to find the exact line
-      if (contextText && contextText.trim()) {
-        const lines = doc.getText().split('\n');
-        let bestMatch = lineNumber;
-        let bestScore = 0;
-
-        // Search around the expected line number
-        const searchRange = 10;
-        const startLine = Math.max(0, lineNumber - searchRange);
-        const endLine = Math.min(lines.length - 1, lineNumber + searchRange);
-
-        for (let i = startLine; i <= endLine; i++) {
-          const line = lines[i];
-          if (line && line.includes(contextText.trim())) {
-            // Calculate similarity score (simple substring match)
-            const score = contextText.trim().length / line.length;
-            if (score > bestScore) {
-              bestScore = score;
-              bestMatch = i;
-            }
-          }
-        }
-
-        if (bestScore > 0) {
-          targetLine = bestMatch;
-        }
-
-        // Try to find exact character position if we have clicked text
-        if (clickedText && clickedText.trim() && targetLine >= 0 && targetLine < lines.length) {
-          const line = lines[targetLine];
-
-          if (line) {
-            // Method 1: Try to find exact match with surrounding context
-            if (beforeText || afterText) {
-              const pattern = `${beforeText || ''}${clickedText}${afterText || ''}`;
-              const patternIndex = line.indexOf(pattern);
-              if (patternIndex >= 0) {
-                targetCharacter = patternIndex + (beforeText?.length || 0);
-              }
-            }
-
-            // Method 2: Try to find the clicked text directly
-            if (targetCharacter === 0) {
-              const clickedIndex = line.indexOf(clickedText.trim());
-              if (clickedIndex >= 0) {
-                targetCharacter = clickedIndex;
-              }
-            }
-
-            // Method 3: Find using context text position
-            if (targetCharacter === 0 && contextText) {
-              const contextIndex = line.indexOf(contextText.substring(0, 30));
-              if (contextIndex >= 0) {
-                // Try to find clicked text relative to context
-                const relativePos = contextText.indexOf(clickedText);
-                if (relativePos >= 0) {
-                  targetCharacter = contextIndex + relativePos;
-                } else {
-                  targetCharacter = contextIndex;
-                }
-              }
-            }
-          }
-        }
-      }
+      let targetLine = target.lineNumber;
+      let targetCharacter = target.character;
 
       // Ensure line number is within bounds
       targetLine = Math.max(0, Math.min(targetLine, doc.lineCount - 1));
@@ -859,8 +824,8 @@ export class CueModeExtension {
 
       // If we have clicked text, select the whole word/phrase
       let endPosition = startPosition;
-      if (clickedText && clickedText.trim()) {
-        const clickedLength = clickedText.trim().length;
+      if (target.selectionLength > 0) {
+        const clickedLength = target.selectionLength;
         const potentialEnd = targetCharacter + clickedLength;
         if (potentialEnd <= lineText.length) {
           endPosition = new vscode.Position(targetLine, potentialEnd);

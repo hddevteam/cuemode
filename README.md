@@ -12,11 +12,11 @@
 
 ![Teleprompter Demo](./images/demo.gif)
 
-### What's new in 3.0.0
+### What's new in 3.0.2
 
-- Presentation mode matured for production use with complete multi-slide workflow and polished keyboard controls.
-- Full localization synchronization completed across all supported languages (English, Chinese, German, French, Japanese, Korean), including runtime locale files and VS Code marketplace localization keys.
-- Includes all improvements from 2.8.0 (clearer code line-break markers and cleaner activation flow).
+- **Cursor-aware editing return**: double-clicking text in CueMode now lands much closer to the real source line and character, including markdown-heavy content and Chinese text.
+- **Teleprompter Mode (Cursor Position)**: reopen CueMode around the current editor cursor so you can continue reviewing from exactly where you are editing.
+- **Smoother live sync**: source edits now use lightweight incremental webview updates, and hidden CueMode tabs refresh only when you return to them.
 
 ## 🎯 What is CueMode?
 
@@ -39,7 +39,7 @@ CueMode is a next-generation teleprompter extension that transforms your VS Code
 - **📱 Smart Notifications** - Non-intrusive status bar feedback
 - **🌐 Expanded Internationalization** - Support for 6 languages: English, Chinese, German, French, Japanese, Korean
 - **🛠️ TypeScript Architecture** - Robust, maintainable codebase
-- **🧪 Comprehensive Testing** - 153 test cases ensuring reliability
+- **🧪 Comprehensive Testing** - 188 passing test cases ensuring reliability
 
 **Core Teleprompter Features:**
 
@@ -123,8 +123,9 @@ CueMode provides professional teleprompter functionality for modern content crea
 1. **Prepare script** - Create or open a text file with your presentation content
 2. **Select script text** (optional - if none selected, entire file will be used)
 3. **Activate teleprompter** - Press `Ctrl+Alt+C` (`Ctrl+Cmd+C` on Mac), or use the Command Palette and search for "Teleprompter Mode"
-4. **Start reading** - Press spacebar to begin auto-scrolling
-5. **Control during presentation**:
+4. **Jump in from your current cursor** - Use **Teleprompter Mode (Cursor Position)** with `Ctrl+Alt+G` (`Ctrl+Cmd+G` on Mac) when you want the teleprompter to reopen around the active editing location
+5. **Start reading** - Press spacebar to begin auto-scrolling
+6. **Control during presentation**:
    - **Double-Click**: **NEW!** Click any text to jump to that exact position in source for editing
    - **Spacebar**: Start/pause auto-scrolling
    - **T Key**: **Enhanced!** Instant theme switching across all 7 themes
@@ -158,6 +159,7 @@ CueMode provides professional teleprompter functionality for modern content crea
 **⚙️ Advanced Controls:**
 
 - **Ctrl+Shift+T** (Cmd+Shift+T on Mac) - Open theme selection menu
+- **Ctrl+Alt+G** (Ctrl+Cmd+G on Mac) - Open **Teleprompter Mode (Cursor Position)**
 - **Ctrl+Shift+R** (Cmd+Shift+R on Mac) - Remove leading spaces from text
 - **Ctrl+Shift+M** (Cmd+Shift+M on Mac) - Toggle mirror flip mode
 - **Ctrl+Shift+D** (Cmd+Shift+D on Mac) - Toggle selective markdown parsing mode
