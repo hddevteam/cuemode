@@ -2,6 +2,24 @@
 
 This checklist ensures a comprehensive and successful release process for CueMode VS Code extension.
 
+## Recommended Workflow Order
+
+### 🐞 Bug Fix / Feature Fix Workflow
+
+- [ ] Issue exists and scope is clear before coding (link bug, user report, or release blocker)
+- [ ] Create a dedicated branch from `main` before making changes
+  - [ ] Suggested naming: `fix/<short-topic>` or `release/<version>`
+- [ ] Write or update tests first for regressions / TDD reproduction
+- [ ] Keep implementation commits separate from pure release metadata updates when practical
+- [ ] Merge or fast-forward the validated fix back into `main` before publishing
+
+### 🚦 Release Safety Rules
+
+- [ ] Publish only from a **clean working tree** (`git status --short` returns nothing)
+- [ ] The published VSIX must come from code that is already committed
+- [ ] The release tag must point to the exact commit used for packaging / publishing
+- [ ] Avoid publishing from an uncommitted workspace or a branch that is not pushed
+
 ## Pre-Release Preparation
 
 ### 🔍 Code Quality & Testing
@@ -14,12 +32,15 @@ This checklist ensures a comprehensive and successful release process for CueMod
 
 ### 📦 Version Management
 
-- [ ] Latest code pulled from remote repository (`git pull origin develop`)
+- [ ] Latest code pulled from remote repository (`git pull origin main`)
+- [ ] Release work starts from the correct base branch (`main`)
 - [ ] All merged PRs and contributions are included
-- [ ] Version number updated in `package.json` - v3.0.0
-- [ ] Version number updated in `docs/index.html` JSON-LD schema
-- [ ] Version consistency across all documentation files
-- [ ] Git working directory is clean (`git status`) - **After commit**
+- [ ] Version number updated in `package.json`
+- [ ] Version number updated in both Pages entry points:
+  - [ ] `docs/index.html`
+  - [ ] `docs/zh-cn.html`
+- [ ] Version consistency across all documentation files and release notes
+- [ ] Git working directory is clean (`git status`) - **Before package / publish / tag**
 
 ### 🌐 Internationalization (i18n)
 
@@ -46,10 +67,10 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - [ ] Font Awesome icon references fixed for proper display
 - [ ] `README.md` updated with new features and version information
 - [ ] `README.zh-CN.md` updated with new features and version information
-- [ ] README badges updated to reflect new version
 - [ ] README feature descriptions synchronized with new functionality
 - [ ] Breaking changes clearly highlighted - **No breaking changes**
 - [ ] Migration guides provided if necessary - **Not needed**
+- [ ] `.github/copilot-instructions.md` current version updated if release metadata changed
 
 ## Build & Package Optimization
 
@@ -116,15 +137,19 @@ This checklist ensures a comprehensive and successful release process for CueMod
 
 ### 📋 Git Management
 
-- [ ] All changes committed with descriptive messages
-- [ ] Version tag created (`git tag -a v{version}`)
+- [ ] Bug fix / feature fix committed on dedicated branch first
+- [ ] Release commit created on `main` (or merged to `main`) with descriptive English message
+- [ ] `main` pushed to remote **before or together with** release tagging
+- [ ] Version tag created on the exact release commit (`git tag -a v{version}`)
 - [ ] Tag includes comprehensive release notes
-- [ ] Code pushed to remote repository (`git push origin develop`)
-- [ ] Tags pushed to remote repository (`git push origin --tags`)
+- [ ] Code pushed to remote repository (`git push origin main`)
+- [ ] Tag pushed to remote repository (`git push origin v{version}`)
+- [ ] Post-push verification: `git status --short` still clean
 
 ### 🚀 VS Code Marketplace
 
-- [ ] Extension published to marketplace (`vsce publish`)
+- [ ] Extension published to marketplace (`vsce publish` / `npm exec vsce publish`)
+- [ ] Publish command executed from a clean checkout of the tagged release commit
 - [ ] Publication successful (check marketplace URL)
 - [ ] Extension description and metadata accurate
 - [ ] Screenshots and documentation up to date
@@ -155,8 +180,8 @@ This checklist ensures a comprehensive and successful release process for CueMod
 
 ### 📖 Documentation Sync
 
-- [ ] GitHub Pages updated (`docs/index.html`)
-- [ ] Chinese documentation updated (`docs/zh-cn.html`)
+- [ ] GitHub Pages English page live and updated (`docs/index.html`)
+- [ ] GitHub Pages Chinese page live and updated (`docs/zh-cn.html`)
 - [ ] Version badges updated on both pages
 - [ ] Feature descriptions synchronized
 - [ ] Meta descriptions updated with new features
@@ -203,6 +228,8 @@ This checklist ensures a comprehensive and successful release process for CueMod
 - Document any deviations or issues encountered
 - Ensure all translations and documentation are synchronized
 - Pay special attention to internationalization completeness
+- Do not publish before the release commit and tag are aligned with the packaged source
+- Prefer dedicated fix / release branches over direct edits on `main`
 
 ### For Human Reviewers:
 
@@ -219,6 +246,6 @@ This checklist ensures a comprehensive and successful release process for CueMod
 
 ---
 
-**Last Updated**: 2026-03-01 for CueMode v3.0.0  
-**Checklist Version**: 1.2  
-**Applicable From**: CueMode v3.0.0+
+**Last Updated**: 2026-04-02 for CueMode v3.0.2  
+**Checklist Version**: 1.3  
+**Applicable From**: CueMode v3.0.2+
