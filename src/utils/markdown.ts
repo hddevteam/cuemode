@@ -165,6 +165,7 @@ export class MarkdownParser {
   private static parseEmphasis(content: string): { html: string; found: boolean } {
     let found = false;
     let html = content;
+    const underscoreItalicRegex = /(^|[^\w])_([^_\s](?:.*?[^_\s])?)_(?=[^\w]|$)/g;
 
     // Bold and italic (***text***)
     html = html.replace(/\*\*\*(.+?)\*\*\*/g, (_match, text) => {
@@ -191,9 +192,9 @@ export class MarkdownParser {
     });
 
     // Alternative italic (_text_)
-    html = html.replace(/_(.+?)_/g, (_match, text) => {
+    html = html.replace(underscoreItalicRegex, (_match, prefix, text) => {
       found = true;
-      return `<em class="markdown-italic">${text}</em>`;
+      return `${prefix}<em class="markdown-italic">${text}</em>`;
     });
 
     return { html, found };

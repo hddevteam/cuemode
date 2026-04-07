@@ -58,6 +58,13 @@ suite('contentRenderer', () => {
     assert.ok(html.includes('markdown-block'), 'Should include markdown block wrapper');
   });
 
+  test('processContent in markdown mode preserves snake_case identifiers', () => {
+    const html = processContent('light_is_on', makeConfig(true) as any);
+
+    assert.ok(html.includes('light_is_on'), 'Should preserve the original snake_case text');
+    assert.ok(!html.includes('markdown-italic'), 'Should not inject italic markup into identifier');
+  });
+
   test('processContent in plain mode returns pre wrapper', () => {
     const html = processContent('plain text', makeConfig(false) as any);
     assert.ok(html.startsWith('<pre>'), 'Plain mode should return pre wrapper');

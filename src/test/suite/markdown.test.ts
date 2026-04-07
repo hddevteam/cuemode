@@ -90,6 +90,14 @@ suite('MarkdownParser Tests', () => {
     assert.ok(result.elementsFound.includes('emphasis'));
   });
 
+  test('should not treat underscores inside identifiers as italic markdown', () => {
+    const content = 'light_is_on';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.strictEqual(result.html, 'light_is_on');
+    assert.ok(!result.html.includes('markdown-italic'));
+  });
+
   test('should parse unordered lists correctly', () => {
     const content = '- Item 1\n- Item 2\n* Item 3\n+ Item 4';
     const result = MarkdownParser.parse(content, { ...noFeatures, lists: true });
