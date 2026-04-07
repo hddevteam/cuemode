@@ -12,6 +12,11 @@
 
 ![Teleprompter Demo](./images/demo.gif)
 
+### What's new in 3.0.3
+
+- **Safer underscore parsing**: snake_case identifiers such as `light_is_on` now stay intact in markdown mode instead of being misread as italic emphasis.
+- **Regression-tested fix**: parser-level and rendered-content tests now guard this markdown edge case against future regressions.
+
 ### What's new in 3.0.2
 
 - **Cursor-aware editing return**: double-clicking text in CueMode now lands much closer to the real source line and character, including markdown-heavy content and Chinese text.
@@ -39,7 +44,7 @@ CueMode is a next-generation teleprompter extension that transforms your VS Code
 - **📱 Smart Notifications** - Non-intrusive status bar feedback
 - **🌐 Expanded Internationalization** - Support for 6 languages: English, Chinese, German, French, Japanese, Korean
 - **🛠️ TypeScript Architecture** - Robust, maintainable codebase
-- **🧪 Comprehensive Testing** - 188 passing test cases ensuring reliability
+- **🧪 Comprehensive Testing** - 190 passing test cases ensuring reliability
 
 **Core Teleprompter Features:**
 

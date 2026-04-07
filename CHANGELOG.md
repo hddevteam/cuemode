@@ -5,6 +5,13 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.3] - 2026-04-07 - Safer underscore markdown emphasis parsing
+
+### 🛠 Fixes
+
+- Fixed markdown emphasis parsing so snake_case identifiers such as `light_is_on` are no longer mis-rendered as italicized content in CueMode.
+- Added regression coverage at both parser and rendered-content layers to ensure underscore-delimited identifiers remain unchanged.
+
 ## [3.0.2] - 2026-04-02 - Cursor-aware editing return & smoother live sync
 
 ### ✨ Improvements
@@ -618,16 +625,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History Summary
 
-| Version | Release Date | Key Features                                                                                                                                    |
-| ------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.0.2   | 2026-04-02   | **Cursor-aware Editing Return & Smoother Live Sync** - precise source jump-back, cursor-position teleprompter entry, lighter background updates |
-| 3.0.0   | 2026-03-01   | **Presentation Mode Release & Full i18n Sync** - release-ready slides flow, all locales synchronized, docs/Pages refreshed                      |
-| 2.2.0   | 2025-07-15   | **Mirror Flip & Professional Teleprompter Support** - M-key toggle, horizontal mirroring, status indicators, UI optimization                    |
-| 2.1.0   | 2025-07-14   | **Focus Mode & i18n System Reconstruction** - F-key toggle, 6-language support, i18next integration, enhanced testing                           |
-| 2.0.0   | 2025-07-12   | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests                                                               |
-| 1.1.3   | 2025-07-12   | Bug fixes, performance improvements                                                                                                             |
-| 1.1.0   | 2024         | Real-time updates, live sync, improved positioning                                                                                              |
-| 1.0.0   | 2024         | Initial release, basic functionality                                                                                                            |
+| Version | Release Date | Key Features                                                                                                                                        |
+| ------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.0.3   | 2026-04-07   | **Safer underscore markdown emphasis parsing** - preserves snake_case identifiers like `light_is_on` while keeping markdown emphasis support intact |
+| 3.0.2   | 2026-04-02   | **Cursor-aware Editing Return & Smoother Live Sync** - precise source jump-back, cursor-position teleprompter entry, lighter background updates     |
+| 3.0.0   | 2026-03-01   | **Presentation Mode Release & Full i18n Sync** - release-ready slides flow, all locales synchronized, docs/Pages refreshed                          |
+| 2.2.0   | 2025-07-15   | **Mirror Flip & Professional Teleprompter Support** - M-key toggle, horizontal mirroring, status indicators, UI optimization                        |
+| 2.1.0   | 2025-07-14   | **Focus Mode & i18n System Reconstruction** - F-key toggle, 6-language support, i18next integration, enhanced testing                               |
+| 2.0.0   | 2025-07-12   | **Professional Teleprompter 2.0** - T Key Cycling, TypeScript Migration, 71 Tests                                                                   |
+| 1.1.3   | 2025-07-12   | Bug fixes, performance improvements                                                                                                                 |
+| 1.1.0   | 2024         | Real-time updates, live sync, improved positioning                                                                                                  |
+| 1.0.0   | 2024         | Initial release, basic functionality                                                                                                                |
 
 ---
 
