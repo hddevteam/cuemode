@@ -607,4 +607,92 @@ Final paragraph.`;
     assert.ok(result.html.includes('markdown-task-checked'), 'Should have checked tasks');
     assert.ok(result.html.includes('checked'), 'Should have checked attribute for completed tasks');
   });
+
+  // --- Asterisk literal rendering bug fix tests ---
+
+  test('should not render asterisk surrounded by spaces as italic', () => {
+    // Case: multiplication or other literal use of * with spaces around it
+    const content = '5 * 3 = 15';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.strictEqual(result.html, '5 * 3 = 15', 'Asterisk with spaces should remain literal');
+    assert.ok(!result.html.includes('<em'), 'Should not produce italic tags');
+  });
+
+  test('should not render two asterisks both surrounded by spaces as italic', () => {
+    // Case: two asterisks surrounded by spaces should not become italic
+    const content = '5 * 3 = 15 * 2';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.strictEqual(
+      result.html,
+      '5 * 3 = 15 * 2',
+      'Two space-padded asterisks should remain literal'
+    );
+    assert.ok(!result.html.includes('<em'), 'Should not produce italic tags');
+  });
+
+  test('should not render asterisk followed by space as italic opener', () => {
+    // Opening * followed by space should not be treated as italic marker
+    const content = 'The * symbol is used here * and there';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.ok(!result.html.includes('<em'), 'Space after opening * should prevent italic');
+    assert.ok(result.html.includes('*'), 'Asterisks should remain in output');
+  });
+
+  test('should not render asterisk preceded by space as italic closer', () => {
+    // Closing * preceded by space should not be treated as italic marker
+    const content = '*italic text *';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.ok(!result.html.includes('<em'), 'Space before closing * should prevent italic');
+  });
+
+  test('should still render valid italic with no surrounding spaces', () => {
+    // Valid italic: no spaces between * and text
+    const content = '*italic*';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.ok(
+      result.html.includes('<em class="markdown-italic">italic</em>'),
+      'Valid italic should still render correctly'
+    );
+  });
+
+  test('should still render valid italic with spaces inside the text', () => {
+    // Valid italic: spaces inside text are fine, just not adjacent to the markers
+    const content = '*hello world*';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.ok(
+      result.html.includes('<em class="markdown-italic">hello world</em>'),
+      'Italic with internal spaces should still render correctly'
+    );
+  });
+
+  test('should correctly handle mix of valid italic and literal asterisks', () => {
+    // Mix: valid italic alongside literal asterisk
+    const content = '*italic* and 5 * 3';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.ok(
+      result.html.includes('<em class="markdown-italic">italic</em>'),
+      'Valid italic should render'
+    );
+    assert.ok(result.html.includes('5 * 3'), 'Literal asterisk with spaces should remain');
+    assert.ok(
+      (result.html.match(/<em/g) || []).length === 1,
+      'Only one italic element should be produced'
+    );
+  });
+
+  test('should handle single unmatched asterisk without producing italic', () => {
+    // Single asterisk with no matching pair
+    const content = 'This has one * asterisk';
+    const result = MarkdownParser.parse(content, { ...noFeatures, emphasis: true });
+
+    assert.ok(!result.html.includes('<em'), 'Single unmatched asterisk should not become italic');
+    assert.ok(result.html.includes('*'), 'Asterisk should remain in output');
+  });
 });

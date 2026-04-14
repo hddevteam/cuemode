@@ -179,8 +179,10 @@ export class MarkdownParser {
       return `<strong class="markdown-bold">${text}</strong>`;
     });
 
-    // Italic (*text*)
-    html = html.replace(/\*(.+?)\*/g, (_match, text) => {
+    // Italic (*text*) - opening * must be followed by non-whitespace and
+    // closing * must be preceded by non-whitespace to avoid treating
+    // literal asterisks (e.g. "5 * 3") as italic markers.
+    html = html.replace(/\*([^\s*](?:[^*]*[^\s*])?)\*/g, (_match, text) => {
       found = true;
       return `<em class="markdown-italic">${text}</em>`;
     });
