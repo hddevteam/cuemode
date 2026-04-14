@@ -5,6 +5,14 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.4] - 2026-04-14 - Fix literal asterisk rendering in teleprompter
+
+### 🛠 Fixes
+
+- Fixed a bug where asterisks used as literal characters (e.g. in multiplication expressions like `5 * 3 = 15 * 2`) were incorrectly rendered as italic text in CueMode.
+- Updated italic detection regex to require the opening `*` to be immediately followed by a non-whitespace character and the closing `*` to be immediately preceded by a non-whitespace character, matching CommonMark spec behaviour.
+- Added 8 regression tests covering space-padded asterisks, mixed literal/italic content, and single unmatched asterisks.
+
 ## [3.0.3] - 2026-04-07 - Safer underscore markdown emphasis parsing
 
 ### 🛠 Fixes
