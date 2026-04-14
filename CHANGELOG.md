@@ -5,6 +5,14 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-04-14 - Explorer context menu & automatic cursor sync
+
+### ✨ New Features
+
+- **Explorer right-click menu**: `.md` and `.txt` files in the Explorer panel now show a "Teleprompter Mode" option when right-clicked. `.md` files additionally show "Presentation Mode (Slides)". Both options are grouped together so they are easy to find.
+- **Editor right-click grouping**: The three CueMode commands in the editor context menu (Teleprompter Mode, Teleprompter Mode from Cursor, Presentation Mode) are now placed in a dedicated group so they appear together instead of scattered among other navigation items.
+- **Automatic cursor position sync on tab return**: When CueMode is already open and you switch back to the CueMode tab from the editor, the teleprompter automatically scrolls to the current cursor position. The extension tracks cursor movement in the source document continuously while CueMode is active and uses the last known position when focus switches back.
+
 ## [3.0.4] - 2026-04-14 - Fix literal asterisk rendering in teleprompter
 
 ### 🛠 Fixes

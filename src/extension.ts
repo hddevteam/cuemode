@@ -70,9 +70,12 @@ export class CueModeExtension {
    */
   private registerCommands(): void {
     // Main CueMode command
-    const cueModeCommand = vscode.commands.registerCommand('cuemode.cueMode', () => {
-      this.activateCueMode();
-    });
+    const cueModeCommand = vscode.commands.registerCommand(
+      'cuemode.cueMode',
+      (uri?: vscode.Uri) => {
+        this.activateCueMode(false, uri);
+      }
+    );
 
     const cueModeFromCursorCommand = vscode.commands.registerCommand(
       'cuemode.cueModeFromCursor',
@@ -141,8 +144,8 @@ export class CueModeExtension {
     // Presentation mode command
     const presentationModeCommand = vscode.commands.registerCommand(
       'cuemode.presentationMode',
-      () => {
-        this.activatePresentationMode();
+      (uri?: vscode.Uri) => {
+        this.activatePresentationMode(uri);
       }
     );
 
@@ -238,18 +241,26 @@ export class CueModeExtension {
   /**
    * Activate Presentation Mode (slide-based centered display)
    */
-  private async activatePresentationMode(): Promise<void> {
+  private async activatePresentationMode(fileUri?: vscode.Uri): Promise<void> {
     try {
-      const editor = vscode.window.activeTextEditor;
-      if (!editor) {
-        throw new CueModeError(t('errors.noActiveEditor'));
+      let document: vscode.TextDocument;
+      let selection: vscode.Selection | undefined;
+
+      if (fileUri) {
+        // Invoked from Explorer context menu: open the document without showing editor
+        document = await vscode.workspace.openTextDocument(fileUri);
+      } else {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+          throw new CueModeError(t('errors.noActiveEditor'));
+        }
+        document = editor.document;
+        selection = editor.selection;
       }
 
-      const document = editor.document;
-      const selection = editor.selection;
-
       // Resolve raw text: selection takes priority, otherwise full document
-      const rawText = selection.isEmpty ? document.getText() : document.getText(selection);
+      const rawText =
+        selection && !selection.isEmpty ? document.getText(selection) : document.getText();
 
       if (!rawText.trim()) {
         throw new CueModeError(t('errors.noContent'));
@@ -307,22 +318,29 @@ export class CueModeExtension {
   /**
    * Activate CueMode
    */
-  private async activateCueMode(revealCurrentCursor = false): Promise<void> {
+  private async activateCueMode(revealCurrentCursor = false, fileUri?: vscode.Uri): Promise<void> {
     try {
-      // Get active editor
-      const editor = vscode.window.activeTextEditor;
-      if (!editor) {
-        throw new CueModeError(t('errors.noActiveEditor'));
+      let document: vscode.TextDocument;
+      let selection: vscode.Selection | undefined;
+
+      if (fileUri) {
+        // Invoked from Explorer context menu: open the document without showing editor
+        document = await vscode.workspace.openTextDocument(fileUri);
+      } else {
+        // Invoked from editor: use active editor
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+          throw new CueModeError(t('errors.noActiveEditor'));
+        }
+        document = editor.document;
+        selection = editor.selection;
       }
 
       // Get content
-      const document = editor.document;
-      const selection = editor.selection;
-
       let content: string;
       if (revealCurrentCursor) {
         content = document.getText();
-      } else if (!selection.isEmpty) {
+      } else if (selection && !selection.isEmpty) {
         content = document.getText(selection);
       } else {
         content = document.getText();
@@ -358,8 +376,11 @@ export class CueModeExtension {
         2000 // Auto-dismiss after 2 seconds
       );
 
-      if (revealCurrentCursor) {
-        await this.webViewManager.revealEditorCursor(editor);
+      if (revealCurrentCursor && !fileUri) {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+          await this.webViewManager.revealEditorCursor(editor);
+        }
       }
     } catch (error) {
       this.handleError(error);

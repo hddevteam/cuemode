@@ -16,6 +16,10 @@ export class WebViewManager {
   private context: vscode.ExtensionContext;
   private state: CueModeState;
   private documentChangeListener: vscode.Disposable | undefined;
+  private selectionChangeListener: vscode.Disposable | undefined;
+  private lastKnownCursorState:
+    | { line: number; lineText: string; selectedText: string }
+    | undefined;
   private presentationRefreshTimer: ReturnType<typeof setTimeout> | undefined;
   private cueModeRefreshTimer: ReturnType<typeof setTimeout> | undefined;
   private pendingCueModeContent: string | undefined;
@@ -93,6 +97,7 @@ export class WebViewManager {
     this.panel.webview.html = await this.generateHTML();
     this.setupPanelListeners();
     this.setupDocumentChangeListener();
+    this.setupSelectionChangeListener();
     this.state.isActive = true;
   }
 
@@ -249,13 +254,26 @@ export class WebViewManager {
 
     this.panel.onDidChangeViewState(
       () => {
-        if (!this.panel?.visible || !this.pendingCueModeContent || this.state.isPresentationMode) {
+        if (!this.panel?.visible || this.state.isPresentationMode) {
           return;
         }
 
-        const content = this.pendingCueModeContent;
-        this.pendingCueModeContent = undefined;
-        void this.pushCueModeContentUpdate(content);
+        if (this.pendingCueModeContent) {
+          const content = this.pendingCueModeContent;
+          this.pendingCueModeContent = undefined;
+          void this.pushCueModeContentUpdate(content);
+        }
+
+        // When returning to the webview tab, auto-scroll to current editor cursor position
+        const editor = vscode.window.activeTextEditor;
+        if (editor && this.state.sourceDocument) {
+          if (editor.document.uri.toString() === this.state.sourceDocument.uri.toString()) {
+            void this.revealEditorCursor(editor);
+          }
+        } else if (this.lastKnownCursorState) {
+          // activeTextEditor is undefined when webview gains focus; use last tracked position
+          void this.postRevealCursorByState(this.lastKnownCursorState);
+        }
       },
       null,
       this.context.subscriptions
@@ -497,5 +515,53 @@ export class WebViewManager {
       this.onCloseCallback();
       this.onCloseCallback = undefined;
     }
+
+    if (this.selectionChangeListener) {
+      this.selectionChangeListener.dispose();
+      this.selectionChangeListener = undefined;
+    }
+
+    this.lastKnownCursorState = undefined;
+  }
+
+  private setupSelectionChangeListener(): void {
+    if (this.selectionChangeListener) {
+      this.selectionChangeListener.dispose();
+    }
+
+    this.selectionChangeListener = vscode.window.onDidChangeTextEditorSelection(event => {
+      if (!this.state.sourceDocument) {
+        return;
+      }
+      if (event.textEditor.document.uri.toString() !== this.state.sourceDocument.uri.toString()) {
+        return;
+      }
+      const editor = event.textEditor;
+      this.lastKnownCursorState = {
+        line: editor.selection.active.line,
+        lineText: editor.document.lineAt(editor.selection.active.line).text,
+        selectedText: editor.selection.isEmpty ? '' : editor.document.getText(editor.selection),
+      };
+    });
+
+    this.context.subscriptions.push(this.selectionChangeListener);
+  }
+
+  private async postRevealCursorByState(state: {
+    line: number;
+    lineText: string;
+    selectedText: string;
+  }): Promise<void> {
+    if (!this.panel || this.state.isPresentationMode) {
+      return;
+    }
+    await this.panel.webview.postMessage({
+      type: 'revealEditorCursor',
+      data: {
+        lineNumber: state.line,
+        lineText: state.lineText,
+        selectedText: state.selectedText,
+      },
+    });
   }
 }

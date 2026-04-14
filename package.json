@@ -2,7 +2,7 @@
   "name": "cuemode",
   "displayName": "%cuemode.displayName%",
   "description": "%cuemode.description%",
-  "version": "3.0.4",
+  "version": "3.1.0",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -84,15 +84,27 @@
       "editor/context": [
         {
           "command": "cuemode.cueMode",
-          "group": "navigation"
+          "group": "cuemode@1"
         },
         {
           "command": "cuemode.cueModeFromCursor",
-          "group": "navigation"
+          "group": "cuemode@2"
         },
         {
           "command": "cuemode.presentationMode",
-          "group": "navigation"
+          "group": "cuemode@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "cuemode.cueMode",
+          "when": "resourceExtname == .md || resourceExtname == .txt",
+          "group": "cuemode@1"
+        },
+        {
+          "command": "cuemode.presentationMode",
+          "when": "resourceExtname == .md",
+          "group": "cuemode@2"
         }
       ]
     },
