@@ -48,9 +48,16 @@ export class MarkdownParser {
     if (commentsResult.found) elementsFound.push('html-comments');
 
     // Apply parsing in order of precedence to avoid conflicts
+    // Code blocks are parsed and immediately protected so subsequent parsers (e.g. headers)
+    // cannot process the content inside <pre><code> elements.
     if (features.code) {
-      const codeResult = this.parseCodeBlocks(html);
+      const codeResult = this.parseCodeBlocksWithProtection(
+        html,
+        protectedElements,
+        protectedIndex
+      );
       html = codeResult.html;
+      protectedIndex = codeResult.nextIndex;
       if (codeResult.found) elementsFound.push('code-blocks');
     }
 
@@ -396,16 +403,29 @@ export class MarkdownParser {
   /**
    * Parse code blocks (```language\ncode\n```)
    */
-  private static parseCodeBlocks(content: string): { html: string; found: boolean } {
+  /**
+   * Parse fenced code blocks and immediately protect them from subsequent parsers.
+   * This prevents parsers such as parseHeaders from treating `#` inside code blocks
+   * as heading markers.
+   */
+  private static parseCodeBlocksWithProtection(
+    content: string,
+    protectedElements: Map<string, string>,
+    startIndex: number
+  ): { html: string; found: boolean; nextIndex: number } {
     let found = false;
+    let protectedIndex = startIndex;
     const html = content.replace(/```(\w+)?[ \t]*\n([\s\S]*?)```/g, (_match, language, code) => {
       found = true;
       const lang = language ? ` data-language="${language}"` : '';
-      // Preserve all whitespace including leading spaces, only remove trailing newlines
       const preservedCode = code.replace(/\n+$/, '');
-      return `<pre class="markdown-code-block"${lang}><code>${this.escapeHtml(preservedCode)}</code></pre>`;
+      const codeHtml = `<pre class="markdown-code-block"${lang}><code>${this.escapeHtml(preservedCode)}</code></pre>`;
+      const placeholder = `<!--MARKDOWN-CODE-${protectedIndex}-->`;
+      protectedElements.set(placeholder, codeHtml);
+      protectedIndex++;
+      return placeholder;
     });
-    return { html, found };
+    return { html, found, nextIndex: protectedIndex };
   }
 
   /**

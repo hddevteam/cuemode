@@ -722,4 +722,86 @@ Final paragraph.`;
     assert.ok(!result.html.includes('<em'), 'Single unmatched asterisk should not become italic');
     assert.ok(result.html.includes('*'), 'Asterisk should remain in output');
   });
+
+  // Bug fix: Python-style # comments inside code blocks should NOT be rendered as headings
+  suite('Code block comment protection', () => {
+    test('should not convert # comment inside python code block to heading', () => {
+      const content = [
+        '```python',
+        '# ... existing code ...',
+        'print("你好，欢迎来到猜数字游戏！")',
+        'print("我会想一个 1 到 100 之间的数字。你猜的数字是多少？")',
+        'correct_number = random.randint(1, 100)',
+        'guess = int(input("你猜的数字是多少？"))',
+        '# ... existing code ...',
+        '```',
+      ].join('\n');
+
+      const result = MarkdownParser.parse(content, { ...noFeatures, code: true, headers: true });
+
+      assert.ok(
+        !result.html.includes('<h1'),
+        'Python # comment inside code block must NOT be rendered as <h1>'
+      );
+      assert.ok(
+        !result.html.includes('markdown-header'),
+        'Code block comment must NOT receive header CSS class'
+      );
+      assert.ok(
+        result.html.includes('<pre class="markdown-code-block"'),
+        'Code block must be wrapped in <pre> element'
+      );
+      assert.ok(
+        result.html.includes('# ... existing code ...'),
+        'Python comment text must be preserved inside code block'
+      );
+    });
+
+    test('should not convert # comments at start and end of code block to headings', () => {
+      const content = [
+        '```python',
+        '# ... existing code ...',
+        'while guess != correct_number:',
+        '    if guess < correct_number:',
+        '        guess = int(input("不对哦，你得猜高一点。再猜："))',
+        '    else:',
+        '        guess = int(input("不对哦，你得猜低一点。再猜："))',
+        '    guess_count += 1',
+        '# ... existing code ...',
+        '```',
+      ].join('\n');
+
+      const result = MarkdownParser.parse(content, { ...noFeatures, code: true, headers: true });
+
+      assert.ok(
+        !result.html.includes('<h1'),
+        'No <h1> should appear when # only exists inside a code block'
+      );
+      assert.ok(
+        (result.html.match(/# \.\.\. existing code \.\.\./g) || []).length === 2,
+        'Both # comments should be preserved literally inside the code block'
+      );
+    });
+
+    test('should still parse # headers outside code blocks', () => {
+      const content = ['# My Heading', '', '```python', '# python comment', 'x = 1', '```'].join(
+        '\n'
+      );
+
+      const result = MarkdownParser.parse(content, { ...noFeatures, code: true, headers: true });
+
+      assert.ok(
+        result.html.includes('<h1 class="markdown-header markdown-h1">My Heading</h1>'),
+        'Heading outside code block should still be rendered as <h1>'
+      );
+      assert.ok(
+        !result.html.includes('<h1 class="markdown-header markdown-h1"># python comment</h1>'),
+        'Heading inside code block should NOT be rendered as <h1>'
+      );
+      assert.ok(
+        result.html.includes('# python comment'),
+        'Python comment text should be preserved inside code block'
+      );
+    });
+  });
 });
