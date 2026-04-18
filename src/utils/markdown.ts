@@ -398,7 +398,7 @@ export class MarkdownParser {
    */
   private static parseCodeBlocks(content: string): { html: string; found: boolean } {
     let found = false;
-    const html = content.replace(/```(\w+)?\n([\s\S]*?)```/g, (_match, language, code) => {
+    const html = content.replace(/```(\w+)?[ \t]*\n([\s\S]*?)```/g, (_match, language, code) => {
       found = true;
       const lang = language ? ` data-language="${language}"` : '';
       // Preserve all whitespace including leading spaces, only remove trailing newlines
