@@ -209,6 +209,33 @@ suite('MarkdownParser Tests', () => {
     assert.ok(result.elementsFound.includes('code-blocks'));
   });
 
+  test('should parse code blocks with trailing spaces after language identifier', () => {
+    // Regression: ```python   (with trailing spaces) should still be parsed correctly
+    const content =
+      '```python   \nguess = int(input("你猜的数字是多少？"))\ncorrect_number = 5\n```';
+    const result = MarkdownParser.parse(content, { ...noFeatures, code: true });
+
+    assert.ok(
+      result.html.includes('<pre class="markdown-code-block" data-language="python">'),
+      'Should render pre tag with data-language="python"'
+    );
+    assert.ok(result.html.includes('<code>'), 'Should contain a <code> tag');
+    assert.ok(result.elementsFound.includes('code-blocks'), 'Should report code-blocks found');
+    // Raw HTML tags must NOT appear as plain text
+    assert.ok(!result.html.includes('&lt;pre'), 'Should not contain escaped <pre> as literal text');
+  });
+
+  test('should parse code block with tab after language identifier', () => {
+    const content = '```js\t\nconst x = 1;\n```';
+    const result = MarkdownParser.parse(content, { ...noFeatures, code: true });
+
+    assert.ok(
+      result.html.includes('<pre class="markdown-code-block" data-language="js">'),
+      'Should render pre tag with data-language="js" even with tab after language'
+    );
+    assert.ok(result.elementsFound.includes('code-blocks'));
+  });
+
   test('should parse blockquotes correctly', () => {
     const content = '> This is a quote\n> Multi-line quote';
     const result = MarkdownParser.parse(content, { ...noFeatures, blockquotes: true });
