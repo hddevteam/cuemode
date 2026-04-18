@@ -59,7 +59,7 @@ CueMode is a VS Code extension that provides professional teleprompter functiona
 
 - **VS Code Marketplace**: Published as "CueMode" (luckyxmobile.cuemode)
 - **GitHub Repository**: <https://github.com/hddevteam/cuemode>
-- **Current Version**: 3.1.0
+- **Current Version**: 3.1.2
 - **License**: MIT
 - **Target Audience**: Developers, presenters, educators, streamers, content creators
 

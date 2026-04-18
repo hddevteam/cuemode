@@ -5,7 +5,15 @@ All notable changes to the CueMode Teleprompter extension will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.1.1] - 2026-04-18 - Bugfix: Code Block Parsing with Trailing Spaces
+## [3.1.2] - 2026-04-18 - Bugfix: Code block comments no longer rendered as headings
+
+### 🐛 Bug Fixes
+
+- **Fixed `#` comments inside fenced code blocks being rendered as headings**: Python-style comments such as `# ... existing code ...` inside a ` ```python ``` ` block were incorrectly converted to `<h1>` elements in the teleprompter view. The parser now protects fenced code block content with a placeholder before any other parsers (headers, emphasis, lists, links, etc.) run, so all syntax inside code blocks is preserved as literal text.
+- **Removed stale dead-code path** in the table parser that attempted to detect `<pre>` HTML tags—these are now always placeholders before the table parser runs, making the check unreachable.
+- **Renamed internal placeholders** for clarity: fenced code blocks use `MARKDOWN-BLOCK-CODE-N` and table-cell inline code uses `MARKDOWN-CELL-CODE-N` to prevent any future naming collision.
+
+- 2026-04-18 - Bugfix: Code Block Parsing with Trailing Spaces
 
 ### 🐛 Bug Fixes
 
