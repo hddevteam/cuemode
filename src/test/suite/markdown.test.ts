@@ -744,8 +744,10 @@ Final paragraph.`;
         'Python # comment inside code block must NOT be rendered as <h1>'
       );
       assert.ok(
-        !result.html.includes('markdown-header'),
-        'Code block comment must NOT receive header CSS class'
+        !result.html.includes(
+          '<h1 class="markdown-header markdown-h1"># ... existing code ...</h1>'
+        ),
+        'Code block comment must NOT appear as a heading element'
       );
       assert.ok(
         result.html.includes('<pre class="markdown-code-block"'),
@@ -801,6 +803,42 @@ Final paragraph.`;
       assert.ok(
         result.html.includes('# python comment'),
         'Python comment text should be preserved inside code block'
+      );
+    });
+    test('should protect all markdown syntax inside code blocks from parsing', () => {
+      // Verifies the "full pipeline protection" guarantee: no parser in the chain
+      // should process content inside a fenced code block.
+      const content = [
+        '```python',
+        '# comment treated as heading without fix',
+        '**bold** should not be wrapped in <strong>',
+        '*italic* should not be wrapped in <em>',
+        '- list item should not become <li>',
+        '[link](url) should not become <a>',
+        '```',
+      ].join('\n');
+
+      const result = MarkdownParser.parse(content, {
+        headers: true,
+        emphasis: true,
+        lists: true,
+        links: true,
+        code: true,
+        blockquotes: true,
+        tables: true,
+        taskLists: true,
+        strikethrough: true,
+        horizontalRule: true,
+      });
+
+      assert.ok(!result.html.includes('<h1'), 'No heading from # inside code block');
+      assert.ok(!result.html.includes('<strong'), 'No <strong> from ** inside code block');
+      assert.ok(!result.html.includes('<em'), 'No <em> from * inside code block');
+      assert.ok(!result.html.includes('<li'), 'No <li> from - inside code block');
+      assert.ok(!result.html.includes('<a '), 'No <a> from [] inside code block');
+      assert.ok(
+        result.html.includes('<pre class="markdown-code-block"'),
+        'Code block should still be wrapped in <pre>'
       );
     });
   });

@@ -420,7 +420,7 @@ export class MarkdownParser {
       const lang = language ? ` data-language="${language}"` : '';
       const preservedCode = code.replace(/\n+$/, '');
       const codeHtml = `<pre class="markdown-code-block"${lang}><code>${this.escapeHtml(preservedCode)}</code></pre>`;
-      const placeholder = `<!--MARKDOWN-CODE-${protectedIndex}-->`;
+      const placeholder = `<!--MARKDOWN-BLOCK-CODE-${protectedIndex}-->`;
       protectedElements.set(placeholder, codeHtml);
       protectedIndex++;
       return placeholder;
@@ -536,34 +536,9 @@ export class MarkdownParser {
         continue;
       }
 
-      // Skip processing lines that are inside code blocks (already processed)
-      // Code blocks after processing become multi-line HTML elements
-      const isCodeBlockStart = currentLine.includes('<pre class="markdown-code-block"');
-      const isCodeBlockEnd = currentLine.includes('</code></pre>');
-
-      // Track if we're inside a code block
-      if (isCodeBlockStart) {
-        // Starting a code block, add the line and mark that we're inside one
-        result.push(currentLine);
-        // Check if it's a single-line code block (start and end on same line)
-        if (isCodeBlockEnd) {
-          continue;
-        }
-        // Multi-line code block, continue processing until we find the end
-        i++; // Move to next line
-        while (i < lines.length) {
-          const codeLine = lines[i];
-          if (codeLine) {
-            result.push(codeLine);
-            if (codeLine.includes('</code></pre>')) {
-              // Found the end of the code block
-              break;
-            }
-          }
-          i++;
-        }
-        continue;
-      }
+      // Code blocks are already replaced with <!--MARKDOWN-BLOCK-CODE-N--> placeholders
+      // by parseCodeBlocksWithProtection() before this method runs, so no special
+      // handling is needed here. Placeholder lines pass through as regular lines.
 
       const line = currentLine.trim();
 
@@ -691,9 +666,11 @@ export class MarkdownParser {
     const codeBlocks: string[] = [];
     let codeIndex = 0;
 
-    // Extract and temporarily replace inline code (this protects the code content)
+    // Extract and temporarily replace inline code (this protects the code content).
+    // Uses a distinct prefix MARKDOWN-CELL-CODE to avoid collisions with the global
+    // MARKDOWN-BLOCK-CODE placeholders used by parseCodeBlocksWithProtection().
     content = content.replace(/`([^`]+)`/g, (_match, code) => {
-      const placeholder = `<!--MARKDOWN-CODE-${codeIndex}-->`;
+      const placeholder = `<!--MARKDOWN-CELL-CODE-${codeIndex}-->`;
       codeBlocks[codeIndex] =
         `<code class="markdown-inline-code">${MarkdownParser.escapeHtml(code)}</code>`;
       codeIndex++;
@@ -713,9 +690,9 @@ export class MarkdownParser {
       content = content.replace(/~~([^~]+)~~/g, '<del class="markdown-strikethrough">$1</del>');
     }
 
-    // Restore code blocks
+    // Restore cell-local inline code placeholders
     codeBlocks.forEach((codeBlock, index) => {
-      content = content.replace(`<!--MARKDOWN-CODE-${index}-->`, codeBlock);
+      content = content.replace(`<!--MARKDOWN-CELL-CODE-${index}-->`, codeBlock);
     });
 
     return content;
